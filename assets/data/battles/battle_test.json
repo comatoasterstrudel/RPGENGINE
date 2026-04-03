@@ -3,19 +3,19 @@
     "gridSizeY": 3,
     "allyUnits": [
         {
-            "id": "ally guy",
+            "id": "chair",
             "x": 1,
             "y": 1
         },
         {
-            "id": "ally guy 2",
+            "id": "partyhat",
             "x": 2,
             "y": 2
         }  
     ],
     "enemyUnits": [
         {
-            "id": "enemy guy",
+            "id": "chair",
             "x": 1,
             "y": 1
         }  

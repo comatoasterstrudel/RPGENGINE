@@ -7,6 +7,8 @@ class Unit extends CtSprite
      */
     public var unitID:String;
     
+	public var data:UnitData;
+    
     public var grid:Grid;
     
     public var position:FlxPoint;
@@ -15,6 +17,8 @@ class Unit extends CtSprite
         super();
         
         this.unitID = unitID;
+		this.data = new UnitData(unitID);
+        
         this.grid = grid;
         this.position = position;
         
@@ -25,6 +29,16 @@ class Unit extends CtSprite
     }
     
     function applyGraphic():Void{
-        createColorBlock(30, 30, FlxColor.BLUE);
+		var path = Constants.unitGridGraphicPath + data.gridGraphic + '.png';
+
+		if (Assets.exists(path))
+		{
+			createFromImage(path);
+		}
+		else
+		{
+			FlxG.log.error("Can't find unit grid graphic \"" + path + "\".");
+			createColorBlock(40, 40, FlxColor.BLUE);
+		}        
     }
 }

@@ -15,10 +15,10 @@ class CtJsonLoader
         if(!Assets.exists(path)){
             if(backupPath != null){
                 if(Assets.exists(backupPath)){
-                    path = backupPath;
-                    FlxG.log.error("Can't find JSON file at " + path + ", used backup JSON file at " + path + ".");
+					FlxG.log.error("Can't find JSON file at " + path + ", used backup JSON file at " + backupPath + ".");
+					path = backupPath;
                 } else {
-                    FlxG.log.error("Can't find JSON file at " + path + ", or backup JSON file at " + path + ".");
+					FlxG.log.error("Can't find JSON file at " + path + ", or backup JSON file at " + backupPath + ".");
                     return;
                 }
             } else {

@@ -21,7 +21,7 @@ class BattleData extends CtJsonLoader
         allyUnits = data.allyUnits.map(function(item)
         {
             return {
-                id: item.ID,
+				id: item.id,
                 position: new FlxPoint(item.x, item.y)
             };
         });
@@ -29,7 +29,7 @@ class BattleData extends CtJsonLoader
         enemyUnits = data.enemyUnits.map(function(item)
         {
             return {
-                id: item.ID,
+				id: item.id,
                 position: new FlxPoint(item.x, item.y)
             };
         });
