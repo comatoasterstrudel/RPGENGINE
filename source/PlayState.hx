@@ -2,7 +2,10 @@ package;
 
 class PlayState extends FlxState
 {
-	final gridSize = new FlxPoint(3, 3);
+	public static var battleName:String = "test";
+	public static var battleData:BattleData;
+
+	var gridSize:FlxPoint = new FlxPoint();
 
 	var bgLine:CtSprite;
 
@@ -13,17 +16,23 @@ class PlayState extends FlxState
 	
 	override public function create()
 	{
-		bgColor = FlxColor.GRAY;
+		loadBattle();
 
 		setUpBg();
 		setUpGrids();
 
-		// placeholder way to add units to the grids
-		placeUnit("unit name", allyGrid, new FlxPoint(2, 1));
-		placeUnit("unit name 2", allyGrid, new FlxPoint(0, 0));
-		placeUnit("unit name 3", enemyGrid, new FlxPoint(1, 1));
-
+		addInitialUnits();
+		
 		super.create();
+	}
+
+	function loadBattle():Void
+	{
+		battleData = new BattleData(battleName);
+
+		bgColor = FlxColor.GRAY;
+
+		gridSize.set(battleData.gridSizeX, battleData.gridSizeY);
 	}
 
 	function setUpBg():Void
@@ -50,8 +59,26 @@ class PlayState extends FlxState
 		add(enemyGrid);
 	}
 
+	function addInitialUnits():Void
+	{
+		for (unit in battleData.allyUnits)
+		{
+			placeUnit(unit.id, allyGrid, unit.position);
+		}
+		for (unit in battleData.enemyUnits)
+		{
+			placeUnit(unit.id, enemyGrid, unit.position);
+		}
+	}
+	
 	function placeUnit(unitID:String, grid:Grid, position:FlxPoint):Void
 	{
+		if (position.x >= gridSize.x || position.y >= gridSize.y)
+		{
+			FlxG.log.error("Can't place unit \"" + unitID + "\" at " + position.x + ", " + position.y + ". Out of bounds!");
+			return;
+		}
+		
 		var unit = new Unit(unitID, grid, position);
 		add(unit);
 

@@ -1,5 +1,7 @@
+import battleData.BattleData;
 import ctUtil.CtUtil;
 import ctUtil.extensions.CtSprite;
+import ctUtil.json.CtJsonLoader;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;

@@ -1,0 +1,23 @@
+{
+    "gridSizeX": 3,
+    "gridSizeY": 3,
+    "allyUnits": [
+        {
+            "id": "ally guy",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "id": "ally guy 2",
+            "x": 2,
+            "y": 2
+        }  
+    ],
+    "enemyUnits": [
+        {
+            "id": "enemy guy",
+            "x": 1,
+            "y": 1
+        }  
+    ]
+}
