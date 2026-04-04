@@ -41,4 +41,11 @@ class Unit extends CtSprite
 			createColorBlock(40, 40, FlxColor.BLUE);
 		}        
     }
+	public function doEntranceAnimation():Void
+	{
+		lerpManager.lerpScaleX = true;
+		lerpManager.lerpScaleY = true;
+		lerpManager.targetScale.set(1, 1);
+		scale.set(10, 10);
+	}
 }

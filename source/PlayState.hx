@@ -82,6 +82,8 @@ class PlayState extends FlxState
 		var unit = new Unit(unitID, grid, position);
 		add(unit);
 
+		unit.doEntranceAnimation();
+
 		grid.placeUnit(unit);
 
 		units.push(unit);
