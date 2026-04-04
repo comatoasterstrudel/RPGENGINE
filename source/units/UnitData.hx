@@ -8,6 +8,9 @@ class UnitData extends CtJsonLoader
     
     public var gridGraphic:String;
 
+	public var maxHp:Int;
+	public var speed:Int;
+    
     public function new(id:String){
         this.id = id;
                 
@@ -15,5 +18,7 @@ class UnitData extends CtJsonLoader
         
         this.name = data.name;
         this.gridGraphic = data.gridGraphic;
+		this.maxHp = data.maxHp;
+		this.speed = data.speed;
     }
 }

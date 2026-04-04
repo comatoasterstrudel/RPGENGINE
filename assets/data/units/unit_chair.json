@@ -1,4 +1,6 @@
 {
     "name": "Chair",
-    "gridGraphic": "chair"
+    "gridGraphic": "chair",
+    "maxHp": 10,
+    "speed": 5
 }

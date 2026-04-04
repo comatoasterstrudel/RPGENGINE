@@ -1,4 +1,6 @@
 {
     "name": "Party Hat",
-    "gridGraphic": "partyhat"
+    "gridGraphic": "partyhat",
+    "maxHp": 7,
+    "speed": 8
 }
