@@ -1,6 +1,8 @@
 {
     "name": "Party Hat",
     "gridGraphic": "partyhat",
+    "uiGraphic": "partyhat",
     "maxHp": 7,
-    "speed": 8
+    "speed": 8,
+    "skills": ["stab"]
 }

@@ -5,16 +5,21 @@ class PlayState extends FlxState
 	public static var battleName:String = "test";
 	public static var battleData:BattleData;
 
-	var gridSize:FlxPoint = new FlxPoint();
-
+	// BG STUFF
 	var bgLine:CtSprite;
+
+	// GRID STUFF
+	var gridSize:FlxPoint = new FlxPoint();
 
 	var allyGrid:Grid;
 	var enemyGrid:Grid;
 
+	// UI STUFF
 	var miniHealthBars:FlxTypedGroup<MiniHealthBar>;
 
 	var turnOrderDisplay:TurnOrderDisplay;
+	
+	var bottomBar:BottomBar;
 	
 	// GAME STUFF
 
@@ -68,7 +73,7 @@ class PlayState extends FlxState
 
 		bgLine = new CtSprite().createColorBlock(FlxG.width, Std.int(sizing.y + Constants.gridSize), FlxColor.WHITE);
 		bgLine.alpha = .6;
-		bgLine.screenCenter(Y);
+		bgLine.y = (FlxG.height / 2 - bgLine.height / 2) + Constants.uiYOffset;
 		add(bgLine);
 	}
 
@@ -79,7 +84,7 @@ class PlayState extends FlxState
 	{
 		var sizing = Grid.calculateGridSize(gridSize);
 		var midPointX = FlxG.width / 2 - (sizing.x / 2);
-		var midPointY = FlxG.height / 2 - (sizing.y / 2);
+		var midPointY = (bgLine.y + bgLine.height / 2) - (sizing.y / 2);
 		var spacing:Float = sizing.x + 15;
 
 		allyGrid = new Grid(gridSize, new FlxPoint(midPointX - (spacing), midPointY));
@@ -98,6 +103,8 @@ class PlayState extends FlxState
 		add(miniHealthBars);
 		turnOrderDisplay = new TurnOrderDisplay(gridSize);
 		add(turnOrderDisplay);
+		bottomBar = new BottomBar();
+		add(bottomBar);
 	}
 
 	/**
@@ -164,6 +171,7 @@ class PlayState extends FlxState
 		currentTurnUnit = turnOrder[turnNum];
 
 		turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
+		bottomBar.updateCurrentUnit(currentTurnUnit);
 	}
 
 	/**

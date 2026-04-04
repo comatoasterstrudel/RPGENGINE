@@ -24,6 +24,8 @@ class Unit extends CtSprite
 
 	public var hp:Stat;
 
+	public var skills:Array<SkillData> = [];
+	
 	public static var uniqueUnitIDnum:Int = 0;
 	
 	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool):Void
@@ -44,6 +46,8 @@ class Unit extends CtSprite
 		
 		applyStats();
 		
+		applySkills();
+		
         applyGraphic();
         
         lerpManager.lerpX = true;
@@ -59,6 +63,16 @@ class Unit extends CtSprite
 		this.hp = new Stat("hp", maxHp.value, 0, maxHp.value);
 
 		stats = [maxHp, speed, hp];
+	}
+	
+	function applySkills():Void
+	{
+		for (i in 0...data.skills.length)
+		{
+			var skill = new SkillData(data.skills[i]);
+
+			skills.push(skill);
+		}
 	}
 	
     function applyGraphic():Void{
