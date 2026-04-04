@@ -1,4 +1,4 @@
-package ui;
+package ui.turnorder;
 
 class TurnOrderDisplay extends FlxTypedGroup<TurnOrderIcon>
 {

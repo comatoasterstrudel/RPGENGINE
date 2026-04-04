@@ -1,0 +1,63 @@
+{
+    "gridSizeX": 3,
+    "gridSizeY": 3,
+    "allyUnits": [
+        {
+            "id": "chair",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "id": "partyhat",
+            "x": 2,
+            "y": 2
+        }  
+    ],
+    "enemyUnits": [
+        {
+            "id": "chair",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": "chair",
+            "x": 0,
+            "y": 1
+        },
+        {
+            "id": "chair",
+            "x": 0,
+            "y": 2
+        },
+        {
+            "id": "chair",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "id": "chair",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "id": "chair",
+            "x": 1,
+            "y": 2
+        },
+        {
+            "id": "chair",
+            "x": 2,
+            "y": 0
+        },
+        {
+            "id": "chair",
+            "x": 2,
+            "y": 1
+        },
+        {
+            "id": "chair",
+            "x": 2,
+            "y": 2
+        }  
+    ]
+}

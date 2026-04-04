@@ -1,8 +1,5 @@
 package;
 
-import flixel.util.FlxSort;
-import ui.TurnOrderDisplay;
-
 class PlayState extends FlxState
 {
 	public static var battleName:String = "test";
