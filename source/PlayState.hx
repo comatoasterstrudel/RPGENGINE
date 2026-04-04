@@ -1,6 +1,7 @@
 package;
 
 import flixel.util.FlxSort;
+import ui.TurnOrderDisplay;
 
 class PlayState extends FlxState
 {
@@ -16,6 +17,8 @@ class PlayState extends FlxState
 
 	var miniHealthBars:FlxTypedGroup<MiniHealthBar>;
 
+	var turnOrderDisplay:TurnOrderDisplay;
+	
 	// GAME STUFF
 
 	var units:Array<Unit> = [];
@@ -88,6 +91,8 @@ class PlayState extends FlxState
 	{
 		miniHealthBars = new FlxTypedGroup<MiniHealthBar>();
 		add(miniHealthBars);
+		turnOrderDisplay = new TurnOrderDisplay(gridSize);
+		add(turnOrderDisplay);
 	}
 
 	/**
@@ -97,11 +102,11 @@ class PlayState extends FlxState
 	{
 		for (unit in battleData.allyUnits)
 		{
-			placeUnit(unit.id, allyGrid, unit.position);
+			placeUnit(unit.id, allyGrid, unit.position, true);
 		}
 		for (unit in battleData.enemyUnits)
 		{
-			placeUnit(unit.id, enemyGrid, unit.position);
+			placeUnit(unit.id, enemyGrid, unit.position, false);
 		}
 	}
 	
@@ -110,8 +115,9 @@ class PlayState extends FlxState
 	 * @param unitID The id/name of the unit you want to place
 	 * @param grid Which grid you want to place it on
 	 * @param position Which position on the grid you want to place it on
+	 * @param controllable Should this unit be controllable or not? basically is it an enemy or ally
 	 */
-	function placeUnit(unitID:String, grid:Grid, position:FlxPoint):Void
+	function placeUnit(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool):Void
 	{
 		if (position.x >= gridSize.x || position.y >= gridSize.y)
 		{
@@ -125,7 +131,7 @@ class PlayState extends FlxState
 			return;
 		}
 		
-		var unit = new Unit(unitID, grid, position);
+		var unit = new Unit(unitID, grid, position, controllable);
 		add(unit);
 
 		unit.doEntranceAnimation();
@@ -185,6 +191,7 @@ class PlayState extends FlxState
 				return -1;
 			return 0;
 		});
+		turnOrderDisplay.updateTurnOrderDisplay(turnOrder);
 	}
 	
 	override public function update(elapsed:Float)

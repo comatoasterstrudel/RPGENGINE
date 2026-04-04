@@ -13,6 +13,8 @@ class Unit extends CtSprite
     
     public var position:FlxPoint;
 
+	public var controllable:Bool;
+	
 	public var maxHp:Stat = new Stat("maxHp");
 	public var speed:Stat = new Stat("speed");
 
@@ -20,7 +22,7 @@ class Unit extends CtSprite
 
 	public var hp:Stat;
 
-	public function new(unitID:String, grid:Grid, position:FlxPoint):Void
+	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool):Void
 	{
         super();
         
@@ -30,6 +32,8 @@ class Unit extends CtSprite
         this.grid = grid;
         this.position = position;
         
+		this.controllable = controllable;
+		
 		applyStats();
 		
         applyGraphic();
