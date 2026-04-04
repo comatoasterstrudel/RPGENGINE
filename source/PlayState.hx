@@ -24,8 +24,12 @@ class PlayState extends FlxState
 	var turnNum:Int = 0;
 	var turnOrder:Array<Unit> = [];
 	
+	var currentTurnUnit:Unit;
+	
 	override public function create()
 	{
+		persistentUpdate = true;
+		
 		loadBattle();
 
 		setUpBg();
@@ -35,6 +39,10 @@ class PlayState extends FlxState
 		addInitialUnits();
 		
 		advanceRound();
+		
+		#if debug
+		addDebugFunctions();
+		#end
 		
 		super.create();
 	}
@@ -151,7 +159,11 @@ class PlayState extends FlxState
 		if (amount >= turnOrder.length)
 		{
 			advanceRound();
+			return;
 		}
+		currentTurnUnit = turnOrder[turnNum];
+
+		turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
 	}
 
 	/**
@@ -195,4 +207,13 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 	}
+	#if debug
+	function addDebugFunctions():Void
+	{
+		FlxG.console.registerFunction("advanceTurn", function()
+		{
+			advanceTurn(1);
+		});
+	}
+	#end
 }

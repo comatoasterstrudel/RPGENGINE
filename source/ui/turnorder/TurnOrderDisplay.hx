@@ -39,4 +39,14 @@ class TurnOrderDisplay extends FlxTypedGroup<TurnOrderIcon>
         
         CtUtil.centerGroup(aliveIcons, 20);
     }
+	public function updateCurrentTurn(unit:Unit):Void
+	{
+		for (icon in icons)
+		{
+			if (!icon.alive)
+				continue;
+
+			icon.updateCurrentTurn(unit);
+		}
+	}
 }

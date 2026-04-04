@@ -7,6 +7,8 @@ class Unit extends CtSprite
      */
     public var unitID:String;
     
+	public var uniqueUnitID:Int;
+	
 	public var data:UnitData;
     
     public var grid:Grid;
@@ -22,6 +24,8 @@ class Unit extends CtSprite
 
 	public var hp:Stat;
 
+	public static var uniqueUnitIDnum:Int = 0;
+	
 	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool):Void
 	{
         super();
@@ -33,6 +37,10 @@ class Unit extends CtSprite
         this.position = position;
         
 		this.controllable = controllable;
+		
+		Unit.uniqueUnitIDnum++;
+
+		this.uniqueUnitID = uniqueUnitIDnum;
 		
 		applyStats();
 		
