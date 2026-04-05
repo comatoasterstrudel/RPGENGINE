@@ -4,10 +4,8 @@ class BottomBar extends FlxSpriteGroup
 {  
     var bottomCover:CtSprite;
     
-	var unitPortrait:CtSprite;
-    
-    var curUnit:Unit;
-    
+	var unitPortrait:UnitPortrait;
+        
     var skillIcons:Array<SkillIcon> = [];
     
 	var endTurn:CtSprite;
@@ -18,6 +16,8 @@ class BottomBar extends FlxSpriteGroup
 
 	public var signalEndTurn:FlxSignal;
     
+	var curUnit:Unit;
+
     public function new():Void{
         super();
         
@@ -29,11 +29,7 @@ class BottomBar extends FlxSpriteGroup
         bottomCover.antialiasing = false;
         add(bottomCover);
         
-		unitPortrait = new CtSprite();
-		unitPortrait.lerpManager.lerpScaleX = true;
-		unitPortrait.lerpManager.lerpScaleY = true;
-		unitPortrait.lerpManager.targetScale.set(1, 1);
-		unitPortrait.lerpManager.lerpSpeed = 8;
+		unitPortrait = new UnitPortrait();
 		add(unitPortrait);
         
         var skillOutlines:Array<FlxSprite> = [];
@@ -64,16 +60,13 @@ class BottomBar extends FlxSpriteGroup
 	{
 		super.update(elapsed);
 
-		unitPortrait.updateHitbox();
-		unitPortrait.setPosition(150 - unitPortrait.width / 2, FlxG.height - unitPortrait.height);
-
 		menuManager.update();
 	}
     
     public function updateCurrentUnit(unit:Unit):Void{
         this.curUnit = unit;
         
-        applyUnitGraphic();
+		unitPortrait.applyUnitGraphic(curUnit);
         
         for(i in 0...Constants.unitMaxSkills){
             skillIcons[i].updateSkill(false);
@@ -90,26 +83,6 @@ class BottomBar extends FlxSpriteGroup
 		{
 			removeMenu();
 		}
-    }
-    
-    function applyUnitGraphic():Void{
-        var path = Constants.unitUiGraphicPath + curUnit.data.uiGraphic + '.png';
-
-		if (Assets.exists(path))
-		{
-			unitPortrait.createFromImage(path);
-		}
-		else
-		{
-			FlxG.log.error("Can't find unit ui graphic \"" + path + "\".");
-			unitPortrait.createColorBlock(300, 350, FlxColor.BLUE);
-		}        
-		unitPortrait.antialiasing = false;
-
-		unitPortrait.scale.set(1.5, .7);
-
-		unitPortrait.updateHitbox();
-		unitPortrait.setPosition(150 - unitPortrait.width / 2, FlxG.height - unitPortrait.height);
 	}
 
 	function addMenu():Void

@@ -193,7 +193,6 @@ class PlayState extends FlxState
 	 */
 	function advanceRound():Void
 	{
-		trace("1/1/1");
 		roundNum++;
 
 		calculateTurnOrder();
