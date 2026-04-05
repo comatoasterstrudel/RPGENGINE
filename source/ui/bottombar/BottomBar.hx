@@ -100,15 +100,15 @@ class BottomBar extends FlxSpriteGroup
 	{
 		endTurn.revive();
 
-		var menuOptions:Array<CtMenuOption> = [];
+		var menuOptions:Array<Array<CtMenuOption>> = [[]];
 
 		for (i in skillIcons)
 		{
 			if (i.enabled)
-				menuOptions.push({sprite: i.outlineSprite, cursorDirection: UP});
+				menuOptions[0].push({sprite: i.outlineSprite, cursorDirection: UP});
 		}
 
-		menuOptions.push({
+		menuOptions[0].push({
 			sprite: endTurn,
 			cursorDirection: UP,
 			clickFunction: function(spr:FlxSprite):Void

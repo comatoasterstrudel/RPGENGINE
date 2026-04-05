@@ -8,7 +8,7 @@ class CtMenuManager
 	/**
 	 * The list of menuOptions this menu has
 	 */
-    var menuOptions:Array<CtMenuOption>;
+	var menuOptions:Array<Array<CtMenuOption>>;
     
 	/**
 	 * The function used to check when to increase the selected value.
@@ -26,9 +26,21 @@ class CtMenuManager
     var selectFunction:Void->Bool;
     
 	/**
+	 * OPTIONAL; The function used to increase the selected rack
+	 */
+	var increaseRackFunction:Void->Bool;
+
+	/**
+	 * OPTIONAL; The function used to decrease the selected rack
+	 */
+	var decreaseRackFunction:Void->Bool;
+    
+	/**
 	 * Is this menu currently enabled?
 	 */
     var enabled:Bool = false;
+    
+	var curRack:Int = 0;
     
 	/**
 	 * Which option is currently selected
@@ -56,12 +68,19 @@ class CtMenuManager
 	 * @param increaseFunction The function used to check when to increase the selected value.
 	 * @param decreaseFunction The function used to check when to increase the selected value.
 	 * @param selectFunction The function used to check when to select the currently selected option
+	 * @param increaseRackFunction OPTIONAL; The function used to increase the selected rack
+	 * @param decreaseRackFunction OPTIONAL; The function used to decrease the selected rack
 	 */
-	public function new(increaseFunction:Void->Bool, decreaseFunction:Void->Bool, selectFunction:Void->Bool)
+	public function new(increaseFunction:Void->Bool, decreaseFunction:Void->Bool, selectFunction:Void->Bool, ?increaseRackFunction:Void->Bool,
+			?decreaseRackFunction:Void->Bool)
 	{        
         this.increaseFunction = increaseFunction;
         this.decreaseFunction = decreaseFunction;
 		this.selectFunction = selectFunction;        
+		this.increaseRackFunction = increaseRackFunction;
+		this.decreaseRackFunction = decreaseRackFunction;
+
+		resetSelected();
     }
     
 	/**
@@ -69,6 +88,18 @@ class CtMenuManager
 	 */
     public function update():Void{
         if(!enabled) return;
+        
+		var doRackIncrease:Bool = increaseRackFunction != null ? increaseRackFunction() : false;
+		var doRackDecrease:Bool = decreaseRackFunction != null ? decreaseRackFunction() : false;
+
+		if (doRackIncrease && !doRackDecrease)
+		{
+			changeRack(1);
+		}
+		else if (!doRackIncrease && doRackDecrease)
+		{
+			changeRack(-1);
+		}
         
         var doIncrease:Bool = increaseFunction();
         var doDecrease:Bool = decreaseFunction();
@@ -83,36 +114,65 @@ class CtMenuManager
     }
     
 	/**
+	 * Call this to change which rack is selected!!
+	 * @param amount How many selections to move
+	 */
+	function changeRack(amount:Int = 0):Void
+	{
+		curRack += amount;
+
+		if (curRack >= menuOptions.length)
+		{
+			curRack = 0;
+		}
+		else if (curRack < 0)
+		{
+			curRack = menuOptions.length - 1;
+		}
+
+		changeSelection();
+	}
+    
+	/**
 	 * Call this to change which menu option is selected!!
 	 * @param amount How many selections to move
 	 */
     function changeSelection(amount:Int = 0):Void{
         curSelected += amount;
         
-        if(curSelected >= menuOptions.length){
+		if (curSelected >= menuOptions[curRack].length)
+		{
             curSelected = 0;
         } else if(curSelected < 0){
-            curSelected = menuOptions.length - 1;
+			curSelected = menuOptions[curRack].length - 1;
         }
+
+		for (rack in 0...menuOptions.length)
+		{
+			for (i in 0...menuOptions[curRack].length)
+			{
+				var option = menuOptions[rack][i];
                 
-        for(i in 0...menuOptions.length){
-            var option = menuOptions[i];
-            
-            if(curSelected != i && option.nonHoverFunction != null){
-                option.nonHoverFunction(option.sprite);
-            } else if(curSelected == i){
-                if(option.hoverFunction != null) option.hoverFunction(option.sprite);
-                
-				updateCursorWithOption(option);
-            }
-        }
-    }
+				if ((curRack != rack || curSelected != i) && option.nonHoverFunction != null)
+				{
+					option.nonHoverFunction(option.sprite);
+				}
+				else if (curRack == rack && curSelected == i)
+				{
+					if (option.hoverFunction != null)
+						option.hoverFunction(option.sprite);
+
+					updateCursorWithOption(option);
+				}
+			}
+		}
+	}
 
 	/**
 	 * Call this when the player presses the accept button
 	 */
     function makeSelection():Void{
-        var option = menuOptions[curSelected];
+		var option = menuOptions[curRack][curSelected];
         
         if(option.clickFunction != null) option.clickFunction(option.sprite);
     }
@@ -122,13 +182,16 @@ class CtMenuManager
 	 * @param menuOptions Which options the menu should have.
 	 * @param reset Should this menu reset the currently selected option to 0?
 	 */
-	public function setMenuOptions(menuOptions:Array<CtMenuOption>, ?reset:Bool = false):Void
+	public function setMenuOptions(menuOptions:Array<Array<CtMenuOption>>, ?reset:Bool = false):Void
 	{
 		this.menuOptions = menuOptions;
 		if (reset)
-			curSelected = 0;
+			resetSelected();
 		if (enabled)
+		{
+			changeRack();
 			changeSelection();
+		}
 	}
 
 	/**
@@ -144,7 +207,9 @@ class CtMenuManager
 		}
         enabled = true;
         if(cursor != null) cursor.revive();
-        if(reset) curSelected = 0;
+		if (reset)
+			resetSelected();
+		changeRack();
         changeSelection();
     }
     
@@ -155,7 +220,17 @@ class CtMenuManager
     public function disable(?reset:Bool = false):Void{
         enabled = false;
         if(cursor != null) cursor.kill();
-        if(reset) curSelected = 0;
+		if (reset)
+			resetSelected();
+	}
+
+	/**
+	 * Call this to reset the currently selected option and rack
+	 */
+	function resetSelected():Void
+	{
+		curRack = 0;
+		curSelected = 0;
     }
     
 	/**
