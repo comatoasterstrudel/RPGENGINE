@@ -16,12 +16,19 @@ class PlayState extends FlxState
 	var allyGrid:Grid;
 	var enemyGrid:Grid;
 
+	var grids:Array<Grid> = [];
+	
 	// UI STUFF
 	var miniHealthBars:FlxTypedGroup<MiniHealthBar>;
 
 	var turnOrderDisplay:TurnOrderDisplay;
 	
 	var bottomBar:BottomBar;
+	
+	// MENU MANAGERS
+	var menuManagerPlayerUI:CtMenuManager;
+	var menuManagerGridSelector:CtMenuManager;
+	var menus:Array<CtMenuManager> = [];
 	
 	// GAME STUFF
 
@@ -42,9 +49,10 @@ class PlayState extends FlxState
 		setUpBg();
 		setUpGrids();
 		setUpUI();
-
 		addInitialUnits();
-		
+
+		setUpMenus();
+
 		advanceRound();
 		
 		#if debug
@@ -54,6 +62,15 @@ class PlayState extends FlxState
 		super.create();
 	}
 
+	override public function update(elapsed:Float)
+	{
+		super.update(elapsed);
+		for (menu in menus)
+		{
+			menu.update();
+		}
+	}
+	
 	/**
 	 * Call this to initialize this battles JSON file
 	 */
@@ -94,6 +111,7 @@ class PlayState extends FlxState
 
 		enemyGrid = new Grid(gridSize, new FlxPoint(midPointX + (spacing), midPointY));
 		add(enemyGrid);
+		grids = [allyGrid, enemyGrid];
 	}
 
 	/**
@@ -106,11 +124,44 @@ class PlayState extends FlxState
 		turnOrderDisplay = new TurnOrderDisplay(gridSize);
 		add(turnOrderDisplay);
 		bottomBar = new BottomBar();
-		bottomBar.signalEndTurn.add(function():Void
-		{
-			advanceTurn();
-		});
 		add(bottomBar);
+	}
+
+	function setUpMenus():Void
+	{
+		var controlIncreaseRack = function():Bool
+		{
+			return FlxG.keys.justPressed.DOWN;
+		};
+
+		var controlDecreaseRack = function():Bool
+		{
+			return FlxG.keys.justPressed.UP;
+		};
+
+		var controlIncrease = function():Bool
+		{
+			return FlxG.keys.justPressed.RIGHT;
+		};
+
+		var controlDecrease = function():Bool
+		{
+			return FlxG.keys.justPressed.LEFT;
+		};
+
+		var controlSelect = function():Bool
+		{
+			return FlxG.keys.justPressed.Z;
+		};
+
+		// init menuManagerPlayerUI
+		menuManagerPlayerUI = new CtMenuManager(controlIncrease, controlDecrease, controlSelect, controlIncreaseRack, controlDecreaseRack);
+		add(menuManagerPlayerUI.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, true));
+		// init menuManagerGridSelector
+		menuManagerGridSelector = new CtMenuManager(controlIncrease, controlDecrease, controlSelect, controlIncreaseRack, controlDecreaseRack);
+		add(menuManagerGridSelector.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, true));
+
+		menus = [menuManagerPlayerUI, menuManagerGridSelector];
 	}
 
 	/**
@@ -179,12 +230,13 @@ class PlayState extends FlxState
 
 		turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
 		bottomBar.updateCurrentUnit(currentTurnUnit);
-		if (!currentTurnUnit.controllable)
+		if (currentTurnUnit.controllable)
 		{
-			new FlxTimer().start(1, function(f):Void
-			{
-				advanceTurn();
-			});
+			startAllyTurn();
+		}
+		else
+		{
+			startEnemyTurn();
 		}
 	}
 
@@ -202,6 +254,65 @@ class PlayState extends FlxState
 		advanceTurn(0);
 	}
 
+	function startAllyTurn():Void
+	{
+		bottomBar.addMenu();
+
+		var menuOptions:Array<Array<CtMenuOption>> = [[]];
+
+		menuOptions[0].push({
+			sprite: bottomBar.inspect,
+			cursorDirection: UP,
+			clickFunction: function(spr:FlxSprite):Void
+			{
+				menuManagerPlayerUI.disable(false);
+				addGridSelector();
+			}
+		});
+
+		for (i in bottomBar.skillIcons)
+		{
+			if (i.enabled)
+				menuOptions[0].push({sprite: i.outlineSprite, cursorDirection: UP});
+		}
+
+		menuOptions[0].push({
+			sprite: bottomBar.endTurn,
+			cursorDirection: UP,
+			clickFunction: function(spr:FlxSprite):Void
+			{
+				endPlayerTurn();
+				advanceTurn();
+			}
+		});
+
+		menuManagerPlayerUI.setMenuOptions(menuOptions);
+
+		menuManagerPlayerUI.enable(true);
+		menuManagerPlayerUI.changeSelection(1);
+	}
+
+	function endPlayerTurn():Void
+	{
+		menuManagerPlayerUI.disable();
+	}
+
+	function startEnemyTurn():Void
+	{
+		bottomBar.removeMenu();
+
+		new FlxTimer().start(.5, function(f):Void
+		{
+			endEnemyTurn();
+			advanceTurn();
+		});
+	}
+
+	function endEnemyTurn():Void
+	{
+		//
+	}
+	
 	/**
 	 * Call this to calculate and start the turn order for the next round
 	 */
@@ -224,11 +335,27 @@ class PlayState extends FlxState
 		});
 		turnOrderDisplay.updateTurnOrderDisplay(turnOrder);
 	}
-	
-	override public function update(elapsed:Float)
+
+	function addGridSelector():Void
 	{
-		super.update(elapsed);
+		var menuOptions:Array<Array<CtMenuOption>> = [];
+
+		for (i in 0...Std.int(gridSize.y))
+		{
+			menuOptions.push([]);
+		}
+		for (grid in grids)
+		{
+			for (space in grid.spaces)
+			{
+				menuOptions[Std.int(space.position.y)].push({sprite: space.baseSprite, cursorDirection: UP});
+			}
+		}
+
+		menuManagerGridSelector.setMenuOptions(menuOptions);
+		menuManagerGridSelector.enable();
 	}
+
 	#if debug
 	function addDebugFunctions():Void
 	{

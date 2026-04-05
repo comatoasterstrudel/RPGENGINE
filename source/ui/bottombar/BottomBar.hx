@@ -6,16 +6,12 @@ class BottomBar extends FlxSpriteGroup
     
 	var unitPortrait:UnitPortrait;
         
-    var skillIcons:Array<SkillIcon> = [];
+	public var skillIcons:Array<SkillIcon> = [];
     
-	var endTurn:CtSprite;
+	public var endTurn:CtSprite;
 
-	var menuManager:CtMenuManager;
+	public var inspect:CtSprite;
 
-	var cursor:CtSprite;
-
-	public var signalEndTurn:FlxSignal;
-    
 	var curUnit:Unit;
 
     public function new():Void{
@@ -44,34 +40,13 @@ class BottomBar extends FlxSpriteGroup
         }
         
         CtUtil.centerGroup(skillOutlines, 20);
+		inspect = new CtSprite(300, 590).createFromImage(Constants.inspectButtonGraphicPath);
+		inspect.kill();
+		add(inspect);
+		
 		endTurn = new CtSprite(1050, 590).createFromImage(Constants.endTurnButtonGraphicPath);
 		endTurn.kill();
 		add(endTurn);
-
-		menuManager = new CtMenuManager(function():Bool
-		{
-			return FlxG.keys.justPressed.RIGHT;
-		}, function():Bool
-		{
-			return FlxG.keys.justPressed.LEFT;
-		}, function():Bool
-		{
-			return FlxG.keys.justPressed.Z;
-		});
-		
-		cursor = new CtSprite().createFromImage(Constants.cursorArrowGraphic);
-		cursor.lerpManager.lerpX = true;
-		cursor.lerpManager.lerpY = true;
-		add(menuManager.addCursor(cursor, 20, true));
-
-		signalEndTurn = new FlxSignal();
-	}
-
-	override function update(elapsed:Float):Void
-	{
-		super.update(elapsed);
-
-		menuManager.update();
 	}
     
     public function updateCurrentUnit(unit:Unit):Void{
@@ -85,46 +60,18 @@ class BottomBar extends FlxSpriteGroup
         
         for(i in 0...unit.skills.length){
             skillIcons[i].updateSkill(true, unit.skills[i]);
-        }
-		if (unit.controllable)
-		{
-			addMenu();
-		}
-		else
-		{
-			removeMenu();
 		}
 	}
 
-	function addMenu():Void
+	public function addMenu():Void
 	{
+		inspect.revive();
 		endTurn.revive();
-
-		var menuOptions:Array<Array<CtMenuOption>> = [[]];
-
-		for (i in skillIcons)
-		{
-			if (i.enabled)
-				menuOptions[0].push({sprite: i.outlineSprite, cursorDirection: UP});
-		}
-
-		menuOptions[0].push({
-			sprite: endTurn,
-			cursorDirection: UP,
-			clickFunction: function(spr:FlxSprite):Void
-			{
-				signalEndTurn.dispatch();
-			}
-		});
-
-		menuManager.setMenuOptions(menuOptions);
-
-		menuManager.enable(true);
 	}
 
-	function removeMenu():Void
+	public function removeMenu():Void
 	{
-		menuManager.disable();
+		inspect.kill();
 		endTurn.kill();
 	}
 }

@@ -10,7 +10,7 @@ class Grid extends FlxTypedGroup<GridSpace>
     
     var position:FlxPoint;
     
-    var spaces:Array<GridSpace> = [];
+	public var spaces:Array<GridSpace> = [];
     
     var units:Array<Unit> = [];
     

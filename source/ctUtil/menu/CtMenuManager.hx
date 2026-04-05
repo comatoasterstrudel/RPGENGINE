@@ -43,12 +43,12 @@ class CtMenuManager
 	/**
 	 * Which rack is currently selected
 	 */
-	var curRack:Int = 0;
+	public var curRack:Int = 0;
     
 	/**
 	 * Which option is currently selected
 	 */
-    var curSelected:Int = 0;
+	public var curSelected:Int = 0;
     
 	/**
 	 * The cursor sprite for this menu. If this is null, the cursor simply wont be used.
@@ -120,7 +120,7 @@ class CtMenuManager
 	 * Call this to change which rack is selected!!
 	 * @param amount How many selections to move
 	 */
-	function changeRack(amount:Int = 0):Void
+	public function changeRack(amount:Int = 0):Void
 	{
 		curRack += amount;
 
@@ -140,7 +140,8 @@ class CtMenuManager
 	 * Call this to change which menu option is selected!!
 	 * @param amount How many selections to move
 	 */
-    function changeSelection(amount:Int = 0):Void{
+	public function changeSelection(amount:Int = 0):Void
+	{
         curSelected += amount;
         
 		if (curSelected >= menuOptions[curRack].length)
@@ -247,6 +248,15 @@ class CtMenuManager
         this.cursor = cursor;
         this.cursorSpacing = cursorSpacing;
         this.cursorDoLerp = cursorDoLerp;
+		if (enabled)
+		{
+			cursor.revive();
+			changeSelection();
+		}
+		else
+		{
+			cursor.kill();
+		}
         return cursor;
     }
 	/**

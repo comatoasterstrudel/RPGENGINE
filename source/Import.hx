@@ -4,6 +4,7 @@ import ctUtil.extensions.CtSprite;
 import ctUtil.json.CtJsonLoader;
 import ctUtil.menu.CtMenuManager;
 import ctUtil.menu.CtMenuOption;
+import cursor.Cursor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;

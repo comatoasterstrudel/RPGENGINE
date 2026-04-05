@@ -33,6 +33,7 @@ class Constants
 	public static final skillOutlineGraphicPath:String = "assets/images/bottombar/skills/box/box_outline.png";
 	public static final skillBackgroundGraphicPath:String = "assets/images/bottombar/skills/box/box_bg.png";
 	public static final skillIconGraphicPath:String = "assets/images/bottombar/skills/icons/icon_";
+	public static final inspectButtonGraphicPath:String = "assets/images/bottombar/inspect.png";
 	public static final endTurnButtonGraphicPath:String = "assets/images/bottombar/endturn.png";
 	// Cursors
 	public static final cursorArrowGraphic:String = "assets/images/cursors/cursor_arrow.png";
