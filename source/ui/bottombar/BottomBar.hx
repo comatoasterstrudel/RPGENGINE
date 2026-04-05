@@ -48,10 +48,21 @@ class BottomBar extends FlxSpriteGroup
 		endTurn.kill();
 		add(endTurn);
 
+		menuManager = new CtMenuManager(function():Bool
+		{
+			return FlxG.keys.justPressed.RIGHT;
+		}, function():Bool
+		{
+			return FlxG.keys.justPressed.LEFT;
+		}, function():Bool
+		{
+			return FlxG.keys.justPressed.Z;
+		});
+		
 		cursor = new CtSprite().createFromImage(Constants.cursorArrowGraphic);
 		cursor.lerpManager.lerpX = true;
 		cursor.lerpManager.lerpY = true;
-		add(cursor);
+		add(menuManager.addCursor(cursor, 20, true));
 
 		signalEndTurn = new FlxSignal();
 	}
@@ -106,18 +117,7 @@ class BottomBar extends FlxSpriteGroup
 			}
 		});
 
-		menuManager = new CtMenuManager(menuOptions, function():Bool
-		{
-			return FlxG.keys.justPressed.RIGHT;
-		}, function():Bool
-		{
-			return FlxG.keys.justPressed.LEFT;
-		}, function():Bool
-		{
-			return FlxG.keys.justPressed.Z;
-		});
-
-		menuManager.addCursor(cursor, 20, true);
+		menuManager.setMenuOptions(menuOptions);
 
 		menuManager.enable(true);
 	}
