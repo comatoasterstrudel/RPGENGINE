@@ -10,6 +10,14 @@ class BottomBar extends FlxSpriteGroup
     
     var skillIcons:Array<SkillIcon> = [];
     
+	var endTurn:CtSprite;
+
+	var menuManager:CtMenuManager;
+
+	var cursor:CtSprite;
+
+	public var signalEndTurn:FlxSignal;
+    
     public function new():Void{
         super();
         
@@ -22,6 +30,10 @@ class BottomBar extends FlxSpriteGroup
         add(bottomCover);
         
 		unitPortrait = new CtSprite();
+		unitPortrait.lerpManager.lerpScaleX = true;
+		unitPortrait.lerpManager.lerpScaleY = true;
+		unitPortrait.lerpManager.targetScale.set(1, 1);
+		unitPortrait.lerpManager.lerpSpeed = 8;
 		add(unitPortrait);
         
         var skillOutlines:Array<FlxSprite> = [];
@@ -36,7 +48,27 @@ class BottomBar extends FlxSpriteGroup
         }
         
         CtUtil.centerGroup(skillOutlines, 20);
-    }  
+		endTurn = new CtSprite(1050, 590).createFromImage(Constants.endTurnButtonGraphicPath);
+		endTurn.kill();
+		add(endTurn);
+
+		cursor = new CtSprite().createFromImage(Constants.cursorArrowGraphic);
+		cursor.lerpManager.lerpX = true;
+		cursor.lerpManager.lerpY = true;
+		add(cursor);
+
+		signalEndTurn = new FlxSignal();
+	}
+
+	override function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+
+		unitPortrait.updateHitbox();
+		unitPortrait.setPosition(150 - unitPortrait.width / 2, FlxG.height - unitPortrait.height);
+
+		menuManager.update();
+	}
     
     public function updateCurrentUnit(unit:Unit):Void{
         this.curUnit = unit;
@@ -50,6 +82,14 @@ class BottomBar extends FlxSpriteGroup
         for(i in 0...unit.skills.length){
             skillIcons[i].updateSkill(true, unit.skills[i]);
         }
+		if (unit.controllable)
+		{
+			addMenu();
+		}
+		else
+		{
+			removeMenu();
+		}
     }
     
     function applyUnitGraphic():Void{
@@ -65,7 +105,53 @@ class BottomBar extends FlxSpriteGroup
 			unitPortrait.createColorBlock(300, 350, FlxColor.BLUE);
 		}        
 		unitPortrait.antialiasing = false;
-        
-		unitPortrait.setPosition(0, FlxG.height - unitPortrait.height);
-    }
+
+		unitPortrait.scale.set(1.5, .7);
+
+		unitPortrait.updateHitbox();
+		unitPortrait.setPosition(150 - unitPortrait.width / 2, FlxG.height - unitPortrait.height);
+	}
+
+	function addMenu():Void
+	{
+		endTurn.revive();
+
+		var menuOptions:Array<CtMenuOption> = [];
+
+		for (i in skillIcons)
+		{
+			if (i.enabled)
+				menuOptions.push({sprite: i.outlineSprite, cursorDirection: UP});
+		}
+
+		menuOptions.push({
+			sprite: endTurn,
+			cursorDirection: UP,
+			clickFunction: function(spr:FlxSprite):Void
+			{
+				signalEndTurn.dispatch();
+			}
+		});
+
+		menuManager = new CtMenuManager(menuOptions, function():Bool
+		{
+			return FlxG.keys.justPressed.RIGHT;
+		}, function():Bool
+		{
+			return FlxG.keys.justPressed.LEFT;
+		}, function():Bool
+		{
+			return FlxG.keys.justPressed.Z;
+		});
+
+		menuManager.addCursor(cursor, 20, true);
+
+		menuManager.enable(true);
+	}
+
+	function removeMenu():Void
+	{
+		menuManager.disable();
+		endTurn.kill();
+	}
 }

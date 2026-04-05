@@ -80,7 +80,8 @@ class CtLerpManager
 		if (lerpAlpha) sprite.alpha = alpha;
 		if (lerpX) sprite.x = x;
 		if (lerpY) sprite.y = y;
-		if (lerpScaleX) sprite.scale.x = scaleY;
+		if (lerpScaleX)
+			sprite.scale.x = scaleX;
 		if (lerpScaleY) sprite.scale.y = scaleY;	
 	}
 }

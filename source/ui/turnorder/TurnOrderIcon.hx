@@ -31,10 +31,11 @@ class TurnOrderIcon extends FlxTypedGroup<CtSprite>
 		bg.color = FlxColor.GRAY.getLightened(((bg.y + 15) / 15));
     }
     
-    public function updateTurnOrderIcon(unit:Unit):Void{
-        bg.createFromImage(unit.controllable ? Constants.turnOrderIconAllyPath : Constants.turnOrderIconEnemyPath);
-        unitGraphic.loadGraphicFromSprite(unit);
+	public function updateTurnOrderIcon(unit:Unit):Void
+	{
 		this.curUnit = unit;
+		bg.createFromImage(curUnit.controllable ? Constants.turnOrderIconAllyPath : Constants.turnOrderIconEnemyPath);
+		unitGraphic.loadGraphicFromSprite(curUnit);
 	}
 
 	public function updateCurrentTurn(unit:Unit):Void

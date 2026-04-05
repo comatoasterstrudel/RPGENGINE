@@ -24,6 +24,11 @@ class SkillIcon extends FlxSpriteGroup
 	 */
 	public var currentSkill:SkillData;
     
+	/**
+	 * Is this icon displaying a real skill?
+	 */
+	public var enabled:Bool = false;
+	
     public function new():Void{
         super();
         
@@ -42,11 +47,15 @@ class SkillIcon extends FlxSpriteGroup
     
 	/**
 	 * Call this to update the sprites on this icon.
-	 * @param active Should this icon display a skill? Otherwise this box will display as blank.
+	 * @param enabled Should this icon display a skill? Otherwise this box will display as blank.
 	 * @param skill The skill this should display.
 	 */
-    public function updateSkill(active:Bool, ?skill:SkillData):Void{
-        if(active){
+	public function updateSkill(enabled:Bool, ?skill:SkillData):Void
+	{
+		this.enabled = enabled;
+
+		if (enabled)
+		{
 			this.currentSkill = skill;
 
 			bgSprite.color = FlxColor.WHITE;

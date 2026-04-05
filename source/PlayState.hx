@@ -1,5 +1,7 @@
 package;
 
+import flixel.util.FlxTimer;
+
 class PlayState extends FlxState
 {
 	public static var battleName:String = "test";
@@ -104,6 +106,10 @@ class PlayState extends FlxState
 		turnOrderDisplay = new TurnOrderDisplay(gridSize);
 		add(turnOrderDisplay);
 		bottomBar = new BottomBar();
+		bottomBar.signalEndTurn.add(function():Void
+		{
+			advanceTurn();
+		});
 		add(bottomBar);
 	}
 
@@ -163,15 +169,23 @@ class PlayState extends FlxState
 	{
 		turnNum += amount;
 
-		if (amount >= turnOrder.length)
+		if (turnNum >= turnOrder.length)
 		{
 			advanceRound();
 			return;
 		}
+
 		currentTurnUnit = turnOrder[turnNum];
 
 		turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
 		bottomBar.updateCurrentUnit(currentTurnUnit);
+		if (!currentTurnUnit.controllable)
+		{
+			new FlxTimer().start(1, function(f):Void
+			{
+				advanceTurn();
+			});
+		}
 	}
 
 	/**
@@ -179,6 +193,7 @@ class PlayState extends FlxState
 	 */
 	function advanceRound():Void
 	{
+		trace("1/1/1");
 		roundNum++;
 
 		calculateTurnOrder();
