@@ -40,6 +40,9 @@ class CtMenuManager
 	 */
     var enabled:Bool = false;
     
+	/**
+	 * Which rack is currently selected
+	 */
 	var curRack:Int = 0;
     
 	/**
