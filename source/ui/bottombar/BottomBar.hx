@@ -4,7 +4,7 @@ class BottomBar extends FlxSpriteGroup
 {  
     var bottomCover:CtSprite;
     
-    var unitSprite:CtSprite;
+	var unitPortrait:CtSprite;
     
     var curUnit:Unit;
     
@@ -21,8 +21,8 @@ class BottomBar extends FlxSpriteGroup
         bottomCover.antialiasing = false;
         add(bottomCover);
         
-        unitSprite = new CtSprite();
-        add(unitSprite);
+		unitPortrait = new CtSprite();
+		add(unitPortrait);
         
         var skillOutlines:Array<FlxSprite> = [];
         
@@ -57,15 +57,15 @@ class BottomBar extends FlxSpriteGroup
 
 		if (Assets.exists(path))
 		{
-			unitSprite.createFromImage(path);
+			unitPortrait.createFromImage(path);
 		}
 		else
 		{
 			FlxG.log.error("Can't find unit ui graphic \"" + path + "\".");
-			unitSprite.createColorBlock(300, 350, FlxColor.BLUE);
+			unitPortrait.createColorBlock(300, 350, FlxColor.BLUE);
 		}        
-		unitSprite.antialiasing = false;
+		unitPortrait.antialiasing = false;
         
-        unitSprite.setPosition(0, FlxG.height - unitSprite.height);
+		unitPortrait.setPosition(0, FlxG.height - unitPortrait.height);
     }
 }

@@ -23,14 +23,14 @@ class Constants
 	public static final bottomBarAlpha:Float = 0.4;
 	public static final bottomBarAngle:Float = 3;
 	public static final bottomBarY:Float = 540;
+	public static final skillOutlineGraphicPath:String = "assets/images/bottombar/skills/box/box_outline.png";
+	public static final skillBackgroundGraphicPath:String = "assets/images/bottombar/skills/box/box_bg.png";
+	public static final skillIconGraphicPath:String = "assets/images/bottombar/skills/icons/icon_";
 	// JSON Paths
 	public static final battleDataPath:String = "assets/data/battles/battle_";
 	public static final unitDataPath:String = "assets/data/units/unit_";
 	public static final skillDataPath:String = "assets/data/skills/skill_";
 	// Image Paths
-	public static final unitGridGraphicPath:String = "assets/images/units/grid_";
-	public static final unitUiGraphicPath:String = "assets/images/units/ui_";
-	public static final skillOutlineGraphicPath:String = "assets/images/skillBox.png";
-	public static final skillBoxEmptyGraphicPath:String = "assets/images/skillBoxEmpty.png";
-	public static final skillIconGraphicPath:String = "assets/images/skills/icon_";
+	public static final unitGridGraphicPath:String = "assets/images/grid/units/unit_";
+	public static final unitUiGraphicPath:String = "assets/images/bottombar/portraits/portrait_";
 }
