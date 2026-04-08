@@ -248,6 +248,11 @@ class CtMenuManager
         this.cursor = cursor;
         this.cursorSpacing = cursorSpacing;
         this.cursorDoLerp = cursorDoLerp;
+		if (cursorDoLerp)
+		{
+			cursor.lerpManager.lerpX = true;
+			cursor.lerpManager.lerpY = true;
+		}
 		if (enabled)
 		{
 			cursor.revive();
