@@ -156,10 +156,10 @@ class PlayState extends FlxState
 
 		// init menuManagerPlayerUI
 		menuManagerPlayerUI = new CtMenuManager(controlIncrease, controlDecrease, controlSelect, controlIncreaseRack, controlDecreaseRack);
-		add(menuManagerPlayerUI.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, true));
+		add(menuManagerPlayerUI.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, false));
 		// init menuManagerGridSelector
 		menuManagerGridSelector = new CtMenuManager(controlIncrease, controlDecrease, controlSelect, controlIncreaseRack, controlDecreaseRack);
-		add(menuManagerGridSelector.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, true));
+		add(menuManagerGridSelector.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, false));
 
 		menus = [menuManagerPlayerUI, menuManagerGridSelector];
 	}
