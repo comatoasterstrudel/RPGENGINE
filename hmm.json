@@ -8,6 +8,13 @@
       "url": "https://github.com/comatoasterstrudel/ctDialogueBox"
     },
     {
+      "name": "ctUtil",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/comatoasterstrudel/ctUtil"
+    },
+    {
       "name": "flixel",
       "type": "haxelib",
       "version": "6.1.0"
