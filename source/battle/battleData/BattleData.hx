@@ -1,4 +1,4 @@
-package battleData;
+package battle.battleData;
 
 class BattleData extends CtJsonLoader
 {

@@ -1,4 +1,4 @@
-package skills;
+package battle.skills;
 
 class SkillData extends CtJsonLoader
 {

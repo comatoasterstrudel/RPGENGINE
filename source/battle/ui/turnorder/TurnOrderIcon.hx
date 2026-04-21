@@ -1,4 +1,4 @@
-package ui.turnorder;
+package battle.ui.turnorder;
 
 class TurnOrderIcon extends FlxTypedGroup<CtSprite>
 {

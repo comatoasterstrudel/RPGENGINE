@@ -1,4 +1,4 @@
-package stats;
+package battle.stats;
 
 class Stat
 {

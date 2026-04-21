@@ -1,4 +1,4 @@
-package ui.bottombar;
+package battle.ui.bottombar;
 
 class BottomBar extends FlxSpriteGroup
 {  

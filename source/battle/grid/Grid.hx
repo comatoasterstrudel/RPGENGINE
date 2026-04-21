@@ -1,4 +1,4 @@
-package grid;
+package battle.grid;
 
 class Grid extends FlxTypedGroup<GridSpace>
 {

@@ -1,4 +1,4 @@
-package ui.bottombar;
+package battle.ui.bottombar;
 
 /**
  * Class to display the icon for a skill. Contained inside of an outline and over a background.

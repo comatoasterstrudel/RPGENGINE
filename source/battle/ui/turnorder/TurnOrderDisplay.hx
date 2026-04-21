@@ -1,4 +1,4 @@
-package ui.turnorder;
+package battle.ui.turnorder;
 
 class TurnOrderDisplay extends FlxTypedGroup<TurnOrderIcon>
 {

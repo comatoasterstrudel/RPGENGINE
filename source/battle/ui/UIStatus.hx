@@ -1,4 +1,4 @@
-package ui;
+package battle.ui;
 
 /**
  * This is an enum used to track what the current status of the ui is

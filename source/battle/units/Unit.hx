@@ -1,4 +1,4 @@
-package units;
+package battle.units;
 
 class Unit extends CtSprite
 {

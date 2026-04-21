@@ -1,4 +1,4 @@
-package ui.minihealthbar;
+package battle.ui.minihealthbar;
 
 class MiniHealthBar extends FlxBar
 {
