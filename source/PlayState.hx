@@ -40,6 +40,9 @@ class PlayState extends FlxState
 	
 	var uiStatus:UIStatus = INACTIVE;
 	
+	// EXIT
+	var exitProgress:Float = 0;
+	
 	override public function create()
 	{
 		persistentUpdate = true;
@@ -68,6 +71,19 @@ class PlayState extends FlxState
 		for (menu in menus)
 		{
 			menu.update();
+		}
+		if (FlxG.keys.pressed.ESCAPE)
+		{
+			exitProgress += elapsed;
+
+			if (exitProgress >= Constants.exitTime)
+			{
+				FlxG.switchState(LevelSelectorState.new);
+			}
+		}
+		else
+		{
+			exitProgress = 0;
 		}
 	}
 	

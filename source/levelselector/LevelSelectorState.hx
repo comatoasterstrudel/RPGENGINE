@@ -6,12 +6,26 @@ package levelselector;
  */
 class LevelSelectorState extends FlxState
 {
+	/**
+	 * This is the list of battle files that this menu is displaying
+	 */
     var listOfBattleFiles:Array<BattleData> = [];
     
+	/**
+	 * The list of text objects for this menu
+	 */
     var textOptions:Array<FlxText> = [];
     
+	/**
+	 * The menu manager for this menu
+	 */
     var menuManager:CtMenuManager;
     
+	/**
+	 * The last value that was selected
+	 */
+	public static var savedCurSelected:Int = 0;
+	
     override function create():Void{
         bgColor = FlxColor.WHITE;
         
@@ -24,6 +38,7 @@ class LevelSelectorState extends FlxState
     
     override function update(elapsed:Float):Void{
         if(FlxG.keys.justPressed.R){
+			updateSavedCurSelected();
             populateMenuOptions();
         }
         
@@ -32,6 +47,9 @@ class LevelSelectorState extends FlxState
         super.update(elapsed);
     }
     
+	/**
+	 * Call this to set up the MenuManager. in a seperate function for tidiness
+	 */
     function setUpMenu():Void{
         var controlIncreaseRack = function():Bool
 		{
@@ -67,6 +85,9 @@ class LevelSelectorState extends FlxState
         add(menuManager.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, false));
     }
     
+	/**
+	 * Call this to reset and populate the menu options!! Can be reloaded at runtime
+	 */
     function populateMenuOptions():Void{
         listOfBattleFiles = [];
         
@@ -78,22 +99,54 @@ class LevelSelectorState extends FlxState
         
         var menuOptions:Array<Array<CtMenuOption>> = [];
         
-        for(i in 0...listOfBattleFiles.length){
-            var battle = listOfBattleFiles[i];
-            
-            var text = new FlxText(70, 30 + (80 * i), battle.id);
-            text.color = FlxColor.BLACK;
-            text.size = 30;
-            add(text);
-            textOptions.push(text);
-            
-            menuOptions.push([{sprite: text, cursorDirection: LEFT, clickFunction: function(sprite):Void{
-                PlayState.battleName = battle.id;
-                FlxG.switchState(PlayState.new);
-            }}]);
+		if (listOfBattleFiles.length == 0)
+		{
+			var text = new FlxText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos,
+				"There are no battles available!\nAdd some battle files to " + Constants.battleDataFolder + "\nand then press R to reload this menu!");
+			text.color = FlxColor.GRAY;
+			text.size = Constants.levelSelectTextSize;
+			add(text);
+			textOptions.push(text);
+
+			menuOptions.push([{sprite: text, cursorDirection: LEFT}]);
+		}
+		else
+		{
+			for (i in 0...listOfBattleFiles.length)
+			{
+				var battle = listOfBattleFiles[i];
+
+				var text = new FlxText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos + (Constants.levelSelectTextYSpacing * i), battle.id);
+				text.color = FlxColor.BLACK;
+				text.size = Constants.levelSelectTextSize;
+				add(text);
+				textOptions.push(text);
+
+				menuOptions.push([
+					{
+						sprite: text,
+						cursorDirection: LEFT,
+						clickFunction: function(sprite):Void
+						{
+							updateSavedCurSelected();
+
+							PlayState.battleName = battle.id;
+							FlxG.switchState(PlayState.new);
+						}
+					}
+				]);
+			}   
         }
         
         menuManager.setMenuOptions(menuOptions);
+		menuManager.curRack = savedCurSelected;
         menuManager.enable();
     }
+	/**
+	 * Call this to set savedCurSelected to menuManger.curRack
+	 */
+	function updateSavedCurSelected():Void
+	{
+		savedCurSelected = menuManager.curRack;
+	}
 }

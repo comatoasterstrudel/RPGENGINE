@@ -38,4 +38,11 @@ class Constants
 	public static final endTurnButtonGraphicPath:String = "assets/images/bottombar/endturn.png";
 	// Cursors
 	public static final cursorArrowGraphic:String = "assets/images/cursors/cursor_arrow.png";
+	// LevelSelectorState
+	public static final levelSelectTextXPos:Int = 120;
+	public static final levelSelectTextYPos:Int = 30;
+	public static final levelSelectTextYSpacing:Int = 80;
+	public static final levelSelectTextSize:Int = 30;
+	// Exit
+	public static final exitTime:Float = 3;
 }
