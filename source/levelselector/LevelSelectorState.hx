@@ -102,7 +102,7 @@ class LevelSelectorState extends FlxState
 		if (listOfBattleFiles.length == 0)
 		{
 			var text = new FlxText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos,
-				"There are no battles available!\nAdd some battle files to " + Constants.battleDataFolder + "\nand then press R to reload this menu!");
+			Constants.levelSelectNoLevelMessage);
 			text.color = FlxColor.GRAY;
 			text.size = Constants.levelSelectTextSize;
 			add(text);

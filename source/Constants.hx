@@ -43,6 +43,9 @@ class Constants
 	public static final levelSelectTextYPos:Int = 30;
 	public static final levelSelectTextYSpacing:Int = 80;
 	public static final levelSelectTextSize:Int = 30;
+	public static final levelSelectNoLevelMessage:String = "There are no battles available!\nAdd some battle files to "
+		+ Constants.battleDataFolder
+		+ "\nand then press R to reload this menu!";
 	// Exit
 	public static final exitTime:Float = 3;
 }
