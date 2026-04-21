@@ -1,7 +1,5 @@
 package;
 
-import flixel.util.FlxTimer;
-
 class PlayState extends FlxState
 {
 	public static var battleName:String = "test";
@@ -39,6 +37,8 @@ class PlayState extends FlxState
 	var turnOrder:Array<Unit> = [];
 	
 	var currentTurnUnit:Unit;
+	
+	var uiStatus:UIStatus = INACTIVE;
 	
 	override public function create()
 	{
@@ -127,6 +127,9 @@ class PlayState extends FlxState
 		add(bottomBar);
 	}
 
+	/**
+	 * Call this to set up the different menus used for the games ui
+	 */
 	function setUpMenus():Void
 	{
 		var controlIncreaseRack = function():Bool
@@ -154,11 +157,16 @@ class PlayState extends FlxState
 			return FlxG.keys.justPressed.Z;
 		};
 
+		var controlCancel = function():Bool
+		{
+			return FlxG.keys.justPressed.X;
+		};
+
 		// init menuManagerPlayerUI
-		menuManagerPlayerUI = new CtMenuManager(controlIncrease, controlDecrease, controlSelect, controlIncreaseRack, controlDecreaseRack);
+		menuManagerPlayerUI = new CtMenuManager(controlIncrease, controlDecrease, controlSelect, controlCancel, controlIncreaseRack, controlDecreaseRack);
 		add(menuManagerPlayerUI.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, false));
 		// init menuManagerGridSelector
-		menuManagerGridSelector = new CtMenuManager(controlIncrease, controlDecrease, controlSelect, controlIncreaseRack, controlDecreaseRack);
+		menuManagerGridSelector = new CtMenuManager(controlIncrease, controlDecrease, controlSelect, controlCancel, controlIncreaseRack, controlDecreaseRack);
 		add(menuManagerGridSelector.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, false));
 
 		menus = [menuManagerPlayerUI, menuManagerGridSelector];
@@ -254,6 +262,9 @@ class PlayState extends FlxState
 		advanceTurn(0);
 	}
 
+	/**
+	 * Call this to start an ally units turn
+	 */
 	function startAllyTurn():Void
 	{
 		bottomBar.addMenu();
@@ -266,6 +277,7 @@ class PlayState extends FlxState
 			clickFunction: function(spr:FlxSprite):Void
 			{
 				menuManagerPlayerUI.disable(false);
+				uiStatus = GRID_INSPECT;
 				addGridSelector();
 			}
 		});
@@ -290,13 +302,21 @@ class PlayState extends FlxState
 
 		menuManagerPlayerUI.enable(true);
 		menuManagerPlayerUI.changeSelection(1);
+		uiStatus = SELECTING_SKILLS;
 	}
 
+	/**
+	 * Call this when to end a player units turn
+	 */
 	function endPlayerTurn():Void
 	{
 		menuManagerPlayerUI.disable();
+		uiStatus = INACTIVE;
 	}
 
+	/**
+	 * Call this to start an enemy units turn
+	 */
 	function startEnemyTurn():Void
 	{
 		bottomBar.removeMenu();
@@ -308,6 +328,9 @@ class PlayState extends FlxState
 		});
 	}
 
+	/**
+	 * Call this when to end an enemy units turn
+	 */
 	function endEnemyTurn():Void
 	{
 		//
@@ -336,6 +359,9 @@ class PlayState extends FlxState
 		turnOrderDisplay.updateTurnOrderDisplay(turnOrder);
 	}
 
+	/**
+	 * Call this to add the grid selector UI
+	 */
 	function addGridSelector():Void
 	{
 		var menuOptions:Array<Array<CtMenuOption>> = [];
@@ -348,12 +374,31 @@ class PlayState extends FlxState
 		{
 			for (space in grid.spaces)
 			{
-				menuOptions[Std.int(space.position.y)].push({sprite: space.baseSprite, cursorDirection: UP});
+				menuOptions[Std.int(space.position.y)].push({
+					sprite: space.baseSprite,
+					cursorDirection: UP,
+					cancelFunction: function(sprite):Void
+					{
+						removeGridSelector();
+					}
+				});
 			}
 		}
 
 		menuManagerGridSelector.setMenuOptions(menuOptions);
 		menuManagerGridSelector.enable();
+	}
+	/**
+	 * Call this to remove the grid selector UI
+	 */
+	function removeGridSelector():Void
+	{
+		menuManagerGridSelector.disable();
+		if (uiStatus == GRID_INSPECT)
+		{
+			uiStatus = SELECTING_SKILLS;
+			menuManagerPlayerUI.enable(false);
+		}
 	}
 
 	#if debug

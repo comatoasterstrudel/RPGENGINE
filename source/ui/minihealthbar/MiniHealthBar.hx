@@ -1,4 +1,4 @@
-package ui;
+package ui.minihealthbar;
 
 class MiniHealthBar extends FlxBar
 {
