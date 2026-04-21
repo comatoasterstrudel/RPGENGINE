@@ -24,7 +24,6 @@
 	<haxelib name="hxcpp" />
 	<haxelib name="hxcpp-debug-server" />
 	<haxelib name="openfl" />
-	<haxelib name="ctDialogueBox" />
 	<haxelib name="ctUtil" />
 
 	<haxedef name="FLX_NO_HEALTH" />

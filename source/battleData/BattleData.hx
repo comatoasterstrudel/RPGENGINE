@@ -2,7 +2,7 @@ package battleData;
 
 class BattleData extends CtJsonLoader
 {
-    var id:String;
+	public var id:String;
     
     public var gridSizeX:Int;
     public var gridSizeY:Int;
@@ -13,7 +13,7 @@ class BattleData extends CtJsonLoader
     public function new(id:String){
         this.id = id;
         
-        super(Constants.battleDataPath + id + '.json');
+		super(Constants.battleDataPath + id + '.json', Constants.battleDataPath + 'test.json');
         
         this.gridSizeX = data.gridSizeX;
         this.gridSizeY = data.gridSizeY;

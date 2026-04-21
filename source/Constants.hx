@@ -3,7 +3,8 @@ package;
 class Constants 
 {
 	// Battle
-	public static final battleDataPath:String = "assets/data/battles/battle_";
+	public static final battleDataFolder:String = "assets/data/battles/";
+	public static final battleDataPath:String = Constants.battleDataFolder + "battle_";
 	// Grid
     public static final gridSize:Int = 80;
 	public static final unitGridGraphicPath:String = "assets/images/grid/units/unit_";
