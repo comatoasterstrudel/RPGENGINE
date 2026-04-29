@@ -101,8 +101,7 @@ class LevelSelectorState extends FlxState
         
 		if (listOfBattleFiles.length == 0)
 		{
-			var text = new FlxText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos,
-			Constants.levelSelectNoLevelMessage);
+			var text = new FlxText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos, Constants.levelSelectNoLevelMessage);
 			text.color = FlxColor.GRAY;
 			text.size = Constants.levelSelectTextSize;
 			add(text);
