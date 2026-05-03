@@ -50,38 +50,11 @@ class LevelSelectorState extends FlxState
 	/**
 	 * Call this to set up the MenuManager. in a seperate function for tidiness
 	 */
-    function setUpMenu():Void{
-        var controlIncreaseRack = function():Bool
-		{
-			return FlxG.keys.justPressed.DOWN;
-		};
-
-		var controlDecreaseRack = function():Bool
-		{
-			return FlxG.keys.justPressed.UP;
-		};
-
-		var controlIncrease = function():Bool
-		{
-			return FlxG.keys.justPressed.RIGHT;
-		};
-
-		var controlDecrease = function():Bool
-		{
-			return FlxG.keys.justPressed.LEFT;
-		};
-
-		var controlSelect = function():Bool
-		{
-			return FlxG.keys.justPressed.Z;
-		};
-
-		var controlCancel = function():Bool
-		{
-			return FlxG.keys.justPressed.X;
-		};
-        
-        menuManager = new CtMenuManager(controlIncrease, controlDecrease, controlSelect, controlCancel, controlIncreaseRack, controlDecreaseRack);
+	function setUpMenu():Void
+	{	
+		menuManager = new CtMenuManager(CtControls.getInputFunction("right", JUSTPRESSED), CtControls.getInputFunction("left", JUSTPRESSED),
+			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED),
+			CtControls.getInputFunction("down", JUSTPRESSED), CtControls.getInputFunction("up", JUSTPRESSED));
         add(menuManager.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, false));
     }
     
