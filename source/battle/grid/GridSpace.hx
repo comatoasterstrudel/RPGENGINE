@@ -25,6 +25,8 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
     
     var lastOccupied:Bool = false;
     
+	var lastAlpha:Float = 0;
+    
     public function new(position:FlxPoint){
         super();
         
@@ -60,19 +62,27 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
      * @param force should this happen no matter what?
      */
     public function updateGridSprites(force:Bool = false):Void{
-        if(!force && (lastBaseSpritePosition.x == baseSprite.x && lastBaseSpritePosition.y == baseSprite.y) && (lastOccupied == (unit != null))){
+		if (!force
+			&& (lastBaseSpritePosition.x == baseSprite.x && lastBaseSpritePosition.y == baseSprite.y)
+			&& (lastOccupied == (unit != null) && (lastAlpha == baseSprite.alpha)))
+		{
             return;
         }
         
         CtUtil.centerSpriteOnSprite(outlineSprite, baseSprite, true, true);
         CtUtil.centerSpriteOnSprite(fillSprite, baseSprite, true, true);
                 
+		outlineSprite.alpha = baseSprite.alpha;
+		fillSprite.alpha = baseSprite.alpha;
+        
         if(unit != null) {
+			unit.alpha = baseSprite.alpha;
             unit.lerpManager.targetPosition.x = baseSprite.x + baseSprite.width / 2 - unit.width / 2;
             unit.lerpManager.targetPosition.y = baseSprite.y + baseSprite.height / 2 - unit.height / 2;
         }
         
         lastBaseSpritePosition.set(baseSprite.x, baseSprite.y);
         lastOccupied = (unit != null);
+		lastAlpha = baseSprite.alpha;
     }
 }

@@ -9,6 +9,8 @@ class SkillData extends CtJsonLoader
     
     public var iconGraphic:String;
     
+	public var selectType:String;
+    
     public function new(id:String){
         this.id = id;
                 
@@ -18,5 +20,6 @@ class SkillData extends CtJsonLoader
         this.description = data.description;
         
         this.iconGraphic = data.iconGraphic;
+		this.selectType = data.selectType ?? "";
     }
 }

@@ -16,6 +16,9 @@ class PlayState extends FlxState
 
 	var grids:Array<Grid> = [];
 	
+	var gridSelectorOptions:Array<Array<CtMenuOption>> = [];
+	var gridSelectorSpaces:Array<GridSpace> = [];
+
 	// UI STUFF
 	var miniHealthBars:FlxTypedGroup<MiniHealthBar>;
 
@@ -128,6 +131,7 @@ class PlayState extends FlxState
 		enemyGrid = new Grid(gridSize, new FlxPoint(midPointX + (spacing), midPointY));
 		add(enemyGrid);
 		grids = [allyGrid, enemyGrid];
+		updateGridSelectorOptions();
 	}
 
 	/**
@@ -269,13 +273,38 @@ class PlayState extends FlxState
 				menuManagerPlayerUI.disable(false);
 				uiStatus = GRID_INSPECT;
 				addGridSelector();
+			},
+			hoverFunction: function(spr:FlxSprite):Void
+			{
+				updateGridSelectorOptions();
 			}
 		});
 
 		for (i in bottomBar.skillIcons)
 		{
 			if (i.enabled)
-				menuOptions[0].push({sprite: i.outlineSprite, cursorDirection: UP});
+				menuOptions[0].push({
+					sprite: i.outlineSprite,
+					cursorDirection: UP,
+					clickFunction: function(spr:FlxSprite):Void
+					{
+						if (uiStatus == SELECTING_SKILLS)
+						{
+							menuManagerPlayerUI.disable(false);
+							uiStatus = GRID_SKILL;
+							addGridSelector();
+						}
+						else if (uiStatus == GRID_SKILL)
+						{ // use skill!!
+							endPlayerTurn();
+							advanceTurn();
+						}
+					},
+					hoverFunction: function(spr:FlxSprite):Void
+					{
+						updateGridSelectorOptions(i.currentSkill.selectType);
+					}
+				});
 		}
 
 		menuOptions[0].push({
@@ -285,6 +314,10 @@ class PlayState extends FlxState
 			{
 				endPlayerTurn();
 				advanceTurn();
+			},
+			hoverFunction: function(spr:FlxSprite):Void
+			{
+				updateGridSelectorOptions();
 			}
 		});
 
@@ -354,40 +387,93 @@ class PlayState extends FlxState
 	 */
 	function addGridSelector():Void
 	{
-		var menuOptions:Array<Array<CtMenuOption>> = [];
+		menuManagerGridSelector.setMenuOptions(gridSelectorOptions);
+		menuManagerGridSelector.enable();
 
-		for (i in 0...Std.int(gridSize.y))
-		{
-			menuOptions.push([]);
-		}
 		for (grid in grids)
 		{
 			for (space in grid.spaces)
 			{
-				menuOptions[Std.int(space.position.y)].push({
-					sprite: space.baseSprite,
-					cursorDirection: UP,
-					cancelFunction: function(sprite):Void
-					{
-						removeGridSelector();
-					}
-				});
+				if (gridSelectorSpaces.contains(space))
+				{
+					space.baseSprite.alpha = 1;
+				}
+				else
+				{
+					space.baseSprite.alpha = .5;
+				}
 			}
 		}
-
-		menuManagerGridSelector.setMenuOptions(menuOptions);
-		menuManagerGridSelector.enable();
 	}
+
 	/**
 	 * Call this to remove the grid selector UI
 	 */
 	function removeGridSelector():Void
 	{
 		menuManagerGridSelector.disable();
-		if (uiStatus == GRID_INSPECT)
+		if (uiStatus == GRID_INSPECT || uiStatus == GRID_SKILL)
 		{
 			uiStatus = SELECTING_SKILLS;
 			menuManagerPlayerUI.enable(false);
+		}
+		for (grid in grids)
+		{
+			for (space in grid.spaces)
+			{
+				space.baseSprite.alpha = 1;
+			}
+		}
+	}
+
+	/**
+	 * Call this to adjust what grid spaces will be in the grid selector
+	 * @param type 
+	 */
+	function updateGridSelectorOptions(type:String = ""):Void
+	{
+		gridSelectorSpaces = [];
+
+		for (grid in grids)
+		{
+			for (space in grid.spaces)
+			{
+				if (switch (type)
+					{
+						case "ally_sameCollumn": (currentTurnUnit.grid == grid && space.position.y == currentTurnUnit.position.y);
+						case "enemy_sameCollumn": (currentTurnUnit.grid != grid && space.position.y == currentTurnUnit.position.y);
+						default: (true); // by default, add all spaces
+					})
+					gridSelectorSpaces.push(space);
+			}
+		}
+
+		gridSelectorOptions = [];
+
+		for (i in 0...Std.int(gridSize.y))
+		{
+			gridSelectorOptions.push([]);
+		}
+
+		for (space in gridSelectorSpaces)
+		{
+			gridSelectorOptions[Std.int(space.position.y)].push({
+				sprite: space.baseSprite,
+				cursorDirection: UP,
+				cancelFunction: function(sprite):Void
+				{
+					removeGridSelector();
+				}
+			});
+		}
+		var i = gridSelectorOptions.length;
+
+		while (i-- > 0)
+		{
+			if (gridSelectorOptions[i].length <= 0)
+			{
+				gridSelectorOptions.splice(i, 1);
+			}
 		}
 	}
 

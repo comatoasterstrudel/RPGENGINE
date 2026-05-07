@@ -1,5 +1,6 @@
 {
     "name": "Stab",
     "description": "",
-    "iconGraphic": "stab"
+    "iconGraphic": "stab",
+    "selectType": "enemy_sameCollumn"
 }

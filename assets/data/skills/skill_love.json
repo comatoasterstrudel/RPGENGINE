@@ -1,5 +1,6 @@
 {
     "name": "Love",
     "description": "",
-    "iconGraphic": "love"
+    "iconGraphic": "love",
+    "selectType": "ally_sameCollumn"
 }
