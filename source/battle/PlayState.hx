@@ -440,8 +440,14 @@ class PlayState extends FlxState
 			{
 				if (switch (type)
 					{
-						case "ally_sameCollumn": (currentTurnUnit.grid == grid && space.position.y == currentTurnUnit.position.y);
-						case "enemy_sameCollumn": (currentTurnUnit.grid != grid && space.position.y == currentTurnUnit.position.y);
+						case "ally_sameRow": (currentTurnUnit.grid == grid
+								&& space.position.x == currentTurnUnit.position.y); // all allies in the same row as the current unit
+						case "enemy_sameRow": (currentTurnUnit.grid != grid
+								&& space.position.x == currentTurnUnit.position.y); // all enemies in the same row as the current unit
+						case "ally_sameCollumn": (currentTurnUnit.grid == grid
+								&& space.position.x == currentTurnUnit.position.x); // all allies in the same collumn as the current unit
+						case "enemy_sameCollumn": (currentTurnUnit.grid != grid
+								&& space.position.x == currentTurnUnit.position.x); // all enemies in the same commumn as the current unit
 						default: (true); // by default, add all spaces
 					})
 					gridSelectorSpaces.push(space);
