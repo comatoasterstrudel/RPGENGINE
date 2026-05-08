@@ -14,6 +14,8 @@ class MiniHealthBar extends FlxBar
     }
     
     override function update(elapsed:Float):Void{
+		super.update(elapsed);
+        
         CtUtil.centerSpriteOnSprite(this, unit, true, false);
         this.y = unit.y - this.height + Constants.miniHealthBarYSpacing;
     }

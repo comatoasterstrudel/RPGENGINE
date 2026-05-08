@@ -16,8 +16,8 @@ class Constants
 	// UI
 	public static final uiYOffset:Float = -60;
 	// MiniHealthBar
-	public static final miniHealthBarFillColor:FlxColor = FlxColor.RED;
-	public static final miniHealthBarEmptyColor:FlxColor = FlxColor.LIME;
+	public static final miniHealthBarFillColor:FlxColor = FlxColor.LIME;
+	public static final miniHealthBarEmptyColor:FlxColor = FlxColor.RED;
 	public static final miniHealthBarOutlineColor:FlxColor = FlxColor.BLACK;
 	public static final miniHealthBarOutlineWidth:Int = 2;
 	public static final miniHealthBarWidth:Int = 45;

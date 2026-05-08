@@ -1,5 +1,7 @@
 package battle.units;
 
+import flixel.effects.FlxFlicker;
+
 class Unit extends CtSprite
 {
     /**
@@ -27,7 +29,7 @@ class Unit extends CtSprite
 	public var skills:Array<SkillData> = [];
 	
 	public static var uniqueUnitIDnum:Int = 0;
-	
+
 	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool):Void
 	{
         super();
@@ -109,5 +111,24 @@ class Unit extends CtSprite
 		}
 
 		FlxG.log.error("Can't change stat \"" + name + "\". It doesn't exist!");
+	}
+	public function takeDamage(amount:Int):Void
+	{
+		var transaction = PlayState.eventManager.startTransaction(uniqueUnitID + "_" + "damageAnim");
+		changeStat("hp", -amount);
+		FlxFlicker.flicker(this, .5, 0.03, this.visible, true, function(f):Void
+		{
+			PlayState.eventManager.finishTransaction(transaction.name);
+		});
+	}
+
+	public function heal(amount:Int):Void
+	{
+		var transaction = PlayState.eventManager.startTransaction(uniqueUnitID + "_" + "healAnim");
+		changeStat("hp", amount);
+		FlxFlicker.flicker(this, .2, 0.01, this.visible, function(f):Void // placeholder
+		{
+			PlayState.eventManager.finishTransaction(transaction.name);
+		});
 	}
 }

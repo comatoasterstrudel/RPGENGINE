@@ -27,10 +27,14 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
     
 	var lastAlpha:Float = 0;
     
-    public function new(position:FlxPoint){
+	public var grid:Grid;
+
+	public function new(position:FlxPoint, grid:Grid)
+	{
         super();
         
         this.position = position;
+		this.grid = grid;
         
         baseSprite = new CtSprite().createColorBlock(Constants.gridSize, Constants.gridSize, FlxColor.BLACK);
         baseSprite.visible = false;

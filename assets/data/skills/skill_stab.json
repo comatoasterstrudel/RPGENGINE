@@ -2,5 +2,6 @@
     "name": "Stab",
     "description": "",
     "iconGraphic": "stab",
-    "selectType": "enemy_sameRow"
+    "selectType": "enemy_sameRow",
+    "eff_damage": 20
 }

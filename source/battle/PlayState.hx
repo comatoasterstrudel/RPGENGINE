@@ -2,6 +2,8 @@ package battle;
 
 class PlayState extends FlxState
 {
+	public static var eventManager:EventManager;
+	
 	public static var battleName:String = "test";
 	public static var battleData:BattleData;
 
@@ -50,6 +52,9 @@ class PlayState extends FlxState
 	{
 		persistentUpdate = true;
 		
+		eventManager = new EventManager();
+		eventManager.reset();
+		
 		loadBattle();
 
 		setUpBg();
@@ -88,6 +93,7 @@ class PlayState extends FlxState
 		{
 			exitProgress = 0;
 		}
+		eventManager.update();
 	}
 	
 	/**
@@ -288,17 +294,12 @@ class PlayState extends FlxState
 					cursorDirection: UP,
 					clickFunction: function(spr:FlxSprite):Void
 					{
-						if (uiStatus == SELECTING_SKILLS)
+						menuManagerPlayerUI.disable(false);
+						new FlxTimer().start(0.01, function(f):Void // jank
 						{
-							menuManagerPlayerUI.disable(false);
 							uiStatus = GRID_SKILL;
-							addGridSelector();
-						}
-						else if (uiStatus == GRID_SKILL)
-						{ // use skill!!
-							endPlayerTurn();
-							advanceTurn();
-						}
+							addGridSelector();		
+						});
 					},
 					hoverFunction: function(spr:FlxSprite):Void
 					{
@@ -383,6 +384,42 @@ class PlayState extends FlxState
 	}
 
 	/**
+	 * call this to use a skill!!!!
+	 * @param skillData which skill to use
+	 * @param unit which unit is using the skill
+	 * @param grid which grid
+	 * @param position where on the grid its being used
+	 */
+	function useSkill(skillData:SkillData, unit:Unit, grid:Grid, position:FlxPoint, ?onFinish:Void->Void):Void
+	{
+		var affectedSpaces:Array<GridSpace> = [Grid.getGridSpaceFromGrid(grid, position)];
+		eventManager.addEvent(function():Void
+		{
+			for (space in affectedSpaces)
+			{
+				if (space.unit != null)
+				{ // this has a unit on it !!!
+					if (skillData.eff_damage > 0)
+					{
+						space.unit.takeDamage(skillData.eff_damage);
+					}
+					if (skillData.eff_heal > 0)
+					{
+						space.unit.heal(skillData.eff_heal);
+					}
+				}
+			}
+		});
+		if (onFinish != null)
+		{
+			eventManager.addEvent(function():Void
+			{
+				onFinish();
+			});
+		}
+	}
+	
+	/**
 	 * Call this to add the grid selector UI
 	 */
 	function addGridSelector():Void
@@ -441,9 +478,9 @@ class PlayState extends FlxState
 				if (switch (type)
 					{
 						case "ally_sameRow": (currentTurnUnit.grid == grid
-								&& space.position.x == currentTurnUnit.position.y); // all allies in the same row as the current unit
+								&& space.position.y == currentTurnUnit.position.y); // all allies in the same row as the current unit
 						case "enemy_sameRow": (currentTurnUnit.grid != grid
-								&& space.position.x == currentTurnUnit.position.y); // all enemies in the same row as the current unit
+								&& space.position.y == currentTurnUnit.position.y); // all enemies in the same row as the current unit
 						case "ally_sameCollumn": (currentTurnUnit.grid == grid
 								&& space.position.x == currentTurnUnit.position.x); // all allies in the same collumn as the current unit
 						case "enemy_sameCollumn": (currentTurnUnit.grid != grid
@@ -466,6 +503,21 @@ class PlayState extends FlxState
 			gridSelectorOptions[Std.int(space.position.y)].push({
 				sprite: space.baseSprite,
 				cursorDirection: UP,
+				clickFunction: function(sprite):Void
+				{
+					if (uiStatus == GRID_SKILL)
+					{
+						uiStatus = INACTIVE;
+						removeGridSelector();
+
+						useSkill(currentTurnUnit.skills[menuManagerPlayerUI.curSelected - 1], currentTurnUnit, space.grid,
+							new FlxPoint(space.position.x, space.position.y), function():Void
+						{
+							endPlayerTurn();
+							advanceTurn();
+						});
+					}
+				},
 				cancelFunction: function(sprite):Void
 				{
 					removeGridSelector();
