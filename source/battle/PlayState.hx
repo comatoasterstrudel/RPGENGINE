@@ -328,6 +328,10 @@ class PlayState extends FlxState
 			},
 			hoverFunction: function(spr:FlxSprite):Void
 			{
+				for (grid in grids)
+				{
+					grid.updateFlashingSprites([]);
+				}
 				updateGridSelectorOptions();
 			}
 		});
@@ -349,6 +353,10 @@ class PlayState extends FlxState
 					},
 					hoverFunction: function(spr:FlxSprite):Void
 					{
+						for (grid in grids)
+						{
+							grid.updateFlashingSprites([]);
+						}
 						updateGridSelectorOptions(i.currentSkill.selectType);
 					}
 				});
@@ -364,6 +372,10 @@ class PlayState extends FlxState
 			},
 			hoverFunction: function(spr:FlxSprite):Void
 			{
+				for (grid in grids)
+				{
+					grid.updateFlashingSprites([]);
+				}
 				updateGridSelectorOptions();
 			}
 		});
@@ -438,7 +450,8 @@ class PlayState extends FlxState
 	 */
 	function useSkill(skillData:SkillData, unit:Unit, grid:Grid, position:FlxPoint, ?onFinish:Void->Void):Void
 	{
-		var affectedSpaces:Array<GridSpace> = [Grid.getGridSpaceFromGrid(grid, position)];
+		var affectedSpaces = getAffectedSpacesForSkill(skillData, unit, grid, position);
+		
 		eventManager.addEvent(function():Void
 		{
 			for (space in affectedSpaces)
@@ -465,6 +478,52 @@ class PlayState extends FlxState
 		}
 	}
 	
+	function getAffectedSpacesForSkill(skillData:SkillData, unit:Unit, grid:Grid, position:FlxPoint)
+	{
+		var affectedSpaces:Array<GridSpace> = [];
+		if (skillData.eff_rangeX >= 1 && skillData.eff_rangeY >= 1)
+		{
+			affectedSpaces.push(Grid.getGridSpaceFromGrid(grid, position));
+
+			for (i in 0...skillData.eff_rangeX)
+			{
+				var gridSpaceXNeg = Grid.getGridSpaceFromGrid(grid, new FlxPoint(affectedSpaces[0].position.x - i, affectedSpaces[0].position.y));
+
+				if (gridSpaceXNeg != null)
+				{
+					if (!affectedSpaces.contains(gridSpaceXNeg))
+						affectedSpaces.push(gridSpaceXNeg);
+				}
+
+				var gridSpaceXPos = Grid.getGridSpaceFromGrid(grid, new FlxPoint(affectedSpaces[0].position.x + i, affectedSpaces[0].position.y));
+				if (gridSpaceXPos != null)
+				{
+					if (!affectedSpaces.contains(gridSpaceXPos))
+						affectedSpaces.push(gridSpaceXPos);
+				}
+			}
+
+			for (i in 0...skillData.eff_rangeY)
+			{
+				var gridSpaceYNeg = Grid.getGridSpaceFromGrid(grid, new FlxPoint(affectedSpaces[0].position.x, affectedSpaces[0].position.y - i));
+
+				if (gridSpaceYNeg != null)
+				{
+					if (!affectedSpaces.contains(gridSpaceYNeg))
+						affectedSpaces.push(gridSpaceYNeg);
+				}
+
+				var gridSpaceYPos = Grid.getGridSpaceFromGrid(grid, new FlxPoint(affectedSpaces[0].position.x, affectedSpaces[0].position.y + i));
+				if (gridSpaceYPos != null)
+				{
+					if (!affectedSpaces.contains(gridSpaceYPos))
+						affectedSpaces.push(gridSpaceYPos);
+				}
+			}
+		}
+		return affectedSpaces;
+	}
+	
 	/**
 	 * Call this to add the grid selector UI
 	 */
@@ -483,7 +542,7 @@ class PlayState extends FlxState
 				}
 				else
 				{
-					space.baseSprite.alpha = .5;
+					space.baseSprite.alpha = .2;
 				}
 			}
 		}
@@ -494,6 +553,11 @@ class PlayState extends FlxState
 	 */
 	function removeGridSelector():Void
 	{
+		for (grid in grids)
+		{
+			grid.updateFlashingSprites([]);
+		}
+		
 		menuManagerGridSelector.disable();
 		if (uiStatus == GRID_INSPECT || uiStatus == GRID_SKILL)
 		{
@@ -531,6 +595,8 @@ class PlayState extends FlxState
 								&& space.position.x == currentTurnUnit.position.x); // all allies in the same collumn as the current unit
 						case "enemy_sameCollumn": (currentTurnUnit.grid != grid
 								&& space.position.x == currentTurnUnit.position.x); // all enemies in the same commumn as the current unit
+						case "ally_all": (currentTurnUnit.grid == grid); // all allies
+						case "enemy_all": (currentTurnUnit.grid != grid); // all enemies
 						default: (true); // by default, add all spaces
 					})
 					gridSelectorSpaces.push(space);
@@ -567,6 +633,14 @@ class PlayState extends FlxState
 				cancelFunction: function(sprite):Void
 				{
 					removeGridSelector();
+				},
+				hoverFunction: function(sprite):Void
+				{
+					if (uiStatus == GRID_SKILL)
+					{
+						space.grid.updateFlashingSprites(getAffectedSpacesForSkill(currentTurnUnit.skills[menuManagerPlayerUI.curSelected - 1],
+							currentTurnUnit, space.grid, new FlxPoint(space.position.x, space.position.y)));
+					}
 				}
 			});
 		}

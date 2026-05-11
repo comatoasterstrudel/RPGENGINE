@@ -21,6 +21,10 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
     
     var fillSprite:CtSprite;
     
+	var flashingSprite:CtSprite;
+
+	var flashSpriteTween:FlxTween;
+    
     public var unit:Unit;
     
     var lastOccupied:Bool = false;
@@ -52,7 +56,11 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
         fillSprite = new CtSprite().createColorBlock(fillSpriteSize, fillSpriteSize, FlxColor.WHITE);
         add(fillSprite);
         
+		flashingSprite = new CtSprite().createColorBlock(fillSpriteSize, fillSpriteSize, FlxColor.BLACK);
+		add(flashingSprite);
+        
         updateGridSprites(true);
+		toggleFlashSprite(false);
     }
     
     override function update(elapsed:Float){
@@ -75,7 +83,8 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
         
         CtUtil.centerSpriteOnSprite(outlineSprite, baseSprite, true, true);
         CtUtil.centerSpriteOnSprite(fillSprite, baseSprite, true, true);
-                
+		CtUtil.centerSpriteOnSprite(flashingSprite, baseSprite, true, true);
+
 		outlineSprite.alpha = baseSprite.alpha;
 		fillSprite.alpha = baseSprite.alpha;
         
@@ -89,4 +98,20 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
         lastOccupied = (unit != null);
 		lastAlpha = baseSprite.alpha;
     }
+	public function toggleFlashSprite(visibility:Bool):Void
+	{
+		if (flashSpriteTween != null)
+		{
+			flashSpriteTween.cancel();
+			flashSpriteTween.destroy();
+		}
+
+		flashingSprite.visible = visibility;
+
+		if (visibility)
+		{
+			flashingSprite.alpha = .1;
+			flashSpriteTween = FlxTween.tween(flashingSprite, {alpha: .25}, .3, {type: PINGPONG});
+		}
+	}
 }

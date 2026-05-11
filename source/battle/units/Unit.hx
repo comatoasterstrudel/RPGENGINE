@@ -114,34 +114,40 @@ class Unit extends CtSprite
 	}
 	public function takeDamage(amount:Int):Void
 	{
+		var transactionName = uniqueUnitID + "_" + "damageAnim";
+		
 		if (amount < 0)
 		{
 			heal(amount);
 			return;
 		}
 		
-		var transaction = PlayState.eventManager.startTransaction(uniqueUnitID + "_" + "damageAnim");
+		PlayState.eventManager.finishTransaction(transactionName);
+		var transaction = PlayState.eventManager.startTransaction(transactionName);
 		changeStat("hp", -amount);
 		FlxFlicker.flicker(this, .5, 0.03, this.visible, true, function(f):Void
 		{
-			PlayState.eventManager.finishTransaction(transaction.name);
+			PlayState.eventManager.finishTransaction(transactionName);
 		});
 		cast(FlxG.state, PlayState).damageTextSignal.dispatch(this, "- " + Std.string(amount), FlxColor.RED);
 	}
 
 	public function heal(amount:Int):Void
 	{
+		var transactionName = uniqueUnitID + "_" + "healAnim";
+
 		if (amount < 0)
 		{
 			takeDamage(amount);
 			return;
 		}
 		
-		var transaction = PlayState.eventManager.startTransaction(uniqueUnitID + "_" + "healAnim");
+		PlayState.eventManager.finishTransaction(transactionName);
+		var transaction = PlayState.eventManager.startTransaction(transactionName);
 		changeStat("hp", amount);
 		FlxFlicker.flicker(this, .2, 0.01, this.visible, function(f):Void // placeholder
 		{
-			PlayState.eventManager.finishTransaction(transaction.name);
+			PlayState.eventManager.finishTransaction(transactionName);
 		});
 		cast(FlxG.state, PlayState).damageTextSignal.dispatch(this, "+ " + Std.string(amount), FlxColor.LIME);
 	}

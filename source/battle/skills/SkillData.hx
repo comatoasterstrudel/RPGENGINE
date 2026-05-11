@@ -14,6 +14,8 @@ class SkillData extends CtJsonLoader
 	// skill effects hehe
 	public var eff_damage:Int;
 	public var eff_heal:Int;
+	public var eff_rangeX:Int;
+	public var eff_rangeY:Int;
     
     public function new(id:String){
         this.id = id;
@@ -29,5 +31,7 @@ class SkillData extends CtJsonLoader
 		// skill effects hehe
 		this.eff_damage = data.eff_damage ?? 0;
 		this.eff_heal = data.eff_heal ?? 0;
+		this.eff_rangeX = data.eff_rangeX ?? 1;
+		this.eff_rangeY = data.eff_rangeY ?? 1;
     }
 }

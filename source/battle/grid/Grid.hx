@@ -53,6 +53,22 @@ class Grid extends FlxTypedGroup<GridSpace>
         }
     }
     
+	public function updateFlashingSprites(spaces:Array<GridSpace>, ?overwrite:Bool = true):Void
+	{
+		for (space in this.spaces)
+		{
+			if (spaces.contains(space))
+			{
+				space.toggleFlashSprite(true);
+			}
+			else
+			{
+				if (overwrite)
+					space.toggleFlashSprite(false);
+			}
+		}
+	}
+    
     public static function getGridSpaceFromGrid(grid:Grid, position:FlxPoint):GridSpace
     {
         for(space in grid.spaces){

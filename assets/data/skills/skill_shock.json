@@ -1,0 +1,8 @@
+{
+    "name": "Shock",
+    "description": "",
+    "iconGraphic": "shock",
+    "selectType": "enemy_all",
+    "eff_damage": 7,
+    "eff_rangeX": 2
+}
