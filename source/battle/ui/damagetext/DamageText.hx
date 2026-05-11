@@ -1,5 +1,8 @@
 package battle.ui.damagetext;
 
+/**
+ * The text that appears when you damage a unit and such
+ */
 class DamageText extends CtText
 {
     public function new(unit:Unit, text:String, color:FlxColor):Void{
