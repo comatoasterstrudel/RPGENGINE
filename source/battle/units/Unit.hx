@@ -131,7 +131,7 @@ class Unit extends CtSprite
 		{
 			dead = true;
 		}
-		FlxFlicker.flicker(this, .5, 0.03, !dead, true, function(f):Void
+		FlxFlicker.flicker(this, .5, 0.03, true, true, function(f):Void
 		{
 			PlayState.eventManager.finishTransaction(transactionName);
 		});

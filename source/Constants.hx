@@ -48,4 +48,6 @@ class Constants
 		+ "\nand then press R to reload this menu!";
 	// Exit
 	public static final exitTime:Float = 3;
+	// Death Effect
+	public static final deathEffectTime:Float = 1;
 }

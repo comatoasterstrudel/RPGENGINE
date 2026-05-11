@@ -56,6 +56,9 @@ class PlayState extends FlxState
 	// EXIT
 	var exitProgress:Float = 0;
 	
+	// DEATH EFFECT
+	var deathEffects:Array<DeathEffect> = [];
+	
 	override public function create()
 	{
 		persistentUpdate = true;
@@ -86,6 +89,7 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		removeUnusedDamageTexts();
+		updateDeathEffects(elapsed);
 		
 		for (menu in menus)
 		{
@@ -266,10 +270,12 @@ class PlayState extends FlxState
 		miniHealthBars.add(miniHealthBar);
 	}
 
+	/**
+	 * Call this to remove a unit!!! this will delete its hp bar, its slot in the turn order and remove it from its grid
+	 * @param unit the unit to remove from tjhe game
+	 */
 	function removeUnit(unit:Unit):Void
 	{
-		units.remove(unit);
-
 		var removeBar:MiniHealthBar = null;
 
 		for (bar in miniHealthBars)
@@ -287,18 +293,23 @@ class PlayState extends FlxState
 			removeBar.destroy();
 		}
 
+		var changedTurn:Bool = false;
+		
 		for (i in 0...turnOrder.length)
 		{
-			if (turnOrder[i] == unit)
+			if (turnOrder[i] == unit && !changedTurn)
 			{
-				if (i >= turnNum)
+				if (i < turnNum)
 				{
-					turnNum++;
+					turnNum--;
 				}
+				changedTurn = true;
+				break;
 			}
 		}
 
 		turnOrder.remove(unit);
+		turnOrderDisplay.updateTurnOrderDisplay(turnOrder);
 
 		for (grid in grids)
 		{
@@ -312,6 +323,7 @@ class PlayState extends FlxState
 			}
 		}
 
+		units.remove(unit);
 		unit.destroy();
 		unit = null;
 	}
@@ -490,13 +502,36 @@ class PlayState extends FlxState
 
 					eventManager.startTransaction(transactionName);
 
-					new FlxTimer().start(1, function(f):Void
+					addDeathEffect(unit);
+
+					new FlxTimer().start(Constants.deathEffectTime, function(f):Void
 					{
 						removeUnit(unit);
 						eventManager.finishTransaction(transactionName);
 					});
 				});
 			}
+		}
+	}
+	
+	function addDeathEffect(spr:FlxSprite):Void
+	{
+		var shader = new DeathEffect(spr);
+
+		spr.shader = shader;
+
+		deathEffects.push(shader);
+		shader.finished.add(function():Void
+		{
+			deathEffects.remove(shader);
+		});
+	}
+
+	function updateDeathEffects(elapsed:Float):Void
+	{
+		for (i in deathEffects)
+		{
+			i.update(elapsed);
 		}
 	}
 	
