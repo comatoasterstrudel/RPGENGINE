@@ -1,6 +1,6 @@
 {
     "name": "Stab",
-    "description": "",
+    "description": "Damage an enemy Unit in the same Row",
     "iconGraphic": "stab",
     "selectType": "enemy_sameRow",
     "eff_damage": 20

@@ -333,6 +333,7 @@ class PlayState extends FlxState
 					grid.updateFlashingSprites([]);
 				}
 				updateGridSelectorOptions();
+				bottomBar.updateText("View the board");
 			}
 		});
 
@@ -358,6 +359,7 @@ class PlayState extends FlxState
 							grid.updateFlashingSprites([]);
 						}
 						updateGridSelectorOptions(i.currentSkill.selectType);
+						bottomBar.updateText(i.currentSkill.name + " - " + i.currentSkill.description);
 					}
 				});
 		}
@@ -377,6 +379,7 @@ class PlayState extends FlxState
 					grid.updateFlashingSprites([]);
 				}
 				updateGridSelectorOptions();
+				bottomBar.updateText("End your turn");
 			}
 		});
 
@@ -591,9 +594,9 @@ class PlayState extends FlxState
 								&& space.position.y == currentTurnUnit.position.y); // all allies in the same row as the current unit
 						case "enemy_sameRow": (currentTurnUnit.grid != grid
 								&& space.position.y == currentTurnUnit.position.y); // all enemies in the same row as the current unit
-						case "ally_sameCollumn": (currentTurnUnit.grid == grid
-								&& space.position.x == currentTurnUnit.position.x); // all allies in the same collumn as the current unit
-						case "enemy_sameCollumn": (currentTurnUnit.grid != grid
+						case "ally_sameColumn": (currentTurnUnit.grid == grid
+								&& space.position.x == currentTurnUnit.position.x); // all allies in the same column as the current unit
+						case "enemy_sameColumn": (currentTurnUnit.grid != grid
 								&& space.position.x == currentTurnUnit.position.x); // all enemies in the same commumn as the current unit
 						case "ally_all": (currentTurnUnit.grid == grid); // all allies
 						case "enemy_all": (currentTurnUnit.grid != grid); // all enemies

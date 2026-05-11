@@ -1,7 +1,7 @@
 {
     "name": "Love",
-    "description": "",
+    "description": "Heal an allied Unit in the same Column",
     "iconGraphic": "love",
-    "selectType": "ally_sameCollumn",
+    "selectType": "ally_sameColumn",
     "eff_heal": 20
 }

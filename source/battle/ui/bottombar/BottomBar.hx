@@ -12,6 +12,8 @@ class BottomBar extends FlxSpriteGroup
 
 	public var inspect:CtSprite;
 
+	public var descriptionText:CtText;
+	
 	var curUnit:Unit;
 
     public function new():Void{
@@ -47,6 +49,9 @@ class BottomBar extends FlxSpriteGroup
 		endTurn = new CtSprite(1050, 590).createFromImage(Constants.endTurnButtonGraphicPath);
 		endTurn.kill();
 		add(endTurn);
+		descriptionText = new CtText(0, 680, "skill - description", FlxAssets.FONT_DEFAULT, 20, false);
+		descriptionText.kill();
+		add(descriptionText);
 	}
     
     public function updateCurrentUnit(unit:Unit):Void{
@@ -67,11 +72,19 @@ class BottomBar extends FlxSpriteGroup
 	{
 		inspect.revive();
 		endTurn.revive();
+		descriptionText.revive();
 	}
 
 	public function removeMenu():Void
 	{
 		inspect.kill();
 		endTurn.kill();
+		descriptionText.kill();
+	}
+
+	public function updateText(text:String):Void
+	{
+		descriptionText.text = text;
+		descriptionText.screenCenter(X);
 	}
 }
