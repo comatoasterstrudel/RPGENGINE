@@ -1,6 +1,5 @@
 import battle.PlayState;
 import battle.battleData.BattleData;
-import battle.events.*;
 import battle.grid.Grid;
 import battle.grid.GridSpace;
 import battle.skills.SkillData;
@@ -13,6 +12,7 @@ import battle.ui.turnorder.TurnOrderDisplay;
 import battle.units.Unit;
 import ctUtil.CtUtil;
 import ctUtil.controls.*;
+import ctUtil.events.*;
 import ctUtil.extensions.*;
 import ctUtil.json.CtJsonLoader;
 import ctUtil.menu.CtMenuManager;

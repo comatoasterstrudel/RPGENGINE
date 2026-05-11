@@ -2,7 +2,7 @@ package battle;
 
 class PlayState extends FlxState
 {
-	public static var eventManager:EventManager;
+	public static var eventManager:CtEventManager;
 	
 	public static var battleName:String = "test";
 	public static var battleData:BattleData;
@@ -60,7 +60,7 @@ class PlayState extends FlxState
 	{
 		persistentUpdate = true;
 		
-		eventManager = new EventManager();
+		eventManager = new CtEventManager();
 		eventManager.reset();
 		
 		loadBattle();
