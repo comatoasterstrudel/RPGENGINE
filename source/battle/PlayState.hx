@@ -266,32 +266,86 @@ class PlayState extends FlxState
 		miniHealthBars.add(miniHealthBar);
 	}
 
+	function removeUnit(unit:Unit):Void
+	{
+		units.remove(unit);
+
+		var removeBar:MiniHealthBar = null;
+
+		for (bar in miniHealthBars)
+		{
+			if (bar.unit.uniqueUnitID == unit.uniqueUnitID)
+			{
+				removeBar = bar;
+				break;
+			}
+		}
+
+		if (removeBar != null)
+		{
+			miniHealthBars.remove(removeBar);
+			removeBar.destroy();
+		}
+
+		for (i in 0...turnOrder.length)
+		{
+			if (turnOrder[i] == unit)
+			{
+				if (i >= turnNum)
+				{
+					turnNum++;
+				}
+			}
+		}
+
+		turnOrder.remove(unit);
+
+		for (grid in grids)
+		{
+			for (space in grid.spaces)
+			{
+				if (space.unit != null && space.unit.uniqueUnitID == unit.uniqueUnitID)
+				{
+					space.unit = null;
+					break;
+				}
+			}
+		}
+
+		unit.destroy();
+		unit = null;
+	}
+	
 	/**
 	 * Call this to advance the battle turn
 	 * @param amount How many turns to advance by. Defaults to 1
 	 */
 	function advanceTurn(amount:Int = 1):Void
 	{
-		turnNum += amount;
-
-		if (turnNum >= turnOrder.length)
+		doDeathCheck();
+		eventManager.addEvent(function():Void
 		{
-			advanceRound();
-			return;
-		}
+			turnNum += amount;
 
-		currentTurnUnit = turnOrder[turnNum];
+			if (turnNum >= turnOrder.length)
+			{
+				advanceRound();
+				return;
+			}
 
-		turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
-		bottomBar.updateCurrentUnit(currentTurnUnit);
-		if (currentTurnUnit.controllable)
-		{
-			startAllyTurn();
-		}
-		else
-		{
-			startEnemyTurn();
-		}
+			currentTurnUnit = turnOrder[turnNum];
+
+			turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
+			bottomBar.updateCurrentUnit(currentTurnUnit);
+			if (currentTurnUnit.controllable)
+			{
+				startAllyTurn();
+			}
+			else
+			{
+				startEnemyTurn();
+			}
+		});
 	}
 
 	/**
@@ -419,6 +473,31 @@ class PlayState extends FlxState
 	function endEnemyTurn():Void
 	{
 		//
+	}
+	
+	/**
+	 * Call this to chekc for and remove dead units
+	 */
+	function doDeathCheck():Void
+	{
+		for (unit in units)
+		{
+			if (unit.dead)
+			{
+				eventManager.addEvent(function():Void
+				{
+					var transactionName = unit.uniqueUnitID + "_" + "deathAnim";
+
+					eventManager.startTransaction(transactionName);
+
+					new FlxTimer().start(1, function(f):Void
+					{
+						removeUnit(unit);
+						eventManager.finishTransaction(transactionName);
+					});
+				});
+			}
+		}
 	}
 	
 	/**

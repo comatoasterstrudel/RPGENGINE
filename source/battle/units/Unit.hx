@@ -30,6 +30,8 @@ class Unit extends CtSprite
 	
 	public static var uniqueUnitIDnum:Int = 0;
 
+	public var dead:Bool = false;
+	
 	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool):Void
 	{
         super();
@@ -125,7 +127,11 @@ class Unit extends CtSprite
 		PlayState.eventManager.finishTransaction(transactionName);
 		var transaction = PlayState.eventManager.startTransaction(transactionName);
 		changeStat("hp", -amount);
-		FlxFlicker.flicker(this, .5, 0.03, this.visible, true, function(f):Void
+		if (hp.value == 0)
+		{
+			dead = true;
+		}
+		FlxFlicker.flicker(this, .5, 0.03, !dead, true, function(f):Void
 		{
 			PlayState.eventManager.finishTransaction(transactionName);
 		});
@@ -134,6 +140,9 @@ class Unit extends CtSprite
 
 	public function heal(amount:Int):Void
 	{
+		if (dead)
+			return;
+		
 		var transactionName = uniqueUnitID + "_" + "healAnim";
 
 		if (amount < 0)
