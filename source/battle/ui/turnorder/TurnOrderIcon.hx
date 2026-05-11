@@ -8,6 +8,8 @@ class TurnOrderIcon extends FlxTypedGroup<CtSprite>
     
 	var curUnit:Unit;
     
+	var ogColor:FlxColor = FlxColor.WHITE;
+	 
     public function new():Void{
         super();
         
@@ -28,7 +30,7 @@ class TurnOrderIcon extends FlxTypedGroup<CtSprite>
         super.update(elapsed);
 
 		CtUtil.centerSpriteOnSprite(unitGraphic, bg, true, true);
-		bg.color = FlxColor.GRAY.getLightened(((bg.y + 15) / 15));
+		bg.color = ogColor.getLightened(.8 - (FlxMath.bound(((bg.y + 15) / 15), 0, 1) / 2));
     }
     
 	public function updateTurnOrderIcon(unit:Unit):Void
@@ -36,6 +38,7 @@ class TurnOrderIcon extends FlxTypedGroup<CtSprite>
 		this.curUnit = unit;
 		bg.createFromImage(curUnit.controllable ? Constants.turnOrderIconAllyPath : Constants.turnOrderIconEnemyPath);
 		unitGraphic.loadGraphicFromSprite(curUnit);
+		ogColor = curUnit.controllable ? FlxColor.LIME : FlxColor.RED;
 	}
 
 	public function updateCurrentTurn(unit:Unit):Void

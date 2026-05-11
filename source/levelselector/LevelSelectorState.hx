@@ -14,7 +14,7 @@ class LevelSelectorState extends FlxState
 	/**
 	 * The list of text objects for this menu
 	 */
-    var textOptions:Array<FlxText> = [];
+	var textOptions:Array<CtText> = [];
     
 	/**
 	 * The menu manager for this menu
@@ -74,7 +74,7 @@ class LevelSelectorState extends FlxState
         
 		if (listOfBattleFiles.length == 0)
 		{
-			var text = new FlxText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos, Constants.levelSelectNoLevelMessage);
+			var text = new CtText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos, Constants.levelSelectNoLevelMessage);
 			text.color = FlxColor.GRAY;
 			text.size = Constants.levelSelectTextSize;
 			add(text);
@@ -88,7 +88,7 @@ class LevelSelectorState extends FlxState
 			{
 				var battle = listOfBattleFiles[i];
 
-				var text = new FlxText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos + (Constants.levelSelectTextYSpacing * i), battle.id);
+				var text = new CtText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos + (Constants.levelSelectTextYSpacing * i), battle.id);
 				text.color = FlxColor.BLACK;
 				text.size = Constants.levelSelectTextSize;
 				add(text);

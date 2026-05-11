@@ -7,6 +7,10 @@ class PlayState extends FlxState
 	public static var battleName:String = "test";
 	public static var battleData:BattleData;
 
+	// CAMERAS
+	var camGame:FlxCamera;
+	var camUI:FlxCamera;
+	
 	// BG STUFF
 	var bgLine:CtSprite;
 
@@ -27,6 +31,10 @@ class PlayState extends FlxState
 	var turnOrderDisplay:TurnOrderDisplay;
 	
 	var bottomBar:BottomBar;
+	
+	var damageTexts:FlxTypedGroup<DamageText>;
+
+	public var damageTextSignal = new FlxTypedSignal<Unit->String->FlxColor->Void>();
 	
 	// MENU MANAGERS
 	var menuManagerPlayerUI:CtMenuManager;
@@ -57,6 +65,7 @@ class PlayState extends FlxState
 		
 		loadBattle();
 
+		setupCameras();
 		setUpBg();
 		setUpGrids();
 		setUpUI();
@@ -76,6 +85,8 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		removeUnusedDamageTexts();
+		
 		for (menu in menus)
 		{
 			menu.update();
@@ -109,6 +120,20 @@ class PlayState extends FlxState
 	}
 
 	/**
+	 * call this to add the flxcameras that the game uses hehehe
+	 */
+	function setupCameras():Void
+	{
+		camGame = new FlxCamera();
+		camGame.bgColor.alpha = 0;
+		FlxG.cameras.add(camGame, true);
+
+		camUI = new FlxCamera();
+		camUI.bgColor.alpha = 0;
+		FlxG.cameras.add(camUI, false);
+	}
+	
+	/**
 	 * Call this to add the background sprites
 	 */
 	function setUpBg():Void
@@ -118,6 +143,7 @@ class PlayState extends FlxState
 		bgLine = new CtSprite().createColorBlock(FlxG.width, Std.int(sizing.y + Constants.gridSize), FlxColor.WHITE);
 		bgLine.alpha = .6;
 		bgLine.y = (FlxG.height / 2 - bgLine.height / 2) + Constants.uiYOffset;
+		bgLine.camera = camGame;
 		add(bgLine);
 	}
 
@@ -132,9 +158,11 @@ class PlayState extends FlxState
 		var spacing:Float = sizing.x + 15;
 
 		allyGrid = new Grid(gridSize, new FlxPoint(midPointX - (spacing), midPointY));
+		allyGrid.camera = camGame;
 		add(allyGrid);
 
 		enemyGrid = new Grid(gridSize, new FlxPoint(midPointX + (spacing), midPointY));
+		enemyGrid.camera = camGame;
 		add(enemyGrid);
 		grids = [allyGrid, enemyGrid];
 		updateGridSelectorOptions();
@@ -146,11 +174,21 @@ class PlayState extends FlxState
 	function setUpUI():Void
 	{
 		miniHealthBars = new FlxTypedGroup<MiniHealthBar>();
+		miniHealthBars.camera = camUI;
 		add(miniHealthBars);
 		turnOrderDisplay = new TurnOrderDisplay(gridSize);
+		turnOrderDisplay.camera = camUI;
 		add(turnOrderDisplay);
 		bottomBar = new BottomBar();
+		bottomBar.camera = camUI;
 		add(bottomBar);
+		damageTexts = new FlxTypedGroup<DamageText>();
+		damageTexts.camera = camUI;
+		add(damageTexts);
+		damageTextSignal.add(function(unit:Unit, text:String, color:FlxColor)
+		{
+			damageTexts.add(new DamageText(unit, text, color));
+		});
 	}
 
 	/**
@@ -162,16 +200,23 @@ class PlayState extends FlxState
 		menuManagerPlayerUI = new CtMenuManager(CtControls.getInputFunction("right", JUSTPRESSED), CtControls.getInputFunction("left", JUSTPRESSED),
 			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED),
 			CtControls.getInputFunction("down", JUSTPRESSED), CtControls.getInputFunction("up", JUSTPRESSED));
-		add(menuManagerPlayerUI.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, false));
+		add(menuManagerPlayerUI.addCursor(menuMakeCursor(), 20, false));
 		// init menuManagerGridSelector
 		menuManagerGridSelector = new CtMenuManager(CtControls.getInputFunction("right", JUSTPRESSED), CtControls.getInputFunction("left", JUSTPRESSED),
 			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED),
 			CtControls.getInputFunction("down", JUSTPRESSED), CtControls.getInputFunction("up", JUSTPRESSED));
-		add(menuManagerGridSelector.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, false));
+		add(menuManagerGridSelector.addCursor(menuMakeCursor(), 20, false));
 
 		menus = [menuManagerPlayerUI, menuManagerGridSelector];
 	}
 
+	function menuMakeCursor():Cursor
+	{
+		var cursor = new Cursor(Constants.cursorArrowGraphic);
+		cursor.camera = camUI;
+		return cursor;
+	}
+	
 	/**
 	 * Call this to add the units listed in this battles JSON file to the field
 	 */
@@ -209,6 +254,7 @@ class PlayState extends FlxState
 		}
 		
 		var unit = new Unit(unitID, grid, position, controllable);
+		unit.camera = camGame;
 		add(unit);
 
 		unit.doEntranceAnimation();
@@ -535,6 +581,28 @@ class PlayState extends FlxState
 		}
 	}
 
+	/**
+	 * Call this to clear up damage texts that are off screen
+	 */
+	function removeUnusedDamageTexts():Void
+	{
+		var removeThese:Array<DamageText> = [];
+
+		for (text in damageTexts.members)
+		{
+			if (text.y > FlxG.height)
+			{
+				removeThese.push(text);
+			}
+		}
+
+		for (text in removeThese)
+		{
+			damageTexts.remove(text, true);
+			text.destroy();
+		}
+	}
+	
 	#if debug
 	function addDebugFunctions():Void
 	{
