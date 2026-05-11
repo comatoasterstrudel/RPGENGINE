@@ -2,7 +2,7 @@
     "name": "Party Hat",
     "gridGraphic": "partyhat",
     "uiGraphic": "partyhat",
-    "maxHp": 70,
+    "maxHp": 40,
     "speed": 8,
     "skills": ["love"]
 }

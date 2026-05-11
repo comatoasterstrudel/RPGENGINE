@@ -2,7 +2,7 @@
     "name": "Chair",
     "gridGraphic": "chair",
     "uiGraphic": "chair",
-    "maxHp": 100,
+    "maxHp": 70,
     "speed": 5,
     "skills": ["stab", "shock", "whip"]
 }
