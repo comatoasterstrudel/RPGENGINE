@@ -11,12 +11,11 @@ class SkillData extends CtJsonLoader
     
 	public var selectType:String;
     
-	// skill effects hehe
-	public var eff_damage:Int;
-	public var eff_heal:Int;
-	public var eff_rangeX:Int;
-	public var eff_rangeY:Int;
-    
+	public var rangeX:Int;
+	public var rangeY:Int;
+
+	public var effects:SkillEffects;
+	
     public function new(id:String){
         this.id = id;
                 
@@ -28,10 +27,19 @@ class SkillData extends CtJsonLoader
         this.iconGraphic = data.iconGraphic;
 
 		this.selectType = data.selectType ?? "";
-		// skill effects hehe
-		this.eff_damage = data.eff_damage ?? 0;
-		this.eff_heal = data.eff_heal ?? 0;
-		this.eff_rangeX = data.eff_rangeX ?? 1;
-		this.eff_rangeY = data.eff_rangeY ?? 1;
-    }
+		this.rangeX = data.rangeX ?? 1;
+		this.rangeY = data.rangeY ?? 1;
+
+		effects = mapSkillEffects(data);
+	}
+
+	public static function mapSkillEffects(data:Dynamic):SkillEffects
+	{
+		var effects:SkillEffects = {
+			eff_damage: data.effects.eff_damage ?? 0,
+			eff_heal: data.effects.eff_heal ?? 0,
+		};
+
+		return effects;
+	}
 }

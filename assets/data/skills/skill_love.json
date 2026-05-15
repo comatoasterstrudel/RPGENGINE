@@ -3,5 +3,7 @@
     "description": "Heal an allied Unit in the same Column",
     "iconGraphic": "love",
     "selectType": "ally_sameColumn",
-    "eff_heal": 20
+    "effects": {
+        "eff_heal": 20 
+    }
 }

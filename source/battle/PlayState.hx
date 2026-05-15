@@ -610,14 +610,7 @@ class PlayState extends FlxState
 			{
 				if (space.unit != null)
 				{ // this has a unit on it !!!
-					if (skillData.eff_damage > 0)
-					{
-						space.unit.takeDamage(skillData.eff_damage);
-					}
-					if (skillData.eff_heal > 0)
-					{
-						space.unit.heal(skillData.eff_heal);
-					}
+					applySkillEffects(space.unit, unit, skillData.effects);
 				}
 			}
 		});
@@ -630,14 +623,26 @@ class PlayState extends FlxState
 		}
 	}
 	
+	function applySkillEffects(unit:Unit, applyingUnit:Unit, effects:SkillEffects):Void
+	{
+		if (effects.eff_damage > 0)
+		{
+			unit.takeDamage(effects.eff_damage);
+		}
+		if (effects.eff_heal > 0)
+		{
+			unit.heal(effects.eff_heal);
+		}
+	}
+	
 	function getAffectedSpacesForSkill(skillData:SkillData, unit:Unit, grid:Grid, position:FlxPoint)
 	{
 		var affectedSpaces:Array<GridSpace> = [];
-		if (skillData.eff_rangeX >= 1 && skillData.eff_rangeY >= 1)
+		if (skillData.rangeX >= 1 && skillData.rangeY >= 1)
 		{
 			affectedSpaces.push(Grid.getGridSpaceFromGrid(grid, position));
 
-			for (i in 0...skillData.eff_rangeX)
+			for (i in 0...skillData.rangeX)
 			{
 				var gridSpaceXNeg = Grid.getGridSpaceFromGrid(grid, new FlxPoint(affectedSpaces[0].position.x - i, affectedSpaces[0].position.y));
 
@@ -655,7 +660,7 @@ class PlayState extends FlxState
 				}
 			}
 
-			for (i in 0...skillData.eff_rangeY)
+			for (i in 0...skillData.rangeY)
 			{
 				var gridSpaceYNeg = Grid.getGridSpaceFromGrid(grid, new FlxPoint(affectedSpaces[0].position.x, affectedSpaces[0].position.y - i));
 

@@ -5,6 +5,7 @@ import battle.grid.Grid;
 import battle.grid.GridSpace;
 import battle.result.ResultState;
 import battle.skills.SkillData;
+import battle.skills.SkillEffects;
 import battle.stats.Stat;
 import battle.ui.UIStatus;
 import battle.ui.bottombar.BottomBar;

@@ -3,6 +3,8 @@
     "description": "Damage enemy Units in a 3 tile tall area",
     "iconGraphic": "whip",
     "selectType": "enemy_all",
-    "eff_damage": 7,
-    "eff_rangeY": 2
+    "rangeY": 2,
+    "effects": {
+        "eff_damage": 7 
+    }
 }
