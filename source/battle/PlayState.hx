@@ -336,31 +336,34 @@ class PlayState extends FlxState
 	 */
 	function advanceTurn(amount:Int = 1):Void
 	{
-		doDeathCheck();
-		isGameOver();
-		
-		eventManager.addEvent(function():Void
-		{
-			turnNum += amount;
+		eventManager.addEvent(function()
+		{			
+			doDeathCheck();
+			isGameOver();
 
-			if (turnNum >= turnOrder.length)
+			eventManager.addEvent(function():Void
 			{
-				advanceRound();
-				return;
-			}
+				turnNum += amount;
 
-			currentTurnUnit = turnOrder[turnNum];
+				if (turnNum >= turnOrder.length)
+				{
+					advanceRound();
+					return;
+				}
 
-			turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
-			bottomBar.updateCurrentUnit(currentTurnUnit);
-			if (currentTurnUnit.controllable)
-			{
-				startAllyTurn();
-			}
-			else
-			{
-				startEnemyTurn();
-			}
+				currentTurnUnit = turnOrder[turnNum];
+
+				turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
+				bottomBar.updateCurrentUnit(currentTurnUnit);
+				if (currentTurnUnit.controllable)
+				{
+					startAllyTurn();
+				}
+				else
+				{
+					startEnemyTurn();
+				}
+			});
 		});
 	}
 
@@ -467,6 +470,7 @@ class PlayState extends FlxState
 	{
 		menuManagerPlayerUI.disable();
 		uiStatus = INACTIVE;
+		applySingleUnitStatusEffects(currentTurnUnit, "endOfTurn");
 	}
 
 	/**
@@ -488,7 +492,7 @@ class PlayState extends FlxState
 	 */
 	function endEnemyTurn():Void
 	{
-		//
+		applySingleUnitStatusEffects(currentTurnUnit, "endOfTurn");
 	}
 	
 	/**
@@ -633,7 +637,15 @@ class PlayState extends FlxState
 		{
 			unit.heal(effects.eff_heal);
 		}
+		if (effects.eff_statuses.length > 0)
+		{
+			for (effect in effects.eff_statuses)
+			{
+				unit.applyStatusEffect(effect.id, effect.turns);
+			}
+		}
 	}
+	
 	
 	function getAffectedSpacesForSkill(skillData:SkillData, unit:Unit, grid:Grid, position:FlxPoint)
 	{
@@ -679,6 +691,36 @@ class PlayState extends FlxState
 			}
 		}
 		return affectedSpaces;
+	}
+	
+	function applySingleUnitStatusEffects(unit:Unit, triggerType:String):Void
+	{
+		for (status in unit.statuses)
+		{
+			if (status.data.triggerType == triggerType)
+			{
+				eventManager.addEvent(function():Void
+				{
+					unit.doStatusEffectAnim(status.id);
+					eventManager.addEvent(function():Void
+					{
+						applySkillEffects(unit, unit, status.data.effects);
+					});
+					eventManager.addEvent(function():Void
+					{
+						status.changeTurns(-1);
+					});
+				});
+			}
+		}
+	}
+
+	function applyGlobalStatusEffects(triggerType:String):Void
+	{
+		for (unit in units)
+		{
+			applySingleUnitStatusEffects(unit, triggerType);
+		}
 	}
 	
 	/**

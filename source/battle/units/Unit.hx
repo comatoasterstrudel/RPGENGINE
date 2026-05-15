@@ -32,6 +32,8 @@ class Unit extends CtSprite
 
 	public var dead:Bool = false;
 	
+	public var statuses:Array<StatusEffect> = [];
+	
 	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool):Void
 	{
         super();
@@ -159,5 +161,63 @@ class Unit extends CtSprite
 			PlayState.eventManager.finishTransaction(transactionName);
 		});
 		cast(FlxG.state, PlayState).damageTextSignal.dispatch(this, "+ " + Std.string(amount), FlxColor.LIME);
+	}
+	public function applyStatusEffect(id:String, turns:Int):Void
+	{
+		var statusData = new StatusEffect(id, turns);
+
+		var previousData = getStatusByName(id);
+		if (previousData != null)
+		{
+			if (previousData.turns < turns)
+			{
+				previousData.turns = turns;
+			}
+		}
+		else
+		{
+			statuses.push(statusData);
+		}
+
+		doStatusEffectAnim(statusData.id);
+
+		statusData.finished.add(function():Void
+		{
+			statuses.remove(statusData);
+		});
+	}
+
+	public function getStatusByName(id:String):StatusEffect
+	{
+		for (i in statuses)
+		{
+			if (i.id == id)
+			{
+				return i;
+			}
+		}
+		return null;
+	}
+
+	public function doStatusEffectAnim(id:String):Void
+	{
+		var status = getStatusByName(id);
+
+		if (status != null)
+		{
+			var transactionName = uniqueUnitID + "_" + "statusAnim_" + status.id;
+
+			var transaction = PlayState.eventManager.startTransaction(transactionName);
+
+			cast(FlxG.state, PlayState).damageTextSignal.dispatch(this, status.data.text, status.data.color);
+
+			var statusEffectAnim = new StatusEffectAnim(this, status);
+			this.shader = statusEffectAnim;
+			statusEffectAnim.finished.add(function():Void
+			{
+				PlayState.eventManager.finishTransaction(transactionName);
+				this.shader = null;
+			});
+		}
 	}
 }

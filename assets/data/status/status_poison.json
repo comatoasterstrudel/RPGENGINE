@@ -1,0 +1,9 @@
+{
+    "name": "Poison",
+    "text": "POISONED !!!",
+    "color": [255, 0, 255], 
+    "triggerType": "endOfTurn",
+    "effects": {
+        "eff_damage": 10
+    }
+}

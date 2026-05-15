@@ -13,6 +13,9 @@ class Constants
 	// Skills
 	public static final skillDataPath:String = "assets/data/skills/skill_";
 	public static final unitMaxSkills:Int = 5;
+	// Status Effects
+	public static final statusEffectDataPath:String = "assets/data/status/status_";
+	public static final statusEffectAnimTime:Float = 1;
 	// UI
 	public static final uiYOffset:Float = -60;
 	// MiniHealthBar

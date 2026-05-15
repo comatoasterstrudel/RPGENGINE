@@ -1,0 +1,14 @@
+{
+    "name": "Toxins",
+    "description": "Poison an enemy Unit for 3 turns",
+    "iconGraphic": "toxins",
+    "selectType": "enemy_all",
+    "effects": {
+        "eff_statuses": [
+            {
+                "id": "poison",
+                "turns": 3
+            }
+        ]
+    }
+}

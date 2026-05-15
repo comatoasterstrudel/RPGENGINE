@@ -35,9 +35,12 @@ class SkillData extends CtJsonLoader
 
 	public static function mapSkillEffects(data:Dynamic):SkillEffects
 	{
+		var thing:Array<StatusParams> = [];
+		
 		var effects:SkillEffects = {
 			eff_damage: data.effects.eff_damage ?? 0,
 			eff_heal: data.effects.eff_heal ?? 0,
+			eff_statuses: StatusEffect.mapStatusParams(data.effects.eff_statuses) ?? thing,
 		};
 
 		return effects;
