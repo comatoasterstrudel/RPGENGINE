@@ -50,4 +50,19 @@ class Constants
 	public static final exitTime:Float = 3;
 	// Death Effect
 	public static final deathEffectTime:Float = 1;
+	// Result State
+	public static final resultTextWin:String = "WIN";
+	public static final resultTextLose:String = "LOSS";
+	public static final resultTextTie:String = "TIE";
+	public static final resultTextPlaceholder:String = "???";
+	public static final resultBgOpacity:Float = .9;
+	public static final resultBigTextSize:Int = 50;
+	public static final resultBigTextY:Int = 50;
+	public static final resultTextSize:Int = 30;
+	public static final resultTextX:Int = 300;
+	public static final resultTextY:Int = 300;
+	public static final resultTextSpacing:Int = 100;
+	public static final resultAnimTiming:Float = .65;
+	public static final resultAnimShakeTime:Float = 0.08;
+	public static final resultAnimShakeIntensity:Float = 0.08;
 }

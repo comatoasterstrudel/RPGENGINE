@@ -28,11 +28,11 @@ class ResultState extends FlxSubState
 		FlxG.cameras.add(camMenu, false);
         
         bg = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.BLACK);
-        bg.alpha = .9;
+		bg.alpha = Constants.resultBgOpacity;
         bg.camera = camMenu;
         add(bg);
         
-        bigText = new CtText(0,50,getBigText(),FlxAssets.FONT_DEFAULT, 50);
+		bigText = new CtText(0, Constants.resultBigTextY, getBigText(), FlxAssets.FONT_DEFAULT, Constants.resultBigTextSize);
         bigText.screenCenter(X);
         bigText.camera = camMenu;
         add(bigText);
@@ -56,10 +56,10 @@ class ResultState extends FlxSubState
     
     function getBigText():String{
         return switch(type){
-            case WIN: "WIN";
-            case LOSS: "LOSE";
-            case TIE: "TIE";
-            default: "???";
+			case WIN: Constants.resultTextWin;
+			case LOSS: Constants.resultTextLose;
+			case TIE: Constants.resultTextTie;
+			default: Constants.resultTextPlaceholder;
         };
     }
         
@@ -76,8 +76,8 @@ class ResultState extends FlxSubState
         var options:Array<CtMenuOption> = [];
         
         for(i in 0...optionList.length){
-            var text = new CtText(300, 300 + 100 * i, optionList[i], FlxAssets.FONT_DEFAULT, 30, false);
-            text.color = FlxColor.WHITE;
+			var text = new CtText(Constants.resultTextX, Constants.resultTextY + Constants.resultTextSpacing * i, optionList[i], FlxAssets.FONT_DEFAULT,
+				Constants.resultTextSize, false);
             texts.add(text);
                         
             options.push({sprite: text, cursorDirection: LEFT, clickFunction: function(spr):Void{
@@ -108,7 +108,10 @@ class ResultState extends FlxSubState
         animManager.addEvent(function():Void{
             animManager.startTransaction("bgZoom");
             
-            FlxTween.tween(bg.scale, {x: 1, y: 1}, 1, {ease: FlxEase.quartOut, onUpdate: function(s):Void{
+			FlxTween.tween(bg.scale, {x: 1, y: 1}, Constants.resultAnimTiming, {
+				ease: FlxEase.quartOut,
+				onUpdate: function(s):Void
+				{
                 bg.updateHitbox();
                 bg.screenCenter();               
             }, onComplete: function(f):Void{
@@ -120,9 +123,10 @@ class ResultState extends FlxSubState
             animManager.startTransaction("bigText");
             bigText.visible = true;
             
-            FlxTween.shake(bigText, 0.1, .05, X);
+			FlxTween.shake(bigText, Constants.resultAnimShakeIntensity * 2, Constants.resultAnimShakeTime, X);
             
-            new FlxTimer().start(1, function(f):Void{
+			new FlxTimer().start(Constants.resultAnimTiming, function(f):Void
+			{
                 animManager.finishTransaction("bigText");
             });
         });    
@@ -132,9 +136,10 @@ class ResultState extends FlxSubState
                 animManager.startTransaction("txt_" + i.text + i.ID);
                 i.visible = true;
                 
-                FlxTween.shake(i, 0.05, .05, X);
+				FlxTween.shake(i, Constants.resultAnimShakeIntensity, Constants.resultAnimShakeTime, X);
                 
-                new FlxTimer().start(1, function(f):Void{
+				new FlxTimer().start(Constants.resultAnimTiming, function(f):Void
+				{
                     animManager.finishTransaction("txt_" + i.text + i.ID);
                 });
             });    
