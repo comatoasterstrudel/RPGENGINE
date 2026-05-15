@@ -631,17 +631,26 @@ class PlayState extends FlxState
 	{
 		if (effects.eff_damage > 0)
 		{
-			unit.takeDamage(effects.eff_damage);
+			eventManager.addEvent(function():Void
+			{
+				unit.takeDamage(effects.eff_damage);				
+			});
 		}
 		if (effects.eff_heal > 0)
 		{
-			unit.heal(effects.eff_heal);
+			eventManager.addEvent(function():Void
+			{
+				unit.heal(effects.eff_heal);
+			});
 		}
 		if (effects.eff_statuses.length > 0)
 		{
 			for (effect in effects.eff_statuses)
 			{
-				unit.applyStatusEffect(effect.id, effect.turns);
+				eventManager.addEvent(function():Void
+				{
+					unit.applyStatusEffect(effect.id, effect.turns);
+				});
 			}
 		}
 	}
