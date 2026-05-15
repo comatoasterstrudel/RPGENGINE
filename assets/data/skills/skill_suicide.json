@@ -1,0 +1,9 @@
+{
+    "name": "Suicide",
+    "description": "Kill yourself NOW.",
+    "iconGraphic": "suicide",
+    "selectType": "ally_all",
+    "eff_damage": 999,
+    "eff_rangeX": 99,
+    "eff_rangeY": 99
+}

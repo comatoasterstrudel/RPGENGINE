@@ -4,5 +4,5 @@
     "uiGraphic": "chair",
     "maxHp": 60,
     "speed": 5,
-    "skills": ["stab", "shock", "whip"]
+    "skills": ["stab", "shock", "whip", "suicide"]
 }

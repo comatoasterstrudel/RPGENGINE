@@ -1,5 +1,7 @@
 package battle;
 
+import battle.result.ResultType;
+
 class PlayState extends FlxState
 {
 	public static var eventManager:CtEventManager;
@@ -335,6 +337,8 @@ class PlayState extends FlxState
 	function advanceTurn(amount:Int = 1):Void
 	{
 		doDeathCheck();
+		isGameOver();
+		
 		eventManager.addEvent(function():Void
 		{
 			turnNum += amount;
@@ -512,6 +516,37 @@ class PlayState extends FlxState
 				});
 			}
 		}
+	}
+	function isGameOver():Void
+	{
+		eventManager.addEvent(function():Void
+		{
+			var alliedUnits:Int = 0;
+			var enemyUnits:Int = 0;
+
+			for (unit in units)
+			{
+				if (unit.controllable)
+					alliedUnits++;
+				else
+					enemyUnits++;
+			}
+			if (alliedUnits == 0 || enemyUnits == 0)
+			{ // game is over
+				eventManager.startTransaction("GAMEOVER"); // never finish this
+
+				var type:ResultType = TIE;
+
+				if (alliedUnits > enemyUnits)
+					type = WIN;
+				if (enemyUnits > alliedUnits)
+					type = LOSS;
+				if (alliedUnits == enemyUnits)
+					type = TIE;
+
+				openSubState(new ResultState(type));
+			}
+		});
 	}
 	
 	function addDeathEffect(spr:FlxSprite):Void
