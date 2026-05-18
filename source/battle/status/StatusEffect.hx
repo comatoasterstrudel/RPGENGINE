@@ -8,20 +8,27 @@ class StatusEffect
     
     public var turns:Int = 0;
     
-    public var finished:FlxSignal;
-    
+	public var maxTurns:Int = 0;
+
+	public var finished = new FlxSignal();
+	public var changed = new FlxTypedSignal<StatusEffect->Void>();
+
     public function new(id:String, turns:Int):Void{
         this.id = id;
         
         this.data = new StatusEffectData(id);
         
         this.turns = turns;
-        
-        finished = new FlxSignal();
+		this.maxTurns = turns;        
     }
     
     public function changeTurns(amount:Int):Void{
         turns = Std.int(FlxMath.bound(turns + amount, 0));
+        
+		if (turns > maxTurns)
+			maxTurns = turns;
+
+		changed.dispatch(this);
         
         if(turns == 0){
             finished.dispatch();

@@ -4,9 +4,13 @@ class StatusEffectIcon extends FlxSpriteGroup
 {
     var unit:Unit;
     
+	var status:StatusEffect;
+
     public var baseSprite:CtSprite;
     
     public var whiteSprite:CtSprite;
+    
+	public var fillSprite:CtSprite;
     
     public var iconSprite:CtSprite;
 
@@ -20,6 +24,10 @@ class StatusEffectIcon extends FlxSpriteGroup
         
         whiteSprite = new CtSprite().createColorBlock(15, 15, FlxColor.WHITE);
         add(whiteSprite);
+        
+		fillSprite = new CtSprite().createColorBlock(15, 15, FlxColor.BLACK);
+		fillSprite.alpha = .4;
+		add(fillSprite);
         
         iconSprite = new CtSprite(0,0, false);
         add(iconSprite);
@@ -38,6 +46,15 @@ class StatusEffectIcon extends FlxSpriteGroup
 	}
     
     public function updateStatus(status:StatusEffect):Void{
+		if (this.status != null)
+			this.status.changed.remove(updateFillSprite);
+
+		this.status = status;
+
+		this.status.changed.add(updateFillSprite);
+
+		updateFillSprite(this.status);
+        
         whiteSprite.color = status.data.color;
         
         var path = Constants.statusEffectIconPath + status.data.iconGraphic + '.png';
@@ -56,5 +73,14 @@ class StatusEffectIcon extends FlxSpriteGroup
     public function updateSpritesPosition():Void{
         CtUtil.centerSpriteOnSprite(whiteSprite, baseSprite, true, true);
         CtUtil.centerSpriteOnSprite(iconSprite, baseSprite, true, true);
-    }
+		updateFillSprite(status);
+	}
+
+	public function updateFillSprite(status:StatusEffect):Void
+	{
+		fillSprite.setGraphicSize(15, FlxMath.bound(15 * (1 - (status.turns / status.maxTurns)), 1, 15));
+		fillSprite.updateHitbox();
+		CtUtil.centerSpriteOnSprite(fillSprite, baseSprite, true, false);
+		fillSprite.y = whiteSprite.y;
+	}
 }
