@@ -49,7 +49,7 @@ class BottomBar extends FlxSpriteGroup
 		endTurn = new CtSprite(1050, 590).createFromImage(Constants.endTurnButtonGraphicPath);
 		endTurn.kill();
 		add(endTurn);
-		descriptionText = new CtText(0, 680, "skill - description", FlxAssets.FONT_DEFAULT, 20, false);
+		descriptionText = new CtText(0, 680, "", FlxAssets.FONT_DEFAULT, 20, false);
 		descriptionText.kill();
 		add(descriptionText);
 	}

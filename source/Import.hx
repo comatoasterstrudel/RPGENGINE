@@ -16,6 +16,7 @@ import battle.ui.minihealthbar.MiniHealthBar;
 import battle.ui.minihealthbar.MiniHealthBars;
 import battle.ui.statuseffectbar.StatusEffectBar;
 import battle.ui.statuseffectbar.StatusEffectBars;
+import battle.ui.turnattentionanim.TurnAttentionAnim;
 import battle.ui.turnorder.TurnOrderDisplay;
 import battle.units.Unit;
 import ctUtil.CtUtil;

@@ -30,6 +30,8 @@ class PlayState extends FlxState
 
 	var miniHealthBars:MiniHealthBars;
 
+	var turnAttentionAnim:TurnAttentionAnim;
+ 
 	var turnOrderDisplay:TurnOrderDisplay;
 	
 	var bottomBar:BottomBar;
@@ -185,6 +187,9 @@ class PlayState extends FlxState
 		miniHealthBars = new MiniHealthBars();
 		miniHealthBars.camera = camUI;
 		add(miniHealthBars);
+		turnAttentionAnim = new TurnAttentionAnim();
+		turnAttentionAnim.camera = camUI;
+		add(turnAttentionAnim);
 		turnOrderDisplay = new TurnOrderDisplay(gridSize);
 		turnOrderDisplay.camera = camUI;
 		add(turnOrderDisplay);
@@ -344,25 +349,29 @@ class PlayState extends FlxState
 				turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
 				bottomBar.updateCurrentUnit(currentTurnUnit);
 
-				applySingleUnitStatusEffects(currentTurnUnit, "startOfTurn");
-
 				if (currentTurnUnit.controllable)
 					bottomBar.addMenu();
+				turnAttentionAnim.doAnim(currentTurnUnit);
 
-				eventManager.addEvent(function():Void
+				new FlxTimer().start(Constants.turnAttentionAnimTime, function(f):Void
 				{
-					doDeathCheck();
+					applySingleUnitStatusEffects(currentTurnUnit, "startOfTurn");
 
 					eventManager.addEvent(function():Void
 					{
-						if (currentTurnUnit.controllable)
+						doDeathCheck();
+
+						eventManager.addEvent(function():Void
 						{
-							startAllyTurn();
-						}
-						else
-						{
-							startEnemyTurn();
-						}
+							if (currentTurnUnit.controllable)
+							{
+								startAllyTurn();
+							}
+							else
+							{
+								startEnemyTurn();
+							}
+						});
 					});
 				});
 			});
@@ -468,11 +477,22 @@ class PlayState extends FlxState
 	 */
 	function endPlayerTurn():Void
 	{
-		if (turnOrder[turnNum + 1] == null || !turnOrder[turnNum + 1].controllable)
-			bottomBar.removeMenu();
 		menuManagerPlayerUI.disable();
 		uiStatus = INACTIVE;
-		applySingleUnitStatusEffects(currentTurnUnit, "endOfTurn");
+		doDeathCheck();
+
+		eventManager.addEvent(function():Void
+		{
+			applySingleUnitStatusEffects(currentTurnUnit, "endOfTurn");
+		});
+
+		eventManager.addEvent(function():Void
+		{
+			if (turnOrder[turnNum + 1] == null || !turnOrder[turnNum + 1].controllable)
+				bottomBar.removeMenu();
+
+			advanceTurn();
+		});
 	}
 
 	/**
@@ -483,7 +503,6 @@ class PlayState extends FlxState
 		new FlxTimer().start(.5, function(f):Void
 		{
 			endEnemyTurn();
-			advanceTurn();
 		});
 	}
 
@@ -497,6 +516,10 @@ class PlayState extends FlxState
 		eventManager.addEvent(function():Void
 		{
 			applySingleUnitStatusEffects(currentTurnUnit, "endOfTurn");
+		});
+		eventManager.addEvent(function():Void
+		{
+			advanceTurn();
 		});
 	}
 	
@@ -839,7 +862,6 @@ class PlayState extends FlxState
 							new FlxPoint(space.position.x, space.position.y), function():Void
 						{
 							endPlayerTurn();
-							advanceTurn();
 						});
 					}
 				},

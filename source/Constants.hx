@@ -70,4 +70,9 @@ class Constants
 	public static final resultAnimTiming:Float = .65;
 	public static final resultAnimShakeTime:Float = 0.08;
 	public static final resultAnimShakeIntensity:Float = 0.08;
+	// TurnAttentionAnim
+	public static final turnAttentionAnimTime:Float = .71;
+	public static final turnAttentionAnimTimeSplit:Float = .7;
+	public static final turnAttentionAnimScale:Float = .14;
+	public static final turnAttentionAnimAlpha:Float = .7;
 }
