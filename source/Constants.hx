@@ -5,6 +5,7 @@ class Constants
 	// Battle
 	public static final battleDataFolder:String = "assets/data/battles/";
 	public static final battleDataPath:String = Constants.battleDataFolder + "battle_";
+	public static final battleDataMusicPath:String = "assets/music/battletheme/theme_";
 	// Grid
     public static final gridSize:Int = 80;
 	public static final unitGridGraphicPath:String = "assets/images/grid/units/unit_";

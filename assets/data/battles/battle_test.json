@@ -1,6 +1,7 @@
 {
     "gridSizeX": 3,
     "gridSizeY": 3,
+    "music": "RPJazzy",
     "allyUnits": [
         {
             "id": "chair",

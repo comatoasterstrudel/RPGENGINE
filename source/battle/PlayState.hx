@@ -80,6 +80,8 @@ class PlayState extends FlxState
 
 		setUpMenus();
 
+		setUpMusic();
+		
 		advanceRound();
 		
 		#if debug
@@ -105,6 +107,9 @@ class PlayState extends FlxState
 
 			if (exitProgress >= Constants.exitTime)
 			{
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.stop();
+				
 				FlxG.switchState(LevelSelectorState.new);
 			}
 		}
@@ -322,6 +327,16 @@ class PlayState extends FlxState
 		units.remove(unit);
 		unit.destroy();
 		unit = null;
+	}
+	
+	function setUpMusic():Void
+	{
+		var path = Constants.battleDataMusicPath + battleData.music + ".ogg";
+
+		if (battleData.music != "" && Assets.exists(path))
+		{
+			FlxG.sound.playMusic(path);
+		}
 	}
 	
 	/**
@@ -580,6 +595,8 @@ class PlayState extends FlxState
 					type = TIE;
 
 				openSubState(new ResultState(type));
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.fadeOut(Constants.resultAnimTiming);
 			}
 		});
 	}
