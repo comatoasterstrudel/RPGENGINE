@@ -8,6 +8,8 @@ class StatusEffectData extends CtJsonLoader
 
     public var text:String;
     
+	public var iconGraphic:String;
+    
     public var color:FlxColor;
     
     public var triggerType:String = '';
@@ -22,6 +24,8 @@ class StatusEffectData extends CtJsonLoader
         this.name = data.name;
 
         this.text = data.text;
+        
+		this.iconGraphic = data.iconGraphic;
         
         this.color = FlxColor.fromRGB(data.color[0], data.color[1], data.color[2], 255);
         

@@ -32,6 +32,7 @@ class DeathEffect extends FlxShader
         this.sprite = sprite;
         
         data.textureSize.value = [sprite.width, sprite.height];
+		data.progress.value = [0];
     }
     
     var effectProgress:Float = 0;

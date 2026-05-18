@@ -18,6 +18,8 @@ class Constants
 	public static final statusEffectAnimTime:Float = 1;
 	// UI
 	public static final uiYOffset:Float = -60;
+	// StatusEffectBar
+	public static final statusEffectIconPath:String = "assets/images/statusicons/icon_";
 	// MiniHealthBar
 	public static final miniHealthBarFillColor:FlxColor = FlxColor.LIME;
 	public static final miniHealthBarEmptyColor:FlxColor = FlxColor.RED;

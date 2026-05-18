@@ -1,7 +1,5 @@
 package battle;
 
-import battle.result.ResultType;
-
 class PlayState extends FlxState
 {
 	public static var eventManager:CtEventManager;
@@ -28,7 +26,9 @@ class PlayState extends FlxState
 	var gridSelectorSpaces:Array<GridSpace> = [];
 
 	// UI STUFF
-	var miniHealthBars:FlxTypedGroup<MiniHealthBar>;
+	var statusEffectBars:StatusEffectBars;
+
+	var miniHealthBars:MiniHealthBars;
 
 	var turnOrderDisplay:TurnOrderDisplay;
 	
@@ -179,7 +179,10 @@ class PlayState extends FlxState
 	 */
 	function setUpUI():Void
 	{
-		miniHealthBars = new FlxTypedGroup<MiniHealthBar>();
+		statusEffectBars = new StatusEffectBars();
+		statusEffectBars.camera = camUI;
+		add(statusEffectBars);
+		miniHealthBars = new MiniHealthBars();
 		miniHealthBars.camera = camUI;
 		add(miniHealthBars);
 		turnOrderDisplay = new TurnOrderDisplay(gridSize);
@@ -268,8 +271,8 @@ class PlayState extends FlxState
 		grid.placeUnit(unit);
 
 		units.push(unit);
-		var miniHealthBar = new MiniHealthBar(unit);
-		miniHealthBars.add(miniHealthBar);
+		statusEffectBars.addNewBar(unit);
+		miniHealthBars.addNewBar(unit);
 	}
 
 	/**
@@ -278,22 +281,8 @@ class PlayState extends FlxState
 	 */
 	function removeUnit(unit:Unit):Void
 	{
-		var removeBar:MiniHealthBar = null;
-
-		for (bar in miniHealthBars)
-		{
-			if (bar.unit.uniqueUnitID == unit.uniqueUnitID)
-			{
-				removeBar = bar;
-				break;
-			}
-		}
-
-		if (removeBar != null)
-		{
-			miniHealthBars.remove(removeBar);
-			removeBar.destroy();
-		}
+		statusEffectBars.removeBarByUnit(unit);
+		miniHealthBars.removeBarByUnit(unit);
 
 		var changedTurn:Bool = false;
 		
@@ -339,7 +328,6 @@ class PlayState extends FlxState
 		eventManager.addEvent(function()
 		{			
 			doDeathCheck();
-			isGameOver();
 
 			eventManager.addEvent(function():Void
 			{
@@ -355,6 +343,7 @@ class PlayState extends FlxState
 
 				turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
 				bottomBar.updateCurrentUnit(currentTurnUnit);
+
 				if (currentTurnUnit.controllable)
 				{
 					startAllyTurn();
@@ -520,6 +509,10 @@ class PlayState extends FlxState
 				});
 			}
 		}
+		eventManager.addEvent(function():Void
+		{
+			isGameOver();
+		});
 	}
 	function isGameOver():Void
 	{
@@ -704,24 +697,28 @@ class PlayState extends FlxState
 	
 	function applySingleUnitStatusEffects(unit:Unit, triggerType:String):Void
 	{
-		for (status in unit.statuses)
+		eventManager.addEvent(function():Void
 		{
-			if (status.data.triggerType == triggerType)
+			for (status in unit.statuses)
 			{
-				eventManager.addEvent(function():Void
+				if (status.data.triggerType == triggerType)
 				{
-					unit.doStatusEffectAnim(status.id);
 					eventManager.addEvent(function():Void
 					{
-						applySkillEffects(unit, unit, status.data.effects);
+						unit.doStatusEffectAnim(status.id);
 					});
+					applySkillEffects(unit, unit, status.data.effects);
 					eventManager.addEvent(function():Void
 					{
 						status.changeTurns(-1);
 					});
-				});
+				}
 			}
-		}
+		});
+		eventManager.addEvent(function():Void
+		{
+			doDeathCheck();
+		});
 	}
 
 	function applyGlobalStatusEffects(triggerType:String):Void

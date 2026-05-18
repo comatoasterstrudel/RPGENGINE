@@ -1,0 +1,14 @@
+{
+    "name": "Burning Stick",
+    "description": "Burns an enemy Unit for 3 turns",
+    "iconGraphic": "burning_stick",
+    "selectType": "enemy_all",
+    "effects": {
+        "eff_statuses": [
+            {
+                "id": "fire",
+                "turns": 3
+            }
+        ]
+    }
+}

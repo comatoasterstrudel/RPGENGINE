@@ -1,0 +1,10 @@
+{
+    "name": "Fire",
+    "text": "ON FIRE !!!",
+    "iconGraphic": "fire",
+    "color": [255, 0, 0], 
+    "triggerType": "endOfTurn",
+    "effects": {
+        "eff_damage": 10
+    }
+}

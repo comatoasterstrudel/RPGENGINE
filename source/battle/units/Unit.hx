@@ -34,10 +34,13 @@ class Unit extends CtSprite
 	
 	public var statuses:Array<StatusEffect> = [];
 	
+	// SIGNALS
+	public var onStatusChanged = new FlxTypedSignal<Array<StatusEffect>->Void>();
+	
 	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool):Void
 	{
         super();
-        
+
         this.unitID = unitID;
 		this.data = new UnitData(unitID);
         
@@ -177,6 +180,7 @@ class Unit extends CtSprite
 		else
 		{
 			statuses.push(statusData);
+			onStatusChanged.dispatch(statuses);
 		}
 
 		doStatusEffectAnim(statusData.id);
@@ -184,6 +188,7 @@ class Unit extends CtSprite
 		statusData.finished.add(function():Void
 		{
 			statuses.remove(statusData);
+			onStatusChanged.dispatch(statuses);
 		});
 	}
 
