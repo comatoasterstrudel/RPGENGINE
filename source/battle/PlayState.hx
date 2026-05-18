@@ -468,7 +468,8 @@ class PlayState extends FlxState
 	 */
 	function endPlayerTurn():Void
 	{
-		bottomBar.removeMenu();
+		if (turnOrder[turnNum + 1] == null || !turnOrder[turnNum + 1].controllable)
+			bottomBar.removeMenu();
 		menuManagerPlayerUI.disable();
 		uiStatus = INACTIVE;
 		applySingleUnitStatusEffects(currentTurnUnit, "endOfTurn");
