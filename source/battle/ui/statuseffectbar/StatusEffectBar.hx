@@ -6,6 +6,9 @@ class StatusEffectBar extends FlxTypedGroup<StatusEffectIcon>
     
     var curStatuses:Array<StatusEffect> = [];
     
+	var lastX:Float = 0;
+	var lastY:Float = 0;
+    
     public function new(unit:Unit):Void{
         this.unit = unit;
         
@@ -17,17 +20,9 @@ class StatusEffectBar extends FlxTypedGroup<StatusEffectIcon>
     override function update(elapsed:Float):Void{
 		super.update(elapsed);
         
-        if(curStatuses.length > 0){
-            var iconsToCenter:Array<FlxSprite> = [];
-            
-            forEachAlive(function(icon):Void{
-                iconsToCenter.push(icon.baseSprite);
-            });
-            CtUtil.centerGroup(iconsToCenter, 2, unit.x + unit.width / 2);
-            forEachAlive(function(icon):Void{
-                icon.baseSprite.y = unit.y - 35;
-                icon.updateSpritesPosition();
-            });
+		if (curStatuses.length > 0 && (unit.x != lastX || unit.y != lastY))
+		{
+			updateStatusIconPositions();
         }
     }
     
@@ -52,5 +47,24 @@ class StatusEffectBar extends FlxTypedGroup<StatusEffectIcon>
         }
         
         curStatuses = statuses;
-    }
+		updateStatusIconPositions();
+	}
+
+	function updateStatusIconPositions():Void
+	{
+		var iconsToCenter:Array<FlxSprite> = [];
+
+		forEachAlive(function(icon):Void
+		{
+			iconsToCenter.push(icon.baseSprite);
+		});
+		CtUtil.centerGroup(iconsToCenter, 2, unit.x + unit.width / 2);
+		forEachAlive(function(icon):Void
+		{
+			icon.baseSprite.y = unit.y - 35;
+			icon.updateSpritesPosition();
+		});
+		lastX = unit.x;
+		lastY = unit.y;
+	}
 }

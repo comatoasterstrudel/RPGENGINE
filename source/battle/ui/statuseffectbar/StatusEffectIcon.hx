@@ -77,7 +77,7 @@ class StatusEffectIcon extends FlxSpriteGroup
 	}
 
 	public function updateFillSprite(status:StatusEffect):Void
-	{
+	{        
 		fillSprite.setGraphicSize(15, FlxMath.bound(15 * (1 - (status.turns / status.maxTurns)), 1, 15));
 		fillSprite.updateHitbox();
 		CtUtil.centerSpriteOnSprite(fillSprite, baseSprite, true, false);
