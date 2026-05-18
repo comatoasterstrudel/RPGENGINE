@@ -175,6 +175,7 @@ class Unit extends CtSprite
 			if (previousData.turns < turns)
 			{
 				previousData.turns = turns;
+				previousData.changeTurns(0);
 			}
 		}
 		else
