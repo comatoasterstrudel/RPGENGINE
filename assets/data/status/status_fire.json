@@ -3,7 +3,7 @@
     "text": "ON FIRE !!!",
     "iconGraphic": "fire",
     "color": [255, 0, 0], 
-    "triggerType": "endOfTurn",
+    "triggerType": "startOfTurn",
     "effects": {
         "eff_damage": 10
     }

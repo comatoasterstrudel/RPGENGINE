@@ -27,6 +27,16 @@ class StatusEffectIcon extends FlxSpriteGroup
         kill();
     }
     
+	override function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+
+		for (sprite in [baseSprite, whiteSprite, iconSprite])
+		{
+			sprite.alpha = unit.alpha;
+		}
+	}
+    
     public function updateStatus(status:StatusEffect):Void{
         whiteSprite.color = status.data.color;
         

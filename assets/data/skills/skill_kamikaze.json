@@ -1,0 +1,14 @@
+{
+    "name": "Kamikaze",
+    "description": "Set yourself on fire for fun",
+    "iconGraphic": "kamikaze",
+    "selectType": "ally_all",
+    "effects": {
+        "eff_statuses": [
+            {
+                "id": "fire",
+                "turns": 3
+            }
+        ]
+    }
+}

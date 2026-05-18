@@ -344,14 +344,27 @@ class PlayState extends FlxState
 				turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
 				bottomBar.updateCurrentUnit(currentTurnUnit);
 
+				applySingleUnitStatusEffects(currentTurnUnit, "startOfTurn");
+
 				if (currentTurnUnit.controllable)
+					bottomBar.addMenu();
+
+				eventManager.addEvent(function():Void
 				{
-					startAllyTurn();
-				}
-				else
-				{
-					startEnemyTurn();
-				}
+					doDeathCheck();
+
+					eventManager.addEvent(function():Void
+					{
+						if (currentTurnUnit.controllable)
+						{
+							startAllyTurn();
+						}
+						else
+						{
+							startEnemyTurn();
+						}
+					});
+				});
 			});
 		});
 	}
@@ -375,8 +388,6 @@ class PlayState extends FlxState
 	 */
 	function startAllyTurn():Void
 	{
-		bottomBar.addMenu();
-
 		var menuOptions:Array<Array<CtMenuOption>> = [[]];
 
 		menuOptions[0].push({
@@ -457,6 +468,7 @@ class PlayState extends FlxState
 	 */
 	function endPlayerTurn():Void
 	{
+		bottomBar.removeMenu();
 		menuManagerPlayerUI.disable();
 		uiStatus = INACTIVE;
 		applySingleUnitStatusEffects(currentTurnUnit, "endOfTurn");
@@ -467,8 +479,6 @@ class PlayState extends FlxState
 	 */
 	function startEnemyTurn():Void
 	{
-		bottomBar.removeMenu();
-
 		new FlxTimer().start(.5, function(f):Void
 		{
 			endEnemyTurn();
@@ -481,7 +491,12 @@ class PlayState extends FlxState
 	 */
 	function endEnemyTurn():Void
 	{
-		applySingleUnitStatusEffects(currentTurnUnit, "endOfTurn");
+		doDeathCheck();
+
+		eventManager.addEvent(function():Void
+		{
+			applySingleUnitStatusEffects(currentTurnUnit, "endOfTurn");
+		});
 	}
 	
 	/**
@@ -509,10 +524,7 @@ class PlayState extends FlxState
 				});
 			}
 		}
-		eventManager.addEvent(function():Void
-		{
-			isGameOver();
-		});
+		isGameOver();
 	}
 	function isGameOver():Void
 	{
@@ -523,10 +535,13 @@ class PlayState extends FlxState
 
 			for (unit in units)
 			{
-				if (unit.controllable)
-					alliedUnits++;
-				else
-					enemyUnits++;
+				if (!unit.dead)
+				{
+					if (unit.controllable)
+						alliedUnits++;
+					else
+						enemyUnits++;
+				}
 			}
 			if (alliedUnits == 0 || enemyUnits == 0)
 			{ // game is over
@@ -647,8 +662,7 @@ class PlayState extends FlxState
 			}
 		}
 	}
-	
-	
+
 	function getAffectedSpacesForSkill(skillData:SkillData, unit:Unit, grid:Grid, position:FlxPoint)
 	{
 		var affectedSpaces:Array<GridSpace> = [];
@@ -697,28 +711,21 @@ class PlayState extends FlxState
 	
 	function applySingleUnitStatusEffects(unit:Unit, triggerType:String):Void
 	{
-		eventManager.addEvent(function():Void
+		for (status in unit.statuses)
 		{
-			for (status in unit.statuses)
+			if (status.data.triggerType == triggerType)
 			{
-				if (status.data.triggerType == triggerType)
+				eventManager.addEvent(function():Void
 				{
-					eventManager.addEvent(function():Void
-					{
-						unit.doStatusEffectAnim(status.id);
-					});
-					applySkillEffects(unit, unit, status.data.effects);
-					eventManager.addEvent(function():Void
-					{
-						status.changeTurns(-1);
-					});
-				}
+					unit.doStatusEffectAnim(status.id);
+				});
+				applySkillEffects(unit, unit, status.data.effects);
+				eventManager.addEvent(function():Void
+				{
+					status.changeTurns(-1);
+				});
 			}
-		});
-		eventManager.addEvent(function():Void
-		{
-			doDeathCheck();
-		});
+		}
 	}
 
 	function applyGlobalStatusEffects(triggerType:String):Void

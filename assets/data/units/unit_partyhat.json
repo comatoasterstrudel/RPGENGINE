@@ -4,5 +4,5 @@
     "uiGraphic": "partyhat",
     "maxHp": 40,
     "speed": 8,
-    "skills": ["love", "toxins", "burning_stick"]
+    "skills": ["love", "toxins", "burning_stick", "kamikaze"]
 }
