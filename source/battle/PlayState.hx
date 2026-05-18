@@ -452,7 +452,6 @@ class PlayState extends FlxState
 			clickFunction: function(spr:FlxSprite):Void
 			{
 				endPlayerTurn();
-				advanceTurn();
 			},
 			hoverFunction: function(spr:FlxSprite):Void
 			{
@@ -652,9 +651,12 @@ class PlayState extends FlxState
 		});
 		if (onFinish != null)
 		{
-			eventManager.addEvent(function():Void
+			new FlxTimer().start(.01, function(f):Void
 			{
-				onFinish();
+				eventManager.addEvent(function():Void
+				{
+					onFinish();
+				});	
 			});
 		}
 	}
