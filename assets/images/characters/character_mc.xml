@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="character_mc.png">
+<SubTexture name="idle_down0000" x="0" y="0" width="47" height="52" frameX="-5" frameY="-3" frameWidth="32" frameHeight="32" />
+<SubTexture name="idle_horizontal0000" x="47" y="0" width="44" height="52" frameX="-9" frameY="-3" frameWidth="32" frameHeight="32" />
+<SubTexture name="idle_up0000" x="91" y="0" width="47" height="52" frameX="-5" frameY="-3" frameWidth="32" frameHeight="32" />
+</TextureAtlas>

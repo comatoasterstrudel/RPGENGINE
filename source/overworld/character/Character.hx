@@ -12,9 +12,8 @@ class Character extends FlxSpriteGroup
     public function new():Void{
         super();
         
-		char = new CtSprite().createColorBlock(32, 32, FlxColor.RED);
-		char.scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
-		char.updateHitbox();
+		char = new CtSprite();
+		initCharacterAnimations();
 		add(char);
 
 		char.setFacingFlip(LEFT, false, false);
@@ -30,6 +29,19 @@ class Character extends FlxSpriteGroup
 		super.update(elapsed);
 
     }
+    
+	function initCharacterAnimations():Void
+	{
+		char.createFromSparrow("assets/images/characters/character_mc.png", "assets/images/characters/character_mc.xml");
+		char.animation.addByPrefix("idle_down", "idle_down", 0);
+		char.animation.addByPrefix("idle_up", "idle_up", 0);
+		char.animation.addByPrefix("idle_horizontal", "idle_horizontal", 0);
+
+		char.scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
+		char.updateHitbox();
+
+		char.antialiasing = false;
+	}
     
     function doMovement():Void{
         var speed = Constants.characterSpeed;
@@ -63,5 +75,14 @@ class Character extends FlxSpriteGroup
             default:
 				char.velocity.set(0, 0);
         }
+		var direction:String = switch (char.facing)
+		{
+			case LEFT | RIGHT: "horizontal";
+			case UP: "up";
+			case DOWN: "down";
+			default: "down";
+		};
+
+		char.animation.play("idle_" + direction, false);
     }
 }
