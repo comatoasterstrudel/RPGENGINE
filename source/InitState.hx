@@ -13,6 +13,18 @@ class InitState extends FlxState{
         CtControls.registerControl({id: "accept", inputKey: Z});
         CtControls.registerControl({id: "cancel", inputKey: X});
 
+		#if debug
+		#if testBattle
+		PlayState.battleName = Compiler.getDefine("testBattle").split('=')[0];
+		FlxG.switchState(new PlayState());
+		return;
+		#end
+		#if testOverworld
+		FlxG.switchState(new OverworldState());
+		return;
+		#end
+		#end
+        
         FlxG.switchState(LevelSelectorState.new);
     }
 }

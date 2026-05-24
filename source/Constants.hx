@@ -2,6 +2,9 @@ package;
 
 class Constants 
 {
+	//
+	// BATTLE STUff !!!!!!11
+	//
 	// Battle
 	public static final battleDataFolder:String = "assets/data/battles/";
 	public static final battleDataPath:String = Constants.battleDataFolder + "battle_";
@@ -76,4 +79,10 @@ class Constants
 	public static final turnAttentionAnimTimeSplit:Float = .7;
 	public static final turnAttentionAnimScale:Float = .14;
 	public static final turnAttentionAnimAlpha:Float = .7;
+	//
+	// OVERWORLD STUFF !!
+	//
+	// Characters
+	public static final characterSpeed:Float = 300;
+	public static final characterSpeedDiagonal:Float = characterSpeed * .707;
 }
