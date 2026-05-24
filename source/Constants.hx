@@ -82,7 +82,11 @@ class Constants
 	//
 	// OVERWORLD STUFF !!
 	//
+	// Pixel Sizing
+	public static final overworldPixelScale:Float = 3;
 	// Characters
 	public static final characterSpeed:Float = 300;
 	public static final characterSpeedDiagonal:Float = characterSpeed * .707;
+	// Tiles
+	public static final tilesGraphicPath:String = "assets/images/tiles/tiles_";
 }
