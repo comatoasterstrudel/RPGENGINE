@@ -37,7 +37,7 @@ class OverworldState extends FlxState
 					{
 						player = new Player();
 						player.char.setPosition(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
-						FlxG.camera.follow(player.char);
+						FlxG.camera.follow(player.char, LOCKON, .2);
 						add(player);
 					}
 				default:
