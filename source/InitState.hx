@@ -20,6 +20,7 @@ class InitState extends FlxState{
 		return;
 		#end
 		#if testOverworld
+		OverworldState.roomName = Compiler.getDefine("testOverworld").split('=')[0];
 		FlxG.switchState(new OverworldState());
 		return;
 		#end

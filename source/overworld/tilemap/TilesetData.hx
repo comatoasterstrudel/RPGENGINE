@@ -1,0 +1,25 @@
+package overworld.tilemap;
+
+class TilesetData extends CtJsonLoader
+{
+	public var id:String;
+
+    public var name:String;
+    
+    public var graphic:String;
+    
+    public var collisions:Array<String>;
+    
+    public function new(id:String){
+        this.id = id;
+        
+		super(Constants.tilesetDataPath + id + '.json', Constants.tilesetDataPath + 'placeholder.json');
+        
+        var usethis:Array<String> = [];
+        
+        this.name = data.name;
+        this.graphic = data.graphic ?? "placeholder";
+        this.collisions = data.collisions ?? usethis;
+    }
+}
+        

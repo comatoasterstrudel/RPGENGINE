@@ -1,0 +1,5 @@
+{
+    "name": "placeholderbutorange",
+    "graphic": "placeholderbutorange",
+    "collisions": ["NONE", "NONE", "ANY"]
+}

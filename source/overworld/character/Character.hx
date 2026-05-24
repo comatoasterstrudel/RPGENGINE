@@ -20,6 +20,7 @@ class Character extends FlxSpriteGroup
 		char.setFacingFlip(RIGHT, true, false);
 		char.setFacingFlip(UP, false, false);
 		char.setFacingFlip(DOWN, false, false);
+		char.facing = DOWN;
     }
     
 	override function update(elapsed:Float)

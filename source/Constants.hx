@@ -87,6 +87,12 @@ class Constants
 	// Characters
 	public static final characterSpeed:Float = 300;
 	public static final characterSpeedDiagonal:Float = characterSpeed * .707;
-	// Tiles
-	public static final tilesGraphicPath:String = "assets/images/tiles/tiles_";
+	// Rooms
+	public static final roomDataPath:String = "assets/data/rooms/room_";
+	// Tilemaps
+	public static final ogmoFilePath:String = "assets/data/tilemaps/RPGENGINE.ogmo";
+	public static final tilemapsDataPath:String = "assets/data/tilemaps/tilemap_";
+	// Tilesets
+	public static final tilesetDataPath:String = "assets/data/tilesets/tileset_";
+	public static final tilesetGraphicPath:String = "assets/images/tileset/tileset_";
 }

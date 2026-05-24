@@ -59,3 +59,6 @@ import openfl.Assets;
 import openfl.display.Sprite;
 import overworld.OverworldState;
 import overworld.character.*;
+import overworld.rooms.*;
+import overworld.tilemap.BetterFlxOgmo3Loader;
+import overworld.tilemap.TilesetData;

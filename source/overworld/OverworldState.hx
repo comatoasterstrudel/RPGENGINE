@@ -2,47 +2,88 @@ package overworld;
 
 class OverworldState extends FlxState
 {
+	public static var roomName:String = "test";
+	public static var roomData:RoomData;
+    
     var player:Player;
     
-	var map:FlxOgmo3Loader;
-	var walls:FlxTilemap;
+	var map:BetterFlxOgmo3Loader;
+	var tileSets:Map<String, FlxTilemap> = [];
     
     override function create():Void{
         super.create();
         
         bgColor = FlxColor.WHITE;
         
+		loadRoom();
+        
 		loadMap();
     }
     
     override function update(elapsed:Float):Void{
-        super.update(elapsed);
-    }
+		super.update(elapsed);
+		FlxG.worldBounds.set(FlxG.camera.scroll.x, FlxG.camera.scroll.y, FlxG.width, FlxG.height); // FUCK EVERYTHING
+
+		for (tile in tileSets)
+		{
+			FlxG.collide(tile, player);
+		}        
+	}
+
+	function loadRoom():Void
+	{
+		roomData = new RoomData(roomName);
+	}
+
+	/**
+	 * Call this to load and add the tiles from the tilemap data!!
+	 */
 	function loadMap():Void
 	{
-		map = new FlxOgmo3Loader("assets/data/tilemaps/RPGENGINE.ogmo", "assets/data/tilemaps/tilemap_test.json");
-		walls = map.loadTilemap(Constants.tilesGraphicPath + "placeholder.png", "walls");
-		walls.setTileProperties(1, NONE);
-		walls.setTileProperties(2, ANY);
-		walls.scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
-		walls.antialiasing = false;
-		add(walls);
+		map = new BetterFlxOgmo3Loader(Constants.ogmoFilePath, Constants.tilemapsDataPath + roomData.map + ".json");
+		for (layer in map.getLevelData().layers)
+		{
+			if (layer.tileset != null)
+			{
+				var tilesetData = new TilesetData(layer.tileset);
+				var tiles = map.loadTilemap(Constants.tilesetGraphicPath + tilesetData.graphic + ".png", layer.name);
+				tiles.scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
+				tiles.antialiasing = false;
+				for (i in 0...tilesetData.collisions.length)
+				{
+					var val = tilesetData.collisions[i];
+					tiles.setTileProperties(i, switch (val)
+					{
+						case "NONE": NONE;
+						case "ANY": ANY;
+						default: NONE;
+					});
+				}
+				add(tiles);
 
+				tileSets.set(layer.tileset, tiles);
+			}
+		}
+
+		placePlayer();
+        
 		map.loadEntities(function(entity:EntityData):Void
 		{
 			switch (entity.name)
 			{
 				case "player":
-					if (player == null)
-					{
-						player = new Player();
-						player.char.setPosition(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
-						FlxG.camera.follow(player.char, LOCKON, .2);
-						add(player);
-					}
+					player.char.setPosition(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
 				default:
 					//
 			}
 		}, "entities");
+	}
+	function placePlayer():Player
+	{
+		player = new Player();
+		FlxG.camera.follow(player.char, LOCKON, 1);
+		add(player);
+
+		return player;
 	}
 }

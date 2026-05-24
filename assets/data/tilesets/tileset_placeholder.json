@@ -1,0 +1,5 @@
+{
+    "name": "placeholder",
+    "graphic": "placeholder",
+    "collisions": ["NONE", "NONE", "ANY"]
+}
