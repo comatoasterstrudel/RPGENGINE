@@ -10,9 +10,16 @@ class Character extends FlxSpriteGroup
 
     var status:CharacterStatus = IDLE;
     
-    public function new():Void{
+	public var id:String;
+	public var data:CharacterData;
+
+	public function new(id:String):Void
+	{
         super();
         
+		this.id = id;
+		data = new CharacterData(id);
+		
 		char = new CtSprite();
 		initCharacterAnimations();
 		add(char);
@@ -45,7 +52,7 @@ class Character extends FlxSpriteGroup
 	
 	function initCharacterAnimations():Void
 	{
-		char.createFromSparrow("assets/images/characters/character_mc.png", "assets/images/characters/character_mc.xml");
+		char.createFromSparrow(Constants.characterGraphicPath + data.graphic + ".png", Constants.characterGraphicPath + data.graphic + ".xml");
 		char.animation.addByPrefix("idle_down", "idle_down", 0);
 		char.animation.addByPrefix("idle_up", "idle_up", 0);
 		char.animation.addByPrefix("idle_horizontal", "idle_horizontal", 0);

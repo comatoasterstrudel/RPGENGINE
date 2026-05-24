@@ -1,6 +1,11 @@
 package overworld.character;
 
 class Player extends Character{
+	public function new()
+	{
+		super(Constants.playerCharacterName);
+	}
+    
     override function doMovement(){
         var left = CtControls.checkInput("left", PRESSED);
         var right = CtControls.checkInput("right", PRESSED);
