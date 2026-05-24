@@ -22,12 +22,17 @@ class OverworldState extends FlxState
     
     override function update(elapsed:Float):Void{
 		super.update(elapsed);
-		FlxG.worldBounds.set(FlxG.camera.scroll.x, FlxG.camera.scroll.y, FlxG.width, FlxG.height); // FUCK EVERYTHING
+		handleCollision();
+	}
+
+	function handleCollision():Void
+	{
+		FlxG.worldBounds.set(FlxG.camera.scroll.x, FlxG.camera.scroll.y, FlxG.width, FlxG.height); // FUCK EVERYTHING 2
 
 		for (tile in tileSets)
 		{
-			FlxG.collide(tile, player);
-		}        
+			FlxG.collide(tile, player.hitbox);
+		}
 	}
 
 	function loadRoom():Void
@@ -72,7 +77,7 @@ class OverworldState extends FlxState
 			switch (entity.name)
 			{
 				case "player":
-					player.char.setPosition(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
+					player.positionCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
 				default:
 					//
 			}
@@ -81,7 +86,7 @@ class OverworldState extends FlxState
 	function placePlayer():Player
 	{
 		player = new Player();
-		FlxG.camera.follow(player.char, LOCKON, 1);
+		FlxG.camera.follow(player.hitbox, LOCKON, 1);
 		add(player);
 
 		return player;

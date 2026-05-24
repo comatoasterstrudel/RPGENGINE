@@ -87,6 +87,7 @@ class Constants
 	// Characters
 	public static final characterSpeed:Float = 300;
 	public static final characterSpeedDiagonal:Float = characterSpeed * .707;
+	public static final characterWalkFps:Int = 5;
 	// Rooms
 	public static final roomDataPath:String = "assets/data/rooms/room_";
 	// Tilemaps
