@@ -1,6 +1,7 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "Hi, I'm Robin!!!!!!!!!"
+		"dialogue": "Hi, I'm Robin!!!!!!!!!",
+		"actor": "robin"
 	}
 ]

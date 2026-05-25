@@ -103,5 +103,8 @@ class Constants
 	// DIALOGUE STUFF !!
 	//
 	public static final dialogueBoxGraphicPath:String = "box";
+	public static final dialogueNameBoxGraphicPath:String = "nameBox";
+	public static final dialogueNameBoxLeftEndGraphicPath:String = "nameBoxLeft";
+	public static final dialogueNameBoxRightEndGraphicPath:String = "nameBoxRight";
 	public static final dialogueGraphicsPath:String = "assets/images/dialogue/";
 }

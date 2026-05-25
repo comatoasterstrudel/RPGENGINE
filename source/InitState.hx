@@ -34,8 +34,11 @@ class InitState extends FlxState{
 	{
 		CtDialogueBox.defaultSettings = {
 			pressedAcceptFunction: CtControls.getInputFunction("accept", JUSTPRESSED),
-			dialogueImagePath: Constants.dialogueGraphicsPath,
 			boxImgPath: Constants.dialogueBoxGraphicPath,
+			nameBoxImgPath: Constants.dialogueNameBoxGraphicPath,
+			nameBoxLeftEndImgPath: Constants.dialogueNameBoxLeftEndGraphicPath,
+			nameBoxRightEndImgPath: Constants.dialogueNameBoxRightEndGraphicPath,
+			nameBoxFontSize: 40,
 			font: FlxAssets.FONT_DEFAULT,
 			fontSize: 30,
 			textFieldWidth: 900,
