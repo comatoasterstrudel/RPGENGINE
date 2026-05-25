@@ -1,5 +1,8 @@
 package overworld;
 
+import overworld.roomtransition.RoomTransitionSubState;
+import overworld.roomtransition.TransitionType;
+
 class OverworldState extends FlxState
 {
 	public static var roomName:String = "test";
@@ -24,6 +27,8 @@ class OverworldState extends FlxState
 	
 	var dialogueBox:CtDialogueBox;
 	
+	public static var lastTransitionTime:Float = 0;
+	
     override function create():Void{
         super.create();
         
@@ -35,6 +40,7 @@ class OverworldState extends FlxState
 
 		loadRoom();        
 		loadMap();
+		doRoomTransition(lastTransitionTime, IN);
     }
     
     override function update(elapsed:Float):Void{
@@ -236,17 +242,42 @@ class OverworldState extends FlxState
 		}
 		if (interactable.room != "")
 		{
-			moveRoom(interactable.room);
+			moveRoom(interactable.room, interactable.roomTransitionTime);
 		}
 	}
 
-	function moveRoom(newRoom:String):Void
+	function moveRoom(newRoom:String, transitionTime:Float):Void
 	{
 		previousRoom = roomName;
 
 		roomName = newRoom;
-		FlxG.resetState();
+		lastTransitionTime = transitionTime;
+
+		doRoomTransition(transitionTime, OUT, function():Void
+		{
+			FlxG.resetState();
+		});
 	}
+	function doRoomTransition(time:Float, transitionType:TransitionType, ?onComplete:Void->Void = null):Void
+	{
+		if (time <= 0)
+		{
+			if (onComplete != null)
+				onComplete();
+		}
+		else
+		{
+			var tranSubState = new RoomTransitionSubState(time, transitionType);
+			tranSubState.onComplete.add(function():Void
+			{
+				if (onComplete != null)
+					onComplete();
+			});
+			openSubState(tranSubState);
+			persistentUpdate = false;
+		}
+	}
+
 	function startDialogue(dialogues:Array<String>):Void
 	{
 		inCutscene = true;

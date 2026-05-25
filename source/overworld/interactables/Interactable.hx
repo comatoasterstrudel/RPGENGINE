@@ -10,6 +10,8 @@ class Interactable extends CtSprite
     
     public var room:String;
 
+	public var roomTransitionTime:Float;
+    
     public function new(entity:EntityData){
         super(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
         
@@ -20,6 +22,7 @@ class Interactable extends CtSprite
         if(entity.values.triggerByWalkingOver) type = WALK; else type = INTERACT;
         dialogue = entity.values.dialogue;
         room = entity.values.room;
+		roomTransitionTime = entity.values.roomTransitionTime;
         
         immovable = true;        
         

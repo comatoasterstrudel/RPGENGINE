@@ -111,7 +111,8 @@
       "values": [
         {"name": "triggerByWalkingOver", "definition": "Boolean", "display": 0, "defaults": false},
         {"name": "dialogue", "definition": "String", "display": 0, "defaults": "", "maxLength": 0, "trimWhitespace": true},
-        {"name": "room", "definition": "String", "display": 0, "defaults": "", "maxLength": 0, "trimWhitespace": true}
+        {"name": "room", "definition": "String", "display": 0, "defaults": "", "maxLength": 0, "trimWhitespace": true},
+        {"name": "roomTransitionTime", "definition": "Float", "display": 0, "defaults": 0.3, "bounded": false, "min": 0, "max": 100}
       ]
     },
     {
