@@ -29,7 +29,28 @@
       "gridCellsX": 24,
       "gridCellsY": 25,
       "entities": [
-        {"name": "player", "id": 0, "_eid": "58713646", "x": 80, "y": 112, "originX": 0, "originY": 0}
+        {
+          "name": "player",
+          "id": 0,
+          "_eid": "58713646",
+          "x": 80,
+          "y": 112,
+          "originX": 0,
+          "originY": 0,
+          "values": {"entrance": ""}
+        },
+        {
+          "name": "interactable",
+          "id": 3,
+          "_eid": "67528600",
+          "x": 144,
+          "y": 0,
+          "width": 300,
+          "height": 16,
+          "originX": 0,
+          "originY": 0,
+          "values": {"triggerByWalkingOver": false, "dialogue": "", "room": "test"}
+        }
       ]
     }
   ]

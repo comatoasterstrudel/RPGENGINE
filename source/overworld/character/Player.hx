@@ -1,9 +1,49 @@
 package overworld.character;
 
 class Player extends Character{
+	var interactableHitbox:CtSprite;
+
+	public var interaction = new FlxTypedSignal<CtSprite->Void>();
+    
 	public function new()
 	{
 		super(Constants.playerCharacterName);
+		interactableHitbox = new CtSprite();
+		interactableHitbox.kill();
+		add(interactableHitbox);
+	}
+
+	override function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+
+		if (CtControls.checkInput("accept", JUSTPRESSED))
+		{
+			doInteraction();
+		}
+	}
+
+	function doInteraction():Void
+	{
+		interactableHitbox.revive();
+		interactableHitbox.createColorBlock(Std.int(char.width), Std.int(char.height), FlxColor.GREEN);
+		CtUtil.centerSpriteOnSprite(interactableHitbox, char, true, true);
+		switch (char.facing)
+		{
+			case DOWN:
+				interactableHitbox.y += 50;
+			case UP:
+				interactableHitbox.y -= 50;
+			case LEFT:
+				interactableHitbox.x -= 50;
+			case RIGHT:
+				interactableHitbox.x += 50;
+			default: //
+		}
+
+		interaction.dispatch(interactableHitbox);
+
+		interactableHitbox.kill();
 	}
     
     override function doMovement(){

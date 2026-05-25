@@ -5,11 +5,16 @@ class OverworldState extends FlxState
 	public static var roomName:String = "test";
 	public static var roomData:RoomData;
     
+	public static var previousRoom:String = "";
+	
     var player:Player;
     
 	var map:BetterFlxOgmo3Loader;
 	var tileSets:Map<String, FlxTilemap> = [];
     
+	var walkInteractables:FlxTypedGroup<Interactable>;
+	var interactInteractables:FlxTypedGroup<Interactable>;
+	
     override function create():Void{
         super.create();
         
@@ -32,6 +37,13 @@ class OverworldState extends FlxState
 		for (tile in tileSets)
 		{
 			FlxG.collide(tile, player.hitbox);
+		}
+		for (interactable in walkInteractables.members)
+		{
+			if (FlxG.overlap(interactable, player.hitbox))
+			{
+				triggerInteractable(interactable);
+			}
 		}
 	}
 
@@ -71,17 +83,69 @@ class OverworldState extends FlxState
 		}
 
 		placePlayer();
-        
+		var playerPlacePoints:Array<PlayerPlacePoint> = [];
+
+		walkInteractables = new FlxTypedGroup<Interactable>();
+		add(walkInteractables);
+
+		interactInteractables = new FlxTypedGroup<Interactable>();
+		add(interactInteractables);
+
+		player.interaction.add(function(hb:CtSprite):Void
+		{
+			for (interactable in interactInteractables.members)
+			{
+				trace("!?!");
+				if (FlxG.overlap(interactable, hb))
+				{
+					triggerInteractable(interactable);
+				}
+			}
+		});
+
 		map.loadEntities(function(entity:EntityData):Void
 		{
 			switch (entity.name)
 			{
+				case "interactable":
+					var interactable = new Interactable(entity);
+
+					if (interactable.type == WALK)
+					{
+						walkInteractables.add(interactable);
+					}
+					else if (interactable.type == INTERACT)
+					{
+						interactInteractables.add(interactable);
+					}
 				case "player":
-					player.positionCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
+					playerPlacePoints.push(new PlayerPlacePoint(entity));
 				default:
 					//
 			}
 		}, "entities");
+		var placePointsContainsPreviousRoom:Bool = false;
+
+		if (previousRoom != "")
+		{
+			for (placePoint in playerPlacePoints)
+			{
+				if (placePoint.entrance == previousRoom)
+				{
+					placePointsContainsPreviousRoom = true;
+					break;
+				}
+			}
+		}
+
+		for (placePoint in playerPlacePoints)
+		{
+			if (placePoint.entrance == previousRoom || placePoint.entrance == "" && !placePointsContainsPreviousRoom)
+			{
+				player.positionCharacter(placePoint.position.x * Constants.overworldPixelScale, placePoint.position.y * Constants.overworldPixelScale);
+				break;
+			}
+		}
 	}
 	function placePlayer():Player
 	{
@@ -90,5 +154,28 @@ class OverworldState extends FlxState
 		add(player);
 
 		return player;
+	}
+	/**
+	 * Call this to trigger an interactable object!!
+	 * @param interactable the interactable object to trigger
+	 */
+	function triggerInteractable(interactable:Interactable):Void
+	{
+		if (interactable.dialogue != "")
+		{
+			//
+		}
+		if (interactable.room != "")
+		{
+			moveRoom(interactable.room);
+		}
+	}
+
+	function moveRoom(newRoom:String):Void
+	{
+		previousRoom = roomName;
+
+		roomName = newRoom;
+		FlxG.resetState();
 	}
 }
