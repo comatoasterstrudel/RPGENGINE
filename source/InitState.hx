@@ -13,6 +13,8 @@ class InitState extends FlxState{
         CtControls.registerControl({id: "accept", inputKey: Z});
         CtControls.registerControl({id: "cancel", inputKey: X});
 
+		initDialogueBox();
+		
 		#if debug
 		#if testBattle
 		PlayState.battleName = Compiler.getDefine("testBattle").split('=')[0];
@@ -28,4 +30,20 @@ class InitState extends FlxState{
         
         FlxG.switchState(LevelSelectorState.new);
     }
+	function initDialogueBox():Void
+	{
+		CtDialogueBox.defaultSettings = {
+			pressedAcceptFunction: CtControls.getInputFunction("accept", JUSTPRESSED),
+			dialogueImagePath: Constants.dialogueGraphicsPath,
+			boxImgPath: Constants.dialogueBoxGraphicPath,
+			font: FlxAssets.FONT_DEFAULT,
+			fontSize: 30,
+			textFieldWidth: 900,
+			textOffset: new FlxPoint(40, 40),
+			boxPosition: new FlxPoint(0, 200),
+			textRows: 4,
+		}
+
+		CtDialogueBox.preloadFont(CtDialogueBox.defaultSettings.font, CtDialogueBox.defaultSettings.fontSize);
+	}
 }

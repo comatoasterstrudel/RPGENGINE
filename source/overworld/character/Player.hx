@@ -47,10 +47,10 @@ class Player extends Character{
 	}
     
     override function doMovement(){
-        var left = CtControls.checkInput("left", PRESSED);
-        var right = CtControls.checkInput("right", PRESSED);
-        var up = CtControls.checkInput("up", PRESSED);
-        var down = CtControls.checkInput("down", PRESSED);
+		var left = canMove() && CtControls.checkInput("left", PRESSED);
+		var right = canMove() && CtControls.checkInput("right", PRESSED);
+		var up = canMove() && CtControls.checkInput("up", PRESSED);
+		var down = canMove() && CtControls.checkInput("down", PRESSED);
 
         if(up && down){
             up = down = false;    
@@ -82,4 +82,8 @@ class Player extends Character{
         
         super.doMovement();
     }
+	function canMove():Bool
+	{
+		return !OverworldState.inCutscene;
+	}
 }

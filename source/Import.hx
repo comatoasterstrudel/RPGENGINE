@@ -19,6 +19,7 @@ import battle.ui.statuseffectbar.StatusEffectBars;
 import battle.ui.turnattentionanim.TurnAttentionAnim;
 import battle.ui.turnorder.TurnOrderDisplay;
 import battle.units.Unit;
+import ctDialogueBox.ctdb.CtDialogueBox;
 import ctUtil.CtUtil;
 import ctUtil.controls.*;
 import ctUtil.events.*;

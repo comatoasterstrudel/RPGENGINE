@@ -25,6 +25,7 @@
 	<haxelib name="hxcpp-debug-server" />
 	<haxelib name="openfl" />
 	<haxelib name="ctUtil" />
+	<haxelib name="ctDialogueBox" />
 
 	<haxedef name="FLX_NO_HEALTH" />
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />

@@ -41,6 +41,13 @@
       "name": "openfl",
       "type": "haxelib",
       "version": "9.4.1"
+    },
+    {
+      "name": "ctDialogueBox",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/comatoasterstrudel/ctDialogueBox"
     }
   ]
 }

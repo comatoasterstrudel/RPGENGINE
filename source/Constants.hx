@@ -99,4 +99,9 @@ class Constants
 	// Tilesets
 	public static final tilesetDataPath:String = "assets/data/tilesets/tileset_";
 	public static final tilesetGraphicPath:String = "assets/images/tileset/tileset_";
+	//
+	// DIALOGUE STUFF !!
+	//
+	public static final dialogueBoxGraphicPath:String = "box";
+	public static final dialogueGraphicsPath:String = "assets/images/dialogue/";
 }

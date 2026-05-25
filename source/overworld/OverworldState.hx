@@ -7,21 +7,31 @@ class OverworldState extends FlxState
     
 	public static var previousRoom:String = "";
 	
+	var camGame:FlxCamera;
+	var camUI:FlxCamera;
+	
     var player:Player;
     
+	public static var inCutscene:Bool = false;
+	
 	var map:BetterFlxOgmo3Loader;
 	var tileSets:Map<String, FlxTilemap> = [];
     
 	var walkInteractables:FlxTypedGroup<Interactable>;
 	var interactInteractables:FlxTypedGroup<Interactable>;
 	
+	var dialogueBox:CtDialogueBox;
+	
     override function create():Void{
         super.create();
         
         bgColor = FlxColor.WHITE;
         
-		loadRoom();
-        
+		setupCameras();
+
+		setupDialogueBox();
+
+		loadRoom();        
 		loadMap();
     }
     
@@ -30,21 +40,46 @@ class OverworldState extends FlxState
 		handleCollision();
 	}
 
+	/**
+	 * call this to add the flxcameras that the game uses hehehe
+	 */
+	function setupCameras():Void
+	{
+		camGame = new FlxCamera();
+		camGame.bgColor.alpha = 0;
+		FlxG.cameras.add(camGame, true);
+
+		camUI = new FlxCamera();
+		camUI.bgColor.alpha = 0;
+		FlxG.cameras.add(camUI, false);
+	}
+	
 	function handleCollision():Void
 	{
-		FlxG.worldBounds.set(FlxG.camera.scroll.x, FlxG.camera.scroll.y, FlxG.width, FlxG.height); // FUCK EVERYTHING 2
+		FlxG.worldBounds.set(camGame.scroll.x, camGame.scroll.y, FlxG.width, FlxG.height); // FUCK EVERYTHING 2
 
 		for (tile in tileSets)
 		{
 			FlxG.collide(tile, player.hitbox);
 		}
-		for (interactable in walkInteractables.members)
+		if (!inCutscene)
 		{
-			if (FlxG.overlap(interactable, player.hitbox))
+			for (interactable in walkInteractables.members)
 			{
-				triggerInteractable(interactable);
+				if (FlxG.overlap(interactable, player.hitbox))
+				{
+					triggerInteractable(interactable);
+				}
 			}
 		}
+	}
+
+	function setupDialogueBox():Void
+	{
+		dialogueBox = new CtDialogueBox();
+		dialogueBox.settings.onComplete = endDialogues;
+		dialogueBox.camera = camUI;
+		add(dialogueBox);
 	}
 
 	function loadRoom():Void
@@ -76,6 +111,7 @@ class OverworldState extends FlxState
 						default: NONE;
 					});
 				}
+				tiles.camera = camGame;
 				add(tiles);
 
 				tileSets.set(layer.tileset, tiles);
@@ -86,20 +122,24 @@ class OverworldState extends FlxState
 		var playerPlacePoints:Array<PlayerPlacePoint> = [];
 
 		walkInteractables = new FlxTypedGroup<Interactable>();
+		walkInteractables.camera = camGame;
 		add(walkInteractables);
 
 		interactInteractables = new FlxTypedGroup<Interactable>();
+		interactInteractables.camera = camGame;
 		add(interactInteractables);
 
 		player.interaction.add(function(hb:CtSprite):Void
 		{
-			for (interactable in interactInteractables.members)
+			if (!inCutscene)
 			{
-				trace("!?!");
-				if (FlxG.overlap(interactable, hb))
+				for (interactable in interactInteractables.members)
 				{
-					triggerInteractable(interactable);
-				}
+					if (FlxG.overlap(interactable, hb))
+					{
+						triggerInteractable(interactable);
+					}
+				}	
 			}
 		});
 
@@ -150,7 +190,8 @@ class OverworldState extends FlxState
 	function placePlayer():Player
 	{
 		player = new Player();
-		FlxG.camera.follow(player.hitbox, LOCKON, 1);
+		camGame.follow(player.hitbox, LOCKON, 1);
+		player.camera = camGame;
 		add(player);
 
 		return player;
@@ -163,7 +204,7 @@ class OverworldState extends FlxState
 	{
 		if (interactable.dialogue != "")
 		{
-			//
+			startDialogue([interactable.dialogue]);
 		}
 		if (interactable.room != "")
 		{
@@ -177,5 +218,20 @@ class OverworldState extends FlxState
 
 		roomName = newRoom;
 		FlxG.resetState();
+	}
+	function startDialogue(dialogues:Array<String>):Void
+	{
+		inCutscene = true;
+		dialogueBox.loadDialogueFiles(dialogues);
+		dialogueBox.openBox();
+		dialogueBox.playDialogue();
+	}
+
+	function endDialogues():Void
+	{
+		new FlxTimer().start(0.1, function(f):Void
+		{
+			inCutscene = false;
+		});
 	}
 }
