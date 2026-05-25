@@ -147,6 +147,7 @@ class OverworldState extends FlxState
 					});
 				}
 				tiles.camera = camGame;
+				tiles.follow(camGame);
 				add(tiles);
 
 				tileSets.set(layer.tileset, tiles);

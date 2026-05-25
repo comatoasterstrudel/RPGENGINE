@@ -1,0 +1,5 @@
+{
+    "name": "testroom",
+    "graphic": "testroom",
+    "collisions": ["NONE", "NONE", "ANY", "ANY", "ANY", "ANY", "ANY", "NONE", "NONE", "ANY", "NONE", "ANY"]
+}
