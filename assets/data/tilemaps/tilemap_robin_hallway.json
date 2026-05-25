@@ -1,0 +1,155 @@
+{
+  "ogmoVersion": "3.4.0",
+  "width": 320,
+  "height": 240,
+  "offsetX": 0,
+  "offsetY": 0,
+  "layers": [
+    {
+      "name": "walls",
+      "_eid": "58713555",
+      "offsetX": 0,
+      "offsetY": 0,
+      "gridCellWidth": 16,
+      "gridCellHeight": 16,
+      "gridCellsX": 20,
+      "gridCellsY": 15,
+      "tileset": "placeholderbutorange",
+      "data": [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+      "exportMode": 0,
+      "arrayMode": 0
+    },
+    {
+      "name": "entities",
+      "_eid": "58716920",
+      "offsetX": 0,
+      "offsetY": 0,
+      "gridCellWidth": 16,
+      "gridCellHeight": 16,
+      "gridCellsX": 20,
+      "gridCellsY": 15,
+      "entities": [
+        {
+          "name": "character",
+          "id": 0,
+          "_eid": "68173711",
+          "x": 48,
+          "y": 64,
+          "originX": 0,
+          "originY": 0,
+          "values": {"name": "robin"}
+        },
+        {
+          "name": "character",
+          "id": 1,
+          "_eid": "68173711",
+          "x": 96,
+          "y": 64,
+          "originX": 0,
+          "originY": 0,
+          "values": {"name": "robin"}
+        },
+        {
+          "name": "character",
+          "id": 2,
+          "_eid": "68173711",
+          "x": 144,
+          "y": 64,
+          "originX": 0,
+          "originY": 0,
+          "values": {"name": "robin"}
+        },
+        {
+          "name": "character",
+          "id": 4,
+          "_eid": "68173711",
+          "x": 240,
+          "y": 64,
+          "originX": 0,
+          "originY": 0,
+          "values": {"name": "robin"}
+        },
+        {
+          "name": "player",
+          "id": 5,
+          "_eid": "58713646",
+          "x": 144,
+          "y": 160,
+          "originX": 0,
+          "originY": 0,
+          "values": {"entrance": ""}
+        },
+        {
+          "name": "character",
+          "id": 7,
+          "_eid": "68173711",
+          "x": 192,
+          "y": 64,
+          "originX": 0,
+          "originY": 0,
+          "values": {"name": "robin"}
+        },
+        {
+          "name": "interactable",
+          "id": 8,
+          "_eid": "67528600",
+          "x": 144,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": ""}
+        },
+        {
+          "name": "interactable",
+          "id": 9,
+          "_eid": "67528600",
+          "x": 192,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": ""}
+        },
+        {
+          "name": "interactable",
+          "id": 10,
+          "_eid": "67528600",
+          "x": 240,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": ""}
+        },
+        {
+          "name": "interactable",
+          "id": 11,
+          "_eid": "67528600",
+          "x": 96,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": ""}
+        },
+        {
+          "name": "interactable",
+          "id": 12,
+          "_eid": "67528600",
+          "x": 48,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": ""}
+        }
+      ]
+    }
+  ]
+}

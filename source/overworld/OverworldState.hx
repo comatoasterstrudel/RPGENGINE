@@ -16,7 +16,7 @@ class OverworldState extends FlxState
 	
 	var map:BetterFlxOgmo3Loader;
 	var tileSets:Map<String, FlxTilemap> = [];
-    
+
 	var walkInteractables:FlxTypedGroup<Interactable>;
 	var interactInteractables:FlxTypedGroup<Interactable>;
 	
@@ -160,6 +160,9 @@ class OverworldState extends FlxState
 					}
 				case "player":
 					playerPlacePoints.push(new PlayerPlacePoint(entity));
+				case "character":
+					trace(entity.values.name);
+					placeCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale, entity.values.name);
 				default:
 					//
 			}
@@ -190,12 +193,22 @@ class OverworldState extends FlxState
 	function placePlayer():Player
 	{
 		player = new Player();
-		camGame.follow(player.hitbox, LOCKON, 1);
+		camGame.follow(player.char, LOCKON, 1);
 		player.camera = camGame;
 		add(player);
 
 		return player;
 	}
+	function placeCharacter(x:Float, y:Float, name:String):Character
+	{
+		var char = new Character(name);
+		char.positionCharacter(x, y);
+		char.camera = camGame;
+		add(char);
+
+		return char;
+	}
+	
 	/**
 	 * Call this to trigger an interactable object!!
 	 * @param interactable the interactable object to trigger

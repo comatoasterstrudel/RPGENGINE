@@ -39,7 +39,6 @@ class Character extends FlxSpriteGroup
 		doMovement();
 
 		super.update(elapsed);
-
     }
 
 	override function draw():Void
