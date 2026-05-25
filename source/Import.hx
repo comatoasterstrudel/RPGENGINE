@@ -64,5 +64,7 @@ import overworld.character.*;
 import overworld.character.CharacterData;
 import overworld.interactables.Interactable;
 import overworld.rooms.*;
+import overworld.roomtransition.RoomTransitionSubState;
+import overworld.roomtransition.TransitionType;
 import overworld.tilemap.BetterFlxOgmo3Loader;
 import overworld.tilemap.TilesetData;

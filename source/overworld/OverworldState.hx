@@ -1,8 +1,5 @@
 package overworld;
 
-import overworld.roomtransition.RoomTransitionSubState;
-import overworld.roomtransition.TransitionType;
-
 class OverworldState extends FlxState
 {
 	public static var roomName:String = "test";
@@ -10,23 +7,27 @@ class OverworldState extends FlxState
     
 	public static var previousRoom:String = "";
 	
+	// CAMERA STUFF
 	var camGame:FlxCamera;
 	var camUI:FlxCamera;
 	
+	// CHARACTERS
     var player:Player;
-    
-	public static var inCutscene:Bool = false;
-	
 	var characters:FlxTypedSpriteGroup<Character>;
-	
+
+	// CUTSCENE
+	public static var inCutscene:Bool = false;
+	var dialogueBox:CtDialogueBox;
+
+	// MAP AND TILES
 	var map:BetterFlxOgmo3Loader;
 	var tileSets:Map<String, FlxTilemap> = [];
 
+	// INTERACTABLES
 	var walkInteractables:FlxTypedGroup<Interactable>;
 	var interactInteractables:FlxTypedGroup<Interactable>;
 	
-	var dialogueBox:CtDialogueBox;
-	
+	// TRANSITION
 	public static var lastTransitionTime:Float = 0;
 	
     override function create():Void{
@@ -37,7 +38,6 @@ class OverworldState extends FlxState
 		setupCameras();
 
 		setupDialogueBox();
-
 		loadRoom();        
 		loadMap();
 		doRoomTransition(lastTransitionTime, IN);
@@ -47,7 +47,7 @@ class OverworldState extends FlxState
 		super.update(elapsed);
 
 		handleCollision();
-		characters.sort(FlxSort.byY, FlxSort.ASCENDING);
+		handleSorting();
 	}
 
 	/**
@@ -64,6 +64,9 @@ class OverworldState extends FlxState
 		FlxG.cameras.add(camUI, false);
 	}
 	
+	/**
+	 * Call this to handle the collisions of the characters
+	 */
 	function handleCollision():Void
 	{
 		FlxG.worldBounds.set(camGame.scroll.x, camGame.scroll.y, FlxG.width, FlxG.height); // FUCK EVERYTHING 2
@@ -92,6 +95,17 @@ class OverworldState extends FlxState
 		}
 	}
 
+	/**
+	 * Call this to handle the sorting of certain game sprites
+	 */
+	function handleSorting():Void
+	{
+		characters.sort(FlxSort.byY, FlxSort.ASCENDING);
+	}
+
+	/**
+	 * Call this to setup the dialogue box for use in cutscenes
+	 */
 	function setupDialogueBox():Void
 	{
 		dialogueBox = new CtDialogueBox();
@@ -100,6 +114,9 @@ class OverworldState extends FlxState
 		add(dialogueBox);
 	}
 
+	/**
+	 * Call this to initialize the roomdata variable
+	 */
 	function loadRoom():Void
 	{
 		roomData = new RoomData(roomName);
@@ -140,7 +157,11 @@ class OverworldState extends FlxState
 		characters.camera = camGame;
 		add(characters);
 		
-		placePlayer();
+		player = new Player();
+		camGame.follow(player.hitbox, LOCKON, 1);
+		player.camera = camGame;
+		characters.add(player);
+		
 		var playerPlacePoints:Array<PlayerPlacePoint> = [];
 
 		walkInteractables = new FlxTypedGroup<Interactable>();
@@ -211,15 +232,14 @@ class OverworldState extends FlxState
 			}
 		}
 	}
-	function placePlayer():Player
-	{
-		player = new Player();
-		camGame.follow(player.hitbox, LOCKON, 1);
-		player.camera = camGame;
-		characters.add(player);
 
-		return player;
-	}
+	/**
+	 * Call this to add a character to the map
+	 * @param x the x position of the character
+	 * @param y the y position of the character
+	 * @param name the name of the character
+	 * @return the character youre adding
+	 */
 	function placeCharacter(x:Float, y:Float, name:String):Character
 	{
 		var char = new Character(name);
@@ -246,6 +266,11 @@ class OverworldState extends FlxState
 		}
 	}
 
+	/**
+	 * Call this to change which room youre in
+	 * @param newRoom the name of the new room
+	 * @param transitionTime how long the transition should last
+	 */
 	function moveRoom(newRoom:String, transitionTime:Float):Void
 	{
 		previousRoom = roomName;
@@ -258,6 +283,12 @@ class OverworldState extends FlxState
 			FlxG.resetState();
 		});
 	}
+	/**
+	 * Call this to add the room transition animation
+	 * @param time how long it should last
+	 * @param transitionType in vs out 
+	 * @param onComplete what should happen when the transition is done
+	 */
 	function doRoomTransition(time:Float, transitionType:TransitionType, ?onComplete:Void->Void = null):Void
 	{
 		if (time <= 0)
@@ -278,6 +309,10 @@ class OverworldState extends FlxState
 		}
 	}
 
+	/**
+	 * Call this to start a dialogue box cutscene!!
+	 * @param dialogues 
+	 */
 	function startDialogue(dialogues:Array<String>):Void
 	{
 		inCutscene = true;
@@ -286,6 +321,9 @@ class OverworldState extends FlxState
 		dialogueBox.playDialogue();
 	}
 
+	/**
+	 * Call this when a dialogue is finished
+	 */
 	function endDialogues():Void
 	{
 		new FlxTimer().start(0.1, function(f):Void
