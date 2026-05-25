@@ -214,7 +214,7 @@ class OverworldState extends FlxState
 	function placePlayer():Player
 	{
 		player = new Player();
-		camGame.follow(player, LOCKON, 1);
+		camGame.follow(player.hitbox, LOCKON, 1);
 		player.camera = camGame;
 		characters.add(player);
 
