@@ -10,11 +10,15 @@ class Player extends Character{
 		super(Constants.playerCharacterName);
 		interactableHitbox = new CtSprite();
 		interactableHitbox.kill();
-		add(interactableHitbox);
+		hitbox.immovable = false;
+		#if showInteractionBox
+		FlxG.state.add(interactableHitbox);
+		#end
 	}
 
 	override function update(elapsed:Float):Void
 	{
+		interactableHitbox.update(elapsed);
 		super.update(elapsed);
 
 		if (CtControls.checkInput("accept", JUSTPRESSED))
@@ -26,24 +30,27 @@ class Player extends Character{
 	function doInteraction():Void
 	{
 		interactableHitbox.revive();
-		interactableHitbox.createColorBlock(Std.int(char.width), Std.int(char.height), FlxColor.GREEN);
-		CtUtil.centerSpriteOnSprite(interactableHitbox, char, true, true);
-		switch (char.facing)
+		interactableHitbox.createColorBlock(Std.int(width / 3), Std.int(height / 3), FlxColor.GREEN);
+		CtUtil.centerSpriteOnSprite(interactableHitbox, this, true, true);
+		switch (facing)
 		{
 			case DOWN:
-				interactableHitbox.y += 50;
+				interactableHitbox.y += 30;
 			case UP:
-				interactableHitbox.y -= 50;
+				interactableHitbox.y -= 30;
 			case LEFT:
-				interactableHitbox.x -= 50;
+				interactableHitbox.x -= 30;
 			case RIGHT:
-				interactableHitbox.x += 50;
+				interactableHitbox.x += 30;
 			default: //
 		}
 
 		interaction.dispatch(interactableHitbox);
-
 		interactableHitbox.kill();
+		#if showInteractionBox
+		interactableHitbox.camera = camera;
+		interactableHitbox.revive();
+		#end
 	}
     
     override function doMovement(){

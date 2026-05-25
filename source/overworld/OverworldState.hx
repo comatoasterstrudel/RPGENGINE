@@ -14,6 +14,8 @@ class OverworldState extends FlxState
     
 	public static var inCutscene:Bool = false;
 	
+	var characters:FlxTypedSpriteGroup<Character>;
+	
 	var map:BetterFlxOgmo3Loader;
 	var tileSets:Map<String, FlxTilemap> = [];
 
@@ -37,7 +39,9 @@ class OverworldState extends FlxState
     
     override function update(elapsed:Float):Void{
 		super.update(elapsed);
+
 		handleCollision();
+		characters.sort(FlxSort.byY, FlxSort.ASCENDING);
 	}
 
 	/**
@@ -62,6 +66,14 @@ class OverworldState extends FlxState
 		{
 			FlxG.collide(tile, player.hitbox);
 		}
+		for (character in characters.members)
+		{
+			if (character != player)
+			{
+				FlxG.collide(character.hitbox, player.hitbox);
+			}
+		}
+		
 		if (!inCutscene)
 		{
 			for (interactable in walkInteractables.members)
@@ -118,6 +130,10 @@ class OverworldState extends FlxState
 			}
 		}
 
+		characters = new FlxTypedSpriteGroup<Character>();
+		characters.camera = camGame;
+		add(characters);
+		
 		placePlayer();
 		var playerPlacePoints:Array<PlayerPlacePoint> = [];
 
@@ -161,7 +177,6 @@ class OverworldState extends FlxState
 				case "player":
 					playerPlacePoints.push(new PlayerPlacePoint(entity));
 				case "character":
-					trace(entity.values.name);
 					placeCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale, entity.values.name);
 				default:
 					//
@@ -193,9 +208,9 @@ class OverworldState extends FlxState
 	function placePlayer():Player
 	{
 		player = new Player();
-		camGame.follow(player.char, LOCKON, 1);
+		camGame.follow(player, LOCKON, 1);
 		player.camera = camGame;
-		add(player);
+		characters.add(player);
 
 		return player;
 	}
@@ -204,7 +219,7 @@ class OverworldState extends FlxState
 		var char = new Character(name);
 		char.positionCharacter(x, y);
 		char.camera = camGame;
-		add(char);
+		characters.add(char);
 
 		return char;
 	}
