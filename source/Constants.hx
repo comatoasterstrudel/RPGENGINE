@@ -85,7 +85,7 @@ class Constants
 	// Pixel Sizing
 	public static final overworldPixelScale:Float = 3;
 	// Characters
-	public static final playerCharacterName:String = "mc";
+	public static final playerCharacterName:String = "robin";
 	public static final characterDataPath:String = "assets/data/characters/character_";
 	public static final characterGraphicPath:String = "assets/images/characters/character_";
 	public static final characterSpeed:Float = 300;
