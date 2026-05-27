@@ -49,6 +49,7 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxDirection;
+import flixel.util.FlxDirectionFlags;
 import flixel.util.FlxSignal;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;

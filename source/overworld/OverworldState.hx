@@ -30,6 +30,9 @@ class OverworldState extends FlxState
 	// TRANSITION
 	public static var lastTransitionTime:Float = 0;
 	
+	// FACING
+	public static var lastFacing:FlxDirectionFlags = DOWN;
+	
     override function create():Void{
         super.create();
         
@@ -161,6 +164,7 @@ class OverworldState extends FlxState
 		player = new Player();
 		camGame.follow(player.hitbox, LOCKON, 1);
 		player.camera = camGame;
+		player.facing = lastFacing;
 		characters.add(player);
 		
 		var playerPlacePoints:Array<PlayerPlacePoint> = [];
@@ -279,6 +283,8 @@ class OverworldState extends FlxState
 		roomName = newRoom;
 		lastTransitionTime = transitionTime;
 
+		lastFacing = player.facing;
+		
 		doRoomTransition(transitionTime, OUT, function():Void
 		{
 			FlxG.resetState();
