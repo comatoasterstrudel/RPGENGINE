@@ -2,11 +2,13 @@
 	{
 		"speed": 0.03,
 		"dialogue": "Hello there weary travveler",
-		"actor": "robin"
+		"actor": "robin",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "I need you to walk over those stairs to the right ",
-		"actor": "robin"
+		"actor": "robin",
+		"portrait": "neutral"
 	}
 ]

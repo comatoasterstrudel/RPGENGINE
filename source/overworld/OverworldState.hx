@@ -36,6 +36,9 @@ class OverworldState extends FlxState
 	// FACING
 	public static var lastFacing:FlxDirectionFlags = DOWN;
 	
+	// EXIT
+	var exitProgress:Float = 0;
+	
     override function create():Void{
         super.create();
         
@@ -55,6 +58,7 @@ class OverworldState extends FlxState
 		handleCollision();
 		handleSorting();
 		handleCameraScroll();
+		handleExit(elapsed);
 	}
 
 	/**
@@ -128,6 +132,26 @@ class OverworldState extends FlxState
 		if (!cameraScrollY)
 		{
 			camGame.scroll.y = (cameraFollowingTilemap.y + cameraFollowingTilemap.height / 2) - (FlxG.height / 2);
+		}
+	}
+	
+	function handleExit(elapsed:Float):Void
+	{
+		if (FlxG.keys.pressed.ESCAPE)
+		{
+			exitProgress += elapsed;
+
+			if (exitProgress >= Constants.exitTime)
+			{
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.stop();
+
+				FlxG.switchState(LevelSelectorState.new);
+			}
+		}
+		else
+		{
+			exitProgress = 0;
 		}
 	}
 	

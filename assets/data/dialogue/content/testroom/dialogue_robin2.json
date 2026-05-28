@@ -2,6 +2,7 @@
 	{
 		"speed": 0.03,
 		"dialogue": "you DID IT!!",
-		"actor": "robin"
+		"actor": "robin",
+		"portrait": "neutral"
 	}
 ]

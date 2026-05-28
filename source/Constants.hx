@@ -56,7 +56,7 @@ class Constants
 		+ Constants.battleDataFolder
 		+ "\nand then press R to reload this menu!";
 	// Exit
-	public static final exitTime:Float = 3;
+	public static final exitTime:Float = 1;
 	// Death Effect
 	public static final deathEffectTime:Float = 1;
 	// Result State
@@ -92,7 +92,8 @@ class Constants
 	public static final characterSpeedDiagonal:Float = characterSpeed * .707;
 	public static final characterWalkFps:Int = 5;
 	// Rooms
-	public static final roomDataPath:String = "assets/data/rooms/room_";
+	public static final roomDataFolder:String = "assets/data/rooms/";
+	public static final roomDataPath:String = roomDataFolder + "room_";
 	// Tilemaps
 	public static final ogmoFilePath:String = "assets/data/tilemaps/RPGENGINE.ogmo";
 	public static final tilemapsDataPath:String = "assets/data/tilemaps/tilemap_";

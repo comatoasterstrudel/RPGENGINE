@@ -44,9 +44,13 @@ class InitState extends FlxState{
 			font: FlxAssets.FONT_DEFAULT,
 			fontSize: 35,
 			textFieldWidth: 1000,
+			portraitFieldWidthRight: 600,
 			textOffset: new FlxPoint(100, 100),
 			boxPosition: new FlxPoint(0, 170),
 			textRows: 4,
+			portraitOnTopOfBox: true,
+			portraitOffsetRight: new FlxPoint(330, 60),
+			portraitOffsetLeft: new FlxPoint(-330, 60)
 		}
 
 		CtDialogueBox.preloadFont(CtDialogueBox.defaultSettings.font, CtDialogueBox.defaultSettings.fontSize);

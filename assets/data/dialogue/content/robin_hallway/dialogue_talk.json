@@ -1,7 +1,8 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "Hi, I'm Robin!!!!!!!!!",
-		"actor": "robin"
+		"dialogue": "Hi im pooping!!",
+		"actor": "robin",
+		"portrait": "neutral"
 	}
 ]

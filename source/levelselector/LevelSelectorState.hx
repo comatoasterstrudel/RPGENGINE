@@ -5,30 +5,44 @@ package levelselector;
  * You can select levels here!!!!
  */
 class LevelSelectorState extends FlxState
-{
+{	
+	/**
+	 * This is the list of room files that this menu is displaying
+	 */
+	var listOfRoomFiles:Array<RoomData> = [];
+	
 	/**
 	 * This is the list of battle files that this menu is displaying
 	 */
     var listOfBattleFiles:Array<BattleData> = [];
     
+	var camUI:FlxCamera;
+	
 	/**
-	 * The list of text objects for this menu
+	 * The group of text objects for this menu
 	 */
-	var textOptions:Array<CtText> = [];
+	var textOptions:FlxTypedGroup<CtText>;
     
 	/**
 	 * The menu manager for this menu
 	 */
     var menuManager:CtMenuManager;
-    
+
+	/**
+	 * The cursor for the menu
+	 */
+	var cursor:Cursor;
+
 	/**
 	 * The last value that was selected
 	 */
 	public static var savedCurSelected:Int = 0;
-	
+
     override function create():Void{
         bgColor = FlxColor.WHITE;
         
+		setUpCameras();
+		
         setUpMenu();
                 
         populateMenuOptions();
@@ -44,9 +58,18 @@ class LevelSelectorState extends FlxState
         
         menuManager.update();
         
+		camUI.focusOn(new FlxPoint(FlxG.width / 2, cursor.y + cursor.height / 2));
+		
         super.update(elapsed);
     }
-    
+
+	function setUpCameras():Void
+	{
+		camUI = new FlxCamera();
+		camUI.bgColor.alpha = 0;
+		FlxG.cameras.add(camUI, false);
+	}
+	
 	/**
 	 * Call this to set up the MenuManager. in a seperate function for tidiness
 	 */
@@ -55,44 +78,81 @@ class LevelSelectorState extends FlxState
 		menuManager = new CtMenuManager(CtControls.getInputFunction("right", JUSTPRESSED), CtControls.getInputFunction("left", JUSTPRESSED),
 			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED),
 			CtControls.getInputFunction("down", JUSTPRESSED), CtControls.getInputFunction("up", JUSTPRESSED));
-        add(menuManager.addCursor(new Cursor(Constants.cursorArrowGraphic), 20, false));
+		cursor = new Cursor(Constants.cursorArrowGraphic);
+		cursor.camera = camUI;
+		add(menuManager.addCursor(cursor, 20, false));
+
+		textOptions = new FlxTypedGroup<CtText>();
+		textOptions.camera = camUI;
+		add(textOptions);
     }
     
 	/**
 	 * Call this to reset and populate the menu options!! Can be reloaded at runtime
 	 */
     function populateMenuOptions():Void{
+		listOfRoomFiles = [];
+
+		for (room in CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.roomDataFolder, [".json"], false, false), ["room_", ".json"]))
+		{
+			listOfRoomFiles.push(new RoomData(room));
+		}
+		
         listOfBattleFiles = [];
         
         for(battle in CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.battleDataFolder, [".json"], false, false), ["battle_", ".json"])){
             listOfBattleFiles.push(new BattleData(battle));
         }
-                
-        textOptions = cast CtUtil.destroyArrayOfSprites(cast textOptions);
-        
+
+		clearMenuOptions();
+		
         var menuOptions:Array<Array<CtMenuOption>> = [];
         
-		if (listOfBattleFiles.length == 0)
+		if (listOfRoomFiles.length == 0 && listOfBattleFiles.length == 0)
 		{
 			var text = new CtText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos, Constants.levelSelectNoLevelMessage);
 			text.color = FlxColor.GRAY;
 			text.size = Constants.levelSelectTextSize;
-			add(text);
-			textOptions.push(text);
+			textOptions.add(text);
 
 			menuOptions.push([{sprite: text, cursorDirection: LEFT}]);
 		}
 		else
 		{
+			for (i in 0...listOfRoomFiles.length)
+			{
+				var room = listOfRoomFiles[i];
+
+				var text = new CtText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos + (Constants.levelSelectTextYSpacing * textOptions.length),
+					"ROOM: " + room.id);
+				text.color = FlxColor.BLACK;
+				text.size = Constants.levelSelectTextSize;
+				textOptions.add(text);
+
+				menuOptions.push([
+					{
+						sprite: text,
+						cursorDirection: LEFT,
+						clickFunction: function(sprite):Void
+						{
+							updateSavedCurSelected();
+
+							OverworldState.roomName = room.id;
+							FlxG.switchState(OverworldState.new);
+						}
+					}
+				]);
+			}  
+			
 			for (i in 0...listOfBattleFiles.length)
 			{
 				var battle = listOfBattleFiles[i];
 
-				var text = new CtText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos + (Constants.levelSelectTextYSpacing * i), battle.id);
+				var text = new CtText(Constants.levelSelectTextXPos, Constants.levelSelectTextYPos + (Constants.levelSelectTextYSpacing * textOptions.length),
+					"BATTLE: " + battle.id);
 				text.color = FlxColor.BLACK;
 				text.size = Constants.levelSelectTextSize;
-				add(text);
-				textOptions.push(text);
+				textOptions.add(text);
 
 				menuOptions.push([
 					{
@@ -114,6 +174,23 @@ class LevelSelectorState extends FlxState
 		menuManager.curRack = savedCurSelected;
         menuManager.enable();
     }
+	function clearMenuOptions():Void
+	{
+		var destroyThese:Array<CtText> = [];
+
+		for (text in textOptions.members)
+		{
+			destroyThese.push(text);
+		}
+
+		textOptions.clear();
+
+		for (i in destroyThese)
+		{
+			i.destroy();
+		}
+	}
+	
 	/**
 	 * Call this to set savedCurSelected to menuManger.curRack
 	 */
