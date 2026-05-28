@@ -10,6 +10,9 @@ class OverworldState extends FlxState
 	// CAMERA STUFF
 	var camGame:FlxCamera;
 	var camUI:FlxCamera;
+	var cameraScrollX:Bool = false;
+	var cameraScrollY:Bool = false;
+	var cameraFollowingTilemap:FlxTilemap;
 	
 	// CHARACTERS
     var player:Player;
@@ -51,6 +54,7 @@ class OverworldState extends FlxState
 
 		handleCollision();
 		handleSorting();
+		handleCameraScroll();
 	}
 
 	/**
@@ -106,6 +110,27 @@ class OverworldState extends FlxState
 		characters.sort(FlxSort.byY, FlxSort.ASCENDING);
 	}
 
+	function handleCameraScroll():Void
+	{
+		if (cameraFollowingTilemap == null)
+			return; // what!
+
+		if (player != null)
+		{
+			camGame.focusOn(new FlxPoint(player.x + player.width / 2, player.y + player.height / 2));
+		}
+
+		if (!cameraScrollX)
+		{
+			camGame.scroll.x = (cameraFollowingTilemap.x + cameraFollowingTilemap.width / 2) - (FlxG.width / 2);
+		}
+
+		if (!cameraScrollY)
+		{
+			camGame.scroll.y = (cameraFollowingTilemap.y + cameraFollowingTilemap.height / 2) - (FlxG.height / 2);
+		}
+	}
+	
 	/**
 	 * Call this to setup the dialogue box for use in cutscenes
 	 */
@@ -114,6 +139,7 @@ class OverworldState extends FlxState
 		dialogueBox = new CtDialogueBox();
 		dialogueBox.settings.onComplete = endDialogues;
 		dialogueBox.camera = camUI;
+		dialogueBox.antialiasing = false;
 		add(dialogueBox);
 	}
 
@@ -149,7 +175,10 @@ class OverworldState extends FlxState
 						default: NONE;
 					});
 				}
-				tiles.camera = camGame;
+				tiles.camera = camGame;	
+				cameraScrollX = tiles.width >= FlxG.width;
+				cameraScrollY = tiles.height >= FlxG.height;
+				cameraFollowingTilemap = tiles;
 				tiles.follow(camGame);
 				add(tiles);
 
@@ -157,12 +186,27 @@ class OverworldState extends FlxState
 			}
 		}
 
+		if (cameraFollowingTilemap != null)
+		{
+			if (!cameraScrollX)
+			{
+				camGame.minScrollX = null;
+				camGame.maxScrollX = null;
+			}
+			if (!cameraScrollY)
+			{
+				camGame.minScrollY = null;
+				camGame.maxScrollY = null;
+			}
+			handleCameraScroll();
+		}
+		
 		characters = new FlxTypedSpriteGroup<Character>();
 		characters.camera = camGame;
 		add(characters);
 		
 		player = new Player();
-		camGame.follow(player.hitbox, LOCKON, 1);
+		// camGame.follow(player.hitbox, LOCKON, 1);
 		player.camera = camGame;
 		player.facing = lastFacing;
 		characters.add(player);
