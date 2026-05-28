@@ -101,7 +101,7 @@ class PlayState extends FlxState
 		{
 			menu.update();
 		}
-		if (FlxG.keys.pressed.ESCAPE)
+		if (CtControls.checkInput("exit", PRESSED))
 		{
 			exitProgress += elapsed;
 

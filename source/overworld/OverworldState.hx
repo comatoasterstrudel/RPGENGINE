@@ -137,7 +137,7 @@ class OverworldState extends FlxState
 	
 	function handleExit(elapsed:Float):Void
 	{
-		if (FlxG.keys.pressed.ESCAPE)
+		if (CtControls.checkInput("exit", PRESSED))
 		{
 			exitProgress += elapsed;
 

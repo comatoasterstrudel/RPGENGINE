@@ -91,6 +91,8 @@ class LevelSelectorState extends FlxState
 	 * Call this to reset and populate the menu options!! Can be reloaded at runtime
 	 */
     function populateMenuOptions():Void{
+		menuManager.disable();
+		
 		listOfRoomFiles = [];
 
 		for (room in CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.roomDataFolder, [".json"], false, false), ["room_", ".json"]))
@@ -172,7 +174,10 @@ class LevelSelectorState extends FlxState
         
         menuManager.setMenuOptions(menuOptions);
 		menuManager.curRack = savedCurSelected;
-        menuManager.enable();
+		new FlxTimer().start(0.05, function(f):Void
+		{
+			menuManager.enable();
+		});
     }
 	function clearMenuOptions():Void
 	{

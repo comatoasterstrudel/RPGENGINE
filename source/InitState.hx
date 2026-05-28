@@ -8,12 +8,13 @@ class InitState extends FlxState{
 		openfl.ui.Mouse.hide();
 		#end 
 		
-        CtControls.registerControl({id: "left", inputKey: LEFT});
-        CtControls.registerControl({id: "right", inputKey: RIGHT});
-        CtControls.registerControl({id: "up", inputKey: UP});
-        CtControls.registerControl({id: "down", inputKey: DOWN});
-        CtControls.registerControl({id: "accept", inputKey: Z});
-        CtControls.registerControl({id: "cancel", inputKey: X});
+		CtControls.registerControl({id: "left", inputKey: LEFT, inputPad: DPAD_LEFT});
+		CtControls.registerControl({id: "right", inputKey: RIGHT, inputPad: DPAD_RIGHT});
+		CtControls.registerControl({id: "up", inputKey: UP, inputPad: DPAD_UP});
+		CtControls.registerControl({id: "down", inputKey: DOWN, inputPad: DPAD_DOWN});
+		CtControls.registerControl({id: "accept", inputKey: Z, inputPad: A});
+		CtControls.registerControl({id: "cancel", inputKey: X, inputPad: B});
+		CtControls.registerControl({id: "exit", inputKey: ESCAPE, inputPad: START});
 
 		initDialogueBox();
 		
