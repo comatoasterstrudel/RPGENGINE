@@ -8,13 +8,13 @@ class InitState extends FlxState{
 		openfl.ui.Mouse.hide();
 		#end 
 		
-		CtControls.registerControl({id: "left", inputKey: LEFT, inputPad: DPAD_LEFT});
-		CtControls.registerControl({id: "right", inputKey: RIGHT, inputPad: DPAD_RIGHT});
-		CtControls.registerControl({id: "up", inputKey: UP, inputPad: DPAD_UP});
-		CtControls.registerControl({id: "down", inputKey: DOWN, inputPad: DPAD_DOWN});
-		CtControls.registerControl({id: "accept", inputKey: Z, inputPad: A});
-		CtControls.registerControl({id: "cancel", inputKey: X, inputPad: B});
-		CtControls.registerControl({id: "exit", inputKey: ESCAPE, inputPad: START});
+		CtControls.registerControl({id: "left", inputKey: [LEFT, A], inputPad: [DPAD_LEFT, LEFT_STICK_DIGITAL_LEFT]});
+		CtControls.registerControl({id: "right", inputKey: [RIGHT, D], inputPad: [DPAD_RIGHT, LEFT_STICK_DIGITAL_RIGHT]});
+		CtControls.registerControl({id: "up", inputKey: [UP, W], inputPad: [DPAD_UP, LEFT_STICK_DIGITAL_UP]});
+		CtControls.registerControl({id: "down", inputKey: [DOWN, S], inputPad: [DPAD_DOWN, LEFT_STICK_DIGITAL_DOWN]});
+		CtControls.registerControl({id: "accept", inputKey: [Z, ENTER], inputPad: [A]});
+		CtControls.registerControl({id: "cancel", inputKey: [X, SHIFT], inputPad: [B]});
+		CtControls.registerControl({id: "exit", inputKey: [ESCAPE, BACKSPACE], inputPad: [START]});
 
 		initDialogueBox();
 		
