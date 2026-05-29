@@ -13,6 +13,7 @@ class OverworldState extends FlxState
 	var cameraScrollX:Bool = false;
 	var cameraScrollY:Bool = false;
 	var cameraFollowingTilemap:FlxTilemap;
+	var lockCamera:Bool = false;
 	
 	// CHARACTERS
     var player:Player;
@@ -32,6 +33,7 @@ class OverworldState extends FlxState
 	
 	// TRANSITION
 	public static var lastTransitionTime:Float = 0;
+	public static var battleTransition:MosaicEffect;
 	
 	// FACING
 	public static var lastFacing:FlxDirectionFlags = DOWN;
@@ -39,9 +41,15 @@ class OverworldState extends FlxState
 	// EXIT
 	var exitProgress:Float = 0;
 	
+	// BATTLE
+	public static var leftForBattle:Bool = false;
+	public static var positionBeforeBattle:FlxPoint = new FlxPoint();
+	
     override function create():Void{
         super.create();
         
+		inCutscene = false;
+		
         bgColor = FlxColor.WHITE;
         
 		setupCameras();
@@ -49,8 +57,17 @@ class OverworldState extends FlxState
 		setupDialogueBox();
 		loadRoom();        
 		loadMap();
-		doRoomTransition(lastTransitionTime, IN);
-    }
+		if (leftForBattle)
+		{
+			player.positionCharacter(positionBeforeBattle.x, positionBeforeBattle.y);
+			leftForBattle = false;
+			doBattleTransition(OUT);
+		}
+		else
+		{
+			doRoomTransition(lastTransitionTime, IN);
+		}
+	}
     
     override function update(elapsed:Float):Void{
 		super.update(elapsed);
@@ -59,6 +76,10 @@ class OverworldState extends FlxState
 		handleSorting();
 		handleCameraScroll();
 		handleExit(elapsed);
+		if (battleTransition != null)
+		{
+			battleTransition.update();
+		}
 	}
 
 	/**
@@ -116,7 +137,7 @@ class OverworldState extends FlxState
 
 	function handleCameraScroll():Void
 	{
-		if (cameraFollowingTilemap == null)
+		if (cameraFollowingTilemap == null || lockCamera)
 			return; // what!
 
 		if (player != null)
@@ -337,6 +358,10 @@ class OverworldState extends FlxState
 		{
 			moveRoom(interactable.room, interactable.roomTransitionTime);
 		}
+		if (interactable.encounterName != "")
+		{
+			startBattle(interactable.encounterName);
+		}
 	}
 
 	/**
@@ -405,5 +430,128 @@ class OverworldState extends FlxState
 		{
 			inCutscene = false;
 		});
+	}
+	/**
+	 * Call this to start a battle !!
+	 * @param name 
+	 */
+	function startBattle(name:String):Void
+	{
+		leftForBattle = true;
+
+		lastFacing = player.facing;
+
+		positionBeforeBattle.set(player.x, player.y);
+
+		doBattleTransition(IN, function():Void
+		{
+			PlayState.setBattle(name, STORY);
+			FlxG.switchState(PlayState.new);
+		});
+	}
+
+	function doBattleTransition(transitionType:TransitionType, ?onComplete:Void->Void):Void
+	{
+		player.facing = DOWN;
+
+		var startZoom:Float = 1;
+		var endZoom:Float = 10;
+
+		camGame.zoom = startZoom;
+
+		handleCameraScroll();
+
+		var startCameraPosition:FlxPoint = FlxPoint.get(camGame.scroll.x, camGame.scroll.y);
+		var endCameraPosition:FlxPoint = FlxPoint.get(player.x + player.width / 2 - FlxG.width / 2, player.y + player.height / 2 - FlxG.height / 2);
+
+		var startBlockWidth:Float = 1;
+		var endBlockWidth:Float = FlxG.width / 2 * (FlxG.random.float(0.8, 1.2));
+
+		var startBlockHeight:Float = 1;
+		var endBlockHeight:Float = FlxG.height / 2 * (FlxG.random.float(0.8, 1.2));
+
+		var startFadeAlpha:Float = 0;
+		var endFadeAlpha = 1;
+
+		lockCamera = true;
+		inCutscene = true;
+
+		new FlxTimer().start(transitionType == IN ? .5 : 0, function(f):Void
+		{
+			battleTransition = new MosaicEffect();
+			battleTransition.thewidth = transitionType == IN ? startBlockWidth : endBlockWidth;
+			battleTransition.theheight = transitionType == IN ? startBlockHeight : endBlockHeight;
+
+			camGame.filters = [(new ShaderFilter(battleTransition))];
+
+			FlxTween.tween(battleTransition, {
+				thewidth: transitionType == IN ? endBlockWidth : startBlockWidth,
+				theheight: transitionType == IN ? endBlockHeight : startBlockHeight
+			}, 1, {
+				ease: transitionType == IN ? FlxEase.quartIn : FlxEase.quartOut,
+				onComplete: function(f):Void
+				{
+					if (transitionType == OUT)
+					{
+						camGame.filters = [];
+						battleTransition = null;
+					}
+				}
+			});
+		});
+
+		camGame.scroll.set(transitionType == IN ? startCameraPosition.x : endCameraPosition.x,
+			transitionType == IN ? startCameraPosition.y : endCameraPosition.y);
+
+		FlxTween.tween(camGame.scroll,
+			{x: transitionType == IN ? endCameraPosition.x : startCameraPosition.x, y: transitionType == IN ? endCameraPosition.y : startCameraPosition.y}, 1,
+			{startDelay: transitionType == IN ? 0 : .5});
+
+		camGame.zoom = transitionType == IN ? startZoom : endZoom;
+
+		FlxTween.tween(camGame, {zoom: transitionType == IN ? endZoom : startZoom}, 1.5, {
+			ease: transitionType == IN ? FlxEase.quartIn : FlxEase.quartOut,
+			onComplete: function(f):Void
+			{
+				if (transitionType == OUT)
+				{
+					player.facing = lastFacing;
+				}
+
+				inCutscene = false;
+				lockCamera = false;
+
+				if (onComplete != null)
+				{
+					onComplete();
+				}
+			}
+		});
+
+		var spr = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.WHITE);
+		spr.camera = camUI;
+		spr.alpha = transitionType == IN ? startFadeAlpha : endFadeAlpha;
+		add(spr);
+
+		new FlxTimer().start(transitionType == IN ? .5 : 0, function(f):Void
+		{
+			FlxTween.tween(spr, {alpha: transitionType == IN ? endFadeAlpha : startFadeAlpha}, 1, {
+				ease: transitionType == IN ? FlxEase.quartIn : FlxEase.quartOut,
+				onComplete: function(f):Void
+				{
+					if (transitionType == OUT)
+						spr.destroy();
+				}
+			});
+		});
+	}
+
+	public static function resetGlobalVars():Void
+	{
+		lastTransitionTime = 0;
+		lastFacing = DOWN;
+		previousRoom = "";
+		leftForBattle = false;
+		positionBeforeBattle.set(0, 0);
 	}
 }

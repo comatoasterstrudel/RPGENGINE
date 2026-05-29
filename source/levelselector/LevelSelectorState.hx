@@ -39,6 +39,8 @@ class LevelSelectorState extends FlxState
 	public static var savedCurSelected:Int = 0;
 
     override function create():Void{
+		OverworldState.resetGlobalVars();
+		
         bgColor = FlxColor.WHITE;
         
 		setUpCameras();
@@ -164,7 +166,7 @@ class LevelSelectorState extends FlxState
 						{
 							updateSavedCurSelected();
 
-							PlayState.battleName = battle.id;
+							PlayState.setBattle(battle.id, ARCADE);
 							FlxG.switchState(PlayState.new);
 						}
 					}

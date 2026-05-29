@@ -12,6 +12,8 @@ class Interactable extends CtSprite
 
 	public var roomTransitionTime:Float;
     
+	public var encounterName:String = '';
+    
     public function new(entity:EntityData){
         super(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
         
@@ -23,9 +25,10 @@ class Interactable extends CtSprite
         dialogue = entity.values.dialogue;
         room = entity.values.room;
 		roomTransitionTime = entity.values.roomTransitionTime;
-        
+		encounterName = entity.values.encounterName;
+
         immovable = true;        
         
-        visible = false;
+		visible = false;        
     }
 }

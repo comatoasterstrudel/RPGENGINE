@@ -39,7 +39,7 @@
           "height": 48,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "test", "roomTransitionTime": 3}
+          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "test", "roomTransitionTime": 3, "encounterName": ""}
         },
         {
           "name": "player",

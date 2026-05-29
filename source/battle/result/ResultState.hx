@@ -20,7 +20,7 @@ class ResultState extends FlxSubState
     
     public function new (type:ResultType){
         super();
-        
+
         this.type = type;
         
         camMenu = new FlxCamera();
@@ -41,6 +41,7 @@ class ResultState extends FlxSubState
         texts.camera = camMenu;
         add(texts);
         
+		setOptionList();
         setUpMenu();
         populateOptions();
         
@@ -63,6 +64,24 @@ class ResultState extends FlxSubState
         };
     }
         
+	function setOptionList():Void
+	{
+		switch (PlayState.battleType)
+		{
+			case ARCADE:
+				optionList = ["Replay", "Exit to Menu"];
+			case STORY:
+				if (type == WIN)
+				{
+					optionList = ["Continue"];
+				}
+				else
+				{
+					optionList = ["Exit to Menu"];
+				}
+		}
+	}
+    
     function setUpMenu():Void{
         menuManager = new CtMenuManager(CtControls.getInputFunction("up", JUSTPRESSED), CtControls.getInputFunction("down", JUSTPRESSED),
 			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED));
@@ -86,6 +105,12 @@ class ResultState extends FlxSubState
                         FlxG.resetState();
                     case "Exit to Menu":
                         FlxG.switchState(LevelSelectorState.new);
+						case "Continue":
+							menuManager.disable();
+							doOutroAnim(function():Void
+							{
+								FlxG.switchState(OverworldState.new);
+							});
                 }
             }});
         }
@@ -149,4 +174,21 @@ class ResultState extends FlxSubState
             menuManager.enable();
         });
     }  
+	function doOutroAnim(?onComplete:Void->Void):Void
+	{
+		var spr = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.WHITE);
+		spr.camera = camMenu;
+		spr.alpha = 0;
+		add(spr);
+
+		FlxTween.tween(spr, {alpha: 1}, 1, {
+			onComplete: function(f):Void
+			{
+				if (onComplete != null)
+				{
+					onComplete();
+				}
+			}
+		});
+	}
 }

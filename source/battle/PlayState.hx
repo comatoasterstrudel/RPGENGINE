@@ -6,6 +6,7 @@ class PlayState extends FlxState
 	
 	public static var battleName:String = "test";
 	public static var battleData:BattleData;
+	public static var battleType:BattleType;
 
 	// CAMERAS
 	var camGame:FlxCamera;
@@ -82,7 +83,15 @@ class PlayState extends FlxState
 
 		setUpMusic();
 		
-		advanceRound();
+		if (battleType == ARCADE)
+		{
+			advanceRound();
+		}
+		else
+		{
+			doIntroAnim();
+			advanceRound();
+		}
 		
 		#if debug
 		addDebugFunctions();
@@ -929,6 +938,31 @@ class PlayState extends FlxState
 			damageTexts.remove(text, true);
 			text.destroy();
 		}
+	}
+	
+	public static function setBattle(name:String, type:BattleType):Void
+	{
+		battleName = name;
+		battleType = type;
+	}
+
+	function doIntroAnim(?onComplete:Void->Void):Void
+	{
+		var spr = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.WHITE);
+		spr.camera = camUI;
+		add(spr);
+
+		FlxTween.tween(spr, {alpha: 0}, 1, {
+			onComplete: function(f):Void
+			{
+				spr.destroy();
+
+				if (onComplete != null)
+				{
+					onComplete();
+				}
+			}
+		});
 	}
 	
 	#if debug

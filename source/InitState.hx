@@ -20,7 +20,7 @@ class InitState extends FlxState{
 		
 		#if debug
 		#if testBattle
-		PlayState.battleName = Compiler.getDefine("testBattle").split('=')[0];
+		PlayState.setBattle(Compiler.getDefine("testBattle").split('=')[0], ARCADE);
 		FlxG.switchState(PlayState.new);
 		return;
 		#end
