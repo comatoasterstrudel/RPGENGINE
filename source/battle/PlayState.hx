@@ -693,14 +693,16 @@ class PlayState extends FlxState
 		{
 			eventManager.addEvent(function():Void
 			{
-				unit.takeDamage(effects.eff_damage);				
+				if (unit != null)
+					unit.takeDamage(effects.eff_damage);				
 			});
 		}
 		if (effects.eff_heal > 0)
 		{
 			eventManager.addEvent(function():Void
 			{
-				unit.heal(effects.eff_heal);
+				if (unit != null)
+					unit.heal(effects.eff_heal);
 			});
 		}
 		if (effects.eff_statuses.length > 0)
@@ -709,7 +711,8 @@ class PlayState extends FlxState
 			{
 				eventManager.addEvent(function():Void
 				{
-					unit.applyStatusEffect(effect.id, effect.turns);
+					if (unit != null)
+						unit.applyStatusEffect(effect.id, effect.turns);
 				});
 			}
 		}
@@ -769,7 +772,8 @@ class PlayState extends FlxState
 			{
 				eventManager.addEvent(function():Void
 				{
-					unit.doStatusEffectAnim(status.id);
+					if (unit != null)
+						unit.doStatusEffectAnim(status.id);
 				});
 				applySkillEffects(unit, unit, status.data.effects);
 				eventManager.addEvent(function():Void
