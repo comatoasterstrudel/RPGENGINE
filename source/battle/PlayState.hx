@@ -385,17 +385,24 @@ class PlayState extends FlxState
 					{
 						doDeathCheck();
 
-						eventManager.addEvent(function():Void
+						if (!currentTurnUnit.dead)
 						{
-							if (currentTurnUnit.controllable)
+							eventManager.addEvent(function():Void
 							{
-								startAllyTurn();
-							}
-							else
-							{
-								startEnemyTurn();
-							}
-						});
+								if (currentTurnUnit.controllable)
+								{
+									startAllyTurn();
+								}
+								else
+								{
+									startEnemyTurn();
+								}
+							});	
+						}
+						else
+						{
+							advanceTurn();
+						}
 					});
 				});
 			});
@@ -766,14 +773,16 @@ class PlayState extends FlxState
 	
 	function applySingleUnitStatusEffects(unit:Unit, triggerType:String):Void
 	{
+		if (unit == null)
+			return;
+		
 		for (status in unit.statuses)
 		{
 			if (status.data.triggerType == triggerType)
 			{
 				eventManager.addEvent(function():Void
 				{
-					if (unit != null)
-						unit.doStatusEffectAnim(status.id);
+					unit.doStatusEffectAnim(status.id);
 				});
 				applySkillEffects(unit, unit, status.data.effects);
 				eventManager.addEvent(function():Void
