@@ -1,4 +1,15 @@
 {
     "name": "corridor",
-    "map": "corridor"
+    "map": "corridor",
+    "encounters": [
+        {
+            "battleName": "test",
+            "rarity": 23
+        },
+        {
+            "battleName": "chair",
+            "rarity": 40
+        }
+    ],
+    "encounterChance": 5
 }

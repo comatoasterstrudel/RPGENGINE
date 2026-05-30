@@ -50,7 +50,7 @@ class InitState extends FlxState{
 			boxPosition: new FlxPoint(0, 170),
 			textRows: 4,
 			portraitOnTopOfBox: true,
-			portraitOffsetRight: new FlxPoint(330, 60),
+			portraitOffsetRight: new FlxPoint(330, 52),
 			nameBoxOffsetLeft: new FlxPoint(45, 60)
 		}
 

@@ -100,6 +100,8 @@ class Constants
 	// Tilesets
 	public static final tilesetDataPath:String = "assets/data/tilesets/tileset_";
 	public static final tilesetGraphicPath:String = "assets/images/tileset/tileset_";
+	// Encounters
+	public static final encounterCooldown:Float = 3.5;
 	//
 	// DIALOGUE STUFF !!
 	//

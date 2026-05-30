@@ -7,6 +7,9 @@ class RoomData extends CtJsonLoader
     public var name:String;
     public var map:String;
     
+	public var encounters:Array<EncounterData>;
+	public var encounterChance:Float;
+    
     public function new(id:String){
         this.id = id;
         
@@ -14,5 +17,20 @@ class RoomData extends CtJsonLoader
         
         this.name = data.name ?? "";
         this.map = data.map ?? "test";
+		if (data.encounters == null)
+		{
+			encounters = [];
+		}
+		else
+		{
+			encounters = data.encounters.map(function(item)
+			{
+				return {
+					battleName: item.battleName,
+					rarity: item.rarity
+				};
+			});
+		}
+		this.encounterChance = data.encounterChance ?? 10;
     }
 }

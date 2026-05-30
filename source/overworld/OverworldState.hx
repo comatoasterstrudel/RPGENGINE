@@ -45,6 +45,10 @@ class OverworldState extends FlxState
 	public static var leftForBattle:Bool = false;
 	public static var positionBeforeBattle:FlxPoint = new FlxPoint();
 	
+	// RANDOM ENCOUNTEr
+	var selectedRandomEncounter:String = "";
+	var encounterCooldown:Float = 0;
+	
     override function create():Void{
         super.create();
         
@@ -57,6 +61,7 @@ class OverworldState extends FlxState
 		setupDialogueBox();
 		loadRoom();        
 		loadMap();
+		selectRandomEncounter();
 		if (leftForBattle)
 		{
 			player.positionCharacter(positionBeforeBattle.x, positionBeforeBattle.y);
@@ -76,6 +81,7 @@ class OverworldState extends FlxState
 		handleSorting();
 		handleCameraScroll();
 		handleExit(elapsed);
+		handleRandomEncounters(elapsed);
 		if (battleTransition != null)
 		{
 			battleTransition.update();
@@ -176,6 +182,52 @@ class OverworldState extends FlxState
 		}
 	}
 	
+	function handleRandomEncounters(elapsed:Float):Void
+	{
+		if (selectedRandomEncounter == "")
+			return;
+
+		if (!inCutscene && player.moving)
+		{
+			if (encounterCooldown >= Constants.encounterCooldown)
+			{
+				if (FlxG.random.bool(roomData.encounterChance * elapsed))
+				{
+					startBattle(selectedRandomEncounter);
+				}
+			}
+			else
+			{
+				encounterCooldown += elapsed;
+			}
+		}
+	}
+
+	function selectRandomEncounter():Void
+	{
+		if (roomData.encounters.length == 0 || roomData.encounterChance <= 0)
+			return;
+
+		var total:Float = 0;
+		var encounterData:Array<Array<Dynamic>> = []; // battle name, low, high
+
+		for (encounter in roomData.encounters)
+		{
+			encounterData.push([encounter.battleName, total, total + encounter.rarity]);
+			total += encounter.rarity;
+		}
+
+		var randomNum = FlxG.random.float(0, total);
+
+		for (encounter in encounterData)
+		{
+			if (randomNum >= encounter[1] && randomNum < encounter[2])
+			{
+				selectedRandomEncounter = encounter[0];
+			}
+		}
+	}
+	
 	/**
 	 * Call this to setup the dialogue box for use in cutscenes
 	 */
@@ -251,7 +303,6 @@ class OverworldState extends FlxState
 		add(characters);
 		
 		player = new Player();
-		// camGame.follow(player.hitbox, LOCKON, 1);
 		player.camera = camGame;
 		player.facing = lastFacing;
 		characters.add(player);

@@ -1,0 +1,23 @@
+{
+    "name": "random_encounter",
+    "map": "random_encounter",
+    "encounters": [
+        {
+            "battleName": "test",
+            "rarity": 40
+        },
+        {
+            "battleName": "chair",
+            "rarity": 23
+        },
+        {
+            "battleName": "lotsofenemies",
+            "rarity": 10
+        },
+        {
+            "battleName": "test2",
+            "rarity": 35
+        }
+    ],
+    "encounterChance": 15
+}

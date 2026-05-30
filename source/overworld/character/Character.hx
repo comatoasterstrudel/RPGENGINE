@@ -14,6 +14,8 @@ class Character extends CtSprite
 
 	var previousPosition:FlxPoint = new FlxPoint();
 	
+	public var moving:Bool = false;
+	
 	public function new(id:String):Void
 	{
         super();
@@ -74,8 +76,9 @@ class Character extends CtSprite
 			case DOWN: "down";
 			default: "down";
 		};
-		var type:String = ((hitbox.velocity.x != 0 || hitbox.velocity.y != 0)
-			&& (hitbox.x != previousPosition.x || hitbox.y != previousPosition.y)) ? "walk" : "idle";
+		moving = ((hitbox.velocity.x != 0 || hitbox.velocity.y != 0)
+			&& (hitbox.x != previousPosition.x || hitbox.y != previousPosition.y));
+		var type:String = moving ? "walk" : "idle";
 
 		var animName = type + "_" + direction;
 
