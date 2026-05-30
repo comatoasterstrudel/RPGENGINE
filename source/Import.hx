@@ -67,6 +67,7 @@ import overworld.OverworldState;
 import overworld.battletransition.*;
 import overworld.character.*;
 import overworld.character.CharacterData;
+import overworld.door.*;
 import overworld.interactables.Interactable;
 import overworld.rooms.*;
 import overworld.roomtransition.RoomTransitionSubState;

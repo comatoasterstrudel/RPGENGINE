@@ -102,6 +102,8 @@ class Constants
 	public static final tilesetGraphicPath:String = "assets/images/tileset/tileset_";
 	// Encounters
 	public static final encounterCooldown:Float = 3.5;
+	// Room
+	public static final doorGraphicPath:String = "assets/images/doors/door_";
 	//
 	// DIALOGUE STUFF !!
 	//

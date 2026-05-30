@@ -1,9 +1,7 @@
 package overworld.interactables;
 
 class Interactable extends CtSprite
-{
-    var entity:EntityData;
-    
+{    
     public var type:InteractableType;
     
     public var dialogue:String;
@@ -14,21 +12,44 @@ class Interactable extends CtSprite
     
 	public var encounterName:String = '';
     
-    public function new(entity:EntityData){
-        super(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
+	public var triggerSignal = new FlxSignal();
+
+	public function new()
+	{
+		super();
         
-        this.entity = entity;
-        
-        createColorBlock(Std.int(entity.width * Constants.overworldPixelScale), Std.int(entity.height * Constants.overworldPixelScale), FlxColor.BLUE);
-        
-        if(entity.values.triggerByWalkingOver) type = WALK; else type = INTERACT;
-        dialogue = entity.values.dialogue;
-        room = entity.values.room;
+		immovable = true;
+
+		visible = false;
+	}
+
+	public function addByEntity(entity:EntityData):Interactable
+	{
+		setPosition(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale);
+		createColorBlock(Std.int(entity.width * Constants.overworldPixelScale), Std.int(entity.height * Constants.overworldPixelScale), FlxColor.BLUE);
+
+		if (entity.values.triggerByWalkingOver)
+			type = WALK;
+		else
+			type = INTERACT;
+		dialogue = entity.values.dialogue;
+		room = entity.values.room;
 		roomTransitionTime = entity.values.roomTransitionTime;
 		encounterName = entity.values.encounterName;
 
-        immovable = true;        
-        
-		visible = false;        
+		return this;
+	}
+
+	public function addManually(x:Float, y:Float, width:Int, height:Int, ?type:InteractableType, ?dialogue:String, ?room:String, ?roomTransitionTime:Float,
+			?encounterName:String):Void
+	{
+		setPosition(x, y);
+		createColorBlock(width, height, FlxColor.BLUE);
+    
+		this.type = type ?? WALK;
+		this.dialogue = dialogue ?? "";
+		this.room = room ?? "";
+		this.roomTransitionTime = roomTransitionTime ?? .5;
+		this.encounterName = encounterName ?? "";
     }
 }

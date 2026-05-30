@@ -1,0 +1,5 @@
+{
+    "name": "factory",
+    "graphic": "factory",
+    "collisions": ["NONE", "NONE", "NONE", "NONE", "NONE", "NONE"]
+}

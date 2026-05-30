@@ -17,7 +17,8 @@ class OverworldState extends FlxState
 	
 	// CHARACTERS
     var player:Player;
-	var characters:FlxTypedSpriteGroup<Character>;
+	// PROPS
+	var props:FlxTypedSpriteGroup<FlxSprite>;
 
 	// CUTSCENE
 	public static var inCutscene:Bool = false;
@@ -113,11 +114,16 @@ class OverworldState extends FlxState
 		{
 			FlxG.collide(tile, player.hitbox);
 		}
-		for (character in characters.members)
+		for (prop in props.members)
 		{
-			if (character != player)
+			if (prop is Character)
 			{
-				FlxG.collide(character.hitbox, player.hitbox);
+				var character:Character = cast prop;
+				
+				if (character != player)
+				{
+					FlxG.collide(character.hitbox, player.hitbox);
+				}
 			}
 		}
 		
@@ -138,7 +144,7 @@ class OverworldState extends FlxState
 	 */
 	function handleSorting():Void
 	{
-		characters.sort(FlxSort.byY, FlxSort.ASCENDING);
+		props.sort(FlxSort.byY, FlxSort.ASCENDING);
 	}
 
 	function handleCameraScroll():Void
@@ -298,24 +304,22 @@ class OverworldState extends FlxState
 			handleCameraScroll();
 		}
 		
-		characters = new FlxTypedSpriteGroup<Character>();
-		characters.camera = camGame;
-		add(characters);
+		props = new FlxTypedSpriteGroup<FlxSprite>();
+		props.camera = camGame;
+		add(props);
 		
 		player = new Player();
 		player.camera = camGame;
 		player.facing = lastFacing;
-		characters.add(player);
+		props.add(player);
 		
 		var playerPlacePoints:Array<PlayerPlacePoint> = [];
 
 		walkInteractables = new FlxTypedGroup<Interactable>();
 		walkInteractables.camera = camGame;
-		add(walkInteractables);
 
 		interactInteractables = new FlxTypedGroup<Interactable>();
 		interactInteractables.camera = camGame;
-		add(interactInteractables);
 
 		player.interaction.add(function(hb:CtSprite):Void
 		{
@@ -336,7 +340,7 @@ class OverworldState extends FlxState
 			switch (entity.name)
 			{
 				case "interactable":
-					var interactable = new Interactable(entity);
+					var interactable = new Interactable().addByEntity(entity);
 
 					if (interactable.type == WALK)
 					{
@@ -350,6 +354,12 @@ class OverworldState extends FlxState
 					playerPlacePoints.push(new PlayerPlacePoint(entity));
 				case "character":
 					placeCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale, entity.values.name);
+				case "door":
+					var door = new Door(Std.int(entity.x * Constants.overworldPixelScale), Std.int(entity.y * Constants.overworldPixelScale),
+						entity.values.graphic, entity.values.room, entity.values.transitionTime);
+
+					props.add(door);
+					interactInteractables.add(door);
 				default:
 					//
 			}
@@ -390,7 +400,7 @@ class OverworldState extends FlxState
 		var char = new Character(name);
 		char.positionCharacter(x, y);
 		char.camera = camGame;
-		characters.add(char);
+		props.add(char);
 
 		return char;
 	}
@@ -401,6 +411,8 @@ class OverworldState extends FlxState
 	 */
 	function triggerInteractable(interactable:Interactable):Void
 	{
+		interactable.triggerSignal.dispatch();
+		
 		if (interactable.dialogue != "")
 		{
 			startDialogue([interactable.dialogue]);
@@ -429,9 +441,14 @@ class OverworldState extends FlxState
 
 		lastFacing = player.facing;
 		
-		doRoomTransition(transitionTime, OUT, function():Void
+		inCutscene = true;
+
+		new FlxTimer().start(0.1, function(f):Void
 		{
-			FlxG.resetState();
+			doRoomTransition(transitionTime, OUT, function():Void
+			{
+				FlxG.resetState();
+			});
 		});
 	}
 	/**
