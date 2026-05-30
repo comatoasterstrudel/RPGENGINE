@@ -19,7 +19,6 @@ class Interactable extends CtSprite
 		super();
         
 		immovable = true;
-
 		visible = false;
 	}
 

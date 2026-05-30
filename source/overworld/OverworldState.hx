@@ -154,7 +154,7 @@ class OverworldState extends FlxState
 
 		if (player != null)
 		{
-			camGame.focusOn(new FlxPoint(player.x + player.width / 2, player.y + player.height / 2));
+			camGame.focusOn(new FlxPoint(player.hitbox.x + player.hitbox.width / 2, player.hitbox.y + player.hitbox.height / 2));
 		}
 
 		if (!cameraScrollX)
@@ -317,9 +317,13 @@ class OverworldState extends FlxState
 
 		walkInteractables = new FlxTypedGroup<Interactable>();
 		walkInteractables.camera = camGame;
+		walkInteractables.visible = false;
+		add(walkInteractables);
 
 		interactInteractables = new FlxTypedGroup<Interactable>();
 		interactInteractables.camera = camGame;
+		interactInteractables.visible = false;
+		add(interactInteractables);
 
 		player.interaction.add(function(hb:CtSprite):Void
 		{

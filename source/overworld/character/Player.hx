@@ -30,18 +30,18 @@ class Player extends Character{
 	function doInteraction():Void
 	{
 		interactableHitbox.revive();
-		interactableHitbox.createColorBlock(1, 1, FlxColor.GREEN);
-		CtUtil.centerSpriteOnSprite(interactableHitbox, this, true, true);
+		interactableHitbox.createColorBlock(Std.int(width / 1.7), Std.int(height / 1.7), FlxColor.GREEN);
+		CtUtil.centerSpriteOnSprite(interactableHitbox, hitbox, true, true);
 		switch (facing)
 		{
 			case DOWN:
-				interactableHitbox.y += 20;
+				interactableHitbox.y += interactableHitbox.height;
 			case UP:
-				interactableHitbox.y -= 20;
+				interactableHitbox.y -= interactableHitbox.height;
 			case LEFT:
-				interactableHitbox.x -= 20;
+				interactableHitbox.x -= interactableHitbox.width;
 			case RIGHT:
-				interactableHitbox.x += 20;
+				interactableHitbox.x += interactableHitbox.width;
 			default: //
 		}
 
