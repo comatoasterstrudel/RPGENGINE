@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="character_coworkerC.png">
+<SubTexture name="idle_down0000" x="0" y="0" width="43" height="51" frameX="-7" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_down0000" x="43" y="0" width="43" height="51" frameX="-7" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_down0001" x="0" y="0" width="43" height="51" frameX="-7" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_down0002" x="0" y="51" width="43" height="51" frameX="-7" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_down0003" x="0" y="0" width="43" height="51" frameX="-7" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="idle_up0000" x="43" y="51" width="41" height="51" frameX="-7" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_up0000" x="84" y="51" width="41" height="51" frameX="-7" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_up0001" x="43" y="51" width="41" height="51" frameX="-7" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_up0002" x="129" y="0" width="41" height="51" frameX="-8" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_up0003" x="43" y="51" width="41" height="51" frameX="-7" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="idle_horizontal0000" x="86" y="0" width="43" height="51" frameX="-4" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_horizontal0000" x="0" y="102" width="43" height="51" frameX="-4" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_horizontal0001" x="86" y="0" width="43" height="51" frameX="-4" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_horizontal0002" x="43" y="102" width="43" height="51" frameX="-4" frameY="-4" frameWidth="32" frameHeight="32" />
+<SubTexture name="walk_horizontal0003" x="86" y="0" width="43" height="51" frameX="-4" frameY="-4" frameWidth="32" frameHeight="32" />
+</TextureAtlas>
