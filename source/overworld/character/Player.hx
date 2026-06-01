@@ -18,33 +18,49 @@ class Player extends Character{
 
 	override function update(elapsed:Float):Void
 	{
-		interactableHitbox.update(elapsed);
-		super.update(elapsed);
+		var pressedInteract:Bool = CtControls.checkInput("accept", JUSTPRESSED);
 
-		if (CtControls.checkInput("accept", JUSTPRESSED))
+		if (pressedInteract)
 		{
 			doInteraction();
+			interactableHitbox.update(elapsed);
+		}
+		
+		super.update(elapsed);
+
+		if (pressedInteract)
+		{
+			finishInteraction();
 		}
 	}
 
 	function doInteraction():Void
 	{
+		var range:Int = Std.int(16 * Constants.overworldPixelScale);
+		var trueRange:Int = Std.int(range / 2);
+
+		var horizontal:Bool = (facing == LEFT || facing == RIGHT);
+		
 		interactableHitbox.revive();
-		interactableHitbox.createColorBlock(Std.int(width / 1.7), Std.int(height / 1.7), FlxColor.GREEN);
+		interactableHitbox.createColorBlock(horizontal ? range : 1, horizontal ? 1 : range, FlxColor.GREEN);
 		CtUtil.centerSpriteOnSprite(interactableHitbox, hitbox, true, true);
 		switch (facing)
 		{
 			case DOWN:
-				interactableHitbox.y += interactableHitbox.height;
+				interactableHitbox.y += trueRange;
 			case UP:
-				interactableHitbox.y -= interactableHitbox.height;
+				interactableHitbox.y -= trueRange;
 			case LEFT:
-				interactableHitbox.x -= interactableHitbox.width;
+				interactableHitbox.x -= trueRange;
 			case RIGHT:
-				interactableHitbox.x += interactableHitbox.width;
+				interactableHitbox.x += trueRange;
 			default: //
 		}
+		interactableHitbox.y += 3;
+	}
 
+	function finishInteraction():Void
+	{
 		interaction.dispatch(interactableHitbox);
 		interactableHitbox.kill();
 		#if showInteractionBox
