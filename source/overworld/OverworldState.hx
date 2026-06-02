@@ -27,6 +27,9 @@ class OverworldState extends FlxState
 	// MAP AND TILES
 	var map:BetterFlxOgmo3Loader;
 	var tileSets:Map<String, FlxTilemap> = [];
+	var tile_background:FlxTypedGroup<FlxTilemap>;
+	var tile_main:FlxTypedGroup<FlxTilemap>;
+	var tile_foreground:FlxTypedGroup<FlxTilemap>;
 
 	// INTERACTABLES
 	var walkInteractables:FlxTypedGroup<Interactable>;
@@ -259,6 +262,17 @@ class OverworldState extends FlxState
 	 */
 	function loadMap():Void
 	{
+		tile_background = new FlxTypedGroup<FlxTilemap>();
+		tile_background.camera = camGame;
+		add(tile_background);
+
+		tile_main = new FlxTypedGroup<FlxTilemap>();
+		tile_main.camera = camGame;
+		add(tile_main);
+
+		tile_foreground = new FlxTypedGroup<FlxTilemap>();
+		tile_foreground.camera = camGame;
+		
 		map = new BetterFlxOgmo3Loader(Constants.ogmoFilePath, Constants.tilemapsDataPath + roomData.map + ".json");
 		for (layer in map.getLevelData().layers)
 		{
@@ -278,14 +292,25 @@ class OverworldState extends FlxState
 						default: NONE;
 					});
 				}
-				tiles.camera = camGame;	
 				cameraScrollX = tiles.width >= FlxG.width;
 				cameraScrollY = tiles.height >= FlxG.height;
 				cameraFollowingTilemap = tiles;
 				tiles.follow(camGame);
-				add(tiles);
-
-				tileSets.set(layer.tileset, tiles);
+				if (layer.name == "background")
+				{
+					tiles.scrollFactor.set(.8, .8);
+					tile_background.add(tiles);
+				}
+				else if (layer.name == "foreground")
+				{
+					tiles.scrollFactor.set(1.2, 1.2);
+					tile_foreground.add(tiles);
+				}
+				else
+				{
+					tile_main.add(tiles);
+					tileSets.set(layer.tileset, tiles);
+				}
 			}
 		}
 
@@ -390,6 +415,7 @@ class OverworldState extends FlxState
 				break;
 			}
 		}
+		add(tile_foreground);
 	}
 
 	/**
