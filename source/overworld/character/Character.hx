@@ -16,6 +16,8 @@ class Character extends CtSprite
 	
 	public var moving:Bool = false;
 	
+	public var noclip:Bool = false;
+	
 	public function new(id:String):Void
 	{
         super();
@@ -33,6 +35,7 @@ class Character extends CtSprite
 		hitbox = new CtSprite().createColorBlock(Std.int(width / 1.5), Std.int(height / 2), FlxColor.RED);
 		hitbox.visible = false;
 		hitbox.immovable = true;
+		this.noclip = data.noclip;
     }
     
 	override function update(elapsed:Float)

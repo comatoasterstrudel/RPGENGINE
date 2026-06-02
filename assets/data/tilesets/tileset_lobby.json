@@ -1,0 +1,13 @@
+{
+    "name": "lobby",
+    "graphic": "lobby",
+    "collisions": [
+        "NONE", "ANY", "ANY", "ANY", "ANY", "ANY", 
+        "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", 
+        "ANY", "ANY", "ANY", "NONE", "ANY", "ANY",
+        "NONE", "NONE", "ANY", "ANY", "ANY", "ANY",
+        "ANY", "ANY", "ANY", "ANY", "ANY", "ANY",
+        "ANY", "ANY", "ANY", "ANY", "ANY", "ANY",
+        "ANY", "ANY", "NONE", "NONE", "NONE", "NONE"
+    ]
+}

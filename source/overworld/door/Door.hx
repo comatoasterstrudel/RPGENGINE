@@ -4,11 +4,11 @@ class Door extends Interactable
 {
 	var player:Player;
 
-	public function new(player:Player, x:Int, y:Int, graphic:String, room:String, transitionTime:Float):Void
+	public function new(player:Player, x:Int, y:Int, graphic:String, room:String, transitionTime:Float, lockedDialogue:String):Void
 	{
         super();
 		this.player = player;
-        addManually(x, y, 32, 32, INTERACT, "", room, transitionTime, "");
+		addManually(x, y, 32, 32, INTERACT, room == "" ? lockedDialogue : "", room, transitionTime, "");
         createFromSparrow(Constants.doorGraphicPath + graphic + ".png", Constants.doorGraphicPath + graphic + ".xml");
         animation.addByPrefix("open", "open", 1);
         animation.addByPrefix("closed", "closed", 0);
@@ -17,7 +17,10 @@ class Door extends Interactable
         antialiasing = false;
         visible = true;
         triggerSignal.add(function():Void{
-           animation.play("open"); 
+			if (room != "")
+			{
+				animation.play("open"); 
+			}
         });
 		lerpManager.lerpAlpha = true;
 		lerpManager.lerpSpeed = 3;

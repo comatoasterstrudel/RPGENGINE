@@ -104,6 +104,9 @@ class Constants
 	public static final encounterCooldown:Float = 3.5;
 	// Room
 	public static final doorGraphicPath:String = "assets/images/doors/door_";
+	// Props
+	public static final propDataPath:String = "assets/data/props/prop_";
+	public static final propImagePath:String = "assets/images/props/prop_";
 	//
 	// DIALOGUE STUFF !!
 	//

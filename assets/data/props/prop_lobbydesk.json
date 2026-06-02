@@ -1,0 +1,8 @@
+{
+    "name": "lobbydesk",
+    "graphic": "lobbydesk",
+    "hitboxX": 1,
+    "hitboxY": 24,
+    "hitboxWidth": 94,
+    "hitboxHeight": 17
+}

@@ -59,6 +59,8 @@
           "_eid": "68173711",
           "x": 32,
           "y": 48,
+          "width": 32,
+          "height": 32,
           "originX": 0,
           "originY": 0,
           "values": {"name": "coworkerA"}
@@ -69,6 +71,8 @@
           "_eid": "68173711",
           "x": 96,
           "y": 48,
+          "width": 32,
+          "height": 32,
           "originX": 0,
           "originY": 0,
           "values": {"name": "coworkerB"}
@@ -79,6 +83,8 @@
           "_eid": "68173711",
           "x": 160,
           "y": 48,
+          "width": 32,
+          "height": 32,
           "originX": 0,
           "originY": 0,
           "values": {"name": "coworkerC"}
@@ -89,6 +95,8 @@
           "_eid": "68173711",
           "x": 224,
           "y": 48,
+          "width": 32,
+          "height": 32,
           "originX": 0,
           "originY": 0,
           "values": {"name": "coworkerD"}

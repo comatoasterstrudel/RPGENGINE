@@ -6,7 +6,7 @@ class CharacterData extends CtJsonLoader
     
     public var name:String;
     public var graphic:String;
-    
+	public var noclip:Bool;
     public function new(id:String){
         this.id = id;
         
@@ -14,5 +14,6 @@ class CharacterData extends CtJsonLoader
         
         this.name = data.name ?? "";
         this.graphic = data.graphic ?? "mc";
+		this.noclip = data.noclip ?? false;
     }
 }

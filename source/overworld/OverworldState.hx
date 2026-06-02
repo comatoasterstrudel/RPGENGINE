@@ -1,5 +1,7 @@
 package overworld;
 
+import overworld.props.Prop;
+
 class OverworldState extends FlxState
 {
 	public static var roomName:String = "test";
@@ -123,10 +125,16 @@ class OverworldState extends FlxState
 			{
 				var character:Character = cast prop;
 				
-				if (character != player)
+				if (character != player && !character.noclip)
 				{
 					FlxG.collide(character.hitbox, player.hitbox);
 				}
+			}
+			if (prop is Prop)
+			{
+				var trueProp:Prop = cast prop;
+
+				FlxG.collide(player.hitbox, trueProp.hitbox);
 			}
 		}
 		
@@ -385,10 +393,12 @@ class OverworldState extends FlxState
 					placeCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale, entity.values.name);
 				case "door":
 					var door = new Door(player, Std.int(entity.x * Constants.overworldPixelScale), Std.int(entity.y * Constants.overworldPixelScale),
-						entity.values.graphic, entity.values.room, entity.values.transitionTime);
+						entity.values.graphic, entity.values.room, entity.values.transitionTime, entity.values.lockedDialogue);
 
 					props.add(door);
 					interactInteractables.add(door);
+				case "prop":
+					props.add(new Prop(entity.values.propName, entity.x, entity.y));
 				default:
 					//
 			}
