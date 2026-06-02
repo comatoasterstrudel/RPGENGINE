@@ -51,7 +51,7 @@
           "y": 48,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "placeholder", "room": "test", "transitionTime": 0.5}
+          "values": {"graphic": "placeholder", "room": "test_test", "transitionTime": 0.5}
         },
         {
           "name": "player",

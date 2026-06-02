@@ -1,6 +1,6 @@
 {
-    "name": "random_encounter",
-    "map": "random_encounter",
+    "name": "test_randomencounter",
+    "map": "test_randomencounter",
     "encounters": [
         {
             "battleName": "test",

@@ -1,6 +1,6 @@
 {
-    "name": "corridor",
-    "map": "corridor",
+    "name": "test_corridor",
+    "map": "test_corridor",
     "encounters": [
         {
             "battleName": "test",
