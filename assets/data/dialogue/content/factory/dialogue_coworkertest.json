@@ -1,0 +1,12 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "Hi Robin, my dear Pal!"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "fuck you",
+		"actor": "robin",
+		"portrait": "neutral"
+	}
+]
