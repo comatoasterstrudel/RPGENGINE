@@ -1,0 +1,26 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "Robin: neutral",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Robin: talk",
+		"actor": "robin",
+		"portrait": "talk"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Robin: smile",
+		"actor": "robin",
+		"portrait": "smile"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Robin: smiletalk",
+		"actor": "robin",
+		"portrait": "smiletalk"
+	}
+]
