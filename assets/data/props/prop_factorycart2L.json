@@ -1,0 +1,8 @@
+{
+    "name": "factorycart2L",
+    "graphic": "factorycart2L",
+    "hitboxX": 2,
+    "hitboxY": 21,
+    "hitboxWidth": 28,
+    "hitboxHeight": 10
+}

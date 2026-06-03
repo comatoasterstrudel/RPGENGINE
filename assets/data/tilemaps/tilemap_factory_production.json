@@ -82,6 +82,54 @@
           "originX": 0,
           "originY": 0,
           "values": {"entrance": ""}
+        },
+        {
+          "name": "prop",
+          "id": 4,
+          "_eid": "37256014",
+          "x": 240,
+          "y": 224,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"propName": "factorycart1L"}
+        },
+        {
+          "name": "prop",
+          "id": 5,
+          "_eid": "37256014",
+          "x": 368,
+          "y": 352,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"propName": "factorycart2R"}
+        },
+        {
+          "name": "prop",
+          "id": 6,
+          "_eid": "37256014",
+          "x": 576,
+          "y": 160,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"propName": "factorycart1R"}
+        },
+        {
+          "name": "prop",
+          "id": 7,
+          "_eid": "37256014",
+          "x": 720,
+          "y": 400,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"propName": "factorycart2L"}
         }
       ]
     },
