@@ -71,7 +71,7 @@
           "y": 384,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factory", "room": "factory_lobby", "transitionTime": 0.5, "lockedDialogue": ""}
+          "values": {"graphic": "factory", "room": "factory_lobbytransition", "transitionTime": 0.5, "lockedDialogue": ""}
         },
         {
           "name": "player",

@@ -1,0 +1,16 @@
+{
+    "name": "lobbytransition",
+    "graphic": "lobbytransition",
+    "collisions": [
+        "NONE", "NONE", "NONE",
+        "NONE", "NONE", "NONE",
+        "NONE", "NONE", "NONE",
+        "NONE", "NONE", "NONE",
+        "NONE", "NONE", "NONE",
+        "NONE", "NONE", "NONE",
+        "NONE", "NONE", "NONE",
+        "NONE", "NONE", "NONE",
+        "NONE", "NONE", "NONE",
+        "NONE", "NONE", "NONE"
+    ]
+}
