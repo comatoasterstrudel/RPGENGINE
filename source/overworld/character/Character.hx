@@ -57,13 +57,10 @@ class Character extends CtSprite
 	function initCharacterAnimations():Void
 	{
 		createFromSparrow(Constants.characterGraphicPath + data.graphic + ".png", Constants.characterGraphicPath + data.graphic + ".xml");
-		animation.addByPrefix("idle_down", "idle_down", 0);
-		animation.addByPrefix("idle_up", "idle_up", 0);
-		animation.addByPrefix("idle_horizontal", "idle_horizontal", 0);
-		animation.addByPrefix("walk_down", "walk_down", Constants.characterWalkFps);
-		animation.addByPrefix("walk_up", "walk_up", Constants.characterWalkFps);
-		animation.addByPrefix("walk_horizontal", "walk_horizontal", Constants.characterWalkFps);
-
+		for (anim in data.anims)
+		{
+			animation.addByPrefix(anim.name, anim.prefix, anim.fps, anim.looped, anim.flipX, anim.flipY);
+		}
 		scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
 		updateHitbox();
 

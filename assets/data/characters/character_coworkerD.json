@@ -1,4 +1,39 @@
 {
     "name": "coworkerD",
-    "graphic": "coworkerD"
+    "graphic": "coworkerD",
+    "anims": [
+        {
+            "name": "idle_down",
+            "prefix": "idle_down",
+            "fps": 0
+        },
+        {
+            "name": "idle_up",
+            "prefix": "idle_up",
+            "fps": 0
+        },
+        {
+            "name": "idle_horizontal",
+            "prefix": "idle_horizontal",
+            "fps": 0
+        },
+        {
+            "name": "walk_down",
+            "prefix": "walk_down",
+            "fps": 5,
+            "looped": "true"
+        },
+        {
+            "name": "walk_up",
+            "prefix": "walk_up",
+            "fps": 5,
+            "looped": "true"
+        },
+        {
+            "name": "walk_horizontal",
+            "prefix": "walk_horizontal",
+            "fps": 5,
+            "looped": "true"
+        }
+    ]
 }

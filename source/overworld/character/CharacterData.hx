@@ -7,6 +7,8 @@ class CharacterData extends CtJsonLoader
     public var name:String;
     public var graphic:String;
 	public var noclip:Bool;
+	public var anims:Array<CharacterAnimation>;
+    
     public function new(id:String){
         this.id = id;
         
@@ -15,5 +17,16 @@ class CharacterData extends CtJsonLoader
         this.name = data.name ?? "";
         this.graphic = data.graphic ?? "mc";
 		this.noclip = data.noclip ?? false;
+		anims = data.anims.map(function(item)
+		{
+			return {
+				name: item.name ?? "",
+				prefix: item.prefix ?? "",
+				fps: item.fps ?? 24,
+				looped: item.looped ?? false,
+				flipX: item.flipX ?? false,
+				flipY: item.flipY ?? false
+			};
+		});
     }
 }
