@@ -451,6 +451,16 @@ class OverworldState extends FlxState
 				break;
 			}
 		}
+		for (prop in props)
+		{
+			if (prop is Door)
+			{
+				var door:Door = cast prop;
+				door.updateAlpha();
+				door.lerpManager.snap();
+			}
+		}
+		
 		add(tile_foreground);
 		for (script in roomData.script)
 		{

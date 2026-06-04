@@ -24,9 +24,6 @@ class Door extends Interactable
         });
 		lerpManager.lerpAlpha = true;
 		lerpManager.lerpSpeed = 3;
-
-		updateAlpha();
-		lerpManager.snap();
 	}
 
 	override function update(elapsed:Float):Void
@@ -36,7 +33,7 @@ class Door extends Interactable
 		updateAlpha();
 	}
 
-	function updateAlpha():Void
+	public function updateAlpha():Void
 	{
 		if ((player.y) <= (y) && FlxG.pixelPerfectOverlap(player, this))
 		{

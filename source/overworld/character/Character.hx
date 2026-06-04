@@ -43,6 +43,7 @@ class Character extends CtSprite
 		hitbox.visible = false;
 		hitbox.immovable = true;
 		this.noclip = data.noclip;
+		centerSpriteOnHitbox();
     }
     
 	override function update(elapsed:Float)
@@ -56,10 +57,15 @@ class Character extends CtSprite
 
 	override function draw():Void
 	{
-		CtUtil.centerSpriteOnSprite(this, hitbox, true, false);
-		y = hitbox.y + hitbox.height - height;
+		centerSpriteOnHitbox();
 
 		super.draw();
+	}
+
+	function centerSpriteOnHitbox():Void
+	{
+		CtUtil.centerSpriteOnSprite(this, hitbox, true, false);
+		y = hitbox.y + hitbox.height - height;
 	}
 	
 	function initCharacterAnimations():Void

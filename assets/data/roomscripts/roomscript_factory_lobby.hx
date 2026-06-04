@@ -12,8 +12,7 @@ function create():Void{
 
 function doBlink():Void{
     character_lobbysecretary.animation.play(anims[progress]);
-    
-    
+
     new FlxTimer().start(anims[progress] == "blink" ? .5 : 3, function(f):Void{
         doBlink();
     });
