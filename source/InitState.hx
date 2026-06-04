@@ -18,6 +18,8 @@ class InitState extends FlxState{
 
 		initDialogueBox();
 		
+		initScripts();
+		
 		#if debug
 		#if testBattle
 		PlayState.setBattle(Compiler.getDefine("testBattle").split('=')[0], ARCADE);
@@ -55,5 +57,10 @@ class InitState extends FlxState{
 		}
 
 		CtDialogueBox.preloadFont(CtDialogueBox.defaultSettings.font, CtDialogueBox.defaultSettings.fontSize);
+	}
+	function initScripts():Void
+	{
+		CtScript.init();
+		CtScript.setDefaultValue({name: "Character", value: Character});
 	}
 }

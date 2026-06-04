@@ -64,6 +64,9 @@ class PlayState extends FlxState
 	// DEATH EFFECT
 	var deathEffects:Array<DeathEffect> = [];
 	
+	// SCRIPTS
+	var scripts:Array<CtScript> = [];
+	
 	override public function create()
 	{
 		persistentUpdate = true;
@@ -82,6 +85,8 @@ class PlayState extends FlxState
 		setUpMenus();
 
 		setUpMusic();
+		
+		setUpScripts();
 		
 		if (battleType == ARCADE)
 		{
@@ -950,6 +955,41 @@ class PlayState extends FlxState
 		{
 			damageTexts.remove(text, true);
 			text.destroy();
+		}
+	}
+	
+	function setUpScripts():Void
+	{
+		if (battleData.script != "")
+		{
+			addScript(Constants.battleScriptPath + battleData.script + ".hx");
+		}
+	}
+
+	function addScript(path:String):CtScript
+	{
+		var script = new CtScript(path);
+
+		if (script.script == null)
+			return null;
+
+		script.setValue({name: "allyGrid", value: allyGrid});
+		script.setValue({name: "enemyGrid", value: enemyGrid});
+		script.setValue({name: "grids", value: grids});
+
+		script.setValue({name: "placeUnit", value: placeUnit});
+
+		scripts.push(script);
+		script.executeFunction("create");
+
+		return script;
+	}
+
+	function executeScriptFunction(name:String, args:Array<Any>):Void
+	{
+		for (script in scripts)
+		{
+			script.executeFunction(name, args);
 		}
 	}
 	

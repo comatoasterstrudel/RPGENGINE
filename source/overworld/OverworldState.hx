@@ -55,6 +55,9 @@ class OverworldState extends FlxState
 	var selectedRandomEncounter:String = "";
 	var encounterCooldown:Float = 0;
 	
+	// SCRIPTS
+	var scripts:Array<CtScript> = [];
+	
     override function create():Void{
         super.create();
         
@@ -92,6 +95,7 @@ class OverworldState extends FlxState
 		{
 			battleTransition.update();
 		}
+		executeScriptFunction("update", [elapsed]);
 	}
 
 	/**
@@ -426,6 +430,10 @@ class OverworldState extends FlxState
 			}
 		}
 		add(tile_foreground);
+		if (roomData.script != "")
+		{
+			addScript(Constants.roomScriptPath + roomData.script + ".hx");
+		}
 	}
 
 	/**
@@ -654,6 +662,29 @@ class OverworldState extends FlxState
 		});
 	}
 
+	function addScript(path:String):CtScript
+	{
+		var script = new CtScript(path);
+
+		if (script.script == null)
+			return null;
+
+		script.setValue({name: "player", value: player});
+
+		scripts.push(script);
+		script.executeFunction("create");
+
+		return script;
+	}
+
+	function executeScriptFunction(name:String, args:Array<Any>):Void
+	{
+		for (script in scripts)
+		{
+			script.executeFunction(name, args);
+		}
+	}
+	
 	public static function resetGlobalVars():Void
 	{
 		lastTransitionTime = 0;

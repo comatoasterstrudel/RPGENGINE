@@ -10,6 +10,8 @@ class RoomData extends CtJsonLoader
 	public var encounters:Array<EncounterData>;
 	public var encounterChance:Float;
     
+	public var script:String;
+	
     public function new(id:String){
         this.id = id;
         
@@ -32,5 +34,6 @@ class RoomData extends CtJsonLoader
 			});
 		}
 		this.encounterChance = data.encounterChance ?? 10;
+		this.script = data.script ?? "";
     }
 }

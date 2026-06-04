@@ -28,6 +28,7 @@ import ctUtil.extensions.*;
 import ctUtil.json.CtJsonLoader;
 import ctUtil.menu.CtMenuManager;
 import ctUtil.menu.CtMenuOption;
+import ctUtil.script.*;
 import cursor.Cursor;
 import flixel.FlxCamera;
 import flixel.FlxG;

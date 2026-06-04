@@ -79,6 +79,8 @@ class Constants
 	public static final turnAttentionAnimTimeSplit:Float = .7;
 	public static final turnAttentionAnimScale:Float = .14;
 	public static final turnAttentionAnimAlpha:Float = .7;
+	// Scripts
+	public static final battleScriptPath:String = "assets/data/battlescripts/battlescript_";
 	//
 	// OVERWORLD STUFF !!
 	//
@@ -107,6 +109,8 @@ class Constants
 	// Props
 	public static final propDataPath:String = "assets/data/props/prop_";
 	public static final propImagePath:String = "assets/images/props/prop_";
+	// Scripts
+	public static final roomScriptPath:String = "assets/data/roomscripts/roomscript_";
 	//
 	// DIALOGUE STUFF !!
 	//
