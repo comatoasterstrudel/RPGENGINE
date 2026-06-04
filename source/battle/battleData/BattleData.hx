@@ -12,7 +12,7 @@ class BattleData extends CtJsonLoader
     public var allyUnits:Array<UnitInfo> = [];
     public var enemyUnits:Array<UnitInfo> = [];
 
-	public var script:String = "";
+	public var script:Array<String> = [];
     
     public function new(id:String){
         this.id = id;
@@ -39,6 +39,6 @@ class BattleData extends CtJsonLoader
                 position: new FlxPoint(item.x, item.y)
             };
         });
-		this.script = data.script ?? "";
+		this.script = data.script ?? cast [];
     }
 }

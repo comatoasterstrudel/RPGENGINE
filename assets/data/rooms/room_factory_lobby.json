@@ -1,4 +1,5 @@
 {
     "name": "factory_lobby",
-    "map": "factory_lobby"
+    "map": "factory_lobby",
+    "script": ["factory_lobby"]
 }

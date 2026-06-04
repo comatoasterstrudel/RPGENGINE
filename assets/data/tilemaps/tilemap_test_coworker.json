@@ -63,7 +63,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"name": "coworkerA"}
+          "values": {"name": "coworkerA", "tag": ""}
         },
         {
           "name": "character",
@@ -75,7 +75,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"name": "coworkerB"}
+          "values": {"name": "coworkerB", "tag": ""}
         },
         {
           "name": "character",
@@ -87,7 +87,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"name": "coworkerC"}
+          "values": {"name": "coworkerC", "tag": ""}
         },
         {
           "name": "character",
@@ -99,7 +99,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"name": "coworkerD"}
+          "values": {"name": "coworkerD", "tag": ""}
         }
       ]
     },

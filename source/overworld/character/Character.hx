@@ -18,19 +18,26 @@ class Character extends CtSprite
 	
 	public var noclip:Bool = false;
 	
-	public function new(id:String):Void
+	var autoMovementTarget:FlxPoint = new FlxPoint();
+	var autoMovementStartPosition:FlxPoint = new FlxPoint();
+	var autoMovementActive:Bool = false;
+	var autoMovementComplete:Void->Void;
+	var autoXfirst:Bool = false;
+
+	public var tag:String = "";
+
+	public var lockAnims:Bool = false;
+
+	public function new(id:String, tag:String):Void
 	{
         super();
         
 		this.id = id;
 		data = new CharacterData(id);
+		this.tag = tag;
 
 		initCharacterAnimations();
 
-		setFacingFlip(LEFT, false, false);
-		setFacingFlip(RIGHT, true, false);
-		setFacingFlip(UP, false, false);
-		setFacingFlip(DOWN, false, false);
 		facing = DOWN;
 		hitbox = new CtSprite().createColorBlock(Std.int(width / 1.5), Std.int(height / 2), FlxColor.RED);
 		hitbox.visible = false;
@@ -44,6 +51,7 @@ class Character extends CtSprite
 
 		hitbox.update(elapsed);
 		super.update(elapsed);
+		handleAutoMovement();
     }
 
 	override function draw():Void
@@ -71,7 +79,8 @@ class Character extends CtSprite
 	{
 		var direction:String = switch (facing)
 		{
-			case LEFT | RIGHT: "horizontal";
+			case LEFT: "left";
+			case RIGHT: "right";
 			case UP: "up";
 			case DOWN: "down";
 			default: "down";
@@ -129,7 +138,80 @@ class Character extends CtSprite
             default:
 				hitbox.velocity.set(0, 0);
         }
-		handleCharacterAnimations();
+		if (!lockAnims)
+			handleCharacterAnimations();
+	}
+
+	function handleAutoMovement():Void
+	{
+		if (!autoMovementActive)
+			return;
+
+		if (autoMovementTarget.x != hitbox.x)
+		{
+			if (autoMovementTarget.x < autoMovementStartPosition.x)
+			{ // ypure moving to the left
+				if (hitbox.x <= autoMovementTarget.x) // done
+				{
+					hitbox.x = autoMovementTarget.x;
+					status = IDLE;
+				}
+				else
+				{
+					status = MOVE_LEFT;
+				}
+			}
+			else
+			{ // youre moving to the right
+				if (hitbox.x >= autoMovementTarget.x) // done
+				{
+					hitbox.x = autoMovementTarget.x;
+					status = IDLE;
+				}
+				else
+				{
+					status = MOVE_RIGHT;
+				}
+			}
+		}
+		else if (autoMovementTarget.y != hitbox.y)
+		{
+			if (autoMovementTarget.y > autoMovementStartPosition.y)
+			{ // ypure moving DOWN
+				if (hitbox.y >= autoMovementTarget.y) // done
+				{
+					hitbox.y = autoMovementTarget.y;
+					status = IDLE;
+				}
+				else
+				{
+					status = MOVE_DOWN;
+				}
+			}
+			else
+			{ // youre moving UP
+				if (hitbox.x <= autoMovementTarget.y) // done
+				{
+					hitbox.x = autoMovementTarget.y;
+					status = IDLE;
+				}
+				else
+				{
+					status = MOVE_UP;
+				}
+			}
+		}
+
+		if ((autoMovementTarget.x == hitbox.x) && (autoMovementTarget.y == hitbox.y))
+		{
+			autoMovementActive = false;
+			autoMovementTarget.set(-1, -1);
+			status = IDLE;
+			if (autoMovementComplete != null)
+			{
+				autoMovementComplete();
+			}
+		}
 	}
 
 	public function positionCharacter(x:Float, y:Float):Void
@@ -137,5 +219,44 @@ class Character extends CtSprite
 		setPosition(x, y);
 		CtUtil.centerSpriteOnSprite(hitbox, this, true, false);
 		hitbox.y = y + height - hitbox.height;
+	}
+	public function move(x:Float = -1, y:Float = -1, ?onComplete:Void->Void):Void
+	{
+		var moveX:Bool = x != -1;
+		var moveY:Bool = y != -1;
+
+		autoMovementStartPosition.set(hitbox.x, hitbox.y);
+		autoMovementTarget.set(moveX ? x : hitbox.x, moveY ? y : hitbox.y);
+		autoMovementActive = true;
+
+		autoMovementComplete = onComplete;
+	}
+
+	public function moveToGridSpace(x:Float = -1, y:Float = -1, ?onComplete:Void->Void):Void
+	{
+		var moveX:Bool = x != -1;
+		var moveY:Bool = y != -1;
+
+		var trueX:Float = x;
+		var trueY:Float = y;
+
+		if (moveX)
+			trueX = (x * Constants.overworldPixelScale) * 16;
+		if (moveY)
+			trueY = (y * Constants.overworldPixelScale) * 16;
+
+		move(trueX, trueY, onComplete);
+	}
+
+	override function kill():Void
+	{
+		super.kill();
+		hitbox.kill();
+	}
+
+	override function revive():Void
+	{
+		super.revive();
+		hitbox.revive();
 	}
 }

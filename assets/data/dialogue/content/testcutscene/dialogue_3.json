@@ -1,0 +1,19 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "transgener"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "WOAAAAHhh ",
+		"actor": "robin",
+		"portrait": "smile"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "its so cool taht youre a trans",
+		"actor": "robin",
+		"portrait": "smiletalk",
+		"continueLine": true
+	}
+]

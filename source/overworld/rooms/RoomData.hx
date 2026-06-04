@@ -10,12 +10,12 @@ class RoomData extends CtJsonLoader
 	public var encounters:Array<EncounterData>;
 	public var encounterChance:Float;
     
-	public var script:String;
+	public var script:Array<String>;
 	
     public function new(id:String){
         this.id = id;
         
-		super(Constants.roomDataPath + id + '.json', Constants.roomDataPath + 'test.json');
+		super(Constants.roomDataPath + id + '.json', Constants.roomDataPath + 'test_test.json');
         
         this.name = data.name ?? "";
         this.map = data.map ?? "test";
@@ -34,6 +34,6 @@ class RoomData extends CtJsonLoader
 			});
 		}
 		this.encounterChance = data.encounterChance ?? 10;
-		this.script = data.script ?? "";
+		this.script = data.script ?? cast [];
     }
 }

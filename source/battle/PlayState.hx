@@ -960,9 +960,9 @@ class PlayState extends FlxState
 	
 	function setUpScripts():Void
 	{
-		if (battleData.script != "")
+		for (script in battleData.script)
 		{
-			addScript(Constants.battleScriptPath + battleData.script + ".hx");
+			addScript(Constants.battleScriptPath + script + ".hx");
 		}
 	}
 

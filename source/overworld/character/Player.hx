@@ -7,7 +7,7 @@ class Player extends Character{
     
 	public function new()
 	{
-		super(Constants.playerCharacterName);
+		super(Constants.playerCharacterName, "player");
 		interactableHitbox = new CtSprite();
 		interactableHitbox.kill();
 		hitbox.immovable = false;

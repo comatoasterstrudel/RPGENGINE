@@ -133,7 +133,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"name": "coworkerA"}
+          "values": {"name": "coworkerA", "tag": ""}
         },
         {
           "name": "interactable",
@@ -145,7 +145,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/dialogue_coworkertest", "room": "", "roomTransitionTime": 0.3, "encounterName": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/dialogue_coworkertest", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
         }
       ]
     },

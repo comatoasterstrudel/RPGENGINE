@@ -12,6 +12,8 @@ class Interactable extends CtSprite
     
 	public var encounterName:String = '';
     
+	public var scriptFunction:String = "";
+	
 	public var triggerSignal = new FlxSignal();
 
 	public function new()
@@ -35,12 +37,13 @@ class Interactable extends CtSprite
 		room = entity.values.room;
 		roomTransitionTime = entity.values.roomTransitionTime;
 		encounterName = entity.values.encounterName;
+		scriptFunction = entity.values.scriptFunction;
 
 		return this;
 	}
 
 	public function addManually(x:Float, y:Float, width:Int, height:Int, ?type:InteractableType, ?dialogue:String, ?room:String, ?roomTransitionTime:Float,
-			?encounterName:String):Void
+			?encounterName:String, ?scriptFunction:String):Void
 	{
 		setPosition(x, y);
 		createColorBlock(width, height, FlxColor.BLUE);

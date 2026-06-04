@@ -63,7 +63,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"name": "robin"}
+          "values": {"name": "robin", "tag": ""}
         },
         {
           "name": "character",
@@ -75,7 +75,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"name": "robin"}
+          "values": {"name": "robin", "tag": ""}
         },
         {
           "name": "interactable",
@@ -87,7 +87,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "testroom/dialogue_robin2", "room": "", "roomTransitionTime": 0.3, "encounterName": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "testroom/dialogue_robin2", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
         },
         {
           "name": "interactable",
@@ -99,7 +99,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "testroom/dialogue_robin1", "room": "", "roomTransitionTime": 0.3, "encounterName": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "testroom/dialogue_robin1", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
         }
       ]
     },

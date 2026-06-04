@@ -16,6 +16,9 @@ class OverworldState extends FlxState
 	var cameraScrollY:Bool = false;
 	var cameraFollowingTilemap:FlxTilemap;
 	var lockCamera:Bool = false;
+	var unbindCamera:Bool = false;
+	var cameraBoundsMin:FlxPoint = new FlxPoint();
+	var cameraBoundsMax:FlxPoint = new FlxPoint();
 	
 	// CHARACTERS
     var player:Player;
@@ -24,7 +27,10 @@ class OverworldState extends FlxState
 
 	// CUTSCENE
 	public static var inCutscene:Bool = false;
+	// DIALOGUe
+	var inCutsceneBeforeDialogue:Bool = false;
 	var dialogueBox:CtDialogueBox;
+	var onDialogueComplete:Void->Void;
 
 	// MAP AND TILES
 	var map:BetterFlxOgmo3Loader;
@@ -164,7 +170,20 @@ class OverworldState extends FlxState
 
 	function handleCameraScroll():Void
 	{
-		if (cameraFollowingTilemap == null || lockCamera)
+		if (cameraFollowingTilemap == null)
+			return; // what!
+
+		if (unbindCamera)
+		{
+			camGame.setScrollBounds(null, null, null, null);
+		}
+		else
+		{
+			camGame.setScrollBounds(cameraBoundsMin.x == -999 ? null : cameraBoundsMin.x, cameraBoundsMax.x == -999 ? null : cameraBoundsMax.x,
+				cameraBoundsMin.y == -999 ? null : cameraBoundsMin.y, cameraBoundsMax.y == -999 ? null : cameraBoundsMax.y);
+		}
+
+		if (lockCamera || unbindCamera)
 			return; // what!
 
 		if (player != null)
@@ -338,6 +357,9 @@ class OverworldState extends FlxState
 				camGame.minScrollY = null;
 				camGame.maxScrollY = null;
 			}
+			cameraBoundsMin.set(camGame.minScrollX ?? -999, camGame.minScrollY ?? -999);
+			cameraBoundsMax.set(camGame.maxScrollX ?? -999, camGame.maxScrollY ?? -999);
+			
 			handleCameraScroll();
 		}
 		
@@ -394,7 +416,7 @@ class OverworldState extends FlxState
 				case "player":
 					playerPlacePoints.push(new PlayerPlacePoint(entity));
 				case "character":
-					placeCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale, entity.values.name);
+					placeCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale, entity.values.name, entity.values.tag);
 				case "door":
 					var door = new Door(player, Std.int(entity.x * Constants.overworldPixelScale), Std.int(entity.y * Constants.overworldPixelScale),
 						entity.values.graphic, entity.values.room, entity.values.transitionTime, entity.values.lockedDialogue);
@@ -430,9 +452,9 @@ class OverworldState extends FlxState
 			}
 		}
 		add(tile_foreground);
-		if (roomData.script != "")
+		for (script in roomData.script)
 		{
-			addScript(Constants.roomScriptPath + roomData.script + ".hx");
+			addScript(Constants.roomScriptPath + script + ".hx");
 		}
 	}
 
@@ -443,9 +465,9 @@ class OverworldState extends FlxState
 	 * @param name the name of the character
 	 * @return the character youre adding
 	 */
-	function placeCharacter(x:Float, y:Float, name:String):Character
+	function placeCharacter(x:Float, y:Float, name:String, tag:String):Character
 	{
-		var char = new Character(name);
+		var char = new Character(name, tag);
 		char.positionCharacter(x, y);
 		char.camera = camGame;
 		props.add(char);
@@ -453,6 +475,22 @@ class OverworldState extends FlxState
 		return char;
 	}
 	
+	function getCharacterByTag(tag:String):Character
+	{
+		for (prop in props)
+		{
+			if (prop is Character)
+			{
+				var character:Character = cast prop;
+				if (character.tag == tag)
+				{
+					return character;
+				}
+			}
+		}
+
+		return null;
+	}
 	/**
 	 * Call this to trigger an interactable object!!
 	 * @param interactable the interactable object to trigger
@@ -472,6 +510,10 @@ class OverworldState extends FlxState
 		if (interactable.encounterName != "")
 		{
 			startBattle(interactable.encounterName);
+		}
+		if (interactable.scriptFunction != "")
+		{
+			executeScriptFunction(interactable.scriptFunction, []);
 		}
 	}
 
@@ -529,12 +571,14 @@ class OverworldState extends FlxState
 	 * Call this to start a dialogue box cutscene!!
 	 * @param dialogues 
 	 */
-	function startDialogue(dialogues:Array<String>):Void
+	function startDialogue(dialogues:Array<String>, ?onComplete:Void->Void):Void
 	{
+		inCutsceneBeforeDialogue = inCutscene;
 		inCutscene = true;
 		dialogueBox.loadDialogueFiles(dialogues);
 		dialogueBox.openBox();
 		dialogueBox.playDialogue();
+		onDialogueComplete = onComplete;
 	}
 
 	/**
@@ -544,7 +588,9 @@ class OverworldState extends FlxState
 	{
 		new FlxTimer().start(0.1, function(f):Void
 		{
-			inCutscene = false;
+			inCutscene = inCutsceneBeforeDialogue;
+			if (onDialogueComplete != null)
+				onDialogueComplete();
 		});
 	}
 	/**
@@ -670,6 +716,21 @@ class OverworldState extends FlxState
 			return null;
 
 		script.setValue({name: "player", value: player});
+		script.setValue({name: "getCharacterByTag", value: getCharacterByTag});
+		script.setValue({name: "dialogueBox", value: dialogueBox});
+		script.setValue({name: "startDialogue", value: startDialogue});
+
+		script.setValue({name: "camGame", value: camGame});
+		script.setValue({name: "camUI", value: camUI});
+
+		script.setValue({name: "get_inCutscene", value: get_inCutscene});
+		script.setValue({name: "set_inCutscene", value: set_inCutscene});
+
+		script.setValue({name: "get_lockCamera", value: get_lockCamera});
+		script.setValue({name: "set_lockCamera", value: set_lockCamera});
+
+		script.setValue({name: "get_unbindCamera", value: get_unbindCamera});
+		script.setValue({name: "set_unbindCamera", value: set_unbindCamera});
 
 		scripts.push(script);
 		script.executeFunction("create");
@@ -677,6 +738,36 @@ class OverworldState extends FlxState
 		return script;
 	}
 
+	function get_inCutscene():Bool
+	{
+		return inCutscene;
+	}
+
+	function set_inCutscene(val:Bool):Void
+	{
+		inCutscene = val;
+	}
+
+	function get_lockCamera():Bool
+	{
+		return lockCamera;
+	}
+
+	function set_lockCamera(val:Bool):Void
+	{
+		lockCamera = val;
+	}
+
+	function get_unbindCamera():Bool
+	{
+		return unbindCamera;
+	}
+
+	function set_unbindCamera(val:Bool):Void
+	{
+		unbindCamera = val;
+	}
+	
 	function executeScriptFunction(name:String, args:Array<Any>):Void
 	{
 		for (script in scripts)

@@ -20,5 +20,5 @@
             "y": 1
         }  
     ],
-    "script": "test_script"
+    "script": ["test_script"]
 }

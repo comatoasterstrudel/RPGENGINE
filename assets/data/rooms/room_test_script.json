@@ -1,5 +1,5 @@
 {
     "name": "test_script",
     "map": "test_script",
-    "script": "test_script"
+    "script": ["test_script"]
 }

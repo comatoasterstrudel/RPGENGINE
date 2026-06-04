@@ -58,7 +58,7 @@ class InitState extends FlxState{
 			textRows: 4,
 			portraitOnTopOfBox: true,
 			portraitOffsetRight: new FlxPoint(330, 52),
-			nameBoxOffsetLeft: new FlxPoint(45, 60)
+			nameBoxOffsetLeft: new FlxPoint(45, 60),
 		}
 
 		CtDialogueBox.preloadFont(CtDialogueBox.defaultSettings.font, CtDialogueBox.defaultSettings.fontSize);
@@ -67,5 +67,12 @@ class InitState extends FlxState{
 	{
 		CtScript.init();
 		CtScript.setDefaultValue({name: "Character", value: Character});
+		CtScript.setDefaultValue({name: "DOWN", value: FlxDirectionFlags.DOWN});
+		CtScript.setDefaultValue({name: "LEFT", value: FlxDirectionFlags.LEFT});
+		CtScript.setDefaultValue({name: "UP", value: FlxDirectionFlags.UP});
+		CtScript.setDefaultValue({name: "RIGHT", value: FlxDirectionFlags.RIGHT});
+		CtScript.setDefaultValue({name: "FlxTimer", value: FlxTimer});
+		CtScript.setDefaultValue({name: "FlxTween", value: FlxTween});
+		CtScript.setDefaultValue({name: "FlxEase", value: FlxEase});
 	}
 }
