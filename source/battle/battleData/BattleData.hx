@@ -17,7 +17,7 @@ class BattleData extends CtJsonLoader
     public function new(id:String){
         this.id = id;
         
-		super(Constants.battleDataPath + id + '.json', Constants.battleDataPath + 'test.json');
+		super(Constants.battleDataPath + id + '.json', Constants.battleDataPath + 'test_test.json');
         
         this.gridSizeX = data.gridSizeX;
         this.gridSizeY = data.gridSizeY;

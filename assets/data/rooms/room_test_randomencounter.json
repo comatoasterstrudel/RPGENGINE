@@ -3,19 +3,19 @@
     "map": "test_randomencounter",
     "encounters": [
         {
-            "battleName": "test",
+            "battleName": "test_test",
             "rarity": 40
         },
         {
-            "battleName": "chair",
+            "battleName": "test_chair",
             "rarity": 23
         },
         {
-            "battleName": "lotsofenemies",
+            "battleName": "test_lotsofenemies",
             "rarity": 10
         },
         {
-            "battleName": "test2",
+            "battleName": "test_test2",
             "rarity": 35
         }
     ],

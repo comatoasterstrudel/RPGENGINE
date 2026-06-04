@@ -3,11 +3,11 @@
     "map": "test_corridor",
     "encounters": [
         {
-            "battleName": "test",
+            "battleName": "test_test",
             "rarity": 23
         },
         {
-            "battleName": "chair",
+            "battleName": "test_chair",
             "rarity": 40
         }
     ],
