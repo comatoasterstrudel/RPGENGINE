@@ -1,7 +1,5 @@
 package overworld;
 
-import overworld.props.Prop;
-
 class OverworldState extends FlxState
 {
 	public static var roomName:String = "test";

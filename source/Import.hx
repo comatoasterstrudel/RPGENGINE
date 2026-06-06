@@ -70,6 +70,7 @@ import overworld.character.*;
 import overworld.character.CharacterData;
 import overworld.door.*;
 import overworld.interactables.Interactable;
+import overworld.props.Prop;
 import overworld.rooms.*;
 import overworld.roomtransition.RoomTransitionSubState;
 import overworld.roomtransition.TransitionType;
