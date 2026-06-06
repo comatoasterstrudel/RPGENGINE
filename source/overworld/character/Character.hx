@@ -153,13 +153,13 @@ class Character extends CtSprite
 		if (!autoMovementActive)
 			return;
 
-		if (autoMovementTarget.x != hitbox.x)
+		if (autoMovementTarget.x != x)
 		{
 			if (autoMovementTarget.x < autoMovementStartPosition.x)
 			{ // ypure moving to the left
-				if (hitbox.x <= autoMovementTarget.x) // done
+				if (x <= autoMovementTarget.x) // done
 				{
-					hitbox.x = autoMovementTarget.x;
+					positionCharacter(autoMovementTarget.x, y);
 					status = IDLE;
 				}
 				else
@@ -169,9 +169,9 @@ class Character extends CtSprite
 			}
 			else
 			{ // youre moving to the right
-				if (hitbox.x >= autoMovementTarget.x) // done
+				if (x >= autoMovementTarget.x) // done
 				{
-					hitbox.x = autoMovementTarget.x;
+					positionCharacter(autoMovementTarget.x, y);
 					status = IDLE;
 				}
 				else
@@ -180,13 +180,13 @@ class Character extends CtSprite
 				}
 			}
 		}
-		else if (autoMovementTarget.y != hitbox.y)
+		else if (autoMovementTarget.y != y)
 		{
 			if (autoMovementTarget.y > autoMovementStartPosition.y)
 			{ // ypure moving DOWN
-				if (hitbox.y >= autoMovementTarget.y) // done
+				if (y >= autoMovementTarget.y) // done
 				{
-					hitbox.y = autoMovementTarget.y;
+					positionCharacter(x, autoMovementTarget.y);
 					status = IDLE;
 				}
 				else
@@ -196,9 +196,9 @@ class Character extends CtSprite
 			}
 			else
 			{ // youre moving UP
-				if (hitbox.x <= autoMovementTarget.y) // done
+				if (y <= autoMovementTarget.y) // done
 				{
-					hitbox.x = autoMovementTarget.y;
+					positionCharacter(x, autoMovementTarget.y);
 					status = IDLE;
 				}
 				else
@@ -208,7 +208,7 @@ class Character extends CtSprite
 			}
 		}
 
-		if ((autoMovementTarget.x == hitbox.x) && (autoMovementTarget.y == hitbox.y))
+		if ((autoMovementTarget.x == x) && (autoMovementTarget.y == y))
 		{
 			autoMovementActive = false;
 			autoMovementTarget.set(-1, -1);
@@ -232,7 +232,7 @@ class Character extends CtSprite
 		var moveY:Bool = y != -1;
 
 		autoMovementStartPosition.set(hitbox.x, hitbox.y);
-		autoMovementTarget.set(moveX ? x : hitbox.x, moveY ? y : hitbox.y);
+		autoMovementTarget.set(moveX ? x : this.x, moveY ? y : this.y);
 		autoMovementActive = true;
 
 		autoMovementComplete = onComplete;

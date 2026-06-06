@@ -24,10 +24,12 @@ function cutsceneStart():Void{
     
     var ogCameraY = camGame.scroll.y;
     
-    FlxTween.tween(camGame.scroll, {y: 250}, 2, {ease: FlxEase.quartOut});
+	FlxTween.tween(camGame.scroll, {y: 190}, 1, {startDelay: .7});
     
-    character_coworkerA.moveToGridSpace(-1, 8, function():Void{
-        character_coworkerA.move(character_player.hitbox.x, -1, function():Void{
+	character_coworkerA.moveToGridSpace(-1, 7, function():Void
+	{
+		character_coworkerA.move(character_player.x, -1, function():Void
+		{
             character_coworkerA.facing = DOWN;
             startDialogue(["testcutscene/dialogue_1"], function():Void{
                 character_coworkerA.facing = UP;
