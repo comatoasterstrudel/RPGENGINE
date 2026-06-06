@@ -58,7 +58,8 @@ function cutsceneStart():Void{
                                             startDialogue(["testcutscene/dialogue_3"], function():Void{
                                                 FlxTween.tween(camGame.scroll, {y: ogCameraY}, 2, {ease: FlxEase.quartOut});
 
-                                                character_coworkerC.moveToGridSpace(-1, -2, function():Void{
+												character_coworkerC.moveToGridSpace(9, -2, function():Void
+												{
                                                     set_inCutscene(false);
                                                     set_unbindCamera(false);
                                                });
