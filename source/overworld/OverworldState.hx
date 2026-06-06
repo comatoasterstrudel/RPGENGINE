@@ -37,6 +37,12 @@ class OverworldState extends FlxState
 	var tile_main:FlxTypedGroup<FlxTilemap>;
 	var tile_foreground:FlxTypedGroup<FlxTilemap>;
 
+	// MAP SIZE
+	var mapSizeStart:FlxPoint = FlxPoint.get();
+	var mapSizeEnd:FlxPoint = FlxPoint.get();
+	var mapWidth:Float = 0;
+	var mapHeight:Float = 0;
+	
 	// INTERACTABLES
 	var walkInteractables:FlxTypedGroup<Interactable>;
 	var interactInteractables:FlxTypedGroup<Interactable>;
@@ -191,12 +197,12 @@ class OverworldState extends FlxState
 
 		if (!cameraScrollX)
 		{
-			camGame.scroll.x = (cameraFollowingTilemap.x + cameraFollowingTilemap.width / 2) - (FlxG.width / 2);
+			camGame.scroll.x = (mapSizeStart.x + mapWidth / 2) - (FlxG.width / 2);
 		}
 
 		if (!cameraScrollY)
 		{
-			camGame.scroll.y = (cameraFollowingTilemap.y + cameraFollowingTilemap.height / 2) - (FlxG.height / 2);
+			camGame.scroll.y = (mapSizeStart.y + mapHeight / 2) - (FlxG.height / 2);
 		}
 	}
 	
@@ -301,12 +307,72 @@ class OverworldState extends FlxState
 
 		tile_foreground = new FlxTypedGroup<FlxTilemap>();
 		tile_foreground.camera = camGame;
-		
+
 		map = new BetterFlxOgmo3Loader(Constants.ogmoFilePath, Constants.tilemapsDataPath + roomData.map + ".json");
+		var data2D:Array<Array<Int>> = [];
+
+		var realSizeMin = FlxPoint.get();
+		var realSizeMax = FlxPoint.get();
+
+		realSizeMin.set(9999999, 9999999);
+		
 		for (layer in map.getLevelData().layers)
 		{
 			if (layer.tileset != null)
 			{
+				if (layer.name == "main")
+				{
+					var collumn:Int = 0;
+
+					for (i in 0...layer.data.length)
+					{
+						if (i % layer.gridCellsX == 0 && i != 0)
+						{
+							collumn++;
+						}
+
+						if (data2D[collumn] == null)
+							data2D[collumn] = [];
+
+						var tile = layer.data[i];
+						data2D[collumn].push(tile);
+					}
+
+					for (i in 0...data2D.length)
+					{
+						var row = data2D[i];
+
+						for (j in 0...row.length)
+						{
+							var tile = row[j];
+
+							if (tile != -1)
+							{ // theres a real tile here
+								if (realSizeMin.x > j)
+								{
+									realSizeMin.x = j;
+								}
+								if (realSizeMax.x < j)
+								{
+									realSizeMax.x = j;
+								}
+								if (realSizeMin.y > i)
+								{
+									realSizeMin.y = i;
+								}
+								if (realSizeMax.y < i)
+								{
+									realSizeMax.y = i;
+								}
+							}
+						}
+					}
+
+					realSizeMin.set((((realSizeMin.x) * Constants.overworldPixelScale) * 16), ((realSizeMin.y * Constants.overworldPixelScale) * 16));
+					realSizeMax.set((((realSizeMax.x + 1) * Constants.overworldPixelScale) * 16), (((realSizeMax.y + 1) * Constants.overworldPixelScale) * 16));
+				}
+					
+				
 				var tilesetData = new TilesetData(layer.tileset);
 				var tiles = map.loadTilemap(Constants.tilesetGraphicPath + tilesetData.graphic + ".png", layer.name);
 				tiles.scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
@@ -321,10 +387,19 @@ class OverworldState extends FlxState
 						default: NONE;
 					});
 				}
-				cameraScrollX = tiles.width >= FlxG.width;
-				cameraScrollY = tiles.height >= FlxG.height;
-				cameraFollowingTilemap = tiles;
-				tiles.follow(camGame);
+				if (layer.name == "main")
+				{
+					mapSizeStart.set(realSizeMin.x, realSizeMin.y);
+					mapSizeEnd.set(realSizeMax.x, realSizeMax.y);
+
+					mapWidth = mapSizeEnd.x - mapSizeStart.x;
+					mapHeight = mapSizeEnd.y - mapSizeStart.y;
+
+					cameraScrollX = mapWidth >= FlxG.width;
+					cameraScrollY = mapHeight >= FlxG.height;
+					cameraFollowingTilemap = tiles;
+					camGame.setScrollBounds(mapSizeStart.x, mapSizeEnd.x, mapSizeStart.y, mapSizeEnd.y);
+				}
 				if (layer.name == "background")
 				{
 					tiles.scrollFactor.set(.8, .8);
