@@ -116,6 +116,66 @@
           "originX": 0,
           "originY": 0,
           "values": {"propName": "factorycart2R"}
+        },
+        {
+          "name": "scrollingprop",
+          "id": 17,
+          "_eid": "80924530",
+          "x": 496,
+          "y": 528,
+          "width": 112,
+          "height": 16,
+          "originX": 0,
+          "originY": 0,
+          "values": {"propName": "factoryconveyorhorizontal", "velocityX": 30, "velocityY": 0}
+        },
+        {
+          "name": "scrollingprop",
+          "id": 18,
+          "_eid": "80924530",
+          "x": 480,
+          "y": 448,
+          "width": 16,
+          "height": 80,
+          "originX": 0,
+          "originY": 0,
+          "values": {"propName": "factoryconveyorvertical", "velocityX": 0, "velocityY": 30}
+        },
+        {
+          "name": "scrollingprop",
+          "id": 19,
+          "_eid": "80924530",
+          "x": 336,
+          "y": 416,
+          "width": 112,
+          "height": 16,
+          "originX": 0,
+          "originY": 0,
+          "values": {"propName": "factoryconveyorhorizontal", "velocityX": 30, "velocityY": 0}
+        },
+        {
+          "name": "scrollingprop",
+          "id": 20,
+          "_eid": "80924530",
+          "x": 192,
+          "y": 416,
+          "width": 64,
+          "height": 16,
+          "originX": 0,
+          "originY": 0,
+          "values": {"propName": "factoryconveyorhorizontal", "velocityX": 30, "velocityY": 0}
+        },
+        {
+          "name": "scrollingprop",
+          "id": 21,
+          "_eid": "80924530",
+          "x": 176,
+          "y": 288,
+          "width": 16,
+          "height": 128,
+          "originX": 0,
+          "originY": 0,
+          "values": {"propName": "factoryconveyorvertical", "velocityX": 0, "velocityY": 30}
         }
       ]
     },

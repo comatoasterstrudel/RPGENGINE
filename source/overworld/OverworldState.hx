@@ -498,6 +498,16 @@ class OverworldState extends FlxState
 					interactInteractables.add(door);
 				case "prop":
 					props.add(new Prop(entity.values.propName, entity.x, entity.y));
+				case "scrollingprop":
+					var scrollingprop = new CtCroppedBackdrop(Constants.scrollingPropImagePath + entity.values.propName + ".png",
+						Std.int(entity.x * Constants.overworldPixelScale), Std.int(entity.y * Constants.overworldPixelScale),
+						Std.int(entity.width * Constants.overworldPixelScale), Std.int(entity.height * Constants.overworldPixelScale));
+					scrollingprop.backdrop.velocity.set(entity.values.velocityX, entity.values.velocityY);
+					scrollingprop.backdrop.setGraphicSize(scrollingprop.backdrop.width * Constants.overworldPixelScale,
+						scrollingprop.backdrop.height * Constants.overworldPixelScale);
+					scrollingprop.updateHitbox();
+					scrollingprop.backdrop.setPosition(16, 16);
+					props.add(scrollingprop);
 				default:
 					//
 			}
