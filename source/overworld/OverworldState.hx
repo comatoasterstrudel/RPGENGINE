@@ -649,14 +649,33 @@ class OverworldState extends FlxState
 		}
 		else
 		{
-			var tranSubState = new RoomTransitionSubState(time, transitionType);
-			tranSubState.onComplete.add(function():Void
+			var timeToWait:Float = 0;
+
+			var cover:CtSprite = null;
+
+			if (transitionType == IN)
 			{
-				if (onComplete != null)
-					onComplete();
+				cover = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.BLACK);
+				cover.camera = camUI;
+				add(cover);
+
+				timeToWait = 0.1;
+			}
+
+			new FlxTimer().start(timeToWait, function(f):Void
+			{
+				if (cover != null)
+					cover.destroy();
+				
+				var tranSubState = new RoomTransitionSubState(time, transitionType);
+				tranSubState.onComplete.add(function():Void
+				{
+					if (onComplete != null)
+						onComplete();
+				});
+				openSubState(tranSubState);
+				persistentUpdate = false;
 			});
-			openSubState(tranSubState);
-			persistentUpdate = false;
 		}
 	}
 
