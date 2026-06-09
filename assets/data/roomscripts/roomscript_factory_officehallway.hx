@@ -1,7 +1,7 @@
 var player:Character;
 
-var gridStart:Int = 10;
-var gridEnd:Int = 33;
+var gridStart:Int = 20;
+var gridEnd:Int = 43;
 
 var dark:Float = .7;
 
