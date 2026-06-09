@@ -73,7 +73,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factory", "room": "", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
+          "values": {"graphic": "factory", "room": "factory_officebreakroom", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
         },
         {
           "name": "door",
@@ -192,6 +192,16 @@
           "originX": 0,
           "originY": 0,
           "values": {"graphic": "factoryofficelight"}
+        },
+        {
+          "name": "player",
+          "id": 18,
+          "_eid": "58713646",
+          "x": 288,
+          "y": 176,
+          "originX": 0,
+          "originY": 0,
+          "values": {"entrance": "factory_officebreakroom"}
         }
       ]
     },

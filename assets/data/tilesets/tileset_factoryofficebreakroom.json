@@ -1,0 +1,11 @@
+{
+    "name": "factoryofficebreakroom",
+    "graphic": "factoryofficebreakroom",
+    "collisions": [
+        "NONE", "ANY", "ANY", "ANY", "NONE", "ANY", "ANY", "ANY", "ANY", "ANY",
+        "NONE", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY",
+        "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY",
+        "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY",
+        "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "NONE", "ANY", "NONE"
+    ]
+}
