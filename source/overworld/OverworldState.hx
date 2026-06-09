@@ -9,6 +9,7 @@ class OverworldState extends FlxState
 	
 	// CAMERA STUFF
 	var camGame:FlxCamera;
+	var camLighting:FlxCamera;
 	var camUI:FlxCamera;
 	var cameraScrollX:Bool = false;
 	var cameraScrollY:Bool = false;
@@ -25,6 +26,7 @@ class OverworldState extends FlxState
 
 	// CUTSCENE
 	public static var inCutscene:Bool = false;
+
 	// DIALOGUe
 	var inCutsceneBeforeDialogue:Bool = false;
 	var dialogueBox:CtDialogueBox;
@@ -68,6 +70,9 @@ class OverworldState extends FlxState
 	// SCRIPTS
 	var scripts:Array<CtScript> = [];
 	
+	// LIGHTING
+	var lightingCover:LightingSprite;
+	
     override function create():Void{
         super.create();
         
@@ -99,6 +104,8 @@ class OverworldState extends FlxState
 		handleCollision();
 		handleSorting();
 		handleCameraScroll();
+		camLighting.scroll.set(camGame.scroll.x, camGame.scroll.y);
+		camLighting.setScrollBounds(camGame.minScrollX, camGame.maxScrollX, camGame.minScrollY, camGame.maxScrollY);
 		handleExit(elapsed);
 		handleRandomEncounters(elapsed);
 		if (battleTransition != null)
@@ -117,6 +124,11 @@ class OverworldState extends FlxState
 		camGame.bgColor.alpha = 0;
 		FlxG.cameras.add(camGame, true);
 
+		camLighting = new FlxCamera();
+		camLighting.bgColor.alpha = 0;
+		camLighting.filters = [(new ShaderFilter(new LightingEffectShader()))];
+		FlxG.cameras.add(camLighting, false);
+		
 		camUI = new FlxCamera();
 		camUI.bgColor.alpha = 0;
 		FlxG.cameras.add(camUI, false);
@@ -309,6 +321,9 @@ class OverworldState extends FlxState
 		tile_foreground.camera = camGame;
 
 		map = new BetterFlxOgmo3Loader(Constants.ogmoFilePath, Constants.tilemapsDataPath + roomData.map + ".json");
+		lightingCover = new LightingSprite(map, roomData);
+		lightingCover.camera = camLighting;
+
 		var data2D:Array<Array<Int>> = [];
 
 		var realSizeMin = FlxPoint.get();
@@ -492,7 +507,7 @@ class OverworldState extends FlxState
 					placeCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale, entity.values.name, entity.values.tag);
 				case "door":
 					var door = new Door(player, Std.int(entity.x * Constants.overworldPixelScale), Std.int(entity.y * Constants.overworldPixelScale),
-						entity.values.graphic, entity.values.room, entity.values.transitionTime, entity.values.lockedDialogue);
+						entity.values.graphic, entity.values.horizontal, entity.values.room, entity.values.transitionTime, entity.values.lockedDialogue);
 
 					props.add(door);
 					interactInteractables.add(door);
@@ -508,6 +523,9 @@ class OverworldState extends FlxState
 					scrollingprop.updateHitbox();
 					scrollingprop.backdrop.setPosition(16, 16);
 					props.add(scrollingprop);
+				case "lightsource":
+					lightingCover.addLightSource(entity.values.graphic, Std.int(entity.x * Constants.overworldPixelScale),
+						Std.int(entity.y * Constants.overworldPixelScale));
 				default:
 					//
 			}
@@ -543,8 +561,14 @@ class OverworldState extends FlxState
 				door.lerpManager.snap();
 			}
 		}
+		add(lightingCover);
+
+		#if showLightSources
+		remove(lightingCover);
+		#end
 		
 		add(tile_foreground);
+
 		for (script in roomData.script)
 		{
 			addScript(Constants.roomScriptPath + script + ".hx");
@@ -832,9 +856,13 @@ class OverworldState extends FlxState
 		script.setValue({name: "dialogueBox", value: dialogueBox});
 		script.setValue({name: "startDialogue", value: startDialogue});
 
+		script.setValue({name: "lightingCover", value: lightingCover});
+				
 		script.setValue({name: "camGame", value: camGame});
+		script.setValue({name: "camLighting", value: camLighting});
 		script.setValue({name: "camUI", value: camUI});
 
+		// get, set
 		script.setValue({name: "get_inCutscene", value: get_inCutscene});
 		script.setValue({name: "set_inCutscene", value: set_inCutscene});
 
@@ -844,12 +872,17 @@ class OverworldState extends FlxState
 		script.setValue({name: "get_unbindCamera", value: get_unbindCamera});
 		script.setValue({name: "set_unbindCamera", value: set_unbindCamera});
 
+		script.setValue({name: "get_lightingCover", value: get_lightingCover});
+		script.setValue({name: "set_lightingCover", value: set_lightingCover});
+		
 		scripts.push(script);
 		script.executeFunction("create");
 
 		return script;
 	}
 
+	// inCutscene
+	
 	function get_inCutscene():Bool
 	{
 		return inCutscene;
@@ -860,6 +893,8 @@ class OverworldState extends FlxState
 		inCutscene = val;
 	}
 
+	// lockCamera
+	
 	function get_lockCamera():Bool
 	{
 		return lockCamera;
@@ -870,6 +905,8 @@ class OverworldState extends FlxState
 		lockCamera = val;
 	}
 
+	// unbindCamera
+	
 	function get_unbindCamera():Bool
 	{
 		return unbindCamera;
@@ -879,6 +916,19 @@ class OverworldState extends FlxState
 	{
 		unbindCamera = val;
 	}
+	
+	// lightingCover
+
+	function get_lightingCover():LightingSprite
+	{
+		return (lightingCover);
+	}
+
+	function set_lightingCover(val:LightingSprite):Void
+	{
+		lightingCover = val;
+	}
+	
 	
 	function executeScriptFunction(name:String, args:Array<Any>):Void
 	{

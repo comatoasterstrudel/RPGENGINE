@@ -33,11 +33,13 @@
           "name": "door",
           "id": 0,
           "_eid": "17170951",
-          "x": 32,
+          "x": 24,
           "y": 368,
+          "width": 32,
+          "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "lobby_factory", "room": "factory_lobby", "transitionTime": 0.5, "lockedDialogue": ""}
+          "values": {"graphic": "lobby_factory", "room": "factory_lobby", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
         },
         {
           "name": "player",
@@ -55,9 +57,11 @@
           "_eid": "17170951",
           "x": 24,
           "y": 32,
+          "width": 32,
+          "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factory", "room": "factory_production", "transitionTime": 0.5, "lockedDialogue": ""}
+          "values": {"graphic": "factory", "room": "factory_production", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
         },
         {
           "name": "player",

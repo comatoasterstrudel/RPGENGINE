@@ -113,6 +113,8 @@ class Constants
 	public static final scrollingPropImagePath:String = "assets/images/scrollingprops/scrollingprop_";
 	// Scripts
 	public static final roomScriptPath:String = "assets/data/roomscripts/roomscript_";
+	// Lighting
+	public static final lightSourceGraphicPath:String = "assets/images/lightsources/lightsource_";
 	//
 	// DIALOGUE STUFF !!
 	//

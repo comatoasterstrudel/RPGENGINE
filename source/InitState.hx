@@ -74,5 +74,9 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "FlxTimer", value: FlxTimer});
 		CtScript.setDefaultValue({name: "FlxTween", value: FlxTween});
 		CtScript.setDefaultValue({name: "FlxEase", value: FlxEase});
+		CtScript.setDefaultValue({name: "Constants", value: Constants});
+		CtScript.setDefaultValue({name: "FlxMath", value: FlxMath});
+		CtScript.setDefaultValue({name: "LightingSprite", value: LightingSprite});
+
 	}
 }

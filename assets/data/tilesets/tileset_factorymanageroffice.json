@@ -1,0 +1,9 @@
+{
+    "name": "factorymanageroffice",
+    "graphic": "factorymanageroffice",
+    "collisions": [
+        "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "NONE", "ANY", "ANY",
+        "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "NONE", "ANY", "ANY",
+        "ANY", "ANY", "ANY", "ANY", "ANY", "ANY", "NONE", "ANY", "ANY", "ANY"
+    ]
+}

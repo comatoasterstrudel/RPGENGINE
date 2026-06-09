@@ -4,7 +4,9 @@ class Door extends Interactable
 {
 	var player:Player;
 
-	public function new(player:Player, x:Int, y:Int, graphic:String, room:String, transitionTime:Float, lockedDialogue:String):Void
+	var horizontal:Bool;
+
+	public function new(player:Player, x:Int, y:Int, graphic:String, horizontal:Bool, room:String, transitionTime:Float, lockedDialogue:String):Void
 	{
         super();
 		this.player = player;
@@ -24,6 +26,9 @@ class Door extends Interactable
         });
 		lerpManager.lerpAlpha = true;
 		lerpManager.lerpSpeed = 3;
+		this.horizontal = horizontal;
+
+		antialiasing = false;
 	}
 
 	override function update(elapsed:Float):Void
@@ -35,7 +40,7 @@ class Door extends Interactable
 
 	public function updateAlpha():Void
 	{
-		if ((player.y) <= (y) && FlxG.pixelPerfectOverlap(player, this))
+		if ((player.y) <= (y) && FlxG.pixelPerfectOverlap(player, this) && !horizontal)
 		{
 			lerpManager.targetAlpha = .2;
 		}

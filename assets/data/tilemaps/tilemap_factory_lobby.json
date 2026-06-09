@@ -35,9 +35,11 @@
           "_eid": "17170951",
           "x": 112,
           "y": 272,
+          "width": 32,
+          "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "placeholder", "room": "", "transitionTime": 0.5, "lockedDialogue": ""}
+          "values": {"graphic": "placeholder", "room": "", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
         },
         {
           "name": "player",
@@ -53,11 +55,13 @@
           "name": "door",
           "id": 4,
           "_eid": "17170951",
-          "x": 192,
+          "x": 184,
           "y": 64,
+          "width": 32,
+          "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "lobby_factory", "room": "factory_lobbytransition", "transitionTime": 0.5, "lockedDialogue": ""}
+          "values": {"graphic": "lobby_factory", "room": "factory_lobbytransition", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
         },
         {
           "name": "player",
@@ -73,11 +77,13 @@
           "name": "door",
           "id": 6,
           "_eid": "17170951",
-          "x": 32,
+          "x": 24,
           "y": 64,
+          "width": 32,
+          "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "lobby_office", "room": "", "transitionTime": 0.5, "lockedDialogue": "factory/dialogue_officedoor"}
+          "values": {"graphic": "lobby_office", "room": "", "transitionTime": 0.5, "lockedDialogue": "factory/dialogue_officedoor", "horizontal": false}
         },
         {
           "name": "prop",
