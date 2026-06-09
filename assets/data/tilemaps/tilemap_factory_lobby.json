@@ -83,7 +83,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "lobby_office", "room": "", "transitionTime": 0.5, "lockedDialogue": "factory/dialogue_officedoor", "horizontal": false}
+          "values": {"graphic": "lobby_office", "room": "", "transitionTime": 0.5, "lockedDialogue": "factory/lobby/dialogue_officedoor", "horizontal": false}
         },
         {
           "name": "prop",
@@ -119,7 +119,7 @@
           "height": 48,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/dialogue_lobbysecretary", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/lobby/dialogue_lobbysecretary", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
         }
       ]
     },

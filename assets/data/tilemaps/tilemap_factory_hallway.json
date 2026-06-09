@@ -107,7 +107,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/dialogue_coworkertest", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_coworkertest", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
         },
         {
           "name": "interactable",
@@ -119,7 +119,7 @@
           "height": 16,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/dialogue_br_w", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_w", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
         },
         {
           "name": "interactable",
@@ -131,7 +131,7 @@
           "height": 16,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/dialogue_br_m", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_m", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
         },
         {
           "name": "interactable",
@@ -143,7 +143,7 @@
           "height": 16,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/dialogue_br_u", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_u", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
         },
         {
           "name": "player",
