@@ -1,7 +1,8 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "Hi Robin, my dear Pal!"
+		"dialogue": "Hi Robin, my dear Pal!",
+		"actor": "narrator"
 	},
 	{
 		"speed": 0.03,

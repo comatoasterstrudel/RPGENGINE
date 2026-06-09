@@ -3,5 +3,6 @@
 	"vanityName": "Robin",
 	"textColor": [0, 0, 0],
 	"customNameBoxImgPath": "robin",
-	"portraitPrefix": "robin"
+	"portraitPrefix": "robin",
+	"textSound": "robin"
 }

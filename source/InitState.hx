@@ -59,6 +59,7 @@ class InitState extends FlxState{
 			portraitOnTopOfBox: true,
 			portraitOffsetRight: new FlxPoint(330, 52),
 			nameBoxOffsetLeft: new FlxPoint(45, 60),
+			sentencePauseLength: 1,
 		}
 
 		CtDialogueBox.preloadFont(CtDialogueBox.defaultSettings.font, CtDialogueBox.defaultSettings.fontSize);

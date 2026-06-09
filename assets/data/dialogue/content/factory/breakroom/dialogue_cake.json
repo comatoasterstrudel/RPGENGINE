@@ -1,6 +1,7 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "This is stupid. Company birthdays are stupid."
+		"dialogue": "This is stupid. Company birthdays are stupid.",
+		"actor": "narrator"
 	}
 ]

@@ -1,10 +1,12 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "\"DON'T KILL YOURSELF! We Care <3\""
+		"dialogue": "\"DON'T KILL YOURSELF! We Care <3\"",
+		"actor": "narrator"
 	},
 	{
 		"speed": 0.03,
-		"dialogue": "There's a phone number underneath that redirects to their legal team."
+		"dialogue": "There's a phone number underneath that redirects to their legal team.",
+		"actor": "narrator"
 	}
 ]

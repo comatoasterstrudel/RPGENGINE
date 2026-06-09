@@ -1,6 +1,7 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "I don't need to use the bathroom right now."
+		"dialogue": "I don't need to use the bathroom right now.",
+		"actor": "narrator"
 	}
 ]
