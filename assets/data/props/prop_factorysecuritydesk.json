@@ -1,0 +1,8 @@
+{
+    "name": "factorysecuritydesk",
+    "graphic": "factorysecuritydesk",
+    "hitboxX": 0,
+    "hitboxY": 35,
+    "hitboxWidth": 96,
+    "hitboxHeight": 43
+}

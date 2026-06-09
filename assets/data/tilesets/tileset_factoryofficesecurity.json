@@ -1,0 +1,7 @@
+{
+    "name": "factoryofficesecurity",
+    "graphic": "factoryofficesecurity",
+    "collisions": [
+        "NONE", "ANY", "ANY", "ANY", "NONE"
+    ]
+}
