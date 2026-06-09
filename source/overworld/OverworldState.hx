@@ -506,8 +506,9 @@ class OverworldState extends FlxState
 				case "character":
 					placeCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale, entity.values.name, entity.values.tag);
 				case "door":
-					var door = new Door(player, Std.int(entity.x * Constants.overworldPixelScale), Std.int(entity.y * Constants.overworldPixelScale),
-						entity.values.graphic, entity.values.horizontal, entity.values.room, entity.values.transitionTime, entity.values.lockedDialogue);
+					var door = new Door(entity.values.doorName, player, Std.int(entity.x * Constants.overworldPixelScale),
+						Std.int(entity.y * Constants.overworldPixelScale), entity.values.horizontal, entity.values.room, entity.values.transitionTime,
+						entity.values.lockedDialogue);
 
 					props.add(door);
 					interactInteractables.add(door);

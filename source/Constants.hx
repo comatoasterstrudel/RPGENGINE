@@ -104,8 +104,11 @@ class Constants
 	public static final tilesetGraphicPath:String = "assets/images/tileset/tileset_";
 	// Encounters
 	public static final encounterCooldown:Float = 3.5;
-	// Room
+	// Doors
 	public static final doorGraphicPath:String = "assets/images/doors/door_";
+	public static final doorDataPath:String = "assets/data/doors/door_";
+	public static final doorOpenSoundPath:String = "assets/sounds/doors/dooropen_";
+	public static final doorLockSoundPath:String = "assets/sounds/doors/doorlock_";
 	// Props
 	public static final propDataPath:String = "assets/data/props/prop_";
 	public static final propImagePath:String = "assets/images/props/prop_";

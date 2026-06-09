@@ -49,7 +49,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factoryhorizontalL", "room": "factory_hallway", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": true}
+          "values": {"doorName": "factoryhorizontalL", "room": "factory_hallway", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": true}
         },
         {
           "name": "door",
@@ -61,7 +61,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factory", "room": "factory_officehallway2", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
+          "values": {"doorName": "factory", "room": "factory_officehallway2", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
         },
         {
           "name": "player",

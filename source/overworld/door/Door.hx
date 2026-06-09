@@ -2,16 +2,20 @@ package overworld.door;
 
 class Door extends Interactable
 {
+	var data:DoorData;
+	
 	var player:Player;
 
 	var horizontal:Bool;
 
-	public function new(player:Player, x:Int, y:Int, graphic:String, horizontal:Bool, room:String, transitionTime:Float, lockedDialogue:String):Void
+	public function new(name:String, player:Player, x:Int, y:Int, horizontal:Bool, room:String, transitionTime:Float, lockedDialogue:String):Void
 	{
         super();
 		this.player = player;
+		data = new DoorData(name);
+		
 		addManually(x, y, 32, 32, INTERACT, room == "" ? lockedDialogue : "", room, transitionTime, "");
-        createFromSparrow(Constants.doorGraphicPath + graphic + ".png", Constants.doorGraphicPath + graphic + ".xml");
+		createFromSparrow(Constants.doorGraphicPath + data.graphic + ".png", Constants.doorGraphicPath + data.graphic + ".xml");
         animation.addByPrefix("open", "open", 1);
         animation.addByPrefix("closed", "closed", 0);
         animation.play("closed");
@@ -22,8 +26,19 @@ class Door extends Interactable
 			if (room != "")
 			{
 				animation.play("open"); 
+				if (data.openSound != "")
+				{
+					FlxG.sound.play(Constants.doorOpenSoundPath + data.openSound + ".ogg");
+				}
 			}
-        });
+			else
+			{
+				if (data.lockSound != "")
+				{
+					FlxG.sound.play(Constants.doorLockSoundPath + data.lockSound + ".ogg");
+				}
+			}
+		});
 		lerpManager.lerpAlpha = true;
 		lerpManager.lerpSpeed = 3;
 		this.horizontal = horizontal;
