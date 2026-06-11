@@ -46,7 +46,7 @@ class OverworldState extends FlxState
 	var mapSizeEnd:FlxPoint = FlxPoint.get();
 	var mapWidth:Float = 0;
 	var mapHeight:Float = 0;
-	
+
 	// INTERACTABLES
 	var walkInteractables:FlxTypedGroup<Interactable>;
 	var interactInteractables:FlxTypedGroup<Interactable>;
@@ -145,6 +145,33 @@ class OverworldState extends FlxState
 	{
 		FlxG.worldBounds.set(camGame.scroll.x, camGame.scroll.y, FlxG.width, FlxG.height); // FUCK EVERYTHING 2
 
+		var moved:Bool = false;
+
+		if (player.hitbox.x < 0)
+		{
+			player.hitbox.x = 0;
+			moved = true;
+		}
+		else if (player.hitbox.x + player.hitbox.width >= mapWidth)
+		{
+			player.hitbox.x = mapWidth - player.hitbox.width;
+			moved = true;
+		}
+
+		if (player.hitbox.y < 0)
+		{
+			player.hitbox.y = 0;
+			moved = true;
+		}
+		else if (player.hitbox.y + player.hitbox.height >= mapHeight)
+		{
+			player.hitbox.y = mapHeight - player.hitbox.height;
+			moved = true;
+		}
+
+		if (moved)
+			player.centerSpriteOnHitbox();
+		
 		for (tile in tileSets)
 		{
 			FlxG.collide(tile, player.hitbox);
@@ -167,7 +194,7 @@ class OverworldState extends FlxState
 				FlxG.collide(player.hitbox, trueProp.hitbox);
 			}
 		}
-		
+
 		if (!inCutscene)
 		{
 			for (interactable in walkInteractables.members)

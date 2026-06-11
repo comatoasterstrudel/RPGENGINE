@@ -62,7 +62,7 @@ class Character extends CtSprite
 		super.draw();
 	}
 
-	function centerSpriteOnHitbox():Void
+	public function centerSpriteOnHitbox():Void
 	{
 		CtUtil.centerSpriteOnSprite(this, hitbox, true, false);
 		y = hitbox.y + hitbox.height - height;

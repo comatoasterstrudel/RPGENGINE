@@ -52,7 +52,8 @@ function update(elapsed:Float):Void{
             addSnowflake(false);
         }   
     } else {
-        for(i in 0...(FlxG.random.int(20, 50))){
+		for (i in 0...(FlxG.random.int(40, 100)))
+		{
             addSnowflake(true);
         }
     
