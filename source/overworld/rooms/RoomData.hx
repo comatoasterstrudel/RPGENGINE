@@ -16,6 +16,8 @@ class RoomData extends CtJsonLoader
 
 	public var script:Array<String>;
 	
+	public var bgColor:FlxColor;
+
     public function new(id:String){
         this.id = id;
         
@@ -46,5 +48,8 @@ class RoomData extends CtJsonLoader
 		
 		this.lightingDarkColor = FlxColor.fromRGB(colorArrayDark[0], colorArrayDark[1], colorArrayDark[2], colorArrayDark[3]);
 		this.lightingGlowColor = FlxColor.fromRGB(colorArrayGlow[0], colorArrayGlow[1], colorArrayGlow[2], colorArrayGlow[3]);
+		var colorArrayBg = data.bgColor ?? cast [255, 255, 255];
+
+		this.bgColor = FlxColor.fromRGB(colorArrayBg[0], colorArrayBg[1], colorArrayBg[2], 255);
     }
 } 

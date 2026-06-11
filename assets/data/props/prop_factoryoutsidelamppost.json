@@ -1,0 +1,9 @@
+{
+    "name": "factoryoutsidelamppost",
+    "graphic": "factoryoutsidelamppost",
+    "hitboxX": 35,
+    "hitboxY": 125,
+    "hitboxWidth": 10,
+    "hitboxHeight": 1,
+    "yStackingOffset": 100
+}

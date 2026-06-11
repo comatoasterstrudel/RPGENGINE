@@ -13,6 +13,8 @@ class PropData extends CtJsonLoader
     public var hitboxWidth:Int;
     public var hitboxHeight:Int;
     
+	public var yStackingOffset:Int;
+
     public function new(id:String){
         this.id = id;
         
@@ -26,5 +28,6 @@ class PropData extends CtJsonLoader
         
         this.hitboxWidth = data.hitboxWidth;
         this.hitboxHeight = data.hitboxHeight;
+		this.yStackingOffset = data.yStackingOffset ?? 0;
     }
 }

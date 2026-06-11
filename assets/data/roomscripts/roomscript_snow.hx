@@ -47,7 +47,8 @@ function create():Void{
 
 function update(elapsed:Float):Void{
     if(doneBurst){
-        if(FlxG.random.bool(300 * elapsed)){
+		if (FlxG.random.bool(600 * elapsed))
+		{
             addSnowflake(false);
         }   
     } else {
@@ -75,6 +76,7 @@ function update(elapsed:Float):Void{
 function addSnowflake(randomY:Bool = false):Void{
     var snowflake = new CtSprite(Std.int(FlxG.random.float(minX, maxX)), randomY ? Std.int((FlxG.random.float(minY, maxY))) : minY).createFromImage(Constants.overworldMiscGraphicPath + "snowflake" + FlxG.random.int(1,3) + ".png");
     snowflake.angle = FlxG.random.int(0, 360);
+	snowflake.antialiasing = false;
     
     var speed:Float = 1;
     
@@ -91,7 +93,7 @@ function addSnowflake(randomY:Bool = false):Void{
         }
     }    
     
-    snowflake.velocity.set(FlxG.random.float(-60, -40) * speed, FlxG.random.float(60, 40) * speed);
+	snowflake.velocity.set(FlxG.random.float(-60, -40) * speed, FlxG.random.float(100, 140) * speed);
     snowflake.angularVelocity = FlxG.random.float(-20, -100) * speed;
     var theScale = speed + FlxG.random.float(-.5, .5);
     snowflake.scale.set(theScale, theScale);

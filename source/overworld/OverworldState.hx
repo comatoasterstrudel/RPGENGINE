@@ -79,10 +79,9 @@ class OverworldState extends FlxState
         super.create();
         
 		inCutscene = false;
-		
-        bgColor = FlxColor.WHITE;
 
 		loadRoom();        
+		bgColor = roomData.bgColor;
 
 		setupCameras();
 
@@ -186,7 +185,24 @@ class OverworldState extends FlxState
 	 */
 	function handleSorting():Void
 	{
+		for (prop in props)
+		{
+			if (prop is Prop)
+			{
+				var trueProp:Prop = cast prop;
+				trueProp.y += (trueProp.data.yStackingOffset * Constants.overworldPixelScale);
+			}
+		}
+		
 		props.sort(FlxSort.byY, FlxSort.ASCENDING);
+		for (prop in props)
+		{
+			if (prop is Prop)
+			{
+				var trueProp:Prop = cast prop;
+				trueProp.y -= (trueProp.data.yStackingOffset * Constants.overworldPixelScale);
+			}
+		}
 	}
 
 	function handleCameraScroll():Void

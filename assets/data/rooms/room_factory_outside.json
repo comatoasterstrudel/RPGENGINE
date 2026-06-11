@@ -3,6 +3,6 @@
     "map": "factory_outside",
     "lighting": 0.75,
     "lightingDarkColor": [0, 9, 80, 255],
-    "lightingGlowColor": [255, 215, 0, 20],
+    "lightingGlowColor": [255, 153, 0, 155],
     "script": ["snow"]
 }
