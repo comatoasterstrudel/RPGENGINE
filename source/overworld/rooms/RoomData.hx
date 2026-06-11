@@ -11,7 +11,9 @@ class RoomData extends CtJsonLoader
 	public var encounterChance:Float;
     
 	public var lighting:Float;
-	
+	public var lightingDarkColor:FlxColor;
+	public var lightingGlowColor:FlxColor;
+
 	public var script:Array<String>;
 	
     public function new(id:String){
@@ -25,8 +27,8 @@ class RoomData extends CtJsonLoader
 		{
 			encounters = [];
 		}
-		else
-		{
+		else 
+		{ 
 			encounters = data.encounters.map(function(item)
 			{
 				return {
@@ -38,5 +40,11 @@ class RoomData extends CtJsonLoader
 		this.encounterChance = data.encounterChance ?? 10;
 		this.script = data.script ?? cast [];
 		this.lighting = data.lighting == null ? 0 : data.lighting;
+
+		var colorArrayDark = data.lightingDarkColor ?? cast [0, 0, 0, 255];
+		var colorArrayGlow = data.lightingGlowColor ?? cast [0, 0, 0, 0];
+		
+		this.lightingDarkColor = FlxColor.fromRGB(colorArrayDark[0], colorArrayDark[1], colorArrayDark[2], colorArrayDark[3]);
+		this.lightingGlowColor = FlxColor.fromRGB(colorArrayGlow[0], colorArrayGlow[1], colorArrayGlow[2], colorArrayGlow[3]);
     }
-}
+} 

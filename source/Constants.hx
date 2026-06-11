@@ -118,6 +118,8 @@ class Constants
 	public static final roomScriptPath:String = "assets/data/roomscripts/roomscript_";
 	// Lighting
 	public static final lightSourceGraphicPath:String = "assets/images/lightsources/lightsource_";
+	// Overworld Misc
+	public static final overworldMiscGraphicPath:String = "assets/images/overworldmisc/overworldmisc_";
 	//
 	// DIALOGUE STUFF !!
 	//

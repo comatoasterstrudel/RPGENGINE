@@ -38,6 +38,8 @@ class OverworldState extends FlxState
 	var tile_background:FlxTypedGroup<FlxTilemap>;
 	var tile_main:FlxTypedGroup<FlxTilemap>;
 	var tile_foreground:FlxTypedGroup<FlxTilemap>;
+	var underMap:FlxSpriteGroup;
+	var overMap:FlxSpriteGroup;
 
 	// MAP SIZE
 	var mapSizeStart:FlxPoint = FlxPoint.get();
@@ -79,11 +81,12 @@ class OverworldState extends FlxState
 		inCutscene = false;
 		
         bgColor = FlxColor.WHITE;
-        
+
+		loadRoom();        
+
 		setupCameras();
 
 		setupDialogueBox();
-		loadRoom();        
 		loadMap();
 		selectRandomEncounter();
 		if (leftForBattle)
@@ -126,7 +129,9 @@ class OverworldState extends FlxState
 
 		camLighting = new FlxCamera();
 		camLighting.bgColor.alpha = 0;
-		camLighting.filters = [(new ShaderFilter(new LightingEffectShader()))];
+		camLighting.filters = [
+			(new ShaderFilter(new LightingEffectShader(roomData.lightingDarkColor, roomData.lightingGlowColor)))
+		];
 		FlxG.cameras.add(camLighting, false);
 		
 		camUI = new FlxCamera();
@@ -309,6 +314,10 @@ class OverworldState extends FlxState
 	 */
 	function loadMap():Void
 	{
+		underMap = new FlxSpriteGroup();
+		underMap.camera = camGame;
+		add(underMap);
+		
 		tile_background = new FlxTypedGroup<FlxTilemap>();
 		tile_background.camera = camGame;
 		add(tile_background);
@@ -567,6 +576,10 @@ class OverworldState extends FlxState
 		#if showLightSources
 		remove(lightingCover);
 		#end
+		
+		overMap = new FlxSpriteGroup();
+		overMap.camera = camGame;
+		add(overMap);
 		
 		add(tile_foreground);
 
@@ -876,6 +889,15 @@ class OverworldState extends FlxState
 		script.setValue({name: "get_lightingCover", value: get_lightingCover});
 		script.setValue({name: "set_lightingCover", value: set_lightingCover});
 		
+		script.setValue({name: "get_map", value: get_map});
+		script.setValue({name: "set_map", value: set_map});
+
+		script.setValue({name: "get_underMap", value: get_underMap});
+		script.setValue({name: "set_underMap", value: set_underMap});
+
+		script.setValue({name: "get_overMap", value: get_overMap});
+		script.setValue({name: "set_overMap", value: set_overMap});
+		
 		scripts.push(script);
 		script.executeFunction("create");
 
@@ -930,6 +952,41 @@ class OverworldState extends FlxState
 		lightingCover = val;
 	}
 	
+	// map
+
+	function get_map():BetterFlxOgmo3Loader
+	{
+		return (map);
+	}
+
+	function set_map(val:BetterFlxOgmo3Loader):Void
+	{
+		map = val;
+	}
+
+	// underMap
+
+	function get_underMap():FlxSpriteGroup
+	{
+		return (underMap);
+	}
+
+	function set_underMap(val:FlxSpriteGroup):Void
+	{
+		underMap = val;
+	}
+
+	// overMap
+
+	function get_overMap():FlxSpriteGroup
+	{
+		return (overMap);
+	}
+
+	function set_overMap(val:FlxSpriteGroup):Void
+	{
+		overMap = val;
+	}
 	
 	function executeScriptFunction(name:String, args:Array<Any>):Void
 	{
