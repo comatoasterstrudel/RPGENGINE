@@ -1,3 +1,8 @@
+function CTSCRIPT_SETNAME():String
+{
+	return "factory_officehallway";
+}
+
 var player:Character;
 
 var gridStart:Int = 20;

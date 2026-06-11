@@ -1,3 +1,8 @@
+function CTSCRIPT_SETNAME():String
+{
+	return "test_cutscenetest";
+}
+
 var cutsceneRan:Bool = false;
 
 var character_coworkerA:Character;

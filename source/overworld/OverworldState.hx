@@ -36,7 +36,11 @@ class OverworldState extends FlxState
 	var map:BetterFlxOgmo3Loader;
 	var tileSets:Map<String, FlxTilemap> = [];
 	var tile_background:FlxTypedGroup<FlxTilemap>;
+	var tile_main_back:FlxTypedGroup<FlxTilemap>;
+	var spr_behindTiles:FlxSpriteGroup;
 	var tile_main:FlxTypedGroup<FlxTilemap>;
+	var spr_infrontTiles:FlxSpriteGroup;
+	var tile_main_front:FlxTypedGroup<FlxTilemap>;
 	var tile_foreground:FlxTypedGroup<FlxTilemap>;
 	var underMap:FlxSpriteGroup;
 	var overMap:FlxSpriteGroup;
@@ -145,32 +149,35 @@ class OverworldState extends FlxState
 	{
 		FlxG.worldBounds.set(camGame.scroll.x, camGame.scroll.y, FlxG.width, FlxG.height); // FUCK EVERYTHING 2
 
-		var moved:Bool = false;
+		if (roomData.hasBorders)
+		{
+			var moved:Bool = false;
 
-		if (player.hitbox.x < 0)
-		{
-			player.hitbox.x = 0;
-			moved = true;
-		}
-		else if (player.hitbox.x + player.hitbox.width >= mapWidth)
-		{
-			player.hitbox.x = mapWidth - player.hitbox.width;
-			moved = true;
-		}
+			if (player.hitbox.x < 0)
+			{
+				player.hitbox.x = 0;
+				moved = true;
+			}
+			else if (player.hitbox.x + player.hitbox.width >= mapWidth)
+			{
+				player.hitbox.x = mapWidth - player.hitbox.width;
+				moved = true;
+			}
 
-		if (player.hitbox.y < 0)
-		{
-			player.hitbox.y = 0;
-			moved = true;
-		}
-		else if (player.hitbox.y + player.hitbox.height >= mapHeight)
-		{
-			player.hitbox.y = mapHeight - player.hitbox.height;
-			moved = true;
-		}
+			if (player.hitbox.y < 0)
+			{
+				player.hitbox.y = 0;
+				moved = true;
+			}
+			else if (player.hitbox.y + player.hitbox.height >= mapHeight)
+			{
+				player.hitbox.y = mapHeight - player.hitbox.height;
+				moved = true;
+			}
 
-		if (moved)
-			player.centerSpriteOnHitbox();
+			if (moved)
+				player.centerSpriteOnHitbox();	
+		}
 		
 		for (tile in tileSets)
 		{
@@ -365,10 +372,26 @@ class OverworldState extends FlxState
 		tile_background.camera = camGame;
 		add(tile_background);
 
+		tile_main_back = new FlxTypedGroup<FlxTilemap>();
+		tile_main_back.camera = camGame;
+		add(tile_main_back);
+
+		spr_behindTiles = new FlxSpriteGroup();
+		spr_behindTiles.camera = camGame;
+		add(spr_behindTiles);
+		
 		tile_main = new FlxTypedGroup<FlxTilemap>();
 		tile_main.camera = camGame;
 		add(tile_main);
 
+		spr_infrontTiles = new FlxSpriteGroup();
+		spr_infrontTiles.camera = camGame;
+		add(spr_infrontTiles);
+
+		tile_main_front = new FlxTypedGroup<FlxTilemap>();
+		tile_main_front.camera = camGame;
+		add(tile_main_front);
+		
 		tile_foreground = new FlxTypedGroup<FlxTilemap>();
 		tile_foreground.camera = camGame;
 
@@ -476,6 +499,14 @@ class OverworldState extends FlxState
 				{
 					tiles.scrollFactor.set(1.2, 1.2);
 					tile_foreground.add(tiles);
+				}
+				else if (layer.name == "main_back")
+				{
+					tile_main_back.add(tiles);
+				}
+				else if (layer.name == "main_front")
+				{
+					tile_main_front.add(tiles);
 				}
 				else
 				{
@@ -919,6 +950,9 @@ class OverworldState extends FlxState
 		script.setValue({name: "camLighting", value: camLighting});
 		script.setValue({name: "camUI", value: camUI});
 
+		script.setValue({name: "executeScriptFunction", value: executeScriptFunction});
+		script.setValue({name: "executeSingleScriptFunction", value: executeSingleScriptFunction});
+
 		// get, set
 		script.setValue({name: "get_inCutscene", value: get_inCutscene});
 		script.setValue({name: "set_inCutscene", value: set_inCutscene});
@@ -940,6 +974,12 @@ class OverworldState extends FlxState
 
 		script.setValue({name: "get_overMap", value: get_overMap});
 		script.setValue({name: "set_overMap", value: set_overMap});
+		
+		script.setValue({name: "get_spr_behindTiles", value: get_spr_behindTiles});
+		script.setValue({name: "set_spr_behindTiles", value: set_spr_behindTiles});
+
+		script.setValue({name: "get_spr_infrontTiles", value: get_spr_infrontTiles});
+		script.setValue({name: "set_spr_infrontTiles", value: set_spr_infrontTiles});
 		
 		scripts.push(script);
 		script.executeFunction("create");
@@ -1031,12 +1071,49 @@ class OverworldState extends FlxState
 		overMap = val;
 	}
 	
+	// spr_belowTiles
+
+	function get_spr_behindTiles():FlxSpriteGroup
+	{
+		return (spr_behindTiles);
+	}
+
+	function set_spr_behindTiles(val:FlxSpriteGroup):Void
+	{
+		spr_behindTiles = val;
+	}
+
+	// spr_frontOfTiles
+
+	function get_spr_infrontTiles():FlxSpriteGroup
+	{
+		return (spr_infrontTiles);
+	}
+
+	function set_spr_infrontTiles(val:FlxSpriteGroup):Void
+	{
+		spr_infrontTiles = val;
+	}
+	
 	function executeScriptFunction(name:String, args:Array<Any>):Void
 	{
 		for (script in scripts)
 		{
 			script.executeFunction(name, args);
 		}
+	}
+	
+	function executeSingleScriptFunction(scriptName:String, name:String, args:Array<Any>):Dynamic
+	{
+		for (script in scripts)
+		{
+			if (script.name == scriptName)
+			{
+				return script.executeFunction(name, args);
+			}
+		}
+
+		return null;
 	}
 	
 	public static function resetGlobalVars():Void

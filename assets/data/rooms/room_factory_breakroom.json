@@ -1,4 +1,5 @@
 {
     "name": "factory_breakroom",
-    "map": "factory_breakroom"
+    "map": "factory_breakroom",
+    "bgColor": [220, 220, 220]
 }

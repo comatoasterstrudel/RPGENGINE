@@ -1,5 +1,7 @@
 {
     "name": "factory_officebreakroom",
     "map": "factory_officebreakroom",
-    "lighting": 0.7
+    "lighting": 0.7,
+    "bgColor": [255, 186, 140],
+    "script": ["snow", "factory_officebreakroom"]
 }

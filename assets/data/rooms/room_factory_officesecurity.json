@@ -1,5 +1,7 @@
 {
     "name": "factory_officesecurity",
     "map": "factory_officesecurity",
-    "lighting": 0.7
+    "lighting": 0.7,
+    "bgColor": [200, 200, 255],
+    "script": ["snow", "factory_officesecurity"]
 }

@@ -1,3 +1,8 @@
+function CTSCRIPT_SETNAME():String
+{
+	return "snow";
+}
+
 var map:BetterFlxOgmo3Loader;
 
 var snowGroup:FlxSpriteGroup;
@@ -17,6 +22,8 @@ var snowflakes:Array<CtSprite> = [];
 var overMap:FlxSpriteGroup;
 
 var doneBurst:Bool = false;
+
+var frequency:Float = 1;
 
 function create():Void{
     map = get_map();
@@ -47,12 +54,12 @@ function create():Void{
 
 function update(elapsed:Float):Void{
     if(doneBurst){
-		if (FlxG.random.bool(600 * elapsed))
+		if (FlxG.random.bool((600 * frequency) * elapsed))
 		{
             addSnowflake(false);
         }   
     } else {
-		for (i in 0...(FlxG.random.int(40, 100)))
+		for (i in 0...((FlxG.random.int(40, 50)) * frequency))
 		{
             addSnowflake(true);
         }
@@ -63,7 +70,8 @@ function update(elapsed:Float):Void{
     var destroyThese:Array<CtSprite> = [];
     
     for(snowflake in snowflakes){
-        if(snowflake.x < minX || snowflake.y > maxX){
+		if (snowflake.x < minX || snowflake.y > maxY)
+		{
             destroyThese.push(snowflake);
         }
     }
@@ -99,4 +107,21 @@ function addSnowflake(randomY:Bool = false):Void{
     var theScale = speed + FlxG.random.float(-.5, .5);
     snowflake.scale.set(theScale, theScale);
     snowflakes.push(snowflake);
+}
+function snow_get_snowGroup():FlxSpriteGroup
+{
+	return snowGroup;
+}
+
+function snow_setBoundariesFromGrid(gridMinX:Fkoat, gridMaxX:Fkoat, gridMinY:Float, gridMaxY:Float):Void
+{
+	minX = (gridMinX * Constants.overworldPixelScale) * 16;
+	maxX = (gridMaxX * Constants.overworldPixelScale) * 16;
+	minY = (gridMinY * Constants.overworldPixelScale) * 16;
+	maxY = (gridMaxY * Constants.overworldPixelScale) * 16;
+}
+
+function snow_set_frequency(trueFrequency:Float):Void
+{
+	frequency = trueFrequency;
 }

@@ -1,3 +1,8 @@
+function CTSCRIPT_SETNAME():String
+{
+	return "factory_lobby";
+}
+
 var character_lobbysecretary:Character;
 
 var anims:Array<String> = ["idle_down", "blink", "idle_right", "blink"];

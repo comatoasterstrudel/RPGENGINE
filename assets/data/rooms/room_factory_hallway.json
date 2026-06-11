@@ -1,4 +1,5 @@
 {
     "name": "factory_hallway",
-    "map": "factory_hallway"
+    "map": "factory_hallway",
+    "bgColor": [220, 220, 220]
 }

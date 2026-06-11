@@ -1,3 +1,7 @@
+function CTSCRIPT_SETNAME():String
+{
+	return "test_script";
+}
 function create(){
     player.alpha = .5;
 }

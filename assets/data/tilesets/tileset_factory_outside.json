@@ -2,7 +2,7 @@
     "name": "factory_outside",
     "graphic": "factory_outside",
     "collisions": [
-        "NONE", "NONE", "NONE", "NONE", "NONE", "ANY", "ANY", "ANY", "ANY", "ANY",
+        "NONE", "NONE", "NONE", "NONE", "NONE", "ANY", "ANY", "ANY", "NONE", "NONE",
         "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "ANY", "ANY", "ANY", "ANY"
     ]
 }
