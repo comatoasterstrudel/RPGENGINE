@@ -111,8 +111,7 @@ class OverworldState extends FlxState
 		handleCollision();
 		handleSorting();
 		handleCameraScroll();
-		camLighting.scroll.set(camGame.scroll.x, camGame.scroll.y);
-		camLighting.setScrollBounds(camGame.minScrollX, camGame.maxScrollX, camGame.minScrollY, camGame.maxScrollY);
+		updateCamLighting();
 		handleExit(elapsed);
 		handleRandomEncounters(elapsed);
 		if (battleTransition != null)
@@ -274,6 +273,13 @@ class OverworldState extends FlxState
 		{
 			camGame.scroll.y = (mapSizeStart.y + mapHeight / 2) - (FlxG.height / 2);
 		}
+	}
+	
+	function updateCamLighting():Void
+	{
+		camLighting.scroll.set(camGame.scroll.x, camGame.scroll.y);
+		camLighting.zoom = camGame.zoom;
+		camLighting.setScrollBounds(camGame.minScrollX, camGame.maxScrollX, camGame.minScrollY, camGame.maxScrollY);
 	}
 	
 	function handleExit(elapsed:Float):Void
@@ -871,8 +877,11 @@ class OverworldState extends FlxState
 			battleTransition.thewidth = transitionType == IN ? startBlockWidth : endBlockWidth;
 			battleTransition.theheight = transitionType == IN ? startBlockHeight : endBlockHeight;
 
-			camGame.filters = [(new ShaderFilter(battleTransition))];
+			var shaderfilter = (new ShaderFilter(battleTransition));
 
+			camGame.filters = [shaderfilter];
+			camLighting.filters.push(shaderfilter);
+			
 			FlxTween.tween(battleTransition, {
 				thewidth: transitionType == IN ? endBlockWidth : startBlockWidth,
 				theheight: transitionType == IN ? endBlockHeight : startBlockHeight
@@ -883,6 +892,8 @@ class OverworldState extends FlxState
 					if (transitionType == OUT)
 					{
 						camGame.filters = [];
+						camLighting.filters.remove(shaderfilter);
+						shaderfilter = null;
 						battleTransition = null;
 					}
 				}
