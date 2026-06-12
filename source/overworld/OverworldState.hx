@@ -78,6 +78,7 @@ class OverworldState extends FlxState
 	
 	// LIGHTING
 	var lightingCover:LightingSprite;
+	var lightingShader:LightingEffectShader;
 	
     override function create():Void{
         super.create();
@@ -130,10 +131,12 @@ class OverworldState extends FlxState
 		camGame.bgColor.alpha = 0;
 		FlxG.cameras.add(camGame, true);
 
+		lightingShader = new LightingEffectShader(roomData.lightingDarkColor, roomData.lightingGlowColor);
+		
 		camLighting = new FlxCamera();
 		camLighting.bgColor.alpha = 0;
 		camLighting.filters = [
-			(new ShaderFilter(new LightingEffectShader(roomData.lightingDarkColor, roomData.lightingGlowColor)))
+		(new ShaderFilter(lightingShader))
 		];
 		FlxG.cameras.add(camLighting, false);
 		
@@ -981,6 +984,9 @@ class OverworldState extends FlxState
 		script.setValue({name: "get_spr_infrontTiles", value: get_spr_infrontTiles});
 		script.setValue({name: "set_spr_infrontTiles", value: set_spr_infrontTiles});
 		
+		script.setValue({name: "get_lightingShader", value: get_lightingShader});
+		script.setValue({name: "set_lightingShader", value: set_lightingShader});
+		
 		scripts.push(script);
 		script.executeFunction("create");
 
@@ -1093,6 +1099,18 @@ class OverworldState extends FlxState
 	function set_spr_infrontTiles(val:FlxSpriteGroup):Void
 	{
 		spr_infrontTiles = val;
+	}
+	
+	// lightingShader
+
+	function get_lightingShader():LightingEffectShader
+	{
+		return (lightingShader);
+	}
+
+	function set_lightingShader(val:LightingEffectShader):Void
+	{
+		lightingShader = val;
 	}
 	
 	function executeScriptFunction(name:String, args:Array<Any>):Void

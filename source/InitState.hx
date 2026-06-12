@@ -81,6 +81,8 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "FlxSpriteGroup", value: FlxSpriteGroup});
 		CtScript.setDefaultValue({name: "BetterFlxOgmo3Loader", value: BetterFlxOgmo3Loader});
 		CtScript.setDefaultValue({name: "Std", value: Std});
-
+		CtScript.setDefaultValue({name: "FlxColor.interpolate", value: FlxColor.interpolate});
+		CtScript.setDefaultValue({name: "FlxColor.fromInt", value: FlxColor.fromInt});
+		CtScript.setDefaultValue({name: "LightingEffectShader", value: LightingEffectShader});
 	}
 }

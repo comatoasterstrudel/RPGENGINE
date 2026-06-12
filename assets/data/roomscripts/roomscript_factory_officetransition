@@ -1,0 +1,44 @@
+function CTSCRIPT_SETNAME():String
+{
+	return "factory_officetransition";
+}
+
+var player:Character;
+
+var gridStart:Int = 18;
+var gridEnd:Int = 27;
+
+var colorA = 0xFF000000;
+var colorB = 0xFF00137F;
+
+var colorGlow = 0x00000000;
+
+var lastPlayerY:Float = 0;
+
+var lightingShader:LightingEffectShader;
+
+function create(){
+    player = getCharacterByTag("player");
+    lightingShader = get_lightingShader();
+    
+    updatePlayerPos();
+}
+
+function update(elapsed:Float){
+    if(player.y != lastPlayerY){
+        var factor = FlxMath.bound((player.y - getYCordByGrid(gridStart)) / (getYCordByGrid(gridEnd) - getYCordByGrid(gridStart)), 0, 1);
+    
+        var newcolor = FlxColor.interpolate(colorA, colorB, factor);
+        
+        lightingShader.updateColors(newcolor, colorGlow);
+    }
+    updatePlayerPos();
+}
+
+function getYCordByGrid(pos:Float):Float{
+    return ((pos * 16) * Constants.overworldPixelScale);
+}
+
+function updatePlayerPos():Void{
+    lastPlayerY = player.y;
+}

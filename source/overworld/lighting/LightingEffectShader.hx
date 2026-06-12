@@ -31,7 +31,7 @@ class LightingEffectShader extends FlxShader
 	}
 
 	public function updateColors(colorDark:FlxColor, colorGlow:FlxColor):Void
-	{
+	{		
 		data.colorDark.value = [
 			colorDark.red / 255,
 			colorDark.green / 255,
@@ -44,5 +44,10 @@ class LightingEffectShader extends FlxShader
 			colorGlow.blue / 255,
 			colorGlow.alpha / 255
 		];
+	}
+	public function updateColorsFromArray(colorDarkArray:Array<Int>, colorGlowArray:Array<Int>):Void
+	{
+		updateColors(FlxColor.fromRGB(colorDarkArray[0], colorDarkArray[1], colorDarkArray[2], colorDarkArray[3]),
+			FlxColor.fromRGB(colorGlowArray[0], colorGlowArray[1], colorGlowArray[2], colorGlowArray[3]));
 	}
 }

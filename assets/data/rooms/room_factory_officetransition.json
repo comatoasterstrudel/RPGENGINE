@@ -1,0 +1,7 @@
+{
+    "name":"factory_officetransition",
+    "map": "factory_officetransition",
+    "lighting": 0.7,
+    "bgColor": [220, 220, 220],
+    "script": ["factory_officetransition"]
+}
