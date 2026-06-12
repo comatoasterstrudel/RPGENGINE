@@ -85,7 +85,7 @@
           "height": 64,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "factory_outside", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "factory_outside", "roomTransitionTime": 2, "encounterName": "", "scriptFunction": ""}
         },
         {
           "name": "player",

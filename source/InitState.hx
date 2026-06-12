@@ -14,6 +14,8 @@ class InitState extends FlxState{
 		
 		initScripts();
 		
+		initSave();
+		
 		#if debug
 		#if testBattle
 		PlayState.setBattle(Compiler.getDefine("testBattle").split('=')[0], ARCADE);
@@ -84,5 +86,16 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "FlxColor.interpolate", value: FlxColor.interpolate});
 		CtScript.setDefaultValue({name: "FlxColor.fromInt", value: FlxColor.fromInt});
 		CtScript.setDefaultValue({name: "LightingEffectShader", value: LightingEffectShader});
+	}
+	function initSave():Void
+	{
+		Save.init();
+
+		#if traceStoryFlags
+		for (storyFlag in Save.storyFlags)
+		{
+			trace(storyFlag.id);
+		}
+		#end
 	}
 }

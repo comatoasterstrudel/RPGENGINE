@@ -128,4 +128,9 @@ class Constants
 	public static final dialogueNameBoxLeftEndGraphicPath:String = "nameBoxLeft";
 	public static final dialogueNameBoxRightEndGraphicPath:String = "nameBoxRight";
 	public static final dialogueGraphicsPath:String = "assets/images/dialogue/";
+	//
+	// SAVE !!! STUFF !!!
+	//
+	public static final storyFlagsDataFolder:String = "assets/data/storyflags/";
+	public static final storyFlagsDataPath:String = storyFlagsDataFolder + "storyflag_";
 }
