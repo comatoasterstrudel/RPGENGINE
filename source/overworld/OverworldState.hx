@@ -1,9 +1,9 @@
 package overworld;
 
-import overworld.interactables.InteractableOutcome;
-
 class OverworldState extends FlxState
 {
+	public static var eventManager:CtEventManager;
+
 	public static var roomName:String = "test";
 	public static var roomData:RoomData;
     
@@ -85,6 +85,9 @@ class OverworldState extends FlxState
     override function create():Void{
         super.create();
         
+		eventManager = new CtEventManager();
+		eventManager.reset();
+		
 		inCutscene = false;
 
 		loadRoom();        
@@ -121,6 +124,7 @@ class OverworldState extends FlxState
 			battleTransition.update();
 		}
 		executeScriptFunction("update", [elapsed]);
+		eventManager.update();
 	}
 
 	/**
@@ -1066,6 +1070,9 @@ class OverworldState extends FlxState
 		script.setValue({name: "get_lightingShader", value: get_lightingShader});
 		script.setValue({name: "set_lightingShader", value: set_lightingShader});
 		
+		script.setValue({name: "get_player", value: get_player});
+		script.setValue({name: "set_player", value: set_player});
+		
 		scripts.push(script);
 		script.executeFunction("create");
 
@@ -1190,6 +1197,18 @@ class OverworldState extends FlxState
 	function set_lightingShader(val:LightingEffectShader):Void
 	{
 		lightingShader = val;
+	}
+	
+	// player
+
+	function get_player():Player
+	{
+		return player;
+	}
+
+	function set_player(val:Player):Void
+	{
+		player = val;
 	}
 	
 	function executeScriptFunction(name:String, args:Array<Any>):Void

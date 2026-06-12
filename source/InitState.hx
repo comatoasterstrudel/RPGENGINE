@@ -70,6 +70,7 @@ class InitState extends FlxState{
 	{
 		CtScript.init();
 		CtScript.setDefaultValue({name: "Character", value: Character});
+		CtScript.setDefaultValue({name: "Player", value: Player});
 		CtScript.setDefaultValue({name: "DOWN", value: FlxDirectionFlags.DOWN});
 		CtScript.setDefaultValue({name: "LEFT", value: FlxDirectionFlags.LEFT});
 		CtScript.setDefaultValue({name: "UP", value: FlxDirectionFlags.UP});
@@ -91,6 +92,9 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "Door", value: Door});
 		CtScript.setDefaultValue({name: "Interactable", value: Interactable});
 		CtScript.setDefaultValue({name: "LightSourceSprite", value: LightSourceSprite});
+		CtScript.setDefaultValue({name: "CtEventManager", value: CtEventManager});
+		CtScript.setDefaultValue({name: "CtEventTransaction", value: CtEventTransaction});
+		CtScript.setDefaultValue({name: "OverworldState", value: OverworldState});
 	}
 
 	function initSave():Void

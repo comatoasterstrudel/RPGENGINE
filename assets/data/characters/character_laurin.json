@@ -1,0 +1,27 @@
+{
+    "name": "laurin",
+    "graphic": "laurin",
+    "anims": [
+        {
+            "name": "idle_down",
+            "prefix": "down",
+            "fps": 0
+        },
+        {
+            "name": "idle_up",
+            "prefix": "up",
+            "fps": 0
+        },
+        {
+            "name": "idle_left",
+            "prefix": "right",
+            "fps": 0,
+            "flipX": true
+        },
+        {
+            "name": "idle_right",
+            "prefix": "right",
+            "fps": 0
+        }
+    ]
+}

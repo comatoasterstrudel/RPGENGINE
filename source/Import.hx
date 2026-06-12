@@ -78,6 +78,7 @@ import overworld.character.*;
 import overworld.character.CharacterData;
 import overworld.door.*;
 import overworld.interactables.Interactable;
+import overworld.interactables.InteractableOutcome;
 import overworld.lighting.*;
 import overworld.props.Prop;
 import overworld.rooms.*;

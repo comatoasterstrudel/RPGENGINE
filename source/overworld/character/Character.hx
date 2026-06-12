@@ -226,6 +226,11 @@ class Character extends CtSprite
 		CtUtil.centerSpriteOnSprite(hitbox, this, true, false);
 		hitbox.y = y + height - hitbox.height;
 	}
+	public function positionCharacterByGrid(x:Float, y:Float):Void
+	{
+		positionCharacter(((x * Constants.overworldPixelScale) * 16), ((y * Constants.overworldPixelScale) * 16));
+	}
+	
 	public function move(x:Float = -1, y:Float = -1, ?onComplete:Void->Void):Void
 	{
 		var moveX:Bool = x != -1;

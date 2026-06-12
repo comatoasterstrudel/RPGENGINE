@@ -1,0 +1,23 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "AGJJJGJGJJG",
+		"actor": "jess"
+	},
+    {
+        "speed": 0.03,
+		"dialogue": "hi robin!!!!",
+		"actor": "jess"
+    },
+    {
+        "speed": 0.03,
+		"dialogue": "robbinnn youre my goat can u sign my  shurt",
+		"actor": "laurin"
+    },
+    {
+        "speed": 0.03,
+		"dialogue": "Nope",
+		"actor": "robin",
+        "portrait": "neutral"
+    }
+]

@@ -5,6 +5,8 @@ class Player extends Character{
 
 	public var interaction = new FlxTypedSignal<CtSprite->Void>();
     
+	public var lockMovement:Bool = false;
+	
 	public function new()
 	{
 		super(Constants.playerCharacterName, "player");
@@ -70,6 +72,12 @@ class Player extends Character{
 	}
     
     override function doMovement(){
+		if (lockMovement)
+		{
+			super.doMovement();
+			return;
+		}
+		
 		var left = canMove() && CtControls.checkInput("left", PRESSED);
 		var right = canMove() && CtControls.checkInput("right", PRESSED);
 		var up = canMove() && CtControls.checkInput("up", PRESSED);
