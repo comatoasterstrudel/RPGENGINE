@@ -3,7 +3,7 @@ package overworld.lighting;
 class LightingSprite extends FlxSpriteGroup
 {
     var backSprite:CtSprite;
-    var lightSources:Array<LightSourceSprite> = [];
+	public var lightSources:Array<LightSourceSprite> = [];
     
     public function new(map:BetterFlxOgmo3Loader, roomData:RoomData):Void{
         super();
@@ -16,8 +16,9 @@ class LightingSprite extends FlxSpriteGroup
         antialiasing = false;        
     }
     
-    public function addLightSource(graphic:String, x:Int, y:Int):LightSourceSprite{
-        var lightSource = new LightSourceSprite(graphic, x, y);
+	public function addLightSource(graphic:String, x:Int, y:Int, tag:String):LightSourceSprite
+	{
+		var lightSource = new LightSourceSprite(graphic, x, y, tag);
         add(lightSource);
         
         lightSources.push(lightSource);

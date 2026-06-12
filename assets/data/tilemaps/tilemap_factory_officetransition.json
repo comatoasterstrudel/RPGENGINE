@@ -95,7 +95,7 @@
           "height": 96,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factoryofficelight"}
+          "values": {"graphic": "factoryofficelight", "tag": ""}
         }
       ]
     },

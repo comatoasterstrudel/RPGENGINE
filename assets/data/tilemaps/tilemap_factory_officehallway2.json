@@ -119,7 +119,7 @@
           "height": 96,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factoryofficelight"}
+          "values": {"graphic": "factoryofficelight", "tag": ""}
         },
         {
           "name": "prop",
@@ -167,7 +167,7 @@
           "height": 96,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factoryofficelight"}
+          "values": {"graphic": "factoryofficelight", "tag": ""}
         },
         {
           "name": "lightsource",
@@ -179,7 +179,7 @@
           "height": 96,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factoryofficelight"}
+          "values": {"graphic": "factoryofficelight", "tag": ""}
         },
         {
           "name": "lightsource",
@@ -191,7 +191,7 @@
           "height": 96,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factoryofficelight"}
+          "values": {"graphic": "factoryofficelight", "tag": ""}
         },
         {
           "name": "player",

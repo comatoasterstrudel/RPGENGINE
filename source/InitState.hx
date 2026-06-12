@@ -90,6 +90,7 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "StoryFlag", value: StoryFlag});
 		CtScript.setDefaultValue({name: "Door", value: Door});
 		CtScript.setDefaultValue({name: "Interactable", value: Interactable});
+		CtScript.setDefaultValue({name: "LightSourceSprite", value: LightSourceSprite});
 	}
 
 	function initSave():Void

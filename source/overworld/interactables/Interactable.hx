@@ -47,7 +47,7 @@ class Interactable extends CtSprite
 		return this;
 	}
 
-	public function addManually(x:Float, y:Float, width:Int, height:Int, ?type:InteractableType, ?flag:String, ?dialogue:String, ?room:String,
+	public function addManually(x:Float, y:Float, width:Int, height:Int, ?type:InteractableType, ?tag:String, ?dialogue:String, ?room:String,
 			?roomTransitionTime:Float,
 			?encounterName:String, ?scriptFunction:String):Void
 	{

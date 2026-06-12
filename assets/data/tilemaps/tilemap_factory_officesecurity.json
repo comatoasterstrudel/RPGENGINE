@@ -73,7 +73,7 @@
           "height": 150,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factorysecuritydesk"}
+          "values": {"graphic": "factorysecuritydesk", "tag": ""}
         }
       ]
     },

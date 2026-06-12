@@ -2,7 +2,10 @@ package overworld.lighting;
 
 class LightSourceSprite extends CtSprite
 {
-    public function new(graphic:String, x:Int, y:Int):Void{
+	public var tag:String = "";
+
+	public function new(graphic:String, x:Int, y:Int, tag:String):Void
+	{
         super();
         
         createFromImage(Constants.lightSourceGraphicPath + graphic + ".png");
@@ -12,6 +15,8 @@ class LightSourceSprite extends CtSprite
         antialiasing = false;
         
         setPosition(x, y);
+        
+		this.tag = tag;
         
         #if showLightSources
         FlxG.state.add(this);

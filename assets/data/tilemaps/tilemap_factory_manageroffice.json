@@ -73,7 +73,7 @@
           "height": 99,
           "originX": 0,
           "originY": 0,
-          "values": {"graphic": "factoryofficemanagerdesk"}
+          "values": {"graphic": "factoryofficemanagerdesk", "tag": ""}
         }
       ]
     },

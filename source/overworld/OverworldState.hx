@@ -626,7 +626,7 @@ class OverworldState extends FlxState
 					props.add(scrollingprop);
 				case "lightsource":
 					lightingCover.addLightSource(entity.values.graphic, Std.int(entity.x * Constants.overworldPixelScale),
-						Std.int(entity.y * Constants.overworldPixelScale));
+						Std.int(entity.y * Constants.overworldPixelScale), entity.values.tag);
 				default:
 					//
 			}
@@ -744,6 +744,19 @@ class OverworldState extends FlxState
 
 				if (door.tag == tag)
 					return door;
+			}
+		}
+
+		return null;
+	}
+	
+	function getLightSourceByTag(tag:String):LightSourceSprite
+	{
+		for (light in lightingCover.lightSources)
+		{
+			if (light.tag == tag)
+			{
+				return light;
 			}
 		}
 
@@ -1007,6 +1020,7 @@ class OverworldState extends FlxState
 		script.setValue({name: "getCharacterByTag", value: getCharacterByTag});
 		script.setValue({name: "getInteractableByTag", value: getInteractableByTag});
 		script.setValue({name: "getDoorByTag", value: getDoorByTag});
+		script.setValue({name: "getLightSourceByTag", value: getLightSourceByTag});
 
 		script.setValue({name: "player", value: player});
 		script.setValue({name: "dialogueBox", value: dialogueBox});

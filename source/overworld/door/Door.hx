@@ -23,21 +23,7 @@ class Door extends Interactable
         antialiasing = false;
         visible = true;
         triggerSignal.add(function():Void{
-			if (room != "")
-			{
-				animation.play("open"); 
-				if (data.openSound != "")
-				{
-					FlxG.sound.play(Constants.doorOpenSoundPath + data.openSound + ".ogg");
-				}
-			}
-			else
-			{
-				if (data.lockSound != "")
-				{
-					FlxG.sound.play(Constants.doorLockSoundPath + data.lockSound + ".ogg");
-				}
-			}
+			openDoor();
 		});
 		lerpManager.lerpAlpha = true;
 		lerpManager.lerpSpeed = 3;
@@ -64,4 +50,22 @@ class Door extends Interactable
 			lerpManager.targetAlpha = 1;
 		}
     }
+	function openDoor():Void
+	{
+		if (room != "")
+		{
+			animation.play("open");
+			if (data.openSound != "")
+			{
+				FlxG.sound.play(Constants.doorOpenSoundPath + data.openSound + ".ogg");
+			}
+		}
+		else
+		{
+			if (data.lockSound != "")
+			{
+				FlxG.sound.play(Constants.doorLockSoundPath + data.lockSound + ".ogg");
+			}
+		}
+	}
 }
