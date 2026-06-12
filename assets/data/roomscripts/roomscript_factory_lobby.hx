@@ -28,6 +28,7 @@ function create():Void{
 	{
 		character_laurin.kill();
 		setupBlink();
+		lockDoor();
 	}
 }
 
@@ -164,6 +165,8 @@ function doConversationCutscene():Void
 
 		setupBlink();
 
+		lockDoor();
+		
 		OverworldState.eventManager.finishTransaction("camra");
 	});
 }
@@ -184,4 +187,9 @@ function doBlink():Void{
     
     progress ++;
     if(progress >= anims.length) progress = 0;
+}
+function lockDoor():Void
+{
+	frontdoor.room = "";
+	frontdoor.dialogue = "factory/lobby/dialogue_exitdoor";
 }
