@@ -6,8 +6,13 @@ class Prop extends CtSprite
     
     public var hitbox:CtSprite;
     
-    public function new(id:String, x:Float, y:Float):Void{
+	public var tag:String;
+
+	public function new(id:String, tag:String, x:Float, y:Float):Void
+	{
         super(x * Constants.overworldPixelScale, y * Constants.overworldPixelScale);
+        
+		this.tag = tag;
         
         data = new PropData(id);
         

@@ -49,7 +49,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"doorName": "factory", "room": "factory_lobby", "transitionTime": 2, "lockedDialogue": "", "horizontal": false}
+          "values": {"doorName": "factory", "room": "factory_lobby", "transitionTime": 2, "lockedDialogue": "", "horizontal": false, "tag": ""}
         },
         {
           "name": "player",
@@ -71,7 +71,7 @@
           "height": 128,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factoryoutsidelamppost"}
+          "values": {"propName": "factoryoutsidelamppost", "tag": ""}
         },
         {
           "name": "lightsource",
@@ -95,7 +95,7 @@
           "height": 64,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "factory_outsidefireexit", "roomTransitionTime": 2, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "factory_outsidefireexit", "roomTransitionTime": 2, "encounterName": "", "scriptFunction": "", "tag": ""}
         },
         {
           "name": "player",
@@ -117,7 +117,7 @@
           "height": 128,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factoryoutsidelamppost"}
+          "values": {"propName": "factoryoutsidelamppost", "tag": ""}
         },
         {
           "name": "lightsource",

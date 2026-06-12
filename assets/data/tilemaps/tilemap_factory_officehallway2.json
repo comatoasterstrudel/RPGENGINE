@@ -39,7 +39,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"doorName": "factory", "room": "factory_officehallway", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
+          "values": {"doorName": "factory", "room": "factory_officehallway", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false, "tag": ""}
         },
         {
           "name": "player",
@@ -61,7 +61,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"doorName": "factorymanageroffice", "room": "factory_manageroffice", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
+          "values": {"doorName": "factorymanageroffice", "room": "factory_manageroffice", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false, "tag": ""}
         },
         {
           "name": "door",
@@ -73,7 +73,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"doorName": "factorysecurity", "room": "factory_officesecurity", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
+          "values": {"doorName": "factorysecurity", "room": "factory_officesecurity", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false, "tag": ""}
         },
         {
           "name": "door",
@@ -85,7 +85,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"doorName": "factorybreakroom", "room": "factory_officebreakroom", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
+          "values": {"doorName": "factorybreakroom", "room": "factory_officebreakroom", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false, "tag": ""}
         },
         {
           "name": "player",
@@ -107,7 +107,7 @@
           "height": 96,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factoryofficelight"}
+          "values": {"propName": "factoryofficelight", "tag": ""}
         },
         {
           "name": "lightsource",
@@ -131,7 +131,7 @@
           "height": 96,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factoryofficelight"}
+          "values": {"propName": "factoryofficelight", "tag": ""}
         },
         {
           "name": "prop",
@@ -143,7 +143,7 @@
           "height": 96,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factoryofficelight"}
+          "values": {"propName": "factoryofficelight", "tag": ""}
         },
         {
           "name": "prop",
@@ -155,7 +155,7 @@
           "height": 96,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factoryofficelight"}
+          "values": {"propName": "factoryofficelight", "tag": ""}
         },
         {
           "name": "lightsource",
@@ -223,7 +223,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"doorName": "factory", "room": "factory_officetransition", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
+          "values": {"doorName": "factory", "room": "factory_officetransition", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false, "tag": ""}
         },
         {
           "name": "player",

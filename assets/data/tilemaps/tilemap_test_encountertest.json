@@ -49,7 +49,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "", "room": "", "roomTransitionTime": 0.3, "encounterName": "test_test", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "", "room": "", "roomTransitionTime": 0.3, "encounterName": "test_test", "scriptFunction": "", "tag": ""}
         },
         {
           "name": "character",

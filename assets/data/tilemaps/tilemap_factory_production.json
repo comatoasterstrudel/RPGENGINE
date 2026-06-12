@@ -39,7 +39,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"doorName": "factory", "room": "factory_hallway", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
+          "values": {"doorName": "factory", "room": "factory_hallway", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false, "tag": ""}
         },
         {
           "name": "player",
@@ -61,7 +61,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"doorName": "factory", "room": "factory_lobbytransition", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false}
+          "values": {"doorName": "factory", "room": "factory_lobbytransition", "transitionTime": 0.5, "lockedDialogue": "", "horizontal": false, "tag": ""}
         },
         {
           "name": "player",
@@ -83,7 +83,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factorycart1L"}
+          "values": {"propName": "factorycart1L", "tag": ""}
         },
         {
           "name": "prop",
@@ -95,7 +95,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factorycart2L"}
+          "values": {"propName": "factorycart2L", "tag": ""}
         },
         {
           "name": "prop",
@@ -107,7 +107,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factorycart1R"}
+          "values": {"propName": "factorycart1R", "tag": ""}
         },
         {
           "name": "prop",
@@ -119,7 +119,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"propName": "factorycart2R"}
+          "values": {"propName": "factorycart2R", "tag": ""}
         },
         {
           "name": "scrollingprop",

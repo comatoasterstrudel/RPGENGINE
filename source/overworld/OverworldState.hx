@@ -1,5 +1,7 @@
 package overworld;
 
+import overworld.interactables.InteractableOutcome;
+
 class OverworldState extends FlxState
 {
 	public static var roomName:String = "test";
@@ -210,7 +212,10 @@ class OverworldState extends FlxState
 			{
 				if (FlxG.overlap(interactable, player.hitbox))
 				{
-					triggerInteractable(interactable);
+					if (triggerInteractable(interactable) == TRIGGERED)
+					{
+						break;
+					};
 				}
 			}
 		}
@@ -572,7 +577,10 @@ class OverworldState extends FlxState
 				{
 					if (FlxG.overlap(interactable, hb))
 					{
-						triggerInteractable(interactable);
+						if (triggerInteractable(interactable) == TRIGGERED)
+						{
+							break;
+						};
 					}
 				}	
 			}
@@ -598,14 +606,14 @@ class OverworldState extends FlxState
 				case "character":
 					placeCharacter(entity.x * Constants.overworldPixelScale, entity.y * Constants.overworldPixelScale, entity.values.name, entity.values.tag);
 				case "door":
-					var door = new Door(entity.values.doorName, player, Std.int(entity.x * Constants.overworldPixelScale),
+					var door = new Door(entity.values.doorName, entity.values.tag, player, Std.int(entity.x * Constants.overworldPixelScale),
 						Std.int(entity.y * Constants.overworldPixelScale), entity.values.horizontal, entity.values.room, entity.values.transitionTime,
 						entity.values.lockedDialogue);
 
 					props.add(door);
 					interactInteractables.add(door);
 				case "prop":
-					props.add(new Prop(entity.values.propName, entity.x, entity.y));
+					props.add(new Prop(entity.values.propName, entity.values.tag, entity.x, entity.y));
 				case "scrollingprop":
 					var scrollingprop = new CtCroppedBackdrop(Constants.scrollingPropImagePath + entity.values.propName + ".png",
 						Std.int(entity.x * Constants.overworldPixelScale), Std.int(entity.y * Constants.overworldPixelScale),
@@ -705,12 +713,54 @@ class OverworldState extends FlxState
 
 		return null;
 	}
+	function getInteractableByTag(tag:String):Interactable
+	{
+		for (interactable in interactInteractables)
+		{
+			if (interactable.tag == tag)
+			{
+				return interactable;
+			}
+		}
+
+		for (interactable in walkInteractables)
+		{
+			if (interactable.tag == tag)
+			{
+				return interactable;
+			}
+		}
+
+		return null;
+	}
+
+	function getDoorByTag(tag:String):Door
+	{
+		for (prop in props)
+		{
+			if (prop is Door)
+			{
+				var door:Door = cast prop;
+
+				if (door.tag == tag)
+					return door;
+			}
+		}
+
+		return null;
+	}
+	
 	/**
 	 * Call this to trigger an interactable object!!
 	 * @param interactable the interactable object to trigger
 	 */
-	function triggerInteractable(interactable:Interactable):Void
+	function triggerInteractable(interactable:Interactable):InteractableOutcome
 	{
+		if (interactable.disabled)
+		{
+			return BLOCKED;
+		}
+		
 		interactable.triggerSignal.dispatch();
 		
 		if (interactable.dialogue != "")
@@ -729,6 +779,7 @@ class OverworldState extends FlxState
 		{
 			executeScriptFunction(interactable.scriptFunction, []);
 		}
+		return TRIGGERED;
 	}
 
 	/**
@@ -953,8 +1004,11 @@ class OverworldState extends FlxState
 		if (script.script == null)
 			return null;
 
-		script.setValue({name: "player", value: player});
 		script.setValue({name: "getCharacterByTag", value: getCharacterByTag});
+		script.setValue({name: "getInteractableByTag", value: getInteractableByTag});
+		script.setValue({name: "getDoorByTag", value: getDoorByTag});
+
+		script.setValue({name: "player", value: player});
 		script.setValue({name: "dialogueBox", value: dialogueBox});
 		script.setValue({name: "startDialogue", value: startDialogue});
 

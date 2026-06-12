@@ -86,7 +86,12 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "FlxColor.interpolate", value: FlxColor.interpolate});
 		CtScript.setDefaultValue({name: "FlxColor.fromInt", value: FlxColor.fromInt});
 		CtScript.setDefaultValue({name: "LightingEffectShader", value: LightingEffectShader});
+		CtScript.setDefaultValue({name: "Save", value: Save});
+		CtScript.setDefaultValue({name: "StoryFlag", value: StoryFlag});
+		CtScript.setDefaultValue({name: "Door", value: Door});
+		CtScript.setDefaultValue({name: "Interactable", value: Interactable});
 	}
+
 	function initSave():Void
 	{
 		Save.init();

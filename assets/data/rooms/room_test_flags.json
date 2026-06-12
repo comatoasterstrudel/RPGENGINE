@@ -1,0 +1,5 @@
+{
+    "name": "test_flags",
+    "map": "test_flags",
+    "script": ["test_flags"]
+}

@@ -4,6 +4,8 @@ class Interactable extends CtSprite
 {    
     public var type:InteractableType;
     
+	public var tag:String;
+	
     public var dialogue:String;
     
     public var room:String;
@@ -16,6 +18,8 @@ class Interactable extends CtSprite
 	
 	public var triggerSignal = new FlxSignal();
 
+	public var disabled:Bool = false;
+	
 	public function new()
 	{
 		super();
@@ -33,6 +37,7 @@ class Interactable extends CtSprite
 			type = WALK;
 		else
 			type = INTERACT;
+		tag = entity.values.tag;
 		dialogue = entity.values.dialogue;
 		room = entity.values.room;
 		roomTransitionTime = entity.values.roomTransitionTime;
@@ -42,16 +47,19 @@ class Interactable extends CtSprite
 		return this;
 	}
 
-	public function addManually(x:Float, y:Float, width:Int, height:Int, ?type:InteractableType, ?dialogue:String, ?room:String, ?roomTransitionTime:Float,
+	public function addManually(x:Float, y:Float, width:Int, height:Int, ?type:InteractableType, ?flag:String, ?dialogue:String, ?room:String,
+			?roomTransitionTime:Float,
 			?encounterName:String, ?scriptFunction:String):Void
 	{
 		setPosition(x, y);
 		createColorBlock(width, height, FlxColor.BLUE);
     
 		this.type = type ?? WALK;
+		this.tag = tag ?? "";
 		this.dialogue = dialogue ?? "";
 		this.room = room ?? "";
 		this.roomTransitionTime = roomTransitionTime ?? .5;
 		this.encounterName = encounterName ?? "";
+		this.scriptFunction = scriptFunction ?? "";
     }
 }

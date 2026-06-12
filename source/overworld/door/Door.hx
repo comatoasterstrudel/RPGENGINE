@@ -8,13 +8,13 @@ class Door extends Interactable
 
 	var horizontal:Bool;
 
-	public function new(name:String, player:Player, x:Int, y:Int, horizontal:Bool, room:String, transitionTime:Float, lockedDialogue:String):Void
+	public function new(name:String, tag:String, player:Player, x:Int, y:Int, horizontal:Bool, room:String, transitionTime:Float, lockedDialogue:String):Void
 	{
         super();
 		this.player = player;
 		data = new DoorData(name);
 		
-		addManually(x, y, 32, 32, INTERACT, room == "" ? lockedDialogue : "", room, transitionTime, "");
+		addManually(x, y, 32, 32, INTERACT, tag, room == "" ? lockedDialogue : "", room, transitionTime, "");
 		createFromSparrow(Constants.doorGraphicPath + data.graphic + ".png", Constants.doorGraphicPath + data.graphic + ".xml");
         animation.addByPrefix("open", "open", 1);
         animation.addByPrefix("closed", "closed", 0);

@@ -109,7 +109,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
         },
         {
           "name": "interactable",
@@ -121,7 +121,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
         },
         {
           "name": "interactable",
@@ -133,7 +133,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
         },
         {
           "name": "interactable",
@@ -145,7 +145,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
         },
         {
           "name": "interactable",
@@ -157,7 +157,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "robin_hallway/dialogue_talk", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
         }
       ]
     },
