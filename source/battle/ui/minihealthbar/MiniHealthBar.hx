@@ -20,5 +20,6 @@ class MiniHealthBar extends FlxBar
 		this.alpha = unit.alpha;
         
         this.y = unit.y - this.height + Constants.miniHealthBarYSpacing;
+		this.visible = unit.visible;
     }
 }

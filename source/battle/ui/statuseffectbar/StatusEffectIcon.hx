@@ -42,6 +42,7 @@ class StatusEffectIcon extends FlxSpriteGroup
 		for (sprite in [baseSprite, whiteSprite, iconSprite])
 		{
 			sprite.alpha = unit.alpha;
+			sprite.visible = unit.visible;
 		}
 	}
     

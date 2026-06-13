@@ -47,6 +47,8 @@ class TurnAttentionAnim extends FlxTypedGroup<CtSprite>
             bars.push(bar);
         }
         add(icon);
+		alpha = 0;
+		lastAlpha = 1;
     }
 
     public function doAnim(target:FlxSprite):Void{

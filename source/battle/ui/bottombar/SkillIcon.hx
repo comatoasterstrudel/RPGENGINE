@@ -43,6 +43,7 @@ class SkillIcon extends FlxSpriteGroup
 		outlineSprite = new CtSprite(0, 590, false).createFromImage(Constants.skillOutlineGraphicPath);
         outlineSprite.antialiasing = false;
         add(outlineSprite);        
+		visible = false;
     }
     
 	/**
@@ -82,5 +83,6 @@ class SkillIcon extends FlxSpriteGroup
         
 		CtUtil.centerSpriteOnSprite(bgSprite, outlineSprite, true, true);
         CtUtil.centerSpriteOnSprite(skillSprite, outlineSprite, true, true);
+		visible = true;
     }
 }

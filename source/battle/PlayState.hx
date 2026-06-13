@@ -87,16 +87,8 @@ class PlayState extends FlxState
 		setUpMusic();
 		
 		setUpScripts();
-		
-		if (battleType == ARCADE)
-		{
-			advanceRound();
-		}
-		else
-		{
-			doIntroAnim();
-			advanceRound();
-		}
+
+		doIntroAnim();
 		
 		#if debug
 		addDebugFunctions();
@@ -257,11 +249,11 @@ class PlayState extends FlxState
 	{
 		for (unit in battleData.allyUnits)
 		{
-			placeUnit(unit.id, allyGrid, unit.position, true);
+			placeUnit(unit.id, allyGrid, unit.position, true, false);
 		}
 		for (unit in battleData.enemyUnits)
 		{
-			placeUnit(unit.id, enemyGrid, unit.position, false);
+			placeUnit(unit.id, enemyGrid, unit.position, false, false);
 		}
 	}
 	
@@ -272,7 +264,7 @@ class PlayState extends FlxState
 	 * @param position Which position on the grid you want to place it on
 	 * @param controllable Should this unit be controllable or not? basically is it an enemy or ally
 	 */
-	function placeUnit(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool):Void
+	function placeUnit(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool, ?doAnim:Bool = true):Void
 	{
 		if (position.x >= gridSize.x || position.y >= gridSize.y)
 		{
@@ -290,9 +282,10 @@ class PlayState extends FlxState
 		unit.camera = camGame;
 		add(unit);
 
-		unit.doEntranceAnimation();
-
 		grid.placeUnit(unit);
+
+		if (doAnim)
+			unit.doEntranceAnimation();
 
 		units.push(unit);
 		statusEffectBars.addNewBar(unit);
@@ -999,20 +992,82 @@ class PlayState extends FlxState
 		battleType = type;
 	}
 
-	function doIntroAnim(?onComplete:Void->Void):Void
+	function doIntroAnim():Void
 	{
-		var spr = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.WHITE);
-		spr.camera = camUI;
-		add(spr);
+		bottomBar.visible = false;
+		hideGrid(allyGrid);
+		hideGrid(enemyGrid);
 
-		FlxTween.tween(spr, {alpha: 0}, 1, {
+		if (battleType == STORY)
+		{
+			var spr = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.WHITE);
+			spr.camera = camUI;
+			add(spr);
+			
+			eventManager.addEvent(function():Void
+			{
+				eventManager.startTransaction("fadein");
+				FlxTween.tween(spr, {alpha: 0}, 1, {
+					onComplete: function(f):Void
+					{
+						spr.destroy();
+						eventManager.finishTransaction("fadein");
+					}
+				});
+			});
+		}
+		eventManager.addEvent(function():Void
+		{
+			eventManager.startTransaction("buildGrid");
+
+			buildGrid(allyGrid, 1, FlxEase.quartIn, function():Void
+			{
+				buildGrid(enemyGrid, 1, FlxEase.quartOut, function():Void
+				{
+					eventManager.finishTransaction("buildGrid");
+				});
+			});
+		});
+		eventManager.addEvent(function():Void
+		{
+			advanceRound();
+			bottomBar.visible = true;
+		});
+	}
+
+	function hideGrid(grid:Grid):Void
+	{
+		for (space in grid.spaces)
+		{
+			space.visible = false;
+			if (space.unit != null)
+				space.unit.visible = false;
+		}
+	}
+
+	function buildGrid(grid:Grid, time:Float, ease:Float->Float, ?onComplete:Void->Void):Void
+	{
+		FlxTween.num(0, 1, time, {
+			ease: ease,
 			onComplete: function(f):Void
 			{
-				spr.destroy();
-
 				if (onComplete != null)
-				{
 					onComplete();
+			}
+		}, function(f):Void
+		{
+			for (i in 0...grid.spaces.length)
+			{
+				var space = grid.spaces[i];
+
+				if (f >= (i / grid.spaces.length) && !space.visible)
+				{
+					space.visible = true;
+					if (space.unit != null)
+					{
+						space.unit.visible = true;
+						space.unit.doEntranceAnimation();
+					}
 				}
 			}
 		});

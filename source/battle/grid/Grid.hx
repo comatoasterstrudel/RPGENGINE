@@ -39,6 +39,7 @@ class Grid extends FlxTypedGroup<GridSpace>
         units.push(unit);
         
         updateUnits();
+		unit.lerpManager.snap();
     }
     
     function updateUnits():Void{

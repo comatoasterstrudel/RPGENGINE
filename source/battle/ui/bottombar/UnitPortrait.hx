@@ -13,6 +13,7 @@ class UnitPortrait extends CtSprite
 		lerpManager.lerpSpeed = 8;
         
         antialiasing = false;
+		visible = false;
     }
     
     override function update(elapsed:Float):Void{
@@ -45,5 +46,6 @@ class UnitPortrait extends CtSprite
 
 		updateHitbox();
 		setPosition(150 - width / 2, FlxG.height - height);
+		visible = true;
 	}
 }
