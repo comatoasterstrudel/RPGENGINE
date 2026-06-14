@@ -36,7 +36,8 @@ function cutsceneStart():Void{
 		character_coworkerA.move(character_player.x, -1, function():Void
 		{
             character_coworkerA.facing = DOWN;
-            startDialogue(["testcutscene/dialogue_1"], function():Void{
+			startDialogue(["test/testcutscene/dialogue_1"], function():Void
+			{
                 character_coworkerA.facing = UP;
                 new FlxTimer().start(.3, function(f):Void{
                     character_coworkerA.facing = LEFT;
@@ -47,7 +48,8 @@ function cutsceneStart():Void{
                             character_coworkerA.facing = DOWN;
                             
                             new FlxTimer().start(1, function(f):Void{
-                                startDialogue(["testcutscene/dialogue_2"], function():Void{
+								startDialogue(["test/testcutscene/dialogue_2"], function():Void
+								{
                                     var tran = new CtSprite().createColorBlock(FlxG.width, FlxG.height, 0xFFFFFFFF);
                                     tran.camera = camUI;
                                     tran.alpha = 0;
@@ -62,7 +64,8 @@ function cutsceneStart():Void{
                                         character_coworkerC.positionCharacter(character_coworkerA.x, character_coworkerA.y);
                                         
                                         new FlxTimer().start(1, function(f):Void{
-                                            startDialogue(["testcutscene/dialogue_3"], function():Void{
+											startDialogue(["test/testcutscene/dialogue_3"], function():Void
+											{
                                                 FlxTween.tween(camGame.scroll, {y: ogCameraY}, 2, {ease: FlxEase.quartOut});
 
 												character_coworkerC.moveToGridSpace(9, -2, function():Void

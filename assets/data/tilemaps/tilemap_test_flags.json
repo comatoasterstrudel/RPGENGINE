@@ -73,7 +73,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "testflags/dialogue_1", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "talkedToCoworkerA", "tag": "coworkerA1"}
+          "values": {"triggerByWalkingOver": false, "dialogue": "test/testflags/dialogue_1", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "talkedToCoworkerA", "tag": "coworkerA1"}
         },
         {
           "name": "interactable",
@@ -85,7 +85,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "testflags/dialogue_2", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "coworkerA2"}
+          "values": {"triggerByWalkingOver": false, "dialogue": "test/testflags/dialogue_2", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "coworkerA2"}
         },
         {
           "name": "interactable",
@@ -97,7 +97,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "testflags/dialogue_mad", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "coworkerAMad"}
+          "values": {"triggerByWalkingOver": false, "dialogue": "test/testflags/dialogue_mad", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "coworkerAMad"}
         },
         {
           "name": "interactable",
@@ -109,7 +109,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "testflags/dialogue_1", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "talkedToCoworkerB", "tag": "coworkerB1"}
+          "values": {"triggerByWalkingOver": false, "dialogue": "test/testflags/dialogue_1", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "talkedToCoworkerB", "tag": "coworkerB1"}
         },
         {
           "name": "interactable",
@@ -121,7 +121,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "testflags/dialogue_2", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "coworkerB2"}
+          "values": {"triggerByWalkingOver": false, "dialogue": "test/testflags/dialogue_2", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "coworkerB2"}
         },
         {
           "name": "interactable",
@@ -133,7 +133,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "testflags/dialogue_mad", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "coworkerBMad"}
+          "values": {"triggerByWalkingOver": false, "dialogue": "test/testflags/dialogue_mad", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "coworkerBMad"}
         }
       ]
     },

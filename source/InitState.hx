@@ -65,6 +65,7 @@ class InitState extends FlxState{
 			portraitOffsetRight: new FlxPoint(330, 52),
 			nameBoxOffsetLeft: new FlxPoint(45, 60),
 			sentencePauseLength: .2,
+			choicerFont: FlxAssets.FONT_DEFAULT,
 			choicerCursorPath: "cursor_arrow",
 			choicerFontSize: 35,
 			choicerOffset: new FlxPoint(100, 100)

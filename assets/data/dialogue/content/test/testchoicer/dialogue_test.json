@@ -11,11 +11,11 @@
 		"choicerOptions": [
 			{
 				"text": "pancakes",
-				"dialogue": ["testchoicer/dialogue_testPancake"]
+				"dialogue": ["test/testchoicer/dialogue_testPancake"]
 			},
 			{
 				"text": "waffles",
-				"dialogue": ["testchoicer/dialogue_testWaffle"]
+				"dialogue": ["test/testchoicer/dialogue_testWaffle"]
 			}
 		]
 	}
