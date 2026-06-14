@@ -1,0 +1,22 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "robin ! what do you like more?",
+		"actor": "laurin"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "pancakes, or waffles?",
+		"actor": "laurin",
+		"choicerOptions": [
+			{
+				"text": "pancakes",
+				"dialogue": ["testchoicer/dialogue_testPancake"]
+			},
+			{
+				"text": "waffles",
+				"dialogue": ["testchoicer/dialogue_testWaffle"]
+			}
+		]
+	}
+]

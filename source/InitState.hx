@@ -46,6 +46,9 @@ class InitState extends FlxState{
 	{
 		CtDialogueBox.defaultSettings = {
 			pressedAcceptFunction: CtControls.getInputFunction("accept", JUSTPRESSED),
+			choicerPressedUpFunction: CtControls.getInputFunction("up", JUSTPRESSED),
+			choicerPressedDownFunction: CtControls.getInputFunction("down", JUSTPRESSED),
+			choicerPressedAcceptFunction: CtControls.getInputFunction("accept", JUSTPRESSED),
 			boxImgPath: Constants.dialogueBoxGraphicPath,
 			nameBoxImgPath: Constants.dialogueNameBoxGraphicPath,
 			nameBoxLeftEndImgPath: Constants.dialogueNameBoxLeftEndGraphicPath,
@@ -62,6 +65,9 @@ class InitState extends FlxState{
 			portraitOffsetRight: new FlxPoint(330, 52),
 			nameBoxOffsetLeft: new FlxPoint(45, 60),
 			sentencePauseLength: .2,
+			choicerCursorPath: "cursor_arrow",
+			choicerFontSize: 35,
+			choicerOffset: new FlxPoint(100, 100)
 		}
 
 		CtDialogueBox.preloadFont(CtDialogueBox.defaultSettings.font, CtDialogueBox.defaultSettings.fontSize);
