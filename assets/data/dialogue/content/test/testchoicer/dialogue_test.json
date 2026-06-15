@@ -2,12 +2,15 @@
 	{
 		"speed": 0.03,
 		"dialogue": "robin ! what do you like more?",
-		"actor": "laurin"
+		"actor": "laurin",
+		"portrait": "neutral"
+
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "pancakes, or waffles?",
 		"actor": "laurin",
+		"portrait": "neutral",
 		"choicerOptions": [
 			{
 				"text": "pancakes",

@@ -22,5 +22,17 @@
 		"dialogue": "Robin: smiletalk",
 		"actor": "robin",
 		"portrait": "smiletalk"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Laurin: neutral",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Jess: neutral",
+		"actor": "jess",
+		"portrait": "neutral"
 	}
 ]

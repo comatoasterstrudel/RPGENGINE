@@ -2,17 +2,20 @@
 	{
 		"speed": 0.03,
 		"dialogue": "AGJJJGJGJJG",
-		"actor": "jess"
+		"actor": "jess",
+		"portrait": "neutral"
 	},
     {
         "speed": 0.03,
 		"dialogue": "hi robin!!!!",
-		"actor": "jess"
+		"actor": "jess",
+		"portrait": "neutral"
     },
     {
         "speed": 0.03,
 		"dialogue": "robbinnn youre my goat can u sign my  shurt",
-		"actor": "laurin"
+		"actor": "laurin",
+		"portrait": "neutral"
     },
     {
         "speed": 0.03,
