@@ -1027,7 +1027,6 @@ class OverworldState extends FlxState
 		script.setValue({name: "getLightSourceByTag", value: getLightSourceByTag});
 
 		script.setValue({name: "player", value: player});
-		script.setValue({name: "dialogueBox", value: dialogueBox});
 		script.setValue({name: "startDialogue", value: startDialogue});
 
 		script.setValue({name: "lightingCover", value: lightingCover});
@@ -1072,6 +1071,12 @@ class OverworldState extends FlxState
 		
 		script.setValue({name: "get_player", value: get_player});
 		script.setValue({name: "set_player", value: set_player});
+		
+		script.setValue({name: "get_dialogueBox", value: get_dialogueBox});
+		script.setValue({name: "set_dialogueBox", value: set_dialogueBox});
+
+		script.setValue({name: "get_inCutsceneBeforeDialogue", value: get_inCutsceneBeforeDialogue});
+		script.setValue({name: "set_inCutsceneBeforeDialogue", value: set_inCutsceneBeforeDialogue});
 		
 		scripts.push(script);
 		script.executeFunction("create");
@@ -1209,6 +1214,30 @@ class OverworldState extends FlxState
 	function set_player(val:Player):Void
 	{
 		player = val;
+	}
+	
+	// dialogueBox
+
+	function get_dialogueBox():CtDialogueBox
+	{
+		return dialogueBox;
+	}
+
+	function set_dialogueBox(val:CtDialogueBox):Void
+	{
+		dialogueBox = val;
+	}
+
+	// inCutsceneBeforeDialogue
+
+	function get_inCutsceneBeforeDialogue():Bool
+	{
+		return inCutsceneBeforeDialogue;
+	}
+
+	function set_inCutsceneBeforeDialogue(val:Bool):Void
+	{
+		inCutsceneBeforeDialogue = val;
 	}
 	
 	function executeScriptFunction(name:String, args:Array<Any>):Void
