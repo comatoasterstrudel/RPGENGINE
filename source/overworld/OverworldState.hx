@@ -363,10 +363,10 @@ class OverworldState extends FlxState
 	function setupDialogueBox():Void
 	{
 		dialogueBox = new CtDialogueBox();
-		dialogueBox.settings.onComplete = endDialogues;
 		dialogueBox.camera = camUI;
 		dialogueBox.antialiasing = false;
 		add(dialogueBox);
+		dialogueBox.onComplete.add(endDialogues);
 	}
 
 	/**
