@@ -1,7 +1,5 @@
 package overworld;
 
-import flixel.system.debug.watch.Tracker.TrackerProfile;
-
 class OverworldState extends FlxState
 {
 	public static var eventManager:CtEventManager;
@@ -627,7 +625,7 @@ class OverworldState extends FlxState
 				case "prop":
 					props.add(new Prop(entity.values.propName, entity.values.tag, entity.x, entity.y));
 				case "scrollingprop":
-					var scrollingprop = new CtCroppedBackdrop(Constants.scrollingPropImagePath + entity.values.propName + ".png",
+					var scrollingprop = new ScrollingProp(entity.values.tag, Constants.scrollingPropImagePath + entity.values.propName + ".png",
 						Std.int(entity.x * Constants.overworldPixelScale), Std.int(entity.y * Constants.overworldPixelScale),
 						Std.int(entity.width * Constants.overworldPixelScale), Std.int(entity.height * Constants.overworldPixelScale));
 					scrollingprop.backdrop.velocity.set(entity.values.velocityX, entity.values.velocityY);
@@ -769,6 +767,22 @@ class OverworldState extends FlxState
 			if (light.tag == tag)
 			{
 				return light;
+			}
+		}
+
+		return null;
+	}
+	
+	function getScrollingPropByTag(tag:String):ScrollingProp
+	{
+		for (prop in props)
+		{
+			if (prop is ScrollingProp)
+			{
+				var scrollingProp:ScrollingProp = cast prop;
+
+				if (scrollingProp.tag == tag)
+					return scrollingProp;
 			}
 		}
 
@@ -1033,6 +1047,7 @@ class OverworldState extends FlxState
 		script.setValue({name: "getInteractableByTag", value: getInteractableByTag});
 		script.setValue({name: "getDoorByTag", value: getDoorByTag});
 		script.setValue({name: "getLightSourceByTag", value: getLightSourceByTag});
+		script.setValue({name: "getScrollingPropByTag", value: getScrollingPropByTag});
 
 		script.setValue({name: "player", value: player});
 		script.setValue({name: "startDialogue", value: startDialogue});

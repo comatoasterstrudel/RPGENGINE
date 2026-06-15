@@ -312,7 +312,8 @@
       "values": [
         {"name": "propName", "definition": "String", "display": 0, "defaults": "", "maxLength": 0, "trimWhitespace": true},
         {"name": "velocityX", "definition": "Float", "display": 0, "defaults": 0, "bounded": false, "min": 0, "max": 100},
-        {"name": "velocityY", "definition": "Float", "display": 0, "defaults": 0, "bounded": false, "min": 0, "max": 100}
+        {"name": "velocityY", "definition": "Float", "display": 0, "defaults": 0, "bounded": false, "min": 0, "max": 100},
+        {"name": "tag", "definition": "String", "display": 0, "defaults": "", "maxLength": 0, "trimWhitespace": true}
       ]
     },
     {

@@ -104,6 +104,7 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "CtEventTransaction", value: CtEventTransaction});
 		CtScript.setDefaultValue({name: "OverworldState", value: OverworldState});
 		CtScript.setDefaultValue({name: "CtDialogueBox", value: CtDialogueBox});
+		CtScript.setDefaultValue({name: "ScrollingProp", value: ScrollingProp});
 	}
 
 	function initSave():Void

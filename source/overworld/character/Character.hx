@@ -28,6 +28,8 @@ class Character extends CtSprite
 
 	public var lockAnims:Bool = false;
 
+	public var movementSpeed:Float = 1;
+	
 	public function new(id:String, tag:String):Void
 	{
         super();
@@ -113,8 +115,8 @@ class Character extends CtSprite
 	}
     
     function doMovement():Void{
-        var speed = Constants.characterSpeed;
-        var diagonalSpeed = Constants.characterSpeedDiagonal;
+		var speed = Constants.characterSpeed * movementSpeed;
+		var diagonalSpeed = Constants.characterSpeedDiagonal * movementSpeed;
         
         switch(status){
             case MOVE_LEFT:
