@@ -16,6 +16,8 @@ class InitState extends FlxState{
 		
 		initSave();
 		
+		hideSoundTray();
+		
 		#if debug
 		#if testBattle
 		PlayState.setBattle(Compiler.getDefine("testBattle").split('=')[0], ARCADE);
@@ -105,6 +107,8 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "OverworldState", value: OverworldState});
 		CtScript.setDefaultValue({name: "CtDialogueBox", value: CtDialogueBox});
 		CtScript.setDefaultValue({name: "ScrollingProp", value: ScrollingProp});
+		CtScript.setDefaultValue({name: "BitmapData", value: BitmapData});
+		CtScript.setDefaultValue({name: "FlxGame", value: FlxGame});
 	}
 
 	function initSave():Void
@@ -117,5 +121,9 @@ class InitState extends FlxState{
 			trace(storyFlag.id);
 		}
 		#end
+	}
+	function hideSoundTray():Void
+	{
+		FlxG.sound.soundTrayEnabled = false;
 	}
 }

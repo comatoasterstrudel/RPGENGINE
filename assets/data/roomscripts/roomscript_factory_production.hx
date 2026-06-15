@@ -117,6 +117,26 @@ function doProductionCutscene():Void
 		});
 	});
 	
+	// change scene to robin walking to conveyor
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("walkToConveyor");
+
+		doSceneFade(2);
+
+		camGame.scroll.set(1000, 1300);
+
+		character_player.positionCharacterByGrid(22, 34);
+
+		character_player.movementSpeed = .6;
+
+		character_player.moveToGridSpace(33.5, 33, function():Void
+		{
+			character_player.movementSpeed = 1;
+			OverworldState.eventManager.finishTransaction("walkToConveyor");
+		});
+	});
+	
 	// end cutscene
 	OverworldState.eventManager.addEvent(function()
 	{
@@ -205,4 +225,34 @@ function stopConveyors():Void
 	{
 		conveyor.backdrop.velocity.set(0, 0);
 	}
+}
+var sceneFadeActive:Bool = false;
+
+function doSceneFade(time:Float, ?onComplete:Void->Void):Void
+{
+	if (sceneFadeActive)
+		return;
+
+	sceneFadeActive = true;
+
+	OverworldState.eventManager.startTransaction("sceneFading!!");
+
+	var spr:CtSprite = new CtSprite().createColorBlock(FlxG.width, FlxG.height, 0xFF000000);
+	spr.pixels.draw(FlxG.game);
+	spr.screenCenter();
+	spr.camera = camUI;
+	add(spr);
+
+	FlxTween.tween(spr, {alpha: 0}, time, {
+		onComplete: function(f):Void
+		{
+			spr.destroy();
+			if (onComplete != null)
+				onComplete();
+
+			OverworldState.eventManager.finishTransaction("sceneFading!!");
+
+			sceneFadeActive = false;
+		}
+	});
 }
