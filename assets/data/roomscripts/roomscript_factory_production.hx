@@ -10,10 +10,7 @@ function create():Void
 {
 	configSnow();
 
-	if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool)
-	{
-		getInteractableByTag("factorycutscenetrigger").disabled = true;
-	}
+	removeProductionCutsceneTrigger();
 
 	dialogueBox = get_dialogueBox();
 	character_player = get_player();
@@ -24,6 +21,7 @@ function create():Void
 		{
 			set_inCutscene(true);
 			set_inCutsceneBeforeDialogue(true);
+			doProductionCutscene();
 		}
 		else if (tag == "No")
 		{
@@ -32,6 +30,24 @@ function create():Void
 
 			doWalkDown();
 		}
+	});
+}
+
+function doProductionCutscene():Void
+{
+	Save.storyFlags.get("factory_sawproductioncutscene").val_bool = true;
+	removeProductionCutsceneTrigger();
+
+	character_player.lockMovement = true;
+
+	// end cutscene
+	OverworldState.eventManager.addEvent(function()
+	{
+		new FlxTimer().start(0.1, function(f):Void
+		{
+			character_player.lockMovement = false;
+			set_inCutscene(false);
+		});
 	});
 }
 
@@ -56,6 +72,14 @@ function doWalkDown():Void
 		character_player.lockMovement = false;
 		set_inCutscene(false);
 	});
+}
+
+function removeProductionCutsceneTrigger():Void
+{
+	if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool)
+	{
+		getInteractableByTag("factorycutscenetrigger").disabled = true;
+	}
 }
 
 var snowGroup:FlxSpriteGroup;

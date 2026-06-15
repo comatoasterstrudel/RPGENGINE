@@ -1,5 +1,7 @@
 package overworld;
 
+import flixel.system.debug.watch.Tracker.TrackerProfile;
+
 class OverworldState extends FlxState
 {
 	public static var eventManager:CtEventManager;
@@ -108,6 +110,9 @@ class OverworldState extends FlxState
 		{
 			doRoomTransition(lastTransitionTime, IN);
 		}
+		#if debug
+		addDebugFunctions();
+		#end
 	}
     
     override function update(elapsed:Float):Void{
@@ -125,6 +130,9 @@ class OverworldState extends FlxState
 		}
 		executeScriptFunction("update", [elapsed]);
 		eventManager.update();
+		#if debug
+		updateDebugFunctions();
+		#end
 	}
 
 	/**
@@ -1086,7 +1094,7 @@ class OverworldState extends FlxState
 
 	// inCutscene
 	
-	function get_inCutscene():Bool
+	public function get_inCutscene():Bool
 	{
 		return inCutscene;
 	}
@@ -1269,4 +1277,16 @@ class OverworldState extends FlxState
 		leftForBattle = false;
 		positionBeforeBattle.set(0, 0);
 	}
+	#if debug
+	function addDebugFunctions():Void
+	{
+		//
+	}
+
+	function updateDebugFunctions():Void
+	{
+		FlxG.watch.addQuick("inCutscene", inCutscene);
+		FlxG.watch.addQuick("inCutsceneBeforeDialogue", inCutsceneBeforeDialogue);
+	}
+	#end
 }
