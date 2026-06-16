@@ -9,6 +9,8 @@ var character_player:Player;
 var conveyorsHorizontal:Array<ScrollingProp> = [];
 var conveyorsVertical:Array<ScrollingProp> = [];
 
+var tile_main_front:FlxTypedGroup<FlxTilemap>;
+
 function create():Void
 {
 	configSnow();
@@ -28,8 +30,14 @@ function create():Void
 		getScrollingPropByTag("conveyorVertical2")
 	];
 
+	tile_main_front = get_tile_main_front();
+
+	initProduction();
+	
 	if (!Save.storyFlags.get("sawproductioncutscene"))
 		stopConveyors();
+	
+	disableProduction();
 	
 	dialogueBox.onChoicerSelected.add(function(tag:String):Void
 	{
@@ -47,6 +55,11 @@ function create():Void
 			doWalkDown();
 		}
 	});
+}
+
+function update(elapsed:Float):Void
+{
+	handleProduction();
 }
 
 function doProductionCutscene():Void
@@ -103,11 +116,12 @@ function doProductionCutscene():Void
 		});
 	});
 
+	// turn on conveyors
 	OverworldState.eventManager.addEvent(function()
 	{
 		OverworldState.eventManager.startTransaction("turnOnConveyors");
 
-		new FlxTimer().start(1, function(f):Void
+		new FlxTimer().start(.5, function(f):Void
 		{
 			startConveyors();
 			new FlxTimer().start(1, function(f):Void
@@ -130,11 +144,27 @@ function doProductionCutscene():Void
 
 		character_player.movementSpeed = .6;
 
-		character_player.moveToGridSpace(33.5, 33, function():Void
+		character_player.moveToGridSpace(38.5, -1, function():Void
 		{
-			character_player.movementSpeed = 1;
-			OverworldState.eventManager.finishTransaction("walkToConveyor");
+			FlxTween.tween(camGame.scroll, {y: 1200}, 3);
+
+			character_player.moveToGridSpace(-1, 28.5, function():Void
+			{
+				character_player.moveToGridSpace(33.5, 31, function():Void
+				{
+					character_player.movementSpeed = 1;
+					OverworldState.eventManager.finishTransaction("walkToConveyor");
+				});
+			});
 		});
+	});
+
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("startProduction");
+
+		tile_main_front.visible = true;
+		enableProduction(3);
 	});
 	
 	// end cutscene
@@ -203,15 +233,17 @@ function configSnow():Void
     executeSingleScriptFunction("snow", "snow_set_frequency", [1.5]);    
 	executeSingleScriptFunction("snow", "snow_setBoundariesFromGrid", [12, 42, 8, 15]);   
 }
+var conveyorSpeed:Float = -30;
+
 function startConveyors():Void
 {
 	for (conveyor in conveyorsHorizontal)
 	{
-		conveyor.backdrop.velocity.set(30, 0);
+		conveyor.backdrop.velocity.set(conveyorSpeed, 0);
 	}
 	for (conveyor in conveyorsVertical)
 	{
-		conveyor.backdrop.velocity.set(0, 30);
+		conveyor.backdrop.velocity.set(0, conveyorSpeed);
 	}
 }
 
@@ -255,4 +287,103 @@ function doSceneFade(time:Float, ?onComplete:Void->Void):Void
 			sceneFadeActive = false;
 		}
 	});
+}
+var spr_inFrontTiles:FlxSpriteGroup;
+var prod_start:Int = 0;
+var prod_entrancesX:Array<Int> = [34, 30, 28];
+var prod_entrancesY:Array<Int> = [33, 33, 26];
+var prod_endX:Array<Int> = [30, 30, 20];
+var prod_endY:Array<Int> = [33, 27, 26];
+var prod_horiz:Array<Bool> = [true, false, true];
+var prod_redirect:Array<Int> = [1, 2, -1];
+var productionTimer:FlxTimer;
+var productionObjects:FlxSpriteGroup;
+
+function initProduction():Void
+{
+	spr_inFrontTiles = get_spr_infrontTiles();
+
+	productionObjects = new FlxSpriteGroup();
+	spr_inFrontTiles.add(productionObjects);
+}
+
+function handleProduction():Void
+{
+	var redirThese:Array<FlxSprite> = [];
+
+	for (obj in productionObjects.members)
+	{
+		if (prod_horiz[obj.ID])
+		{
+			obj.velocity.set(conveyorSpeed, 0);
+		}
+		else
+		{
+			obj.velocity.set(0, conveyorSpeed);
+		}
+
+		if (obj.x <= ((prod_endX[obj.ID] * Constants.overworldPixelScale) * 16)
+			&& obj.y <= ((prod_endY[obj.ID] * Constants.overworldPixelScale) * 16))
+		{
+			redirThese.push(obj);
+		}
+	}
+
+	for (spr in redirThese)
+	{
+		if (prod_redirect[spr.ID] != -1)
+		{
+			addProductionObject(prod_redirect[spr.ID]);
+		}
+		productionObjects.remove(spr, true);
+		spr.destroy();
+	}
+
+	redirThese = [];
+}
+
+var timeBetween:Float = 1;
+var playerY:Int = 0;
+var playerTween:FlxTween;
+
+function enableProduction(time:Float):Void
+{
+	timeBetween = time;
+
+	playerY = character_player.hitbox.y;
+
+	productionTimer = new FlxTimer().start(timeBetween, function(f):Void
+	{
+		addProductionObject(prod_start);
+
+		productionTimer.reset(timeBetween);
+
+		if (playerTween != null)
+		{
+			playerTween.cancel();
+			playerTween.destroy();
+		}
+
+		character_player.hitbox.y = playerY + 18;
+		playerTween = FlxTween.tween(character_player.hitbox, {y: playerY}, .5);
+	});
+}
+
+function disableProduction():Void
+{
+	if (productionTimer != null)
+	{
+		productionTimer.cancel();
+	}
+}
+
+function addProductionObject(id:Int):Void
+{
+	var obj = new CtSprite().createColorBlock(16, 16, 0xFF0000FF);
+	obj.scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
+	obj.updateHitbox();
+	obj.ID = id;
+	productionObjects.add(obj);
+
+	obj.setPosition((prod_entrancesX[obj.ID] * Constants.overworldPixelScale) * 16, (prod_entrancesY[obj.ID] * Constants.overworldPixelScale) * 16);
 }

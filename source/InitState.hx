@@ -109,6 +109,10 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "ScrollingProp", value: ScrollingProp});
 		CtScript.setDefaultValue({name: "BitmapData", value: BitmapData});
 		CtScript.setDefaultValue({name: "FlxGame", value: FlxGame});
+		CtScript.setDefaultValue({name: "FlxTypedGroup", value: FlxTypedGroup});
+		CtScript.setDefaultValue({name: "FlxTilemap", value: FlxTilemap});
+		CtScript.setDefaultValue({name: "FlxSprite", value: FlxSprite});
+
 	}
 
 	function initSave():Void

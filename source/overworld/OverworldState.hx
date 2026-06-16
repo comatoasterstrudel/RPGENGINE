@@ -410,11 +410,9 @@ class OverworldState extends FlxState
 
 		spr_infrontTiles = new FlxSpriteGroup();
 		spr_infrontTiles.camera = camGame;
-		add(spr_infrontTiles);
 
 		tile_main_front = new FlxTypedGroup<FlxTilemap>();
 		tile_main_front.camera = camGame;
-		add(tile_main_front);
 		
 		tile_foreground = new FlxTypedGroup<FlxTilemap>();
 		tile_foreground.camera = camGame;
@@ -682,6 +680,8 @@ class OverworldState extends FlxState
 		overMap.camera = camGame;
 		add(overMap);
 		
+		add(spr_infrontTiles);
+		add(tile_main_front);
 		add(tile_foreground);
 
 		for (script in roomData.script)
@@ -1101,6 +1101,9 @@ class OverworldState extends FlxState
 		script.setValue({name: "get_inCutsceneBeforeDialogue", value: get_inCutsceneBeforeDialogue});
 		script.setValue({name: "set_inCutsceneBeforeDialogue", value: set_inCutsceneBeforeDialogue});
 		
+		script.setValue({name: "get_tile_main_front", value: get_tile_main_front});
+		script.setValue({name: "set_tile_main_front", value: set_tile_main_front});
+		
 		scripts.push(script);
 		script.executeFunction("create");
 
@@ -1261,6 +1264,18 @@ class OverworldState extends FlxState
 	function set_inCutsceneBeforeDialogue(val:Bool):Void
 	{
 		inCutsceneBeforeDialogue = val;
+	}
+	
+	// tile_main_front
+
+	function get_tile_main_front():FlxTypedGroup<FlxTilemap>
+	{
+		return tile_main_front;
+	}
+
+	function set_tile_main_front(val:FlxTypedGroup<FlxTilemap>):Void
+	{
+		tile_main_front = val;
 	}
 	
 	function executeScriptFunction(name:String, args:Array<Any>):Void
