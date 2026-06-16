@@ -1,26 +1,359 @@
 [
 	{
-		"speed": 0.03,
-		"dialogue": "AGJJJGJGJJG",
-		"actor": "jess",
-		"portrait": "neutral"
-	},
-    {
         "speed": 0.03,
-		"dialogue": "hi robin!!!!",
-		"actor": "jess",
-		"portrait": "neutral"
-    },
-    {
-        "speed": 0.03,
-		"dialogue": "robbinnn youre my goat can u sign my  shurt",
+		"dialogue": "Oh!",
 		"actor": "laurin",
 		"portrait": "neutral"
     },
-    {
+	{
         "speed": 0.03,
-		"dialogue": "Nope",
+		"dialogue": " Robin!",
+		"actor": "laurin",
+		"portrait": "neutral",
+		"continueLine": true
+    },
+	{
+        "speed": 0.03,
+		"dialogue": " Good Evening!",
+		"actor": "laurin",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Hey.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Laurin. Jess.",
 		"actor": "robin",
-        "portrait": "neutral"
-    }
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Ready to work a riveting night shift full of fun?",
+		"actor": "laurin",
+		"portrait": "neutral"
+    },
+	{
+        "speed": 0.03,
+		"dialogue": "I'd rather shoot myself I think.",
+		"actor": "robin",
+		"portrait": "neutral"
+    },
+	{
+        "speed": 0.03,
+		"dialogue": "YOU'D shoot yourself?",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I've had to be 'er all day since the other secretary quit and they ain't found a replacement.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "What?",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": " Is that even legal?",
+		"actor": "robin",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I dunno.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": " I ain't getting paid either.",
+		"actor": "jess",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "You aren't?",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I think that's very illegal.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Eh, better than my apartment.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "At least they got heating 'er.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "That's also very illegal.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Landlords are required to give you heating, that's a foundational tenants right.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "It's fine, I've got a space heater.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Not everyone has a space heater Jess, you should complain about it if you haven't already.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Please, you think they actually give a shit?",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I don' think they care if we pass away as long as they get rent money.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "They can't be asking for rent money if they lose the building after you sue them.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "God, actin' like my mom or somethin'.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I'll call em' later.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "That's the spirit!",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": " We gotta advocate for ourselves and not let greedy bastards pull us around.",
+		"actor": "laurin",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Right, Robin?",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I don't really care.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "...",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Well I think you should start-",
+		"actor": "laurin",
+		"portrait": "neutral"	
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Haa whatever, how was your day, Robin?",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "It was fine.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Slept until I had to leave.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I got a call from my brother wishing me a happy birthday.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": " That was nice I guess.",
+		"actor": "robin",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Wait, it's your birthday?",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": " Happy Birthday!",
+		"actor": "laurin",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "You feelin' any older?",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "My birthday's tomorrow actually, he just misremembered it.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Doing anything for it?",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "No.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": " I pretty much forgot about it until he called me.",
+		"actor": "robin",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "If they do give me a raise though, that would be a pretty good gift.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Yeah, all that \"Big Change\" stuff...",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "You think it's gonna be raises?",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Not really, but I hope it is.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Mhm.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "The manager's been extra jovial today, strutin' around n' stuff.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I think whatever that \"Big change\" is, it's happening real soon.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "What'll you do with the extra dough?",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": " If it's a raise.",
+		"actor": "jess",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "My fridge has been leaking for awhile and it's ruining the carpets.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I'd like to either get it fixed or just get a new one.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "That sounds nice...",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Anyway, we're gonna be late, I'm heading in.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Ah, yeah.",
+		"actor": "robin",
+		"portrait": "neutral"
+	}
 ]

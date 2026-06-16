@@ -364,7 +364,7 @@ function enableProduction(time:Float):Void
 			playerTween.destroy();
 		}
 
-		character_player.hitbox.y = playerY + 18;
+		character_player.hitbox.y = playerY + 8;
 		playerTween = FlxTween.tween(character_player.hitbox, {y: playerY}, .5);
 	});
 }

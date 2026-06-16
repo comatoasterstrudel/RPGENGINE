@@ -1,0 +1,20 @@
+[
+	{
+        "speed": 0.03,
+		"dialogue": "I hope the rest of your night goes well, Jess.",
+		"actor": "robin",
+		"portrait": "neutral"
+    },
+	{
+        "speed": 0.03,
+		"dialogue": "I'm probably just gonna play Tetris til I can leave.",
+		"actor": "jess",
+		"portrait": "neutral"
+    },
+	{
+        "speed": 0.03,
+		"dialogue": "Hah, have fun.",
+		"actor": "robin",
+		"portrait": "neutral"
+    }
+]

@@ -7,7 +7,7 @@ var character_player:Player;
 var character_lobbysecretary:Character;
 var character_laurin:Character;
 
-var anims:Array<String> = ["idle_right", "blink", "idle_down", "blink"];
+var anims:Array<String> = ["idle_down", "blink", "idle_right", "blink"];
 var progress:Int = 0;
 
 var frontdoor:Door;
@@ -54,9 +54,9 @@ function doConversationCutscene():Void
 	camGame.scroll.y = 1000;
 
 	character_lobbysecretary.lockAnims = true;
-	character_lobbysecretary.animation.play("idle_right");
+	character_lobbysecretary.animation.play("idle_down");
 
-	character_laurin.facing = LEFT;
+	character_laurin.facing = RIGHT;
 
 	inFirstCutscene = true;
 
@@ -82,13 +82,17 @@ function doConversationCutscene():Void
 
 		character_player.visible = true;
 
-		character_player.moveToGridSpace(7, 13, function():Void
+		character_player.moveToGridSpace(7, 13.5, function():Void
 		{
-			character_player.moveToGridSpace(9, 13, function():Void
+			character_player.moveToGridSpace(9, -1, function():Void
 			{
-				character_player.moveToGridSpace(9, 8, function():Void
+				character_player.moveToGridSpace(9, 8.5, function():Void
 				{
-					OverworldState.eventManager.finishTransaction("robinMove");
+					character_player.moveToGridSpace(7, -1, function():Void
+					{
+						character_player.facing = UP;
+						OverworldState.eventManager.finishTransaction("robinMove");
+					});
 				});
 			});
 		});
@@ -99,11 +103,14 @@ function doConversationCutscene():Void
 	{
 		OverworldState.eventManager.startTransaction("look");
 
-		character_laurin.facing = DOWN;
-
-		new FlxTimer().start(1, function(f):Void
+		new FlxTimer().start(.5, function(f):Void
 		{
-			OverworldState.eventManager.finishTransaction("look");
+			character_laurin.facing = DOWN;
+
+			new FlxTimer().start(1, function(f):Void
+			{
+				OverworldState.eventManager.finishTransaction("look");
+			});
 		});
 	});
 
@@ -123,18 +130,34 @@ function doConversationCutscene():Void
 	{
 		OverworldState.eventManager.startTransaction("walkin away");
 
-		character_laurin.moveToGridSpace(11.5, 5, function():Void
-		{
-			character_laurin.facing = UP;
+		character_laurin.movementSpeed = .7;
 
-			new FlxTimer().start(.5, function(f):Void
+		character_laurin.moveToGridSpace(-1, 7, function():Void
+		{
+			character_laurin.moveToGridSpace(11.5, 5, function():Void
 			{
-				character_laurin.kill();
-				new FlxTimer().start(1, function(f):Void
+				character_laurin.facing = UP;
+
+				new FlxTimer().start(.5, function(f):Void
 				{
-					OverworldState.eventManager.finishTransaction("walkin away");
+					character_laurin.kill();
+					new FlxTimer().start(1, function(f):Void
+					{
+						OverworldState.eventManager.finishTransaction("walkin away");
+					});
 				});
 			});
+		});
+	});
+
+	// last dialogue with jess
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dialogue");
+
+		startDialogue(["factory/lobby/dialogue_introcutsceneend"], function():Void
+		{
+			OverworldState.eventManager.finishTransaction("dialogue");
 		});
 	});
 
@@ -143,7 +166,7 @@ function doConversationCutscene():Void
 	{
 		OverworldState.eventManager.startTransaction("camra");
 
-		FlxTween.tween(camGame.scroll, {y: 86}, .5, {
+		FlxTween.tween(camGame.scroll, {y: 120}, .5, {
 			onComplete: function(f):Void
 			{
 				OverworldState.eventManager.finishTransaction("camra");
