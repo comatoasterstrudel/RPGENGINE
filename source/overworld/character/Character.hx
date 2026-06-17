@@ -22,7 +22,6 @@ class Character extends CtSprite
 	var autoMovementStartPosition:FlxPoint = new FlxPoint();
 	var autoMovementActive:Bool = false;
 	var autoMovementComplete:Void->Void;
-	var autoXfirst:Bool = false;
 
 	public var tag:String = "";
 
