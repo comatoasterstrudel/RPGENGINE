@@ -723,6 +723,22 @@ class OverworldState extends FlxState
 
 		return null;
 	}
+	function getPropByTag(tag:String):Prop
+	{
+		for (prop in props)
+		{
+			if (prop is Prop)
+			{
+				var realProp:Prop = cast prop;
+
+				if (realProp.tag == tag)
+					return realProp;
+			}
+		}
+
+		return null;
+	}
+	
 	function getInteractableByTag(tag:String):Interactable
 	{
 		for (interactable in interactInteractables)
@@ -1044,6 +1060,7 @@ class OverworldState extends FlxState
 			return null;
 
 		script.setValue({name: "getCharacterByTag", value: getCharacterByTag});
+		script.setValue({name: "getPropByTag", value: getPropByTag});
 		script.setValue({name: "getInteractableByTag", value: getInteractableByTag});
 		script.setValue({name: "getDoorByTag", value: getDoorByTag});
 		script.setValue({name: "getLightSourceByTag", value: getLightSourceByTag});

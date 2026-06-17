@@ -83,7 +83,9 @@ function update(elapsed:Float):Void{
 }
 
 function addSnowflake(randomY:Bool = false):Void{
-    var snowflake = new CtSprite(Std.int(FlxG.random.float(minX, maxX)), randomY ? Std.int((FlxG.random.float(minY, maxY))) : minY).createFromImage(Constants.overworldMiscGraphicPath + "snowflake" + FlxG.random.int(1,3) + ".png");
+	var snowflake = new CtSprite(Std.int(FlxG.random.float(minX, maxX)),
+		randomY ? Std.int((FlxG.random.float(minY,
+			maxY))) : minY).createFromImage(Constants.overworldMiscGraphicPath + "snowflake" + FlxG.random.int(1, 4) + ".png");
     snowflake.angle = FlxG.random.int(0, 360);
 	snowflake.antialiasing = false;
     
@@ -124,4 +126,23 @@ function snow_setBoundariesFromGrid(gridMinX:Fkoat, gridMaxX:Fkoat, gridMinY:Flo
 function snow_set_frequency(trueFrequency:Float):Void
 {
 	frequency = trueFrequency;
+}
+function snow_get_minX():Float
+{
+	return minX;
+}
+
+function snow_get_maxX():Float
+{
+	return maxX;
+}
+
+function snow_get_minY():Float
+{
+	return minY;
+}
+
+function snow_get_maxY():Float
+{
+	return maxY;
 }

@@ -112,7 +112,7 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "FlxTypedGroup", value: FlxTypedGroup});
 		CtScript.setDefaultValue({name: "FlxTilemap", value: FlxTilemap});
 		CtScript.setDefaultValue({name: "FlxSprite", value: FlxSprite});
-
+		CtScript.setDefaultValue({name: "FlxAxes.X", value: FlxAxes.X});
 	}
 
 	function initSave():Void

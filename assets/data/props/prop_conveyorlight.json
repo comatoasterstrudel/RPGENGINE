@@ -1,0 +1,8 @@
+{
+    "name": "conveyorlight",
+    "graphic": "conveyorlight",
+    "hitboxX": 0,
+    "hitboxY": 0,
+    "hitboxWidth": 32,
+    "hitboxHeight": 32
+}
