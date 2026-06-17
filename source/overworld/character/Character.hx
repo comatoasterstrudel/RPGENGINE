@@ -72,11 +72,21 @@ class Character extends CtSprite
 	
 	function initCharacterAnimations():Void
 	{
-		createFromSparrow(Constants.characterGraphicPath + data.graphic + ".png", Constants.characterGraphicPath + data.graphic + ".xml");
+		if (data.fromAseprite)
+		{
+			frames = FlxAtlasFrames.fromTexturePackerJson(Constants.characterGraphicPath + data.graphic + ".png",
+				Constants.characterGraphicPath + data.graphic + ".json", false);
+		}
+		else
+		{
+			createFromSparrow(Constants.characterGraphicPath + data.graphic + ".png", Constants.characterGraphicPath + data.graphic + ".xml");
+		}
+		
 		for (anim in data.anims)
 		{
 			animation.addByPrefix(anim.name, anim.prefix, anim.fps, anim.looped, anim.flipX, anim.flipY);
 		}
+
 		scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
 		updateHitbox();
 

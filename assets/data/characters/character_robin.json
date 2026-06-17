@@ -1,9 +1,10 @@
 {
     "name": "robin",
     "graphic": "robin",
+    "fromAseprite": true,
     "anims": [
         {
-            "name": "idle_down",
+            "name": "idle_down", 
             "prefix": "idle_down",
             "fps": 0
         },
