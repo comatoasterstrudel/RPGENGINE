@@ -560,7 +560,7 @@ class OverworldState extends FlxState
 		props.camera = camGame;
 		add(props);
 		
-		player = new Player();
+		player = new Player(roomData.playerName);
 		player.camera = camGame;
 		player.facing = lastFacing;
 		props.add(player);

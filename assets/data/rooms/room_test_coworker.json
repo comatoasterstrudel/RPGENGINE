@@ -1,4 +1,5 @@
 {
     "name": "test_coworker",
-    "map": "test_coworker"
+    "map": "test_coworker",
+    "playerName": "coworkerA"
 }

@@ -7,9 +7,9 @@ class Player extends Character{
     
 	public var lockMovement:Bool = false;
 	
-	public function new()
+	public function new(name:String)
 	{
-		super(Constants.playerCharacterName, "player");
+		super(name, "player");
 		interactableHitbox = new CtSprite();
 		interactableHitbox.kill();
 		hitbox.immovable = false;

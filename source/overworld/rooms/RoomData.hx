@@ -20,6 +20,8 @@ class RoomData extends CtJsonLoader
 
 	public var hasBorders:Bool;
 	
+	public var playerName:String;
+	
     public function new(id:String){
         this.id = id;
         
@@ -54,5 +56,6 @@ class RoomData extends CtJsonLoader
 
 		this.bgColor = FlxColor.fromRGB(colorArrayBg[0], colorArrayBg[1], colorArrayBg[2], 255);
 		this.hasBorders = data.hasBorders ?? false;
+		this.playerName = data.playerName ?? Constants.playerCharacterName;
     }
 } 
