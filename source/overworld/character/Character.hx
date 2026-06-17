@@ -34,10 +34,9 @@ class Character extends CtSprite
         super();
         
 		this.id = id;
-		data = new CharacterData(id);
 		this.tag = tag;
 
-		initCharacterAnimations();
+		initCharacterAnimations(id);
 
 		facing = DOWN;
 		hitbox = new CtSprite().createColorBlock(Std.int(width / 1.5), Std.int(height / 2), FlxColor.RED);
@@ -69,8 +68,12 @@ class Character extends CtSprite
 		y = hitbox.y + hitbox.height - height;
 	}
 	
-	function initCharacterAnimations():Void
+	public function initCharacterAnimations(name:String):Void
 	{
+		animation.destroyAnimations();
+
+		data = new CharacterData(name);
+		
 		if (data.fromAseprite)
 		{
 			frames = FlxAtlasFrames.fromTexturePackerJson(Constants.characterGraphicPath + data.graphic + ".png",

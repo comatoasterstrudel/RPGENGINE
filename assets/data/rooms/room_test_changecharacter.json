@@ -1,0 +1,5 @@
+{
+    "name": "test_changecharacter",
+    "map": "test_changecharacter",
+    "script": ["test_changecharacter"]
+}
