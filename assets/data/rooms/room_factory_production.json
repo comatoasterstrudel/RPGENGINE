@@ -2,5 +2,6 @@
     "name": "factory_production",
     "map": "factory_production",
     "bgColor": [220, 220, 220],
+    "lightingGlowColor": [0, 255, 0, 55],
     "script": ["snow", "factory_production"]
 }

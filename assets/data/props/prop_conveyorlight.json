@@ -4,5 +4,6 @@
     "hitboxX": 0,
     "hitboxY": 0,
     "hitboxWidth": 32,
-    "hitboxHeight": 32
+    "hitboxHeight": 32,
+    "yStackingOffset": -1000
 }

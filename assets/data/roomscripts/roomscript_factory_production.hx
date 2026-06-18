@@ -22,6 +22,9 @@ var spr_behindTiles:FlxSpriteGroup;
 var overMap:FlxSpriteGroup;
 var cutsceneSnowOverlay:CtSprite;
 
+var sleepyLevel:String = "awake";
+var productionObjects:FlxSpriteGroup;
+
 function create():Void
 {
 	configSnow();
@@ -49,7 +52,7 @@ function create():Void
 
 	initProduction();
 	
-	if (!Save.storyFlags.get("sawproductioncutscene"))
+	if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool == false)
 	{
 		stopConveyors();
 	}
@@ -58,9 +61,9 @@ function create():Void
 		startConveyors();
 		character_laurin.kill();
 	}
-	
+
 	disableProduction();
-	
+
 	dialogueBox.onChoicerSelected.add(function(tag:String):Void
 	{
 		if (tag == "Yes")
@@ -102,7 +105,7 @@ function doProductionCutscene():Void
 
 		fadeout = new CtSprite().createColorBlock(FlxG.width, FlxG.height, 0xFF000000);
 		fadeout.alpha = 0;
-		fadeout.camera = camUI;
+		fadeout.camera = camOverlay;
 		add(fadeout);
 
 		FlxTween.tween(fadeout, {alpha: 1}, 2, {
@@ -113,6 +116,19 @@ function doProductionCutscene():Void
 		});
 	});
 
+	// dimmaialogue
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dialog");
+
+		startDialogue(["factory/production/dialogue_clotheson"], function():Void
+		{
+			character_player.initCharacterAnimations("robinwork");
+
+			OverworldState.eventManager.finishTransaction("dialog");
+		});
+	});
+	
 	// change scene and fade in
 	OverworldState.eventManager.addEvent(function()
 	{
@@ -189,6 +205,7 @@ function doProductionCutscene():Void
 		tile_main_front.visible = true;
 		spr_inFrontTiles.add(getPropByTag("conveyorlight2"));
 
+		character_player.lockAnims = true;
 		enableProduction(3);
 		new FlxTimer().start(10, function(f):Void
 		{
@@ -213,6 +230,8 @@ function doProductionCutscene():Void
 				{
 					queuedTimeChange = 4;
 					doSceneFade(2);
+					updateSleepyLevel("lil_sleepy");
+
 					camGame.scroll.set(1000, 1200);
 
 					new FlxTimer().start(8, function(F):Void
@@ -227,6 +246,8 @@ function doProductionCutscene():Void
 	// wait, then change scene and move camera
 	OverworldState.eventManager.addEvent(function()
 	{
+		updateSleepyLevel("mid_sleepy");
+				
 		OverworldState.eventManager.startTransaction("cinematic");
 
 		doSceneFade(2);
@@ -297,6 +318,8 @@ function doProductionCutscene():Void
 	{
 		OverworldState.eventManager.startTransaction("cinematic");
 
+		updateSleepyLevel("big_sleepy");
+
 		FlxTween.tween(camGame.scroll, {x: 976, y: 1200}, 5, {
 			ease: FlxEase.quadInOut,
 			onComplete: function(f):Void
@@ -309,21 +332,22 @@ function doProductionCutscene():Void
 		});
 	});
 
-	// go back to robin who is now eepy
+	// laurin walks down
 	OverworldState.eventManager.addEvent(function()
 	{
 		OverworldState.eventManager.startTransaction("larin");
 
-		character_laurin.positionCharacterByGrid(38.5, 22);
+		character_laurin.positionCharacterByGrid(38.5, 21);
 		character_laurin.movementSpeed = .5;
 
-		character_laurin.moveToGridSpace(-1, 28, function():Void
+		disableProduction();
+
+		character_laurin.moveToGridSpace(-1, 28.5, function():Void
 		{
 			character_laurin.moveToGridSpace(33.5, -1, function():Void
 			{
 				character_laurin.moveToGridSpace(-1, 29.5, function():Void
 				{
-					disableProduction();
 					new FlxTimer().start(1.5, function(f):Void
 					{
 						OverworldState.eventManager.finishTransaction("larin");
@@ -336,30 +360,109 @@ function doProductionCutscene():Void
 	// nudge!!
 	OverworldState.eventManager.addEvent(function()
 	{
+		OverworldState.eventManager.startTransaction("nudge");
+
+		character_player.lockAnims = false;
 		character_player.facing = UP;
-		FlxTween.shake(character_player, 0.05, .2, FlxAxes.X);
+		FlxTween.shake(character_player, 0.05, .2, 0x01);
 
-		/*
-					var lightingCover = get_lightingCover();
+		var lightingCover = get_lightingCover();
 
-					var light = lightingCover.addLightSource("factorylight", 0, 0, "haha");
-
-					light.scale.set(0.5, 0.5);
-					light.updateHitbox();
-					CtUtil.centerSpriteOnSprite(light, character_player, true, true);
-
-					FlxTween.tween(light.scale, {x: 100, y: 100}, 1, {
-						ease: FlxEase.quartOut,
-						onComplete: function(f):Void
-						{
-							lightingCover.alpha = 0;
-						}
+		FlxTween.tween(lightingCover, {alpha: 0}, .5, {
+			ease: FlxEase.quartOut,
+			onComplete: function(F):Void
+			{
+				OverworldState.eventManager.finishTransaction("nudge");
+			}
 		});
-		 */
 	});
+
+	// laurin dialogue
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dailogu");
+
+		new FlxTimer().start(1.5, function(F):Void
+		{
+			startDialogue(["factory/production/dialogue_laurin"], function():Void
+			{
+				OverworldState.eventManager.finishTransaction("dailogu");
+			});
+		});
+	});
+
+	// laurin walks away
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("laurinbyebye");
+
+		character_laurin.moveToGridSpace(-1, 28.5, function():Void
+		{
+			character_laurin.moveToGridSpace(38.5, -1, function():Void
+			{
+				character_laurin.moveToGridSpace(-1, 22, function():Void
+				{
+					character_laurin.kill();
+					OverworldState.eventManager.finishTransaction("laurinbyebye");
+				});
+			});
+		});
+	});
+
+	var fadeout2:CtSprite;
+
+	// fade out
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("fadeOut2");
+
+		fadeout2 = new CtSprite().createColorBlock(FlxG.width, FlxG.height, 0xFF000000);
+		fadeout2.alpha = 0;
+		fadeout2.camera = camOverlay;
+		add(fadeout2);
+
+		FlxTween.tween(fadeout2, {alpha: 1}, 2, {
+			onComplete: function(f):Void
+			{
+				OverworldState.eventManager.finishTransaction("fadeOut2");
+			}
+		});
+	});
+
+	// dimmaialogue
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dialog");
+
+		startDialogue(["factory/production/dialogue_clothesoff"], function():Void
+		{
+			productionObjects.visible = false;
+			character_player.initCharacterAnimations("robin");
+			OverworldState.eventManager.finishTransaction("dialog");
+		});
+	});
+
+	// fade in
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("fadeIn2");
+
+		FlxTween.tween(fadeout2, {alpha: 0}, 2, {
+			onComplete: function(f):Void
+			{
+				fadeout2.destroy();
+				OverworldState.eventManager.finishTransaction("fadeIn2");
+			}
+		});
+	});
+
 	// end cutscene
 	OverworldState.eventManager.addEvent(function() {
-		
+		tile_main_front.visible = false;
+		character_player.movementSpeed = 1;
+		character_player.lockMovement = false;
+		set_inCutscene(false);
+		set_lockCamera(false);
 	});
 }
 
@@ -455,11 +558,10 @@ function doSceneFade(time:Float, ?onComplete:Void->Void):Void
 
 	OverworldState.eventManager.startTransaction("sceneFading!!");
 
-	var spr:CtSprite = new CtSprite().createColorBlock(FlxG.width, FlxG.height, 0xFF000000);
+	var spr:CtSprite = new CtSprite().createColorBlock(FlxG.width, FlxG.height, 0xFF7D2D2D);
 	spr.pixels.draw(FlxG.game);
 	spr.setGraphicSize(FlxG.width, FlxG.height);
 	spr.updateHitbox();
-	spr.screenCenter();
 	spr.camera = camUI;
 	add(spr);
 
@@ -476,6 +578,10 @@ function doSceneFade(time:Float, ?onComplete:Void->Void):Void
 		}
 	});
 }
+var doProductionAnims:Bool = false;
+var desiredAnim:String = "conveyor_awake_1";
+var doBlink:Bool = false;
+
 var prod_start:Int = 0;
 var prod_entrancesX:Array<Int> = [34, 30, 28, 16, 11];
 var prod_entrancesY:Array<Int> = [33, 33, 26, 26, 26];
@@ -484,7 +590,6 @@ var prod_endY:Array<Int> = [33, 27, 26, 26, 17];
 var prod_horiz:Array<Bool> = [true, false, true, true, false];
 var prod_redirect:Array<Int> = [1, 2, 3, 4, -1];
 var productionTimer:FlxTimer;
-var productionObjects:FlxSpriteGroup;
 
 function initProduction():Void
 {
@@ -500,15 +605,6 @@ function handleProduction():Void
 
 	for (obj in productionObjects.members)
 	{
-		if (prod_horiz[obj.ID])
-		{
-			obj.velocity.set(conveyorSpeed, 0);
-		}
-		else
-		{
-			obj.velocity.set(0, conveyorSpeed);
-		}
-
 		if (obj.x <= ((prod_endX[obj.ID] * Constants.overworldPixelScale) * 16)
 			&& obj.y <= ((prod_endY[obj.ID] * Constants.overworldPixelScale) * 16))
 		{
@@ -527,6 +623,17 @@ function handleProduction():Void
 	}
 
 	redirThese = [];
+	if (doProductionAnims)
+	{
+		if (doBlink && sleepyLevel == "mid_sleepy")
+		{
+			character_player.animation.play(desiredAnim + "_blink");
+		}
+		else
+		{
+			character_player.animation.play(desiredAnim);
+		}
+	}
 }
 
 var timeBetween:Float = 1;
@@ -535,6 +642,8 @@ var playerTween:FlxTween;
 
 function enableProduction(time:Float):Void
 {
+	doProductionAnims = true;
+	
 	timeBetween = time;
 
 	playerY = character_player.hitbox.y;
@@ -550,25 +659,33 @@ function enableProduction(time:Float):Void
 		}
 
 		productionTimer.reset(timeBetween * FlxG.random.float(0.7, 1.3));
+	});
 
-		if (playerTween != null)
+	var ogTimer = new FlxTimer();
+
+	ogTimer.start(FlxG.random.float(1, 2), function(f):Void
+	{
+		doBlink = true;
+		
+		new FlxTimer().start(FlxG.random.float(.4, 1), function(f):Void
 		{
-			playerTween.cancel();
-			playerTween.destroy();
-		}
-
-		character_player.hitbox.y = playerY + 8;
-		playerTween = FlxTween.tween(character_player.hitbox, {y: playerY}, .5);
+			doBlink = false;
+			ogTimer.reset(FlxG.random.float(1, 2));
+		});
 	});
 }
 
 function disableProduction():Void
 {
+	doProductionAnims = false;
+	
 	if (productionTimer != null)
 	{
 		productionTimer.cancel();
 	}
 }
+
+var robinanimstatus:Bool = false;
 
 function addProductionObject(id:Int):Void
 {
@@ -580,4 +697,65 @@ function addProductionObject(id:Int):Void
 	productionObjects.add(obj);
 
 	obj.setPosition((prod_entrancesX[obj.ID] * Constants.overworldPixelScale) * 16, (prod_entrancesY[obj.ID] * Constants.overworldPixelScale) * 16);
+	if (id == prod_start)
+	{
+		var ogY = obj.y;
+
+		obj.y = character_player.y + obj.height;
+
+		desiredAnim = "conveyor_" + sleepyLevel + "_2";
+
+		robinanimstatus = true;
+
+		new FlxTimer().start(1, function(F):Void
+		{
+			if (prod_horiz[obj.ID])
+			{
+				obj.velocity.set(conveyorSpeed, 0);
+			}
+			else
+			{
+				obj.velocity.set(0, conveyorSpeed);
+			}
+
+			obj.y = ogY;
+
+			desiredAnim = "conveyor_" + sleepyLevel + "_3";
+
+			if (playerTween != null)
+			{
+				playerTween.cancel();
+				playerTween.destroy();
+			}
+
+			character_player.hitbox.y = playerY + 8;
+			playerTween = FlxTween.tween(character_player.hitbox, {y: playerY}, .5);
+
+			new FlxTimer().start(.5, function(F):Void
+			{
+				robinanimstatus = false;
+				desiredAnim = "conveyor_" + sleepyLevel + "_1";
+			});
+		});
+	}
+	else
+	{
+		if (prod_horiz[obj.ID])
+		{
+			obj.velocity.set(conveyorSpeed, 0);
+		}
+		else
+		{
+			obj.velocity.set(0, conveyorSpeed);
+		}
+	}
+}
+
+function updateSleepyLevel(name:String):Void
+{
+	sleepyLevel = name;
+	if (!robinanimstatus)
+	{
+		desiredAnim.play("conveyor_" + sleepyLevel + "_1");
+	}
 }

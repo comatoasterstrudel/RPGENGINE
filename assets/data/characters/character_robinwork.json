@@ -1,0 +1,128 @@
+{
+    "name": "robinwork",
+    "graphic": "robinwork",
+    "fromAseprite": true,
+    "anims": [
+        {
+            "name": "idle_down", 
+            "prefix": "idle_down",
+            "fps": 0
+        },
+        {
+            "name": "idle_up",
+            "prefix": "idle_up",
+            "fps": 0
+        },
+        {
+            "name": "idle_left",
+            "prefix": "idle_horizontal",
+            "fps": 0
+        },
+        {
+            "name": "idle_right",
+            "prefix": "idle_horizontal",
+            "fps": 0,
+            "flipX": true
+        },
+        {
+            "name": "walk_down",
+            "prefix": "walk_down",
+            "fps": 5,
+            "looped": "true"
+        },
+        {
+            "name": "walk_up",
+            "prefix": "walk_up",
+            "fps": 5,
+            "looped": "true"
+        },
+        {
+            "name": "walk_left",
+            "prefix": "walk_horizontal",
+            "fps": 5,
+            "looped": "true"
+        },
+        {
+            "name": "walk_right",
+            "prefix": "walk_horizontal",
+            "fps": 5,
+            "looped": "true",
+            "flipX": true
+        },
+        {
+            "name": "conveyor_awake_1",
+            "prefix": "conveyer_awake_1",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_awake_2",
+            "prefix": "conveyer_awake_2",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_awake_3",
+            "prefix": "conveyer_awake_3",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_lil_sleepy_1",
+            "prefix": "conveyer_lil_sleepy_1",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_lil_sleepy_2",
+            "prefix": "conveyer_lil_sleepy_2",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_lil_sleepy_3",
+            "prefix": "conveyer_lil_sleepy_3",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_mid_sleepy_1",
+            "prefix": "conveyer_mid_sleepy_1",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_mid_sleepy_2",
+            "prefix": "conveyer_mid_sleepy_2",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_mid_sleepy_3",
+            "prefix": "conveyer_mid_sleepy_3",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_mid_sleepy_1_blink",
+            "prefix": "conveyer_mid_sleepy_blink_1",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_mid_sleepy_2_blink",
+            "prefix": "conveyer_mid_sleepy_blink_2",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_mid_sleepy_3_blink",
+            "prefix": "conveyer_mid_sleepy_blink_3",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_big_sleepy_1",
+            "prefix": "conveyer_big_sleepy_1",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_big_sleepy_2",
+            "prefix": "conveyer_big_sleepy_2",
+            "fps": 0
+        },
+        {
+            "name": "conveyor_big_sleepy_3",
+            "prefix": "conveyer_big_sleepy_3",
+            "fps": 0
+        }
+    ]
+}

@@ -9,10 +9,12 @@ class OverworldState extends FlxState
     
 	public static var previousRoom:String = "";
 	
-	// CAMERA STUFF
+	// CAMERAS
 	var camGame:FlxCamera;
 	var camLighting:FlxCamera;
+	var camOverlay:FlxCamera;
 	var camUI:FlxCamera;
+	// CAMERA STUFF
 	var cameraScrollX:Bool = false;
 	var cameraScrollY:Bool = false;
 	var cameraFollowingTilemap:FlxTilemap;
@@ -150,6 +152,10 @@ class OverworldState extends FlxState
 		(new ShaderFilter(lightingShader))
 		];
 		FlxG.cameras.add(camLighting, false);
+		
+		camOverlay = new FlxCamera();
+		camOverlay.bgColor.alpha = 0;
+		FlxG.cameras.add(camOverlay, false);
 		
 		camUI = new FlxCamera();
 		camUI.bgColor.alpha = 0;
@@ -1073,6 +1079,7 @@ class OverworldState extends FlxState
 				
 		script.setValue({name: "camGame", value: camGame});
 		script.setValue({name: "camLighting", value: camLighting});
+		script.setValue({name: "camOverlay", value: camOverlay});
 		script.setValue({name: "camUI", value: camUI});
 
 		script.setValue({name: "executeScriptFunction", value: executeScriptFunction});
