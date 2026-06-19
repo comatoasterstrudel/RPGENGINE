@@ -1,0 +1,58 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "Y.. Yeah?",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Work has been over for 5 minutes now..",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": " You can stop.",
+		"actor": "laurin",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Oh shit.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": " My bad.",
+		"actor": "robin",
+		"portrait": "neutral",
+		"continueLine": true
+	},
+	{	"speed": 0.03,
+		"dialogue": "It's fine, it's just that there's uh, something in the breakroom to see..",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "...Okay?",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "It's um, it's nothing bad you uh, just should see it.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	}
+	,
+	{
+		"speed": 0.03,
+		"dialogue": "...",
+		"actor": "robin",
+		"portrait": "neutral"
+	}
+] 

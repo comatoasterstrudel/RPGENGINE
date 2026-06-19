@@ -3,6 +3,8 @@ function CTSCRIPT_SETNAME():String
 	return "factory_production";
 }
 
+var lightingCover:LightingSprite;
+
 var dialogueBox:CtDialogueBox;
 
 var character_player:Player;
@@ -27,6 +29,8 @@ var productionObjects:FlxSpriteGroup;
 
 function create():Void
 {
+	lightingCover = get_lightingCover();
+
 	configSnow();
 
 	removeProductionCutsceneTrigger();
@@ -245,10 +249,10 @@ function doProductionCutscene():Void
 
 	// wait, then change scene and move camera
 	OverworldState.eventManager.addEvent(function()
-	{
-		updateSleepyLevel("mid_sleepy");
-				
+	{				
 		OverworldState.eventManager.startTransaction("cinematic");
+
+		updateSleepyLevel("mid_sleepy");
 
 		doSceneFade(2);
 
@@ -297,7 +301,6 @@ function doProductionCutscene():Void
 						new FlxTimer().start(3, function(f):Void
 						{
 							doSceneFade(2);
-							var lightingCover = get_lightingCover();
 							lightingCover.alpha = .5;
 							cutsceneSnowOverlay.visible = false;
 							executeSingleScriptFunction("snow", "snow_set_frequency", [1.5]);
@@ -357,6 +360,17 @@ function doProductionCutscene():Void
 		});
 	});
 
+	// laurin dialogue 1
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dailogu");
+
+		startDialogue(["factory/production/dialogue_laurin1"], function():Void
+		{
+			OverworldState.eventManager.finishTransaction("dailogu");
+		});
+	});
+	
 	// nudge!!
 	OverworldState.eventManager.addEvent(function()
 	{
@@ -365,8 +379,6 @@ function doProductionCutscene():Void
 		character_player.lockAnims = false;
 		character_player.facing = UP;
 		FlxTween.shake(character_player, 0.05, .2, 0x01);
-
-		var lightingCover = get_lightingCover();
 
 		FlxTween.tween(lightingCover, {alpha: 0}, .5, {
 			ease: FlxEase.quartOut,
@@ -377,14 +389,14 @@ function doProductionCutscene():Void
 		});
 	});
 
-	// laurin dialogue
+	// laurin dialogue 2
 	OverworldState.eventManager.addEvent(function()
 	{
 		OverworldState.eventManager.startTransaction("dailogu");
 
 		new FlxTimer().start(1.5, function(F):Void
 		{
-			startDialogue(["factory/production/dialogue_laurin"], function():Void
+			startDialogue(["factory/production/dialogue_laurin2"], function():Void
 			{
 				OverworldState.eventManager.finishTransaction("dailogu");
 			});
@@ -616,7 +628,7 @@ function handleProduction():Void
 	{
 		if (prod_redirect[spr.ID] != -1)
 		{
-			addProductionObject(prod_redirect[spr.ID]);
+			addProductionObject(prod_redirect[spr.ID], spr);
 		}
 		productionObjects.remove(spr, true);
 		spr.destroy();
@@ -625,7 +637,9 @@ function handleProduction():Void
 	redirThese = [];
 	if (doProductionAnims)
 	{
-		if (doBlink && sleepyLevel == "mid_sleepy")
+		var acceptableBlinkAnims:Array<String> = ["conveyor_mid_sleepy_1", "conveyor_mid_sleepy_2", "conveyor_mid_sleepy_3"];
+
+		if (doBlink && sleepyLevel == "mid_sleepy" && acceptableBlinkAnims.contains(desiredAnim))
 		{
 			character_player.animation.play(desiredAnim + "_blink");
 		}
@@ -650,7 +664,7 @@ function enableProduction(time:Float):Void
 
 	productionTimer = new FlxTimer().start(timeBetween, function(f):Void
 	{
-		addProductionObject(prod_start);
+		addProductionObject(prod_start, null);
 
 		if (queuedTimeChange != 0)
 		{
@@ -687,15 +701,19 @@ function disableProduction():Void
 
 var robinanimstatus:Bool = false;
 
-function addProductionObject(id:Int):Void
+function addProductionObject(id:Int, ?sprite:FlxSprite):Void
 {
 	var obj = new CtSprite().createFromImage(Constants.overworldMiscGraphicPath + "factorydetergent" + FlxG.random.int(1, 3) + ".png");
+	if (sprite != null)
+		obj.loadGraphicFromSprite(sprite);
 	obj.scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
 	obj.updateHitbox();
 	obj.ID = id;
 	obj.antialiasing = false;
 	productionObjects.add(obj);
 
+	var disableAnimsAfter:Bool = false;
+	
 	obj.setPosition((prod_entrancesX[obj.ID] * Constants.overworldPixelScale) * 16, (prod_entrancesY[obj.ID] * Constants.overworldPixelScale) * 16);
 	if (id == prod_start)
 	{
@@ -703,6 +721,12 @@ function addProductionObject(id:Int):Void
 
 		obj.y = character_player.y + obj.height;
 
+		if (!doProductionAnims)
+		{
+			doProductionAnims = true;
+			disableAnimsAfter = true;
+		}
+			
 		desiredAnim = "conveyor_" + sleepyLevel + "_2";
 
 		robinanimstatus = true;
@@ -720,6 +744,12 @@ function addProductionObject(id:Int):Void
 
 			obj.y = ogY;
 
+			if (!doProductionAnims)
+			{
+				doProductionAnims = true;
+				disableAnimsAfter = true;
+			}
+				
 			desiredAnim = "conveyor_" + sleepyLevel + "_3";
 
 			if (playerTween != null)
@@ -733,8 +763,21 @@ function addProductionObject(id:Int):Void
 
 			new FlxTimer().start(.5, function(F):Void
 			{
+				if (!doProductionAnims)
+				{
+					doProductionAnims = true;
+					disableAnimsAfter = true;
+				}
+				
 				robinanimstatus = false;
 				desiredAnim = "conveyor_" + sleepyLevel + "_1";
+				if (disableAnimsAfter)
+				{
+					new FlxTimer().start(0.1, function(f):Void
+					{
+						doProductionAnims = false;
+					});
+				}
 			});
 		});
 	}
@@ -756,6 +799,6 @@ function updateSleepyLevel(name:String):Void
 	sleepyLevel = name;
 	if (!robinanimstatus)
 	{
-		desiredAnim.play("conveyor_" + sleepyLevel + "_1");
+		desiredAnim = ("conveyor_" + sleepyLevel + "_1");
 	}
 }

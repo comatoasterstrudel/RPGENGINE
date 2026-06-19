@@ -13,7 +13,8 @@ class LightingSprite extends FlxSpriteGroup
         
         alpha = roomData.lighting; 
         
-        antialiasing = false;        
+		antialiasing = false;  
+
     }
     
 	public function addLightSource(graphic:String, x:Int, y:Int, tag:String):LightSourceSprite
