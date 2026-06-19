@@ -6,6 +6,7 @@ function CTSCRIPT_SETNAME():String
 var roomTrigger:Interactable;
 
 var sprites:FlxSpriteGroup;
+var spr_bgColor:CtSprite;
 var spr_bg:CtSprite;
 var spr_crowdBack:CtSprite;
 var spr_robin:CtSprite;
@@ -37,6 +38,11 @@ function setupBg():Void
 	sprites.camera = camOverlay;
 	add(sprites);
 
+	spr_bgColor = new CtSprite().createFromImage(Constants.overworldCutsceneGraphicPath + "factory_bgColor.png", 1.05);
+	spr_bgColor.screenCenter();
+	spr_bgColor.scrollFactor.set(0, 0);
+	sprites.add(spr_bgColor);
+	
 	spr_bg = new CtSprite().createFromImage(Constants.overworldCutsceneGraphicPath + "factory_bg.png", 1.05);
 	spr_bg.screenCenter();
 	spr_bg.scrollFactor.set(0.1, 0.1);
