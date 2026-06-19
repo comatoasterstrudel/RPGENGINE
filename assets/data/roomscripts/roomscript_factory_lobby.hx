@@ -82,6 +82,8 @@ function doConversationCutscene():Void
 
 		character_player.visible = true;
 
+		character_player.movementSpeed = .7;
+		
 		character_player.moveToGridSpace(7, 13.5, function():Void
 		{
 			character_player.moveToGridSpace(9, -1, function():Void
@@ -90,6 +92,8 @@ function doConversationCutscene():Void
 				{
 					character_player.moveToGridSpace(7, -1, function():Void
 					{
+						character_player.movementSpeed = 1;
+
 						character_player.facing = UP;
 						OverworldState.eventManager.finishTransaction("robinMove");
 					});
