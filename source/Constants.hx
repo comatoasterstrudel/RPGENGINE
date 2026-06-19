@@ -120,6 +120,8 @@ class Constants
 	public static final lightSourceGraphicPath:String = "assets/images/lightsources/lightsource_";
 	// Overworld Misc
 	public static final overworldMiscGraphicPath:String = "assets/images/overworldmisc/overworldmisc_";
+	// Cutscenes
+	public static final overworldCutsceneGraphicPath:String = "assets/images/cutscene/cutscene_";
 	//
 	// DIALOGUE STUFF !!
 	//

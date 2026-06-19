@@ -1,0 +1,17 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "does this work.......... i hope so i hope so",
+		"actor": "cutscene_robin"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "it is me , ALEX",
+		"actor": "cutscene_alex"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "cool",
+		"actor": "cutscene_robin"
+	}
+]
