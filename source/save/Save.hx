@@ -33,6 +33,7 @@ class Save
 		OverworldState.roomName = "";
 		OverworldState.previousRoom = "";
 		OverworldState.savePointName = "";
+		OverworldState.lastTransitionTime = 0;
 		OverworldState.resetGlobalVars();
 		// reset time
 
@@ -77,6 +78,7 @@ class Save
 		save.data.roomName = OverworldState.roomName;
 		save.data.previousRoom = OverworldState.previousRoom;
 		save.data.savePointName = OverworldState.savePointName;
+		save.data.lastTransitionTime = OverworldState.lastTransitionTime;
 
 		// save time
 
@@ -148,7 +150,10 @@ class Save
 		{
 			OverworldState.savePointName = save.data.savePointName;
 		}
-        
+		if (save.data.lastTransitionTime != null)
+		{
+			OverworldState.lastTransitionTime = save.data.lastTransitionTime;
+		}
 		// load time
 
 		if (save.data.playtime != null)

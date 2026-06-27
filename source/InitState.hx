@@ -47,8 +47,8 @@ class InitState extends FlxState{
 		CtControls.registerControl({id: "up", inputKey: [UP, W], inputPad: [DPAD_UP, LEFT_STICK_DIGITAL_UP]});
 		CtControls.registerControl({id: "down", inputKey: [DOWN, S], inputPad: [DPAD_DOWN, LEFT_STICK_DIGITAL_DOWN]});
 		CtControls.registerControl({id: "accept", inputKey: [Z, ENTER], inputPad: [A]});
-		CtControls.registerControl({id: "cancel", inputKey: [X, SHIFT], inputPad: [B]});
-		CtControls.registerControl({id: "exit", inputKey: [ESCAPE, BACKSPACE], inputPad: [START]});
+		CtControls.registerControl({id: "cancel", inputKey: [X, BACKSPACE], inputPad: [B]});
+		CtControls.registerControl({id: "exit", inputKey: [ESCAPE], inputPad: [START]});
 	}
 	
 	function initDialogueBox():Void

@@ -657,6 +657,7 @@ class OverworldState extends FlxState
 		}, "entities");
 
 		var placePointsContainsPreviousRoom:Bool = false;
+		var placePointsContainsSavePoint:Bool = false;
 
 		if (previousRoom != "" || (savePointName != "" && startAtSavePoint))
 		{
@@ -665,6 +666,7 @@ class OverworldState extends FlxState
 				if (placePoint.entranceSave == savePointName && startAtSavePoint)
 				{
 					placePointsContainsPreviousRoom = true;
+					placePointsContainsSavePoint = true;
 					break;
 				}
 				if (placePoint.entrance == previousRoom && placePoint.entrance != "")
@@ -678,7 +680,7 @@ class OverworldState extends FlxState
 		for (placePoint in playerPlacePoints)
 		{
 			if ((placePoint.entranceSave == savePointName && startAtSavePoint)
-				|| (placePoint.entrance == previousRoom && placePoint.entrance != "")
+				|| (placePoint.entrance == previousRoom && placePoint.entrance != "" && !placePointsContainsSavePoint)
 				|| placePoint.entrance == ""
 				&& !placePointsContainsPreviousRoom)
 			{
