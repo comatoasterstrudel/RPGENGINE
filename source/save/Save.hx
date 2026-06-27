@@ -102,7 +102,8 @@ class Save
 
 		if (save.data.saveCreated == null)
 		{
-			return;
+			OverworldState.roomName = Constants.startingRoom;
+			Save.save();
 		}
 
 		// load story flags
@@ -145,7 +146,7 @@ class Save
 	public static function isSaveStarted(slot:Int):Bool
 	{
 		var save = new FlxSave();
-		save.bind(Constants.saveFileName + loadedSaveSlot);
+		save.bind(Constants.saveFileName + slot);
 
 		return save.data.saveCreated;
 	}

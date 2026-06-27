@@ -86,6 +86,7 @@ class MainMenuState extends FlxState
 				openSubState(new SaveLoadMenu(ERASE, function():Void
 				{
 					FlxG.camera.shake(0.05, 0.1, null, true, X);
+					addTexts();
 					menuManager.enable();
 				}, function():Void
 				{

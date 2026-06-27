@@ -6,7 +6,8 @@ class RoomData extends CtJsonLoader
     
     public var name:String;
     public var map:String;
-    
+	public var displayName:String;
+
 	public var encounters:Array<EncounterData>;
 	public var encounterChance:Float;
     
@@ -29,6 +30,8 @@ class RoomData extends CtJsonLoader
         
         this.name = data.name ?? "";
         this.map = data.map ?? "test";
+		this.displayName = data.displayName ?? "";
+		
 		if (data.encounters == null)
 		{
 			encounters = [];

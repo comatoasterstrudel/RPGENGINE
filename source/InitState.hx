@@ -20,16 +20,19 @@ class InitState extends FlxState{
 		
 		#if debug
 		#if testBattle
+		Save.load(0);
 		PlayState.setBattle(Compiler.getDefine("testBattle").split('=')[0], ARCADE);
 		FlxG.switchState(PlayState.new);
 		return;
 		#end
 		#if testOverworld
+		Save.load(0);
 		OverworldState.roomName = Compiler.getDefine("testOverworld").split('=')[0];
 		FlxG.switchState(OverworldState.new);
 		return;
 		#end
 		#if levelSelector
+		Save.load(0);
 		FlxG.switchState(LevelSelectorState.new);
 		return;
 		#end
@@ -123,9 +126,6 @@ class InitState extends FlxState{
 	{
 		Save.init();
 
-		// for now
-		Save.load(0);
-		
 		#if traceStoryFlags
 		for (storyFlag in Save.storyFlags)
 		{

@@ -9,11 +9,14 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
         
 	var roomText:CtText;
 
+	var saveID:Int;
+    
 	public function new(saveWindow:CtSprite, y:Float, saveID:Int, addDivider:Bool, enabled:Bool):Void
 	{
         super();
     
         this.saveWindow = saveWindow;
+		this.saveID = saveID;
         
 		var started = Save.isSaveStarted(saveID);
 		var save = new FlxSave();
@@ -41,7 +44,7 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 		{
 			var roomData = new RoomData(save.data.roomName);
 
-			var roomName = roomData.name;
+			var roomName = roomData.displayName;
 			roomText.text += ("\n" + roomName);
 		}
 		else

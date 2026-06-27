@@ -1,5 +1,6 @@
 {
     "name": "factory_intro",
     "map": "factory_intro",
+    "displayName": "Factory - Intro",
     "script": ["factory_intro"]
 }
