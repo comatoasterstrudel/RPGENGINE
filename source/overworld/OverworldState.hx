@@ -11,6 +11,8 @@ class OverworldState extends FlxState
 	
 	public static var savePointName:String = "";
 	
+	public static var startAtSavePoint:Bool = false;
+	
 	// CAMERAS
 	var camGame:FlxCamera;
 	var camLighting:FlxCamera;
@@ -643,17 +645,30 @@ class OverworldState extends FlxState
 				case "lightsource":
 					lightingCover.addLightSource(entity.values.graphic, Std.int(entity.x * Constants.overworldPixelScale),
 						Std.int(entity.y * Constants.overworldPixelScale), entity.values.tag);
+				case "savespot":
+					var savespot = new SaveSpot(entity.values.name, entity.values.saveName, entity.values.tag,
+						Std.int(entity.x * Constants.overworldPixelScale), Std.int(entity.y * Constants.overworldPixelScale));
+
+					props.add(savespot);
+					interactInteractables.add(savespot);
 				default:
 					//
 			}
 		}, "entities");
+
 		var placePointsContainsPreviousRoom:Bool = false;
 
-		if (previousRoom != "")
+		if (previousRoom != "" || (savePointName != "" && startAtSavePoint))
 		{
 			for (placePoint in playerPlacePoints)
 			{
-				if (placePoint.entrance == previousRoom)
+				if (placePoint.entranceSave == savePointName && startAtSavePoint)
+				{
+					trace("yay");
+					placePointsContainsPreviousRoom = true;
+					break;
+				}
+				if (placePoint.entrance == previousRoom && placePoint.entrance != "")
 				{
 					placePointsContainsPreviousRoom = true;
 					break;
@@ -663,8 +678,12 @@ class OverworldState extends FlxState
 
 		for (placePoint in playerPlacePoints)
 		{
-			if (placePoint.entrance == previousRoom || placePoint.entrance == "" && !placePointsContainsPreviousRoom)
+			if ((placePoint.entranceSave == savePointName && startAtSavePoint)
+				|| (placePoint.entrance == previousRoom && placePoint.entrance != "")
+				|| placePoint.entrance == ""
+				&& !placePointsContainsPreviousRoom)
 			{
+
 				player.positionCharacter(placePoint.position.x * Constants.overworldPixelScale, placePoint.position.y * Constants.overworldPixelScale);
 				break;
 			}
@@ -696,6 +715,7 @@ class OverworldState extends FlxState
 		{
 			addScript(Constants.roomScriptPath + script + ".hx");
 		}
+		startAtSavePoint = false;
 	}
 
 	/**
@@ -842,6 +862,11 @@ class OverworldState extends FlxState
 		{
 			executeScriptFunction(interactable.scriptFunction, []);
 		}
+		if (interactable.openSave)
+		{
+			openSaveMenu(interactable.saveName);
+		}
+		
 		return TRIGGERED;
 	}
 
@@ -1060,6 +1085,18 @@ class OverworldState extends FlxState
 		});
 	}
 
+	function openSaveMenu(saveName:String):Void
+	{
+		savePointName = saveName;
+
+		inCutscene = true;
+
+		Save.save(function():Void
+		{
+			inCutscene = false;
+		});
+	}
+	
 	function addScript(path:String):CtScript
 	{
 		var script = new CtScript(path);
@@ -1332,11 +1369,17 @@ class OverworldState extends FlxState
 		previousRoom = "";
 		leftForBattle = false;
 		positionBeforeBattle.set(0, 0);
+		startAtSavePoint = true;
 	}
 	#if debug
 	function addDebugFunctions():Void
 	{
-		//
+		#if traceRoomInfo
+		trace("[Room]");
+		trace("cur: " + roomName);
+		trace("prev: " + previousRoom);
+		trace("save: " + savePointName);
+		#end
 	}
 
 	function updateDebugFunctions():Void

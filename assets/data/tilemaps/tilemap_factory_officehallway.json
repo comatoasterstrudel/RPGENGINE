@@ -37,7 +37,7 @@
           "y": 208,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": ""}
+          "values": {"entrance": "", "entranceSave": ""}
         },
         {
           "name": "door",
@@ -71,7 +71,7 @@
           "y": 320,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": "factory_officehallway2"}
+          "values": {"entrance": "factory_officehallway2", "entranceSave": ""}
         },
         {
           "name": "lightsource",

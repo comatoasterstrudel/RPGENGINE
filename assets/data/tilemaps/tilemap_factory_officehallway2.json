@@ -49,7 +49,7 @@
           "y": 144,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": ""}
+          "values": {"entrance": "", "entranceSave": ""}
         },
         {
           "name": "door",
@@ -95,7 +95,7 @@
           "y": 176,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": "factory_manageroffice"}
+          "values": {"entrance": "factory_manageroffice", "entranceSave": ""}
         },
         {
           "name": "prop",
@@ -201,7 +201,7 @@
           "y": 176,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": "factory_officesecurity"}
+          "values": {"entrance": "factory_officesecurity", "entranceSave": ""}
         },
         {
           "name": "player",
@@ -211,7 +211,7 @@
           "y": 176,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": "factory_officebreakroom"}
+          "values": {"entrance": "factory_officebreakroom", "entranceSave": ""}
         },
         {
           "name": "door",
@@ -233,7 +233,7 @@
           "y": 272,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": "factory_officetransition"}
+          "values": {"entrance": "factory_officetransition", "entranceSave": ""}
         }
       ]
     },

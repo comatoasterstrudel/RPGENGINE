@@ -49,7 +49,7 @@
           "y": 304,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": ""}
+          "values": {"entrance": "", "entranceSave": ""}
         }
       ]
     },

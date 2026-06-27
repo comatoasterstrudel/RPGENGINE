@@ -49,7 +49,7 @@
           "y": 224,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": ""}
+          "values": {"entrance": "", "entranceSave": ""}
         },
         {
           "name": "door",
@@ -71,7 +71,7 @@
           "y": 128,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": "factory_breakroom"}
+          "values": {"entrance": "factory_breakroom", "entranceSave": ""}
         },
         {
           "name": "door",
@@ -107,7 +107,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_coworkertest", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_coworkertest", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
         },
         {
           "name": "interactable",
@@ -119,7 +119,7 @@
           "height": 16,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_w", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_w", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
         },
         {
           "name": "interactable",
@@ -131,7 +131,7 @@
           "height": 16,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_m", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_m", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
         },
         {
           "name": "interactable",
@@ -143,7 +143,7 @@
           "height": 16,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_u", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_u", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
         },
         {
           "name": "player",
@@ -153,7 +153,7 @@
           "y": 176,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": "factory_officehallway"}
+          "values": {"entrance": "factory_officehallway", "entranceSave": ""}
         }
       ]
     },

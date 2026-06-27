@@ -70,6 +70,10 @@ class Save
 		save.flush();
 
 		trace("Finished Save (Slot " + loadedSaveSlot + ")");
+		if (onComplete != null)
+		{
+			onComplete();
+		}
 	}
 
 	public static function load(slot:Int, ?onComplete:Void->Void):Void
@@ -81,7 +85,7 @@ class Save
 			return; // dont load on a slot that doesnt exist dawg..
 		}
 
-		loadedSaveSlot = slot;
+		loadedSaveSlot = Std.int(FlxMath.bound(slot, 0, Constants.maxSaveFiles));
 
 		trace("Starting Load (Slot " + loadedSaveSlot + ")");
 
@@ -125,5 +129,9 @@ class Save
 		}
         
 		trace("Finished Load (Slot " + loadedSaveSlot + ")");
+		if (onComplete != null)
+		{
+			onComplete();
+		}
 	}
 }

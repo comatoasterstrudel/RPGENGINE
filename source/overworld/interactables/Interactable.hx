@@ -16,6 +16,10 @@ class Interactable extends CtSprite
     
 	public var scriptFunction:String = "";
 	
+	public var openSave:Bool = false;
+
+	public var saveName:String = "";
+	
 	public var triggerSignal = new FlxSignal();
 
 	public var disabled:Bool = false;
@@ -43,13 +47,15 @@ class Interactable extends CtSprite
 		roomTransitionTime = entity.values.roomTransitionTime;
 		encounterName = entity.values.encounterName;
 		scriptFunction = entity.values.scriptFunction;
+		openSave = entity.values.openSave;
+		saveName = entity.values.saveName;
 
 		return this;
 	}
 
 	public function addManually(x:Float, y:Float, width:Int, height:Int, ?type:InteractableType, ?tag:String, ?dialogue:String, ?room:String,
 			?roomTransitionTime:Float,
-			?encounterName:String, ?scriptFunction:String):Void
+		?encounterName:String, ?scriptFunction:String, ?openSave:Bool, ?saveName:String):Void
 	{
 		setPosition(x, y);
 		createColorBlock(width, height, FlxColor.BLUE);
@@ -61,5 +67,7 @@ class Interactable extends CtSprite
 		this.roomTransitionTime = roomTransitionTime ?? .5;
 		this.encounterName = encounterName ?? "";
 		this.scriptFunction = scriptFunction ?? "";
+		this.openSave = openSave ?? false;
+		this.saveName = saveName ?? "";
     }
 }

@@ -39,7 +39,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "test_hallway2", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": ""}
+          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "test_hallway2", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
         },
         {
           "name": "player",
@@ -49,7 +49,7 @@
           "y": 48,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": ""}
+          "values": {"entrance": "", "entranceSave": ""}
         },
         {
           "name": "player",
@@ -59,7 +59,7 @@
           "y": 48,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": "test_hallway2"}
+          "values": {"entrance": "test_hallway2", "entranceSave": ""}
         }
       ]
     },

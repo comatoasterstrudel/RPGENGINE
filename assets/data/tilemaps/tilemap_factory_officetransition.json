@@ -49,7 +49,7 @@
           "y": 432,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": "factory_outsidefireexit"}
+          "values": {"entrance": "factory_outsidefireexit", "entranceSave": ""}
         },
         {
           "name": "door",
@@ -71,7 +71,7 @@
           "y": 80,
           "originX": 0,
           "originY": 0,
-          "values": {"entrance": ""}
+          "values": {"entrance": "", "entranceSave": ""}
         },
         {
           "name": "prop",

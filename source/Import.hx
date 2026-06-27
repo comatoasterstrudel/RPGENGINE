@@ -87,6 +87,7 @@ import overworld.props.Prop;
 import overworld.rooms.*;
 import overworld.roomtransition.RoomTransitionSubState;
 import overworld.roomtransition.TransitionType;
+import overworld.savespot.*;
 import overworld.scrollingprops.ScrollingProp;
 import overworld.tilemap.BetterFlxOgmo3Loader;
 import overworld.tilemap.TilesetData;
