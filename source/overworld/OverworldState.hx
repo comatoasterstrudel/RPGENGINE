@@ -9,6 +9,8 @@ class OverworldState extends FlxState
     
 	public static var previousRoom:String = "";
 	
+	public static var savePointName:String = "";
+	
 	// CAMERAS
 	var camGame:FlxCamera;
 	var camLighting:FlxCamera;

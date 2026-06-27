@@ -2,6 +2,7 @@ package save;
 
 class Save
 {
+	// story flags
     public static var storyFlags:Map<String, StoryFlag> = [];
     
     public static function init():Void{
@@ -14,14 +15,20 @@ class Save
         reset();
     }
     
+	public static var loadedSaveSlot:Int = -1;
+
     public static function reset():Void{
         // reset story flags
         
         for(storyFlag in storyFlags){
             storyFlag.restoreDefault();
         }
-    }
-	public static var loadedSaveSlot:Int = -1;
+		// reset last room
+
+		OverworldState.roomName = "";
+		OverworldState.previousRoom = "";
+		OverworldState.savePointName = "";
+	}
 
 	public static function save(?onComplete:Void->Void):Void
 	{
@@ -52,6 +59,14 @@ class Save
 			save.data.storyFlags.set(newFlag.id, newFlag);
 		}
 
+		// save last room
+
+		save.data.roomName = OverworldState.roomName;
+		save.data.previousRoom = OverworldState.previousRoom;
+		save.data.savePointName = OverworldState.savePointName;
+
+		// flush
+        
 		save.flush();
 
 		trace("Finished Save (Slot " + loadedSaveSlot + ")");
@@ -95,6 +110,20 @@ class Save
 			}
 		}
 
+		// load last room
+		if (save.data.roomName != null)
+		{
+			OverworldState.roomName = save.data.roomName;
+		}
+		if (save.data.previousRoom != null)
+		{
+			OverworldState.previousRoom = save.data.previousRoom;
+		}
+		if (save.data.savePointName != null)
+		{
+			OverworldState.savePointName = save.data.savePointName;
+		}
+        
 		trace("Finished Load (Slot " + loadedSaveSlot + ")");
 	}
 }
