@@ -11,6 +11,16 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 
 	var saveID:Int;
     
+	var confirmMenuManager:CtMenuManager;
+	var cursor:Cursor;
+
+	var confirmText:CtText;
+	var confirmYes:CtText;
+	var confirmNo:CtText;
+
+	var baseSprites:FlxSpriteGroup;
+	var confirmSprites:FlxSpriteGroup;
+    
 	public function new(saveWindow:CtSprite, y:Float, saveID:Int, addDivider:Bool, enabled:Bool):Void
 	{
         super();
@@ -22,11 +32,16 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 		var save = new FlxSave();
 		save.bind(Constants.saveFileName + saveID);
 
+		baseSprites = new FlxSpriteGroup();
+
+		confirmSprites = new FlxSpriteGroup();
+		confirmSprites.visible = false;
+        
 		callIcon = new CtSprite().createFromImage(started ? Constants.saveLoadMenuCallIconGraphicPath : Constants.saveLoadMenuCallIconNotStartedGraphicPath,
 			.7);
         callIcon.setPosition(saveWindow.x + 30, y + 20);
         callIcon.antialiasing = false;
-        add(callIcon);
+		baseSprites.add(callIcon);
         
         if(addDivider){
             divider = new CtSprite().createFromImage(Constants.saveLoadMenuDividerGraphicPath);
@@ -45,7 +60,9 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 			var roomData = new RoomData(save.data.roomName);
 
 			var roomName = roomData.displayName;
-			roomText.text += ("\n" + roomName);
+			var time = FlxStringUtil.formatTime(save.data.playtime, false);
+
+			roomText.text += ("\n" + roomName + "\n" + time);
 		}
 		else
 		{
@@ -53,12 +70,126 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 		}
 
 		CtUtil.centerSpriteOnSprite(roomText, callIcon, false, true);
-		add(roomText);
+		baseSprites.add(roomText);
 
 		if (!enabled)
 		{
 			callIcon.alpha = .4;
 			roomText.alpha = .4;
 		}
-    }
+		initConfirmation();
+
+		add(baseSprites);
+		add(confirmSprites);
+	}
+
+	override function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+
+		confirmMenuManager.update();
+	}
+
+	public function doConfirmation(text:String, yesFunc:Void->Void, noFunc:Void->Void):Void
+	{
+		confirmText.text = text;
+		CtUtil.centerSpriteOnSprite(confirmText, saveWindow, true, false);
+		CtUtil.centerSpriteOnSprite(confirmText, callIcon, false, true);
+		confirmText.y -= 35;
+
+		var menuOptions:Array<Array<CtMenuOption>> = [];
+
+		menuOptions[0] = [
+			{
+				sprite: confirmYes,
+				cursorDirection: DOWN,
+				clickFunction: function(f):Void
+				{
+					closeConfirmation();
+					new FlxTimer().start(0.1, function(f):Void
+					{
+						yesFunc();
+					});
+				},
+				cancelFunction: function(f):Void
+				{
+					closeConfirmation();
+					new FlxTimer().start(0.1, function(f):Void
+					{
+						noFunc();
+					});
+				}
+			},
+			{
+				sprite: confirmNo,
+				cursorDirection: DOWN,
+				clickFunction: function(f):Void
+				{
+					closeConfirmation();
+					new FlxTimer().start(0.1, function(f):Void
+					{
+						noFunc();
+					});
+				},
+				cancelFunction: function(f):Void
+				{
+					closeConfirmation();
+					new FlxTimer().start(0.1, function(f):Void
+					{
+						noFunc();
+					});
+				}
+			}
+		];
+		confirmMenuManager.setMenuOptions(menuOptions);
+
+		openConfirmation();
+	}
+
+	function openConfirmation():Void
+	{
+		baseSprites.visible = false;
+		confirmSprites.visible = true;
+		confirmMenuManager.enable(true);
+	}
+
+	function closeConfirmation():Void
+	{
+		baseSprites.visible = true;
+		confirmSprites.visible = false;
+		confirmMenuManager.disable();
+	}
+
+	function initConfirmation():Void
+	{
+		confirmText = new CtText(10, 10, "sd", FlxAssets.FONT_DEFAULT, 30, false);
+		confirmText.color = FlxColor.BLACK;
+		confirmSprites.add(confirmText);
+
+		confirmYes = new CtText(10, 10, "Yes", FlxAssets.FONT_DEFAULT, 20, false);
+		confirmYes.color = FlxColor.BLACK;
+		confirmSprites.add(confirmYes);
+
+		confirmNo = new CtText(10, 10, "No", FlxAssets.FONT_DEFAULT, 20, false);
+		confirmNo.color = FlxColor.BLACK;
+		confirmSprites.add(confirmNo);
+
+		CtUtil.centerSpriteOnSprite(confirmYes, saveWindow, true, false);
+		confirmYes.x -= 60;
+
+		CtUtil.centerSpriteOnSprite(confirmNo, saveWindow, true, false);
+		confirmNo.x += 60;
+
+		CtUtil.centerSpriteOnSprite(confirmYes, callIcon, false, true);
+		confirmYes.y += 20;
+
+		CtUtil.centerSpriteOnSprite(confirmNo, callIcon, false, true);
+		confirmNo.y += 20;
+
+		confirmMenuManager = new CtMenuManager(CtControls.getInputFunction("right", JUSTPRESSED), CtControls.getInputFunction("left", JUSTPRESSED),
+			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED),
+			CtControls.getInputFunction("down", JUSTPRESSED), CtControls.getInputFunction("up", JUSTPRESSED));
+		cursor = new Cursor(Constants.cursorArrowGraphic);
+		confirmSprites.add(confirmMenuManager.addCursor(cursor, 20, false));
+	}
 }

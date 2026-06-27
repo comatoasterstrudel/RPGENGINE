@@ -169,9 +169,28 @@ class SaveLoadMenu extends FlxSubState
 								case CONTINUE:
 									continueSave(i);
 								case ERASE:
-									eraseSave(i);
+									row.doConfirmation("Erase File " + (i + 1) + "?", function():Void
+									{
+										eraseSave(i);
+									}, function():Void
+									{
+										menuManager.enable();
+									});
 								case SAVE:
-									save(i);
+									if (Save.isSaveStarted(i))
+									{
+										row.doConfirmation("Overwrite File " + (i + 1) + "?", function():Void
+										{
+											save(i);
+										}, function():Void
+										{
+											menuManager.enable();
+										});
+									}
+									else
+									{
+										save(i);
+									}
 							}
 						}
 					}

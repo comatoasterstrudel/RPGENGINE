@@ -5,6 +5,9 @@ class Save
 	// story flags
     public static var storyFlags:Map<String, StoryFlag> = [];
     
+	// time
+	public static var playtime:Float = 0;
+	
     public static function init():Void{
         // add story flags
         for (storyFlagName in CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.storyFlagsDataFolder, [".json"], false, false), ["storyflag_", ".json"]))
@@ -12,6 +15,8 @@ class Save
 			storyFlags.set(storyFlagName, new StoryFlag(storyFlagName));
 		}
         
+		FlxG.plugins.addPlugin(new TimeHandler());
+		
         reset();
     }
     
@@ -29,6 +34,9 @@ class Save
 		OverworldState.previousRoom = "";
 		OverworldState.savePointName = "";
 		OverworldState.resetGlobalVars();
+		// reset time
+
+		playtime = 0;
 	}
 
 	public static function save(?slot:Int = -5, ?onComplete:Void->Void):Void
@@ -70,6 +78,10 @@ class Save
 		save.data.previousRoom = OverworldState.previousRoom;
 		save.data.savePointName = OverworldState.savePointName;
 
+		// save time
+
+		save.data.playtime = playtime;
+		
 		// flush
         
 		save.flush();
@@ -137,6 +149,13 @@ class Save
 			OverworldState.savePointName = save.data.savePointName;
 		}
         
+		// load time
+
+		if (save.data.playtime != null)
+		{
+			playtime = save.data.playtime;
+		}
+		
 		trace("Finished Load (Slot " + loadedSaveSlot + ")");
 		if (onComplete != null)
 		{
