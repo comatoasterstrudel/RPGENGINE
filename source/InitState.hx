@@ -29,9 +29,13 @@ class InitState extends FlxState{
 		FlxG.switchState(OverworldState.new);
 		return;
 		#end
+		#if levelSelector
+		FlxG.switchState(LevelSelectorState.new);
+		return;
+		#end
 		#end
         
-        FlxG.switchState(LevelSelectorState.new);
+		FlxG.switchState(MainMenuState.new);
     }
 	function initControls():Void
 	{

@@ -664,7 +664,6 @@ class OverworldState extends FlxState
 			{
 				if (placePoint.entranceSave == savePointName && startAtSavePoint)
 				{
-					trace("yay");
 					placePointsContainsPreviousRoom = true;
 					break;
 				}

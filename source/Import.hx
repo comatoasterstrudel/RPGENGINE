@@ -67,6 +67,7 @@ import haxe.iterators.StringIteratorUnicode;
 import haxe.iterators.StringKeyValueIterator;
 import haxe.macro.Compiler;
 import levelselector.LevelSelectorState;
+import mainmenu.*;
 import openfl.Assets;
 import openfl.display.BitmapData;
 import openfl.display.BitmapDataChannel;

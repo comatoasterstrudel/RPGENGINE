@@ -134,4 +134,27 @@ class Save
 			onComplete();
 		}
 	}
+	public static function isSaveStarted(slot:Int):Bool
+	{
+		var save = new FlxSave();
+		save.bind(Constants.saveFileName + loadedSaveSlot);
+
+		return save.data.saveCreated;
+	}
+
+	public static function isAnySaveStarted():Bool
+	{
+		var yes:Bool = false;
+
+		for (i in 0...Constants.maxSaveFiles)
+		{
+			if (isSaveStarted(i))
+			{
+				yes = true;
+				break;
+			}
+		}
+
+		return yes;
+	}
 }
