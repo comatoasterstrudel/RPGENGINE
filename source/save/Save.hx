@@ -31,13 +31,17 @@ class Save
 		OverworldState.resetGlobalVars();
 	}
 
-	public static function save(?onComplete:Void->Void):Void
+	public static function save(?slot:Int = -5, ?onComplete:Void->Void):Void
 	{
-		if (loadedSaveSlot < 0)
+		if (slot == -5)
+			slot = loadedSaveSlot;
+
+		if (slot < 0)
 		{
-			return; // dont save on a slot that doesnt exist dawg..
+			return; // dont load on a slot that doesnt exist dawg..
 		}
 
+		loadedSaveSlot = Std.int(FlxMath.bound(slot, 0, Constants.maxSaveFiles));
 		trace("Starting Save (Slot " + loadedSaveSlot + ")");
 
 		var save = new FlxSave();
@@ -77,8 +81,11 @@ class Save
 		}
 	}
 
-	public static function load(slot:Int, ?onComplete:Void->Void):Void
+	public static function load(?slot:Int = -5, ?onComplete:Void->Void):Void
 	{
+		if (slot == -5)
+			slot = loadedSaveSlot;
+
 		reset(); // reset before loading in case youre loading a different slot or smth
 
 		if (slot < 0)
@@ -95,7 +102,7 @@ class Save
 
 		if (save.data.saveCreated == null)
 		{
-			Save.save(null); // if you havent used this save file before, it should write the default variables to a save file first
+			return;
 		}
 
 		// load story flags

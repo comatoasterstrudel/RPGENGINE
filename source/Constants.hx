@@ -148,6 +148,7 @@ class Constants
 	public static final saveLoadMenuSaveWindowGraphicPath:String = "assets/images/saveloadmenu/saveWindow.png";
 	public static final saveLoadMenuSaveWindowArrowGraphicPath:String = "assets/images/saveloadmenu/saveWindowArrow.png";
 	public static final saveLoadMenuCallIconGraphicPath:String = "assets/images/saveloadmenu/saveWindowPhone.png";
+	public static final saveLoadMenuCallIconNotStartedGraphicPath:String = "assets/images/saveloadmenu/saveWindowPhoneNotStarted.png";
 	public static final saveLoadMenuDividerGraphicPath:String = "assets/images/saveloadmenu/saveWindowDivider.png";
 	//
 	// BASE STUFF ??
