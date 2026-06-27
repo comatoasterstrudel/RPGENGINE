@@ -1,11 +1,11 @@
 {
-    "name": "laurin",
-    "graphic": "laurin",
+    "name": "laurinwork",
+    "graphic": "laurinwork",
     "fromAseprite": true,
     "anims": [
         {
             "name": "idle_down",
-            "prefix": "idle_down",
+            "prefix": "Idle_down",
             "fps": 0
         },
         {
@@ -15,14 +15,15 @@
         },
         {
             "name": "idle_left",
-            "prefix": "idle_left",
-            "fps": 0,
-            "flipX": true
+            "prefix": "Idle_horizontal",
+            "fps": 0
         },
         {
             "name": "idle_right",
-            "prefix": "idle_right",
-            "fps": 0
+            "prefix": "Idle_horizontal",
+            "fps": 0,
+            "flipX": true
+
         },
         {
             "name": "walk_down",
@@ -38,15 +39,16 @@
         },
         {
             "name": "walk_left",
-            "prefix": "walk_left",
+            "prefix": "walk_horizontal",
             "fps": 5,
             "looped": "true"
         },
         {
             "name": "walk_right",
-            "prefix": "walk_right",
+            "prefix": "walk_horizontal",
             "fps": 5,
-            "looped": "true"
+            "looped": "true",
+            "flipX": true
         }
     ]
 }
