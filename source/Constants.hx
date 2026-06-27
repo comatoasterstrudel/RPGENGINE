@@ -134,10 +134,21 @@ class Constants
 	public static final dialogueNameBoxRightEndGraphicPath:String = "nameBoxRight";
 	public static final dialogueGraphicsPath:String = "assets/images/dialogue/";
 	//
+	// MAIN MENU
+	//
+	public static final mainMenuStartingY:Float = 300;
+	public static final mainMenuLogoPath:String = "assets/images/mainmenu/gameLogo.png";
+	//
 	// SAVE !!! STUFF !!!
 	//
+	// story flags
 	public static final storyFlagsDataFolder:String = "assets/data/storyflags/";
 	public static final storyFlagsDataPath:String = storyFlagsDataFolder + "storyflag_";
+	// saveloadmenu
+	public static final saveLoadMenuSaveWindowGraphicPath:String = "assets/images/saveloadmenu/saveWindow.png";
+	public static final saveLoadMenuSaveWindowArrowGraphicPath:String = "assets/images/saveloadmenu/saveWindowArrow.png";
+	public static final saveLoadMenuCallIconGraphicPath:String = "assets/images/saveloadmenu/saveWindowPhone.png";
+	public static final saveLoadMenuDividerGraphicPath:String = "assets/images/saveloadmenu/saveWindowDivider.png";
 	//
 	// BASE STUFF ??
 	//

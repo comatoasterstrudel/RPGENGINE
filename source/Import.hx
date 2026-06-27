@@ -93,5 +93,6 @@ import overworld.scrollingprops.ScrollingProp;
 import overworld.tilemap.BetterFlxOgmo3Loader;
 import overworld.tilemap.TilesetData;
 import save.*;
+import save.saveloadmenu.*;
 import save.storyflags.*;
 import sys.thread.Thread;

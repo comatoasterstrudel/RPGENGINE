@@ -28,6 +28,7 @@ class Save
 		OverworldState.roomName = "";
 		OverworldState.previousRoom = "";
 		OverworldState.savePointName = "";
+		OverworldState.resetGlobalVars();
 	}
 
 	public static function save(?onComplete:Void->Void):Void

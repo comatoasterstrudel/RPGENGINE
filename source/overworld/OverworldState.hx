@@ -1090,10 +1090,13 @@ class OverworldState extends FlxState
 
 		inCutscene = true;
 
-		Save.save(function():Void
+		openSubState(new SaveLoadMenu(SAVE, function():Void
 		{
 			inCutscene = false;
-		});
+		}, function():Void
+		{
+			inCutscene = false;
+		}));
 	}
 	
 	function addScript(path:String):CtScript
