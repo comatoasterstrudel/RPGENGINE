@@ -21,4 +21,80 @@ class Save
             storyFlag.restoreDefault();
         }
     }
+	public static var loadedSaveSlot:Int = -1;
+
+	public static function save(?onComplete:Void->Void):Void
+	{
+		if (loadedSaveSlot < 0)
+		{
+			return; // dont save on a slot that doesnt exist dawg..
+		}
+
+		trace("Starting Save (Slot " + loadedSaveSlot + ")");
+
+		var save = new FlxSave();
+		save.bind(Constants.saveFileName + loadedSaveSlot);
+
+		// set save as created
+		save.data.saveCreated = true;
+
+		// save story flags
+		save.data.storyFlags = new Map<String, StoryFlag>();
+
+		for (storyFlag in storyFlags)
+		{
+			var newFlag:StoryFlag = new StoryFlag(storyFlag.id);
+			newFlag.val_string = storyFlag.val_string;
+			newFlag.val_bool = storyFlag.val_bool;
+			newFlag.val_int = storyFlag.val_int;
+			newFlag.val_float = storyFlag.val_float;
+
+			save.data.storyFlags.set(newFlag.id, newFlag);
+		}
+
+		save.flush();
+
+		trace("Finished Save (Slot " + loadedSaveSlot + ")");
+	}
+
+	public static function load(slot:Int, ?onComplete:Void->Void):Void
+	{
+		reset(); // reset before loading in case youre loading a different slot or smth
+
+		if (slot < 0)
+		{
+			return; // dont load on a slot that doesnt exist dawg..
+		}
+
+		loadedSaveSlot = slot;
+
+		trace("Starting Load (Slot " + loadedSaveSlot + ")");
+
+		var save = new FlxSave();
+		save.bind(Constants.saveFileName + loadedSaveSlot);
+
+		if (save.data.saveCreated == null)
+		{
+			Save.save(null); // if you havent used this save file before, it should write the default variables to a save file first
+		}
+
+		// load story flags
+		if (save.data.storyFlags != null)
+		{
+			var saved_storyFlags:Map<String, StoryFlag> = cast save.data.storyFlags;
+
+			for (storyFlag in saved_storyFlags)
+			{
+				if (storyFlags.exists(storyFlag.id))
+				{
+					storyFlags.get(storyFlag.id).val_string = storyFlag.val_string;
+					storyFlags.get(storyFlag.id).val_bool = storyFlag.val_bool;
+					storyFlags.get(storyFlag.id).val_int = storyFlag.val_int;
+					storyFlags.get(storyFlag.id).val_float = storyFlag.val_float;
+				}
+			}
+		}
+
+		trace("Finished Load (Slot " + loadedSaveSlot + ")");
+	}
 }

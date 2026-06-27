@@ -135,4 +135,12 @@ class Constants
 	//
 	public static final storyFlagsDataFolder:String = "assets/data/storyflags/";
 	public static final storyFlagsDataPath:String = storyFlagsDataFolder + "storyflag_";
+	//
+	// BASE STUFF ??
+	//
+	public static final startingRoom:String = "factory_intro";
+	//
+	// SAVE STUFF
+	//
+	public static final saveFileName:String = "s";
 }

@@ -119,10 +119,18 @@ class InitState extends FlxState{
 	{
 		Save.init();
 
+		// for now
+		Save.load(0);
+		
 		#if traceStoryFlags
 		for (storyFlag in Save.storyFlags)
 		{
+			trace("[StoryFlag]");
 			trace(storyFlag.id);
+			trace(storyFlag.val_string);
+			trace(storyFlag.val_bool);
+			trace(storyFlag.val_int);
+			trace(storyFlag.val_float);
 		}
 		#end
 	}

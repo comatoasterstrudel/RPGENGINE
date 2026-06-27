@@ -1343,6 +1343,12 @@ class OverworldState extends FlxState
 		FlxG.watch.addQuick("inCutsceneBeforeDialogue", inCutsceneBeforeDialogue);
 		FlxG.watch.addQuick("camGame.scroll.x", camGame.scroll.x);
 		FlxG.watch.addQuick("camGame.scroll.y", camGame.scroll.y);
+		#if enableQuickSave
+		if (FlxG.keys.justPressed.SEVEN)
+		{
+			Save.save();
+		}
+		#end
 	}
 	#end
 }
