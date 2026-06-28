@@ -661,32 +661,46 @@ class OverworldState extends FlxState
 
 		if (previousRoom != "" || (savePointName != "" && startAtSavePoint))
 		{
-			for (placePoint in playerPlacePoints)
-			{
-				if (placePoint.entranceSave == savePointName && startAtSavePoint)
+			if(startAtSavePoint){
+				for (placePoint in playerPlacePoints)
 				{
-					placePointsContainsPreviousRoom = true;
-					placePointsContainsSavePoint = true;
-					break;
+					if (placePoint.entranceSave == savePointName && startAtSavePoint)
+					{
+						placePointsContainsSavePoint = true;
+						break;
+					}
 				}
-				if (placePoint.entrance == previousRoom && placePoint.entrance != "")
-				{
-					placePointsContainsPreviousRoom = true;
-					break;
-				}
+			} 
+			
+			if(!placePointsContainsSavePoint){
+				for (placePoint in playerPlacePoints){
+					if (placePoint.entrance == previousRoom && placePoint.entrance != "")
+					{
+						placePointsContainsPreviousRoom = true;
+						break;
+					}
+				}	
 			}
 		}
 
+		var placed:Bool = false;
+		
 		for (placePoint in playerPlacePoints)
 		{
-			if ((placePoint.entranceSave == savePointName && startAtSavePoint)
-				|| (placePoint.entrance == previousRoom && placePoint.entrance != "" && !placePointsContainsSavePoint)
-				|| placePoint.entrance == ""
-				&& !placePointsContainsPreviousRoom)
+			if (!placed)
 			{
-
+				if ((placePoint.entranceSave == savePointName && startAtSavePoint))
+				{
+					player.positionCharacter(placePoint.position.x * Constants.overworldPixelScale, placePoint.position.y * Constants.overworldPixelScale);
+					placed = true;
+					break;
+				}
+				else if ((placePoint.entrance == previousRoom && placePoint.entrance != "" && !placePointsContainsSavePoint)|| placePoint.entrance == "" && !placePointsContainsPreviousRoom && !placePointsContainsSavePoint)
+				{
 				player.positionCharacter(placePoint.position.x * Constants.overworldPixelScale, placePoint.position.y * Constants.overworldPixelScale);
-				break;
+					placed = true;
+					break;
+				}	
 			}
 		}
 		for (prop in props)
