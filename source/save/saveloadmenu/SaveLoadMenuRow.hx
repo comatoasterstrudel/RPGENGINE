@@ -51,25 +51,6 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
             add(divider);
 		}     
 		roomText = new CtText(10, 10, "sd", FlxAssets.FONT_DEFAULT, 20, false);
-		roomText.x = callIcon.x + callIcon.width + 20;
-		roomText.color = FlxColor.BLACK;
-		roomText.text = "File " + (saveID + 1);
-
-		if (started)
-		{
-			var roomData = new RoomData(save.data.roomName);
-
-			var roomName = roomData.displayName;
-			var time = FlxStringUtil.formatTime(save.data.playtime, false);
-
-			roomText.text += ("\n" + roomName + "\n" + time);
-		}
-		else
-		{
-			roomText.text += ("\n(Not Started)");
-		}
-
-		CtUtil.centerSpriteOnSprite(roomText, callIcon, false, true);
 		baseSprites.add(roomText);
 
 		if (!enabled)
@@ -81,6 +62,8 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 
 		add(baseSprites);
 		add(confirmSprites);
+		updateRow();
+		updateColor(FlxColor.BLACK);
 	}
 
 	override function update(elapsed:Float):Void
@@ -191,5 +174,39 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 			CtControls.getInputFunction("down", JUSTPRESSED), CtControls.getInputFunction("up", JUSTPRESSED));
 		cursor = new Cursor(Constants.cursorArrowGraphic);
 		confirmSprites.add(confirmMenuManager.addCursor(cursor, 20, false));
+	}
+	public function updateRow():Void
+	{
+		var started = Save.isSaveStarted(saveID);
+		var save = new FlxSave();
+		save.bind(Constants.saveFileName + saveID);
+
+		roomText.x = callIcon.x + callIcon.width + 20;
+		roomText.color = FlxColor.BLACK;
+		roomText.text = "File " + (saveID + 1);
+
+		if (started)
+		{
+			var roomData = new RoomData(save.data.roomName);
+
+			var roomName = roomData.displayName;
+			var time = FlxStringUtil.formatTime(save.data.playtime, false);
+
+			roomText.text += ("\n" + roomName + "\n" + time);
+		}
+		else
+		{
+			roomText.text += ("\n(Not Started)");
+		}
+
+		CtUtil.centerSpriteOnSprite(roomText, callIcon, false, true);
+	}
+
+	public function updateColor(color:FlxColor):Void
+	{
+		for (spr in baseSprites.members)
+		{
+			spr.color = color;
+		}
 	}
 }

@@ -273,13 +273,19 @@ class SaveLoadMenu extends FlxSubState
 	{
 		Save.save(slot);
 
-		doTransition(function():Void
+		rows[slot].updateRow();
+		rows[slot].updateColor(FlxColor.BLUE);
+
+		new FlxTimer().start(1, function(f):Void
 		{
-			camUI.visible = false;
-		}, function():Void
-		{
-			onComplete();
-			close();
+			doTransition(function():Void
+			{
+				camUI.visible = false;
+			}, function():Void
+			{
+				onComplete();
+				close();
+			});
 		});
 	}
 }
