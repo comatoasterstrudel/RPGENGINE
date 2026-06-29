@@ -1,4 +1,5 @@
 {
     "name": "test",
-    "graphic": "test"
+    "graphic": "test",
+    "bgName": "factory"
 }

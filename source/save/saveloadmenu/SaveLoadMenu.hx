@@ -8,6 +8,8 @@ class SaveLoadMenu extends FlxSubState
     var bg:CtSprite;
     var saveWindow:CtSprite;
     
+	var bgName:String;
+	
     var rows:Array<SaveLoadMenuRow> = [];
     var saveWindowArrow:CtSprite;
     
@@ -31,10 +33,12 @@ class SaveLoadMenu extends FlxSubState
 	var confirmMenuManager:CtMenuManager;
 	var confirmCursor:Cursor;
 	
-    public function new(type:SaveLoadMenuType, ?onComplete:Void->Void, ?onExit:Void->Void):Void{
+	public function new(type:SaveLoadMenuType, bgName:String, ?onComplete:Void->Void, ?onExit:Void->Void):Void
+	{
         super();
         
         this.type = type;
+		this.bgName = bgName;
 		this.onComplete = onComplete;
 		this.onExit = onExit;
 
@@ -90,7 +94,9 @@ class SaveLoadMenu extends FlxSubState
     }
     
     function setupUI():Void{
-        bg = new CtSprite().createColorBlock(FlxG.width, FlxG.height, 0xFF383B4B);
+		bg = new CtSprite().createFromImage(Constants.saveLoadMenuBgGraphicPath + bgName + ".png");
+		bg.screenCenter();
+		bg.antialiasing = false;
         bg.camera = camUI;
         add(bg);
         
@@ -264,7 +270,7 @@ class SaveLoadMenu extends FlxSubState
 					cancelFunction: function(f):Void
 					{
 						removeConfirm();
-						new FlxTimer().start(0.1, function(f):Void
+						new FlxTimer().start(0.01, function(f):Void
 						{
 							menuManager.enable();
 						});
@@ -276,7 +282,7 @@ class SaveLoadMenu extends FlxSubState
 					clickFunction: function(F):Void
 					{
 						removeConfirm();
-						new FlxTimer().start(0.1, function(f):Void
+						new FlxTimer().start(0.01, function(f):Void
 						{
 							menuManager.enable();
 						});
@@ -284,7 +290,7 @@ class SaveLoadMenu extends FlxSubState
 					cancelFunction: function(f):Void
 					{
 						removeConfirm();
-						new FlxTimer().start(0.1, function(f):Void
+						new FlxTimer().start(0.01, function(f):Void
 						{
 							menuManager.enable();
 						});

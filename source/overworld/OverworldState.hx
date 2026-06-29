@@ -879,7 +879,7 @@ class OverworldState extends FlxState
 		}
 		if (interactable.openSave)
 		{
-			openSaveMenu(interactable.saveName);
+			openSaveMenu(interactable.saveName, interactable.saveBgName);
 		}
 		
 		return TRIGGERED;
@@ -1100,13 +1100,13 @@ class OverworldState extends FlxState
 		});
 	}
 
-	function openSaveMenu(saveName:String):Void
+	function openSaveMenu(saveName:String, bgName:String):Void
 	{
 		savePointName = saveName;
 
 		inCutscene = true;
 
-		openSubState(new SaveLoadMenu(SAVE, function():Void
+		openSubState(new SaveLoadMenu(SAVE, bgName, function():Void
 		{
 			inCutscene = false;
 		}, function():Void

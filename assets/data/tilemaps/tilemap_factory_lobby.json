@@ -119,7 +119,7 @@
           "height": 48,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/lobby/dialogue_lobbysecretary", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/lobby/dialogue_lobbysecretary", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": "", "saveBgName": ""}
         },
         {
           "name": "character",

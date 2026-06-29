@@ -39,7 +39,7 @@
           "height": 48,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "test_test", "roomTransitionTime": 3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
+          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "test_test", "roomTransitionTime": 3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": "", "saveBgName": ""}
         },
         {
           "name": "player",

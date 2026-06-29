@@ -95,7 +95,7 @@
           "height": 16,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_w", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_w", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": "", "saveBgName": ""}
         },
         {
           "name": "interactable",
@@ -107,7 +107,7 @@
           "height": 16,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_m", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_m", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": "", "saveBgName": ""}
         },
         {
           "name": "interactable",
@@ -119,7 +119,7 @@
           "height": 16,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_u", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": ""}
+          "values": {"triggerByWalkingOver": false, "dialogue": "factory/hallway/dialogue_br_u", "room": "", "roomTransitionTime": 0.3, "encounterName": "", "scriptFunction": "", "tag": "", "openSave": false, "saveName": "", "saveBgName": ""}
         },
         {
           "name": "player",

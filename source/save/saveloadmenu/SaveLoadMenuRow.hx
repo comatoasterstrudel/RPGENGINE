@@ -89,7 +89,7 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 				clickFunction: function(f):Void
 				{
 					closeConfirmation();
-					new FlxTimer().start(0.1, function(f):Void
+					new FlxTimer().start(0.01, function(f):Void
 					{
 						yesFunc();
 					});
@@ -97,7 +97,7 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 				cancelFunction: function(f):Void
 				{
 					closeConfirmation();
-					new FlxTimer().start(0.1, function(f):Void
+					new FlxTimer().start(0.01, function(f):Void
 					{
 						noFunc();
 					});
@@ -109,7 +109,7 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 				clickFunction: function(f):Void
 				{
 					closeConfirmation();
-					new FlxTimer().start(0.1, function(f):Void
+					new FlxTimer().start(0.01, function(f):Void
 					{
 						noFunc();
 					});
@@ -117,7 +117,7 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 				cancelFunction: function(f):Void
 				{
 					closeConfirmation();
-					new FlxTimer().start(0.1, function(f):Void
+					new FlxTimer().start(0.01, function(f):Void
 					{
 						noFunc();
 					});

@@ -150,6 +150,7 @@ class Constants
 	public static final saveLoadMenuCallIconGraphicPath:String = "assets/images/saveloadmenu/saveWindowPhone.png";
 	public static final saveLoadMenuCallIconNotStartedGraphicPath:String = "assets/images/saveloadmenu/saveWindowPhoneNotStarted.png";
 	public static final saveLoadMenuDividerGraphicPath:String = "assets/images/saveloadmenu/saveWindowDivider.png";
+	public static final saveLoadMenuBgGraphicPath:String = "assets/images/saveloadmenu/bg/savebg_";
 	// time
 	public static final timeTrackerStates:Array<Dynamic> = [OverworldState, PlayState];
 	public static final timeTrackerExcludedSubStates:Array<Dynamic> = [SaveLoadMenu];

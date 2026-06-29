@@ -95,7 +95,7 @@
           "height": 64,
           "originX": 0,
           "originY": 0,
-          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "factory_outsidefireexit", "roomTransitionTime": 2, "encounterName": "", "scriptFunction": "", "tag": "door", "openSave": false, "saveName": ""}
+          "values": {"triggerByWalkingOver": true, "dialogue": "", "room": "factory_outsidefireexit", "roomTransitionTime": 2, "encounterName": "", "scriptFunction": "", "tag": "door", "openSave": false, "saveName": "", "saveBgName": ""}
         },
         {
           "name": "player",

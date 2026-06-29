@@ -9,7 +9,7 @@ class SaveSpot extends Interactable
         super();
 		data = new SaveSpotData(name);
 		
-		addManually(x, y, 16, 16, INTERACT, tag, "", "", 0, "", "", true, saveName);
+		addManually(x, y, 16, 16, INTERACT, tag, "", "", 0, "", "", true, saveName, data.bgName);
 		createFromImage(Constants.saveSpotGraphicPath + data.graphic + ".png");
         resize(Constants.overworldPixelScale);
         antialiasing = false;

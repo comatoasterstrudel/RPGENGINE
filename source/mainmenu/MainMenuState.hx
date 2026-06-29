@@ -52,7 +52,7 @@ class MainMenuState extends FlxState
 		{
 			menuManager.disable();
 
-			openSubState(new SaveLoadMenu(NEWGAME, null, function():Void
+			openSubState(new SaveLoadMenu(NEWGAME, "mainmenu", null, function():Void
 			{
 				menuManager.enable();
 			}));
@@ -66,7 +66,7 @@ class MainMenuState extends FlxState
 			{
 				menuManager.disable();
 
-				openSubState(new SaveLoadMenu(CONTINUE, null, function():Void
+				openSubState(new SaveLoadMenu(CONTINUE, "mainmenu", null, function():Void
 				{
 					menuManager.enable();
 				}));
@@ -83,7 +83,7 @@ class MainMenuState extends FlxState
 			{
 				menuManager.disable();
 
-				openSubState(new SaveLoadMenu(ERASE, function():Void
+				openSubState(new SaveLoadMenu(ERASE, "mainmenu", function():Void
 				{
 					FlxG.camera.shake(0.05, 0.1, null, true, X);
 					addTexts();
