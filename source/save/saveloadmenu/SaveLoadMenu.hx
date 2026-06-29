@@ -23,6 +23,14 @@ class SaveLoadMenu extends FlxSubState
 	var onComplete:Void->Void;
 	var onExit:Void->Void;
     
+	var confirmSprites:FlxSpriteGroup;
+	var confirmBg:CtSprite;
+	var confirmText:CtText;
+	var confirmYes:CtText;
+	var confirmNo:CtText;
+	var confirmMenuManager:CtMenuManager;
+	var confirmCursor:Cursor;
+	
     public function new(type:SaveLoadMenuType, ?onComplete:Void->Void, ?onExit:Void->Void):Void{
         super();
         
@@ -41,18 +49,22 @@ class SaveLoadMenu extends FlxSubState
         setupCameras();        
                 
         setUpMenu();
-        
+
         doTransition(function():Void{
             setupUI();
+			setUpConfirm();
         }, function():Void{
             menuManager.enable();
         });
+
     }
     
     override function update(elapsed:Float):Void{
         super.update(elapsed);
         
-		menuManager.update();          
+		menuManager.update();  
+		if (confirmMenuManager != null)
+			confirmMenuManager.update();        
     }
     
     /**
@@ -66,7 +78,7 @@ class SaveLoadMenu extends FlxSubState
 		cursor = new Cursor(Constants.cursorArrowGraphic);
         cursor.camera = camUI;
 	}
-    
+
     function setupCameras():Void{
         camUI = new FlxCamera();
         camUI.bgColor.alpha = 0;
@@ -119,10 +131,7 @@ class SaveLoadMenu extends FlxSubState
 					{
 						menuManager.disable();
 
-						doTransition(function():Void
-						{
-							FlxG.switchState(MainMenuState.new);
-						});
+						addConfirm();
 					}
 				}
 			]);
@@ -202,7 +211,104 @@ class SaveLoadMenu extends FlxSubState
         menuManager.setMenuOptions(menuOptions);
         menuManager.curRack = startNum;
     }
-    
+	function setUpConfirm():Void
+	{
+		confirmSprites = new FlxSpriteGroup();
+		confirmSprites.camera = camUI;
+		confirmSprites.visible = false;
+		add(confirmSprites);
+
+		confirmBg = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.BLACK);
+		confirmBg.alpha = .9;
+		confirmSprites.add(confirmBg);
+
+		confirmText = new CtText(10, 10, "Return to the Main Menu?", FlxAssets.FONT_DEFAULT, 40, false);
+		confirmText.screenCenter();
+		confirmSprites.add(confirmText);
+
+		confirmYes = new CtText(10, 10, "Yes", FlxAssets.FONT_DEFAULT, 40, false);
+		confirmYes.screenCenter();
+		confirmYes.setPosition(confirmYes.x - 200, confirmYes.y + 200);
+		confirmSprites.add(confirmYes);
+
+		confirmNo = new CtText(10, 10, "No", FlxAssets.FONT_DEFAULT, 40, false);
+		confirmNo.screenCenter();
+		confirmNo.setPosition(confirmNo.x + 200, confirmNo.y + 200);
+		confirmSprites.add(confirmNo);
+
+		for (spr in [confirmText, confirmYes, confirmNo])
+		{
+			spr.y -= 100;
+		}
+
+		confirmMenuManager = new CtMenuManager(CtControls.getInputFunction("right", JUSTPRESSED), CtControls.getInputFunction("left", JUSTPRESSED),
+			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED),
+			CtControls.getInputFunction("down", JUSTPRESSED), CtControls.getInputFunction("up", JUSTPRESSED));
+		confirmCursor = new Cursor(Constants.cursorArrowGraphic);
+
+		confirmSprites.add(confirmMenuManager.addCursor(confirmCursor, 20, false));
+
+		confirmMenuManager.setMenuOptions([
+			[
+				{
+					sprite: confirmYes,
+					cursorDirection: DOWN,
+					clickFunction: function(F):Void
+					{
+						removeConfirm();
+						doTransition(function():Void
+						{
+							FlxG.switchState(MainMenuState.new);
+						});
+					},
+					cancelFunction: function(f):Void
+					{
+						removeConfirm();
+						new FlxTimer().start(0.1, function(f):Void
+						{
+							menuManager.enable();
+						});
+					}
+				},
+				{
+					sprite: confirmNo,
+					cursorDirection: DOWN,
+					clickFunction: function(F):Void
+					{
+						removeConfirm();
+						new FlxTimer().start(0.1, function(f):Void
+						{
+							menuManager.enable();
+						});
+					},
+					cancelFunction: function(f):Void
+					{
+						removeConfirm();
+						new FlxTimer().start(0.1, function(f):Void
+						{
+							menuManager.enable();
+						});
+					}
+				}
+			]
+		]);
+	}
+
+	function addConfirm():Void
+	{
+		confirmSprites.visible = true;
+		new FlxTimer().start(0.1, function(f):Void
+		{
+			confirmMenuManager.enable(true);
+		});
+	}
+
+	function removeConfirm():Void
+	{
+		confirmSprites.visible = false;
+		confirmMenuManager.disable();
+	}
+
 	function exit(spr:FlxSprite):Void
 	{
 		menuManager.disable();
@@ -261,12 +367,18 @@ class SaveLoadMenu extends FlxSubState
 
 	function eraseSave(slot:Int):Void
 	{
-		var save = new FlxSave();
-		save.bind(Constants.saveFileName + slot);
-		save.erase();
-		if (onComplete != null)
-			onComplete();
-		close();
+		rows[slot].updateColor(FlxColor.RED);
+
+		new FlxTimer().start(1, function(f):Void
+		{
+			
+			var save = new FlxSave();
+			save.bind(Constants.saveFileName + slot);
+			save.erase();
+			if (onComplete != null)
+				onComplete();
+			close();
+		});	
 	}
 
 	function save(slot:Int):Void
