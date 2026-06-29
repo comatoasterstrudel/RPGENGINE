@@ -8,19 +8,24 @@ class MainMenuState extends FlxState
 	var cursor:Cursor;
 	var menuOptions:Array<Array<CtMenuOption>> = [];
 
+	var bg:CtSprite;
 	var logo:CtSprite;
     
     override function create():Void{
         super.create();
         
+		bg = new CtSprite().createFromImage(Constants.mainMainBgPath);
+		bg.screenCenter();
+		bg.antialiasing = false;
+		add(bg);
+		
 		setUpMenu();
 
 		addTexts();
 
 		logo = new CtSprite(30, 40).createFromImage(Constants.mainMenuLogoPath);
+		logo.antialiasing = false;
 		add(logo);
-        
-        bgColor = 0xFF1E1C28;
     }
 	override function update(elapsed:Float):Void
 	{
@@ -48,7 +53,7 @@ class MainMenuState extends FlxState
 	{
 		clearMenuOptions();
 
-		addOption("New Call", function():Void
+		addOption("New File", function():Void
 		{
 			menuManager.disable();
 
@@ -60,7 +65,7 @@ class MainMenuState extends FlxState
 
 		var allowContinue:Bool = Save.isAnySaveStarted();
 
-		var continueText:CtText = addOption("Continue Call", function():Void
+		var continueText:CtText = addOption("Continue", function():Void
 		{
 			if (allowContinue)
 			{
@@ -77,7 +82,7 @@ class MainMenuState extends FlxState
 			}
 		});
 
-		var eraseText:CtText = addOption("Erase Call", function():Void
+		var eraseText:CtText = addOption("Erase File", function():Void
 		{
 			if (allowContinue)
 			{
