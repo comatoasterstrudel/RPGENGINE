@@ -345,9 +345,9 @@ function doProductionCutscene():Void
 
 		disableProduction();
 
-		character_laurin.moveToGridSpace(-1, 28.5, function():Void
+		character_laurin.moveToGridSpace(-1, 28, function():Void
 		{
-			character_laurin.moveToGridSpace(33.5, -1, function():Void
+			character_laurin.moveToGridSpace(33.5, 28, function():Void
 			{
 				character_laurin.moveToGridSpace(-1, 29.5, function():Void
 				{
@@ -470,6 +470,7 @@ function doProductionCutscene():Void
 
 	// end cutscene
 	OverworldState.eventManager.addEvent(function() {
+		character_player.facing = DOWN;
 		tile_main_front.visible = false;
 		character_player.movementSpeed = 1;
 		character_player.lockMovement = false;
