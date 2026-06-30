@@ -1,5 +1,6 @@
 {
     "name": "factory_lobbytransition",
     "map": "factory_lobbytransition",
+    "script": ["factory_lobbytransition"],
     "bgColor": [220, 220, 220]
 }
