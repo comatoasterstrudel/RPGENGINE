@@ -21,11 +21,12 @@ class MainMenuState extends FlxState
 		
 		setUpMenu();
 
-		addTexts();
+		addTexts(Constants.mainMenuIntroTime);
 
 		logo = new CtSprite(30, 40).createFromImage(Constants.mainMenuLogoPath);
 		logo.antialiasing = false;
 		add(logo);
+		doIntroAnim();
     }
 	override function update(elapsed:Float):Void
 	{
@@ -49,7 +50,7 @@ class MainMenuState extends FlxState
 		add(texts);
 	}
 
-	function addTexts():Void
+	function addTexts(delay:Float = 0):Void
 	{
 		clearMenuOptions();
 
@@ -117,7 +118,10 @@ class MainMenuState extends FlxState
 
 		menuManager.setMenuOptions(menuOptions);
 
-		menuManager.enable();
+		new FlxTimer().start(delay, function(f):Void
+		{
+			menuManager.enable();
+		});
 	}
 
 	function addOption(text:String, onClick:Void->Void):CtText
@@ -156,5 +160,17 @@ class MainMenuState extends FlxState
 
 		menuOptions = [];
 		menuManager.disable();
+	}
+	function doIntroAnim():Void
+	{
+		var black = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.BLACK);
+		add(black);
+
+		FlxTween.tween(black, {alpha: 0}, Constants.mainMenuIntroTime, {
+			onComplete: function(f):Void
+			{
+				black.destroy();
+			}
+		});
 	}
 }

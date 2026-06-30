@@ -139,6 +139,7 @@ class Constants
 	public static final mainMenuStartingY:Float = 300;
 	public static final mainMenuLogoPath:String = "assets/images/mainmenu/gameLogo.png";
 	public static final mainMainBgPath:String = "assets/images/mainmenu/bg.png";
+	public static final mainMenuIntroTime:Float = .5;
 	//
 	// SAVE !!! STUFF !!!
 	//
