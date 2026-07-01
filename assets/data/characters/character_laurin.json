@@ -16,8 +16,7 @@
         {
             "name": "idle_left",
             "prefix": "idle_left",
-            "fps": 0,
-            "flipX": true
+            "fps": 0
         },
         {
             "name": "idle_right",
