@@ -1,6 +1,13 @@
 {
   "dependencies": [
     {
+      "name": "ctDialogueBox",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/comatoasterstrudel/ctDialogueBox"
+    },
+    {
       "name": "ctUtil",
       "type": "git",
       "dir": null,
@@ -33,21 +40,9 @@
       "version": "1.2.4"
     },
     {
-      "name": "list",
-      "type": "haxelib",
-      "version": null
-    },
-    {
       "name": "openfl",
       "type": "haxelib",
       "version": "9.4.1"
-    },
-    {
-      "name": "ctDialogueBox",
-      "type": "git",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/comatoasterstrudel/ctDialogueBox"
     }
   ]
 }
