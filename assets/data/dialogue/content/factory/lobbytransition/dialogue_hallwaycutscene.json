@@ -1,0 +1,45 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "Good Morning!",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Morning, sir.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Ready to get working?",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "mhm",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Oh come on! Let's get more energy in that voice!",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Keep this between you and me, but there's gonna be a little celebration for a member of our company tonight...",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Hah, sounds fun, I'll make sure to practice my dance moves close to the very breakable machinery.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Haha, don't!",
+		"actor": "manager"
+	}
+]

@@ -58,7 +58,7 @@ function startcutscene():Void{
 	{
 		OverworldState.eventManager.startTransaction("dialog");
 
-		startDialogue(["factory/lobbytransition/dialogue_idkewhattonamethis"], function():Void
+		startDialogue(["factory/lobbytransition/dialogue_hallwaycutscene"], function():Void
 		{
 			OverworldState.eventManager.finishTransaction("dialog");
 		});
