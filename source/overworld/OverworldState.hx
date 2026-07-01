@@ -382,7 +382,7 @@ class OverworldState extends FlxState
 		dialogueBox.camera = camUI;
 		dialogueBox.antialiasing = false;
 		add(dialogueBox);
-		dialogueBox.onComplete.add(endDialogues);
+		dialogueBox.onComplete.add(endDialogues);		
 	}
 
 	/**

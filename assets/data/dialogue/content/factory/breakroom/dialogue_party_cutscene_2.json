@@ -1,0 +1,42 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "Now, today is a very special day... But first,",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "I wanna say how grateful I am to all of you.",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "You all come here everyday and work your butts off, putting in the work to make this company keep running!",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "And you do it all so kindly and orderly, without EVER causing a stir!",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "THAT'S why we're the best company worldwide.",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Respectable people like you, for the past 50 years, have been working around the clock to make the world a better place!",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "We're proud as a company to say we've gotten this far, as of 3 hours ago marking our 50th anniversary!",
+		"actor": "manager"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "This party is a gift from Atman to celebrate our founders and all the people who make their extraordinary work possible.",
+		"actor": "manager"
+	}
+]

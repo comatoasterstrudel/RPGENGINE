@@ -1,0 +1,17 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "People slowly trickled out, til I was the only one left.",
+		"actor": "narrator"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "I usually stay behind later on my shifts, nothing beats the awkwardness of having to ride the subway at the same time as your coworkers.",
+		"actor": "narrator"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Before I know it, I'm sitting in the breakroom alone, drinking flat soda.",
+		"actor": "narrator"
+	}
+]

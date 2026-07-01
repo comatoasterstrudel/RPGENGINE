@@ -121,6 +121,7 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "FlxSprite", value: FlxSprite});
 		CtScript.setDefaultValue({name: "FlxAxes.X", value: FlxAxes.X});
 		CtScript.setDefaultValue({name: "CharacterStatus.IDLE", value: CharacterStatus.IDLE});
+		CtScript.setDefaultValue({name: "CtUtil", value: CtUtil});
 
 	}
 

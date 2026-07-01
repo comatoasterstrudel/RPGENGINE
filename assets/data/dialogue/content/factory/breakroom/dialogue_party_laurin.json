@@ -1,0 +1,50 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "Haha well... this is nice, yeah?",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "I'm glad it wasn't something bad, or anything.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "What, were you in the camp that we were gonna get laid off?",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Haha, yeah, something like that.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Well, I guess we'll figure out tomorrow.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Yeah... tomorrow...",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "How about we get in on the free cake before it's gone, yeah?",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Yeah.",
+		"actor": "robin",
+		"portrait": "neutral"
+	}
+]

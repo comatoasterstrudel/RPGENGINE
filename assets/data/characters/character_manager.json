@@ -48,6 +48,53 @@
             "prefix": "walk_horizontal",
             "fps": 5,
             "looped": "true"
+        },
+        {
+            "name": "clap",
+            "prefix": "clap",
+            "fps": 2,
+            "looped": true
+        },
+        {
+            "name": "fastClap",
+            "prefix": "clap",
+            "fps": 8,
+            "looped": true
+        },
+        {
+            "name": "prepop",
+            "prefix": "prepop",
+            "fps": 0
+        },
+        {
+            "name": "popped",
+            "prefix": "popped",
+            "fps": 0
+        },
+        {
+            "name": "popped",
+            "prefix": "popped",
+            "fps": 0
+        },
+        {
+            "name": "pop_look_left",
+            "prefix": "pop_look_left",
+            "fps": 0
+        },
+        {
+            "name": "pop_closed",
+            "prefix": "pop_closed",
+            "fps": 0
+        },
+        {
+            "name": "pop_look_right",
+            "prefix": "pop_look_right",
+            "fps": 0
+        },
+        {
+            "name": "pop_awkward",
+            "prefix": "pop_awkward",
+            "fps": 0
         }
     ]
 }
