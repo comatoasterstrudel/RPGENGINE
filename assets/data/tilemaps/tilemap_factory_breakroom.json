@@ -109,7 +109,7 @@
           "height": 32,
           "originX": 0,
           "originY": 0,
-          "values": {"name": "coworkerA", "tag": "manager"}
+          "values": {"name": "manager", "tag": "manager"}
         },
         {
           "name": "character",
