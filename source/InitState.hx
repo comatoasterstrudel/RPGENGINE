@@ -74,6 +74,7 @@ class InitState extends FlxState{
 			portraitOffsetRight: new FlxPoint(330, 320),
 			nameBoxOffsetLeft: new FlxPoint(45, 60),
 			sentencePauseLength: .2,
+			excludedTextSoundCharacters: [" ", ".", "!", "?"],
 			choicerFont: FlxAssets.FONT_DEFAULT,
 			choicerCursorPath: "cursor_arrow",
 			choicerFontSize: 35,
@@ -122,6 +123,7 @@ class InitState extends FlxState{
 		CtScript.setDefaultValue({name: "FlxAxes.X", value: FlxAxes.X});
 		CtScript.setDefaultValue({name: "CharacterStatus.IDLE", value: CharacterStatus.IDLE});
 		CtScript.setDefaultValue({name: "CtUtil", value: CtUtil});
+		CtScript.setDefaultValue({name: "FlxSound", value: FlxSound});
 
 	}
 

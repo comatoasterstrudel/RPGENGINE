@@ -160,9 +160,11 @@ class Constants
 	// BASE STUFF ??
 	//
 	public static final startingRoom:String = "factory_intro";
+	public static final sfxPath:String = "assets/sounds/sfx_";
 	//
 	// SAVE STUFF
 	//
 	public static final saveFileName:String = "s";
 	public static final maxSaveFiles:Int = 2;
+
 }

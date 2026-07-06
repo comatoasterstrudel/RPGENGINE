@@ -138,12 +138,10 @@ function doCutscene():Void{
 		character_coworkerB.facing = UP;
 		character_coworkerC.facing = RIGHT;
 		
-		var maxFrames:Int = 3;
+		var maxFrames:Int = 4;
 		var frames:Int = 0;
 
 		character_manager.lockAnims = true;
-
-		character_manager.animation.play("clap", false, false, 1);
 
 		character_manager.animation.onFrameChange.add(function(name:String, frameNum:Int, frameIndex:Int):Void
 		{
@@ -152,8 +150,8 @@ function doCutscene():Void{
 				frames++;
 				if (frameNum == 1)
 				{
-					// clap!!
-				}
+					FlxG.sound.play(Constants.sfxPath + "clap_" + FlxG.random.int(1, 4) + ".ogg");
+				} 
 				if (frames >= maxFrames)
 				{
 					character_manager.lockAnims = false;
@@ -162,6 +160,7 @@ function doCutscene():Void{
 				}
 			}
 		});
+		character_manager.animation.play("clap", false, false, 1);
 	});
 	
 	// initial dialogue
@@ -230,8 +229,6 @@ function doCutscene():Void{
 	{
 		OverworldState.eventManager.startTransaction("clap");
 
-		character_manager.animation.play("fastClap", false, false, 1);
-
 		var maxClaps:Int = 8;
 		var claps:Int = 0;
 
@@ -240,18 +237,21 @@ function doCutscene():Void{
 			if (name == "fastClap" && frameNum == 1)
 			{
 				claps++;
-				if (frameNum == 1)
-				{
-					// clap!!
-				}
+
 				if (claps >= maxClaps)
 				{
 					character_manager.lockAnims = false;
 					character_manager.animation.play("idle_down");
 					OverworldState.eventManager.finishTransaction("clap");
 				}
+				else if (frameNum == 1)
+				{
+					FlxG.sound.play(Constants.sfxPath + "clap_" + FlxG.random.int(1, 4) + ".ogg");
+				}
 			}
 		});
+		character_manager.animation.play("fastClap", false, false, 1);
+
 	});
 
 	// dialogue 2
