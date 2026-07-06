@@ -296,7 +296,7 @@ function doCutscene():Void{
 	{
 		OverworldState.eventManager.startTransaction("walkaway");
 
-		character_laurin.movementSpeed = .7;
+		character_laurin.movementSpeed = .5;
 		character_laurin.moveToGridSpace(15, 6, function():Void
 		{
 			character_laurin.facing = LEFT;
