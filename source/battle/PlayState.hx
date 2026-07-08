@@ -9,7 +9,7 @@ class PlayState extends FlxState
 	public static var battleType:BattleType;
 
 	// CAMERAS
-	var camGame:FlxCamera;
+	var camGame:CtCamera;
 	var camUI:FlxCamera;
 	var cameraTrackerType:BattleCameraTrackingType = CENTERED;	
 
@@ -146,8 +146,11 @@ class PlayState extends FlxState
 	 */
 	function setupCameras():Void
 	{
-		camGame = new FlxCamera();
+		camGame = new CtCamera();
 		camGame.bgColor.alpha = 0;
+		camGame.lerpManager.lerpX = true;
+		camGame.lerpManager.lerpY = true;
+		camGame.lerpManager.lerpSpeed = 4;
 		FlxG.cameras.add(camGame, true);
 
 		camUI = new FlxCamera();
@@ -178,7 +181,7 @@ class PlayState extends FlxState
 				scrollPoint.set(-(((FlxG.width / 2) - trackableSpr.x) * .15), -(((FlxG.height / 2) - trackableSpr.y)) * .05);
 		}
 
-		camGame.scroll.set(scrollPoint.x, scrollPoint.y);
+		camGame.lerpManager.targetPosition.set(scrollPoint.x, scrollPoint.y);
 	}
 	
 	/**
@@ -229,7 +232,7 @@ class PlayState extends FlxState
 		miniHealthBars.camera = camGame;
 		add(miniHealthBars);
 		turnAttentionAnim = new TurnAttentionAnim();
-		turnAttentionAnim.camera = camUI;
+		turnAttentionAnim.camera = camGame;
 		add(turnAttentionAnim);
 		turnOrderDisplay = new TurnOrderDisplay(gridSize);
 		turnOrderDisplay.camera = camUI;
@@ -407,6 +410,8 @@ class PlayState extends FlxState
 					bottomBar.addMenu();
 				turnAttentionAnim.doAnim(currentTurnUnit);
 
+				cameraTrackerType = UNIT;
+				
 				new FlxTimer().start(Constants.turnAttentionAnimTime, function(f):Void
 				{
 					applySingleUnitStatusEffects(currentTurnUnit, "startOfTurn");

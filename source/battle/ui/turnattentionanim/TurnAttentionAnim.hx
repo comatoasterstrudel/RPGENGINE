@@ -18,6 +18,8 @@ class TurnAttentionAnim extends FlxTypedGroup<CtSprite>
     
     var doingAnim:Bool = false;
     
+	var scaler = 2;
+
     public function new():Void{
         super();
         
@@ -31,16 +33,16 @@ class TurnAttentionAnim extends FlxTypedGroup<CtSprite>
             switch (i)
             {
                 case 0:
-                    bar.setGraphicSize(FlxG.width, Math.ceil((FlxG.height - icon.height) / 2));
+					bar.setGraphicSize((FlxG.width) * scaler, (Math.ceil((FlxG.height - icon.height) / 2)) * scaler);
                     bar.updateHitbox();
                 case 1:
-                    bar.setGraphicSize(Math.ceil((FlxG.width - icon.width) / 2), FlxG.height);
+					bar.setGraphicSize((Math.ceil((FlxG.width - icon.width) / 2)) * scaler, (FlxG.height) * scaler);
                     bar.updateHitbox();
                 case 2:
-                    bar.setGraphicSize(FlxG.width, Math.ceil((FlxG.height - icon.height) / 2));
+					bar.setGraphicSize((FlxG.width) * scaler, (Math.ceil((FlxG.height - icon.height) / 2)) * scaler);
                     bar.updateHitbox();
                 case 3:
-                    bar.setGraphicSize(Math.ceil((FlxG.width - icon.width) / 2), FlxG.height);
+					bar.setGraphicSize((Math.ceil((FlxG.width - icon.width) / 2)) * scaler, (FlxG.height) * scaler);
                     bar.updateHitbox();
             }
             add(bar);
@@ -92,19 +94,19 @@ class TurnAttentionAnim extends FlxTypedGroup<CtSprite>
                 switch (i)
                 {
                     case 0: //top
-                        bars[i].setGraphicSize(FlxG.width, icon.y);
+						bars[i].setGraphicSize(FlxG.width * scaler, icon.y * scaler);
                         bars[i].updateHitbox();
-                        bars[i].setPosition(0, icon.y - bars[i].height);
+						bars[i].setPosition(FlxG.width / 2 - bars[i].width / 2, icon.y - bars[i].height);
                     case 1: //left
-                        bars[i].setGraphicSize(icon.x, icon.height);
+						bars[i].setGraphicSize(icon.x * scaler, icon.height);
                         bars[i].updateHitbox();
                         bars[i].setPosition(icon.x - bars[i].width, icon.y);
                     case 2: // bottom
-                        bars[i].setGraphicSize(FlxG.width, FlxG.height - (icon.y + icon.height));
+						bars[i].setGraphicSize(FlxG.width * scaler, (FlxG.height - (icon.y + icon.height)) * scaler);
                         bars[i].updateHitbox();
-                        bars[i].setPosition(0, icon.y + icon.height);
+						bars[i].setPosition(FlxG.width / 2 - bars[i].width / 2, icon.y + icon.height);
                     case 3: // right
-                        bars[i].setGraphicSize(FlxG.width - (icon.width + icon.x), icon.height);
+						bars[i].setGraphicSize((FlxG.width - (icon.width + icon.x)) * scaler, icon.height);
                         bars[i].updateHitbox();
                         bars[i].setPosition(icon.x + icon.width, icon.y);
                 }
