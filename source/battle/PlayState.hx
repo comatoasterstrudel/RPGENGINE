@@ -168,7 +168,7 @@ class PlayState extends FlxState
 
 				if (cameraTrackerType == UNIT)
 				{
-					trackableSpr = currentTurnUnit.;
+					trackableSpr = currentTurnUnit;
 				}
 				else if (cameraTrackerType == GRID)
 				{
