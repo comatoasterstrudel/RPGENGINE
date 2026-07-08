@@ -11,7 +11,8 @@ class PlayState extends FlxState
 	// CAMERAS
 	var camGame:FlxCamera;
 	var camUI:FlxCamera;
-	
+	var cameraTrackerType:BattleCameraTrackingType = CENTERED;	
+
 	// BG STUFF
 	var bgLine:CtSprite;
 
@@ -25,6 +26,8 @@ class PlayState extends FlxState
 	
 	var gridSelectorOptions:Array<Array<CtMenuOption>> = [];
 	var gridSelectorSpaces:Array<GridSpace> = [];
+
+	var currentSelectedGridSpace:FlxSprite;
 
 	// UI STUFF
 	var statusEffectBars:StatusEffectBars;
@@ -55,7 +58,7 @@ class PlayState extends FlxState
 	var turnOrder:Array<Unit> = [];
 	
 	var currentTurnUnit:Unit;
-	
+
 	var uiStatus:UIStatus = INACTIVE;
 	
 	// EXIT
@@ -102,7 +105,6 @@ class PlayState extends FlxState
 		super.update(elapsed);
 		removeUnusedDamageTexts();
 		updateDeathEffects(elapsed);
-		
 		for (menu in menus)
 		{
 			menu.update();
@@ -124,6 +126,7 @@ class PlayState extends FlxState
 			exitProgress = 0;
 		}
 		eventManager.update();
+		handleCamera(elapsed);
 	}
 	
 	/**
@@ -152,6 +155,32 @@ class PlayState extends FlxState
 		FlxG.cameras.add(camUI, false);
 	}
 	
+	function handleCamera(elapsed:Float):Void
+	{
+		var scrollPoint = FlxPoint.get();
+
+		switch (cameraTrackerType)
+		{
+			case CENTERED:
+				scrollPoint.set(0, 0);
+			case UNIT | GRID:
+				var trackableSpr:FlxSprite = new FlxSprite();
+
+				if (cameraTrackerType == UNIT)
+				{
+					trackableSpr = currentTurnUnit;
+				}
+				else if (cameraTrackerType == GRID)
+				{
+					trackableSpr = currentSelectedGridSpace;
+				}
+
+				scrollPoint.set(-(((FlxG.width / 2) - trackableSpr.x) * .15), -(((FlxG.height / 2) - trackableSpr.y)) * .05);
+		}
+
+		camGame.scroll.set(scrollPoint.x, scrollPoint.y);
+	}
+	
 	/**
 	 * Call this to add the background sprites
 	 */
@@ -159,8 +188,9 @@ class PlayState extends FlxState
 	{
 		var sizing = Grid.calculateGridSize(gridSize);
 
-		bgLine = new CtSprite().createColorBlock(FlxG.width, Std.int(sizing.y + Constants.gridSize), FlxColor.WHITE);
+		bgLine = new CtSprite().createColorBlock(FlxG.width * 2, Std.int(sizing.y + Constants.gridSize), FlxColor.WHITE);
 		bgLine.alpha = .6;
+		bgLine.screenCenter(X);
 		bgLine.y = (FlxG.height / 2 - bgLine.height / 2) + Constants.uiYOffset;
 		bgLine.camera = camGame;
 		add(bgLine);
@@ -193,10 +223,10 @@ class PlayState extends FlxState
 	function setUpUI():Void
 	{
 		statusEffectBars = new StatusEffectBars();
-		statusEffectBars.camera = camUI;
+		statusEffectBars.camera = camGame;
 		add(statusEffectBars);
 		miniHealthBars = new MiniHealthBars();
-		miniHealthBars.camera = camUI;
+		miniHealthBars.camera = camGame;
 		add(miniHealthBars);
 		turnAttentionAnim = new TurnAttentionAnim();
 		turnAttentionAnim.camera = camUI;
@@ -230,7 +260,9 @@ class PlayState extends FlxState
 		menuManagerGridSelector = new CtMenuManager(CtControls.getInputFunction("right", JUSTPRESSED), CtControls.getInputFunction("left", JUSTPRESSED),
 			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED),
 			CtControls.getInputFunction("down", JUSTPRESSED), CtControls.getInputFunction("up", JUSTPRESSED));
-		add(menuManagerGridSelector.addCursor(menuMakeCursor(), 20, false));
+		var gridSelectorCursor = menuMakeCursor();
+		gridSelectorCursor.camera = camGame;
+		add(menuManagerGridSelector.addCursor(gridSelectorCursor, 20, false));
 
 		menus = [menuManagerPlayerUI, menuManagerGridSelector];
 	}
@@ -418,6 +450,8 @@ class PlayState extends FlxState
 
 		turnNum = 0;
 
+		cameraTrackerType = CENTERED;
+
 		advanceTurn(0);
 	}
 
@@ -480,6 +514,7 @@ class PlayState extends FlxState
 			cursorDirection: UP,
 			clickFunction: function(spr:FlxSprite):Void
 			{
+				cameraTrackerType = CENTERED;
 				endPlayerTurn();
 			},
 			hoverFunction: function(spr:FlxSprite):Void
@@ -498,6 +533,7 @@ class PlayState extends FlxState
 		menuManagerPlayerUI.enable(true);
 		menuManagerPlayerUI.changeSelection(1);
 		uiStatus = SELECTING_SKILLS;
+		cameraTrackerType = UNIT;
 	}
 
 	/**
@@ -528,8 +564,12 @@ class PlayState extends FlxState
 	 */
 	function startEnemyTurn():Void
 	{
+		cameraTrackerType = UNIT;
+
 		new FlxTimer().start(.5, function(f):Void
 		{
+			cameraTrackerType = CENTERED;
+
 			endEnemyTurn();
 		});
 	}
@@ -636,6 +676,7 @@ class PlayState extends FlxState
 		}
 	}
 	
+
 	/**
 	 * Call this to calculate and start the turn order for the next round
 	 */
@@ -821,6 +862,7 @@ class PlayState extends FlxState
 				}
 			}
 		}
+		cameraTrackerType = GRID;
 	}
 
 	/**
@@ -837,6 +879,7 @@ class PlayState extends FlxState
 		if (uiStatus == GRID_INSPECT || uiStatus == GRID_SKILL)
 		{
 			uiStatus = SELECTING_SKILLS;
+			cameraTrackerType = UNIT;
 			menuManagerPlayerUI.enable(false);
 		}
 		for (grid in grids)
@@ -895,6 +938,8 @@ class PlayState extends FlxState
 					if (uiStatus == GRID_SKILL)
 					{
 						uiStatus = INACTIVE;
+						cameraTrackerType = CENTERED;
+
 						removeGridSelector();
 
 						useSkill(currentTurnUnit.skills[menuManagerPlayerUI.curSelected - 1], currentTurnUnit, space.grid,
@@ -910,6 +955,8 @@ class PlayState extends FlxState
 				},
 				hoverFunction: function(sprite):Void
 				{
+					currentSelectedGridSpace = sprite;
+					
 					if (uiStatus == GRID_SKILL)
 					{
 						space.grid.updateFlashingSprites(getAffectedSpacesForSkill(currentTurnUnit.skills[menuManagerPlayerUI.curSelected - 1],

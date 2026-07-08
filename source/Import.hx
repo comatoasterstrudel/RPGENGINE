@@ -1,6 +1,7 @@
 import battle.PlayState;
 import battle.battleData.BattleData;
 import battle.battleData.BattleType;
+import battle.camera.BattleCameraTrackingType;
 import battle.death.DeathEffect;
 import battle.grid.Grid;
 import battle.grid.GridSpace;
