@@ -16,9 +16,7 @@ class BattleBackgroundData extends CtJsonLoader
         this.name = data.name;
         
         sprites = data.sprites.map(function(item)
-        {
-            trace(item.scrollX);
-            
+		{            
             return {
 				tag: item.tag ?? "",
                 type: item.type ?? "color",
