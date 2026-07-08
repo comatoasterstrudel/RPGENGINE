@@ -84,7 +84,9 @@ class Constants
 	public static final battleCameraMovementX:Float = 0.1;
 	public static final battleCameraMovementY:Float = 0.05;
 	public static final battleCameraMovementSpeed:Float = 3;
-
+	// Battle Background
+	public static final battleBackgroundDataPath:String = "assets/data/battlebackgrounds/battlebg_";
+	public static final battleBackgroundGraphicPath:String = "assets/images/battlebackgrounds/battlebg_";
 	// Scripts
 	public static final battleScriptPath:String = "assets/data/battlescripts/battlescript_";
 	//

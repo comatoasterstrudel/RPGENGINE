@@ -1,0 +1,16 @@
+{
+    "name": "placeholder",
+    "sprites": [
+        {
+            "tag": "back",
+            "type": "color",
+            "x": -300,
+            "y": -300,
+            "scrollX": 0,
+            "scrollY": 0,
+            "color": [200, 200, 200, 255],
+            "colorWidth": 2000,
+            "colorHeight": 2000
+        }
+    ]
+}

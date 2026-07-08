@@ -9,6 +9,8 @@ class BattleData extends CtJsonLoader
     
 	public var music:String = "";
     
+	public var background:String = "";
+
     public var allyUnits:Array<UnitInfo> = [];
     public var enemyUnits:Array<UnitInfo> = [];
 
@@ -23,6 +25,8 @@ class BattleData extends CtJsonLoader
         this.gridSizeY = data.gridSizeY;
         
 		this.music = data.music ?? "";
+        
+		this.background = data.background ?? "placeholder";
         
         allyUnits = data.allyUnits.map(function(item)
         {

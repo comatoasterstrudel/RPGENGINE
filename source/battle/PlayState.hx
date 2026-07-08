@@ -14,6 +14,7 @@ class PlayState extends FlxState
 	var cameraTrackerType:BattleCameraTrackingType = CENTERED;	
 
 	// BG STUFF
+	var bg:BattleBackground;
 	var bgLine:CtSprite;
 
 	// GRID STUFF
@@ -191,6 +192,10 @@ class PlayState extends FlxState
 	 */
 	function setUpBg():Void
 	{
+		bg = new BattleBackground(battleData.background);
+		bg.camera = camGame;
+		add(bg);
+		
 		var sizing = Grid.calculateGridSize(gridSize);
 
 		bgLine = new CtSprite().createColorBlock(FlxG.width * 2, Std.int(sizing.y + Constants.gridSize), FlxColor.WHITE);
