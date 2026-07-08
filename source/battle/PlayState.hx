@@ -52,6 +52,7 @@ class PlayState extends FlxState
 	// GAME STUFF
 
 	var units:Array<Unit> = [];
+	var unitGroup:FlxTypedGroup<Unit>;
 	
 	var roundNum:Int = 0;
 	var turnNum:Int = 0;
@@ -150,7 +151,7 @@ class PlayState extends FlxState
 		camGame.bgColor.alpha = 0;
 		camGame.lerpManager.lerpX = true;
 		camGame.lerpManager.lerpY = true;
-		camGame.lerpManager.lerpSpeed = 4;
+		camGame.lerpManager.lerpSpeed = Constants.battleCameraMovementSpeed;
 		FlxG.cameras.add(camGame, true);
 
 		camUI = new FlxCamera();
@@ -178,7 +179,8 @@ class PlayState extends FlxState
 					trackableSpr = currentSelectedGridSpace;
 				}
 
-				scrollPoint.set(-(((FlxG.width / 2) - trackableSpr.x) * .15), -(((FlxG.height / 2) - trackableSpr.y)) * .05);
+				scrollPoint.set(-(((FlxG.width / 2) - trackableSpr.x) * Constants.battleCameraMovementX),
+					-(((FlxG.height / 2) - trackableSpr.y)) * Constants.battleCameraMovementY);
 		}
 
 		camGame.lerpManager.targetPosition.set(scrollPoint.x, scrollPoint.y);
@@ -218,6 +220,9 @@ class PlayState extends FlxState
 		add(enemyGrid);
 		grids = [allyGrid, enemyGrid];
 		updateGridSelectorOptions();
+		unitGroup = new FlxTypedGroup<Unit>();
+		unitGroup.camera = camGame;
+		add(unitGroup);
 	}
 
 	/**
@@ -241,7 +246,7 @@ class PlayState extends FlxState
 		bottomBar.camera = camUI;
 		add(bottomBar);
 		damageTexts = new FlxTypedGroup<DamageText>();
-		damageTexts.camera = camUI;
+		damageTexts.camera = camGame;
 		add(damageTexts);
 		damageTextSignal.add(function(unit:Unit, text:String, color:FlxColor)
 		{
@@ -315,7 +320,7 @@ class PlayState extends FlxState
 		
 		var unit = new Unit(unitID, grid, position, controllable);
 		unit.camera = camGame;
-		add(unit);
+		unitGroup.add(unit);
 
 		grid.placeUnit(unit);
 

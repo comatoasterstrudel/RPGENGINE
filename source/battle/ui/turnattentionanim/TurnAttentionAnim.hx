@@ -18,8 +18,8 @@ class TurnAttentionAnim extends FlxTypedGroup<CtSprite>
     
     var doingAnim:Bool = false;
     
-	var scaler = 2;
-
+	var scaler = Constants.turnAttentionAnimScaler;
+    
     public function new():Void{
         super();
         

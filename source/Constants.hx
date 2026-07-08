@@ -79,6 +79,12 @@ class Constants
 	public static final turnAttentionAnimTimeSplit:Float = .7;
 	public static final turnAttentionAnimScale:Float = .14;
 	public static final turnAttentionAnimAlpha:Float = .7;
+	public static final turnAttentionAnimScaler:Float = 1.5;
+	// Camera
+	public static final battleCameraMovementX:Float = 0.1;
+	public static final battleCameraMovementY:Float = 0.05;
+	public static final battleCameraMovementSpeed:Float = 3;
+
 	// Scripts
 	public static final battleScriptPath:String = "assets/data/battlescripts/battlescript_";
 	//
