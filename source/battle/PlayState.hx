@@ -1,5 +1,7 @@
 package battle;
 
+import battle.ui.roundanim.RoundAnim;
+
 class PlayState extends FlxState
 {
 	public static var eventManager:CtEventManager;
@@ -44,6 +46,8 @@ class PlayState extends FlxState
 	var damageTexts:FlxTypedGroup<DamageText>;
 
 	public var damageTextSignal = new FlxTypedSignal<Unit->String->FlxColor->Void>();
+	
+	var roundAnim:RoundAnim;
 	
 	// MENU MANAGERS
 	var menuManagerPlayerUI:CtMenuManager;
@@ -257,6 +261,8 @@ class PlayState extends FlxState
 		{
 			damageTexts.add(new DamageText(unit, text, color));
 		});
+		roundAnim = new RoundAnim();
+		add(roundAnim);
 	}
 
 	/**
@@ -457,7 +463,7 @@ class PlayState extends FlxState
 	/**
 	 * Call this to advance the battle round.
 	 */
-	function advanceRound():Void
+	function advanceRound(?enableUI:Bool = false):Void
 	{
 		roundNum++;
 
@@ -467,7 +473,13 @@ class PlayState extends FlxState
 
 		cameraTrackerType = CENTERED;
 
-		advanceTurn(0);
+		roundAnim.doAnim("Round " + roundNum, function():Void
+		{
+			if (enableUI)
+				bottomBar.visible = true;
+
+			advanceTurn(0);
+		});
 	}
 
 	/**
@@ -1092,8 +1104,7 @@ class PlayState extends FlxState
 		});
 		eventManager.addEvent(function():Void
 		{
-			advanceRound();
-			bottomBar.visible = true;
+			advanceRound(true);
 		});
 	}
 
