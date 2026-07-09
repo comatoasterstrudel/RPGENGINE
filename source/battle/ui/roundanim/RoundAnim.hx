@@ -38,6 +38,7 @@ class RoundAnim extends FlxSpriteGroup
                 
                 var letter = new CtText(0, 0, trueText[i], FlxAssets.FONT_DEFAULT, 50, false);
                 letter.setFormat(FlxAssets.FONT_DEFAULT, 80, FlxColor.WHITE, CENTER, SHADOW, FlxColor.BLACK);
+				letter.borderSize = 8;
                 letter.lerpManager.lerpScaleX = true;
                 letter.lerpManager.lerpScaleY = true;
                 letter.lerpManager.lerpSpeed = 8;
