@@ -6,6 +6,8 @@ class BattleBackgroundData extends CtJsonLoader
     
     public var name:String;
     
+	public var uiStyle:String;
+    
     public var sprites:Array<BattleBackgroundSpriteInfo> = [];
     
     public function new(id:String){
@@ -14,6 +16,8 @@ class BattleBackgroundData extends CtJsonLoader
         super(Constants.battleBackgroundDataPath + id + '.json', Constants.battleBackgroundDataPath + 'placeholder.json');
         
         this.name = data.name;
+        
+		this.uiStyle = data.uiStyle ?? "placeholder";
         
         sprites = data.sprites.map(function(item)
 		{            

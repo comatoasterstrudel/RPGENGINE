@@ -2,7 +2,7 @@ package battle.battlebackground;
 
 class BattleBackground extends FlxSpriteGroup
 {
-    var data:BattleBackgroundData;
+	public var data:BattleBackgroundData;
     
     public function new(id:String):Void{
         super();

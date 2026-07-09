@@ -251,7 +251,7 @@ class PlayState extends FlxState
 		turnOrderDisplay = new TurnOrderDisplay(gridSize);
 		turnOrderDisplay.camera = camUI;
 		add(turnOrderDisplay);
-		bottomBar = new BottomBar();
+		bottomBar = new BottomBar(bg.data.uiStyle);
 		bottomBar.camera = camUI;
 		add(bottomBar);
 		damageTexts = new FlxTypedGroup<DamageText>();

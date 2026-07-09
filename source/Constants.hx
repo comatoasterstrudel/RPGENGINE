@@ -36,9 +36,7 @@ class Constants
 	public static final turnOrderIconAllyPath:String = "assets/images/turnorder/ally.png";
 	public static final turnOrderIconEnemyPath:String = "assets/images/turnorder/enemy.png";
 	// BottomBar
-	public static final bottomBarAlpha:Float = 0.4;
-	public static final bottomBarAngle:Float = 3;
-	public static final bottomBarY:Float = 540;
+	public static final bottomBarGraphicPath:String = "assets/images/bottombar/bar/bottombar_";
 	public static final unitUiGraphicPath:String = "assets/images/bottombar/portraits/portrait_";
 	public static final skillOutlineGraphicPath:String = "assets/images/bottombar/skills/box/box_outline.png";
 	public static final skillBackgroundGraphicPath:String = "assets/images/bottombar/skills/box/box_bg.png";

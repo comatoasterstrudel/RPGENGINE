@@ -1,5 +1,6 @@
 {
     "name": "factory",
+    "uiStyle": "factory",
     "sprites": [
         {
             "tag": "bottom",

@@ -16,14 +16,12 @@ class BottomBar extends FlxSpriteGroup
 	
 	var curUnit:Unit;
 
-    public function new():Void{
+	public function new(style:String = "placeholder"):Void
+	{
         super();
         
-        bottomCover = new CtSprite().createColorBlock(Std.int(FlxG.width * 2), FlxG.height, FlxColor.BLACK);
-        bottomCover.y = Constants.bottomBarY;
-        bottomCover.angle = Constants.bottomBarAngle;
-        bottomCover.alpha = Constants.bottomBarAlpha;
-        bottomCover.screenCenter(X);
+		bottomCover = new CtSprite().createFromImage(Constants.bottomBarGraphicPath + style + ".png");
+		bottomCover.y = FlxG.height - bottomCover.height;
         bottomCover.antialiasing = false;
         add(bottomCover);
         
@@ -49,7 +47,9 @@ class BottomBar extends FlxSpriteGroup
 		endTurn = new CtSprite(1050, 590).createFromImage(Constants.endTurnButtonGraphicPath);
 		endTurn.kill();
 		add(endTurn);
+
 		descriptionText = new CtText(0, 680, "", FlxAssets.FONT_DEFAULT, 20, false);
+		descriptionText.setFormat(FlxAssets.FONT_DEFAULT, 20, FlxColor.BLACK, CENTER, SHADOW, FlxColor.GRAY);
 		descriptionText.kill();
 		add(descriptionText);
 	}
