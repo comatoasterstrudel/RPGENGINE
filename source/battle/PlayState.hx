@@ -426,6 +426,9 @@ class PlayState extends FlxState
 					bottomBar.addMenu();
 				turnAttentionAnim.doAnim(currentTurnUnit);
 
+				allyGrid.updateHighlightedSpace(0xFFD7FFBA, currentTurnUnit);
+				enemyGrid.updateHighlightedSpace(0xFFFFBABA, currentTurnUnit);
+				
 				cameraTrackerType = UNIT;
 				
 				new FlxTimer().start(Constants.turnAttentionAnimTime, function(f):Void
@@ -473,6 +476,9 @@ class PlayState extends FlxState
 
 		cameraTrackerType = CENTERED;
 
+		allyGrid.updateHighlightedSpace(0xFFD7FFBA, null);
+		enemyGrid.updateHighlightedSpace(0xFFFFBABA, null);
+				
 		roundAnim.doAnim("Round " + roundNum, function():Void
 		{
 			if (enableUI)

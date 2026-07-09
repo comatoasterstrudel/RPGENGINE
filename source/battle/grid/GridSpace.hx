@@ -19,7 +19,7 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
     
     var outlineSprite:CtSprite;
     
-    var fillSprite:CtSprite;
+	public var fillSprite:CtSprite;
     
 	var flashingSprite:CtSprite;
 
@@ -33,6 +33,8 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
     
 	public var grid:Grid;
 
+	public var colorTween:FlxTween;
+    
 	public function new(position:FlxPoint, grid:Grid)
 	{
         super();
@@ -113,5 +115,14 @@ class GridSpace extends FlxTypedGroup<CtSprite>{
 			flashingSprite.alpha = .1;
 			flashSpriteTween = FlxTween.tween(flashingSprite, {alpha: .25}, .3, {type: PINGPONG});
 		}
+	}
+	public function changeColor(color:FlxColor):Void
+	{
+		if (colorTween != null && colorTween.active)
+		{
+			colorTween.cancel();
+		}
+
+		colorTween = FlxTween.color(fillSprite, .5, fillSprite.color, color);
 	}
 }

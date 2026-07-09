@@ -40,11 +40,11 @@ class BottomBar extends FlxSpriteGroup
         }
         
         CtUtil.centerGroup(skillOutlines, 20);
-		inspect = new CtSprite(300, 590).createFromImage(Constants.inspectButtonGraphicPath);
+		inspect = new CtSprite(300, 575).createFromImage(Constants.inspectButtonGraphicPath);
 		inspect.kill();
 		add(inspect);
 		
-		endTurn = new CtSprite(1050, 590).createFromImage(Constants.endTurnButtonGraphicPath);
+		endTurn = new CtSprite(1050, 567).createFromImage(Constants.endTurnButtonGraphicPath);
 		endTurn.kill();
 		add(endTurn);
 

@@ -54,6 +54,21 @@ class Grid extends FlxTypedGroup<GridSpace>
         }
     }
     
+	public function updateHighlightedSpace(color:FlxColor, unit:Unit)
+	{
+		for (space in spaces)
+		{
+			if (unit != null && space.unit != null && space.unit.uniqueUnitID == unit.uniqueUnitID)
+			{
+				space.changeColor(color);
+			}
+			else
+			{
+				space.changeColor(FlxColor.WHITE);
+			}
+		}
+	}
+    
 	public function updateFlashingSprites(spaces:Array<GridSpace>, ?overwrite:Bool = true):Void
 	{
 		for (space in this.spaces)

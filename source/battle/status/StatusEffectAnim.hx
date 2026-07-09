@@ -18,7 +18,9 @@ class StatusEffectAnim extends FlxShader
     void main() {
         vec4 originalPixel = flixel_texture2D(bitmap, openfl_TextureCoordv);
         
-        gl_FragColor = vec4(mix(originalPixel.r, statusColor.r, animProgress), mix(originalPixel.g, statusColor.g, animProgress), mix(originalPixel.b, statusColor.b, animProgress), originalPixel.a);
+        if(originalPixel.a > 0.0){
+            gl_FragColor = vec4(mix(originalPixel.r, statusColor.r, animProgress), mix(originalPixel.g, statusColor.g, animProgress), mix(originalPixel.b, statusColor.b, animProgress), originalPixel.a);
+        }
     }
     ")
 

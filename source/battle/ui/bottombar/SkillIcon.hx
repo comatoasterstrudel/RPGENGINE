@@ -32,15 +32,15 @@ class SkillIcon extends FlxSpriteGroup
     public function new():Void{
         super();
         
-		bgSprite = new CtSprite(0, 590, false).createFromImage(Constants.skillBackgroundGraphicPath);
+		bgSprite = new CtSprite(0, 575, false).createFromImage(Constants.skillBackgroundGraphicPath);
 		bgSprite.antialiasing = false;
 		add(bgSprite);
 
-		skillSprite = new CtSprite(0, 590, false);
+		skillSprite = new CtSprite(0, 575, false);
         skillSprite.antialiasing = false;
         add(skillSprite);
         
-		outlineSprite = new CtSprite(0, 590, false).createFromImage(Constants.skillOutlineGraphicPath);
+		outlineSprite = new CtSprite(0, 575, false).createFromImage(Constants.skillOutlineGraphicPath);
         outlineSprite.antialiasing = false;
         add(outlineSprite);        
 		visible = false;
