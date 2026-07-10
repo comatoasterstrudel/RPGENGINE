@@ -34,7 +34,7 @@ class RoundAnim extends FlxSpriteGroup
                 
         for(i in 0...trueText.length){
             new FlxTimer().start(0.125 * i, function(f):Void{
-                bg.alpha = .8 * (i / (trueText.length - 1));
+				bg.alpha = .9 * (i / (trueText.length - 1));
                 
 				var letter = new CtText(0, 0, trueText[i], Constants.fontName, 50, false);
 				letter.setFormat(Constants.fontName, 120, FlxColor.WHITE, CENTER, SHADOW, FlxColor.BLACK);

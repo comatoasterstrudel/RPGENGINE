@@ -35,9 +35,11 @@ class Constants
 	public static final miniHealthBarYSpacing:Int = -7;
 	// TurnOrderDisplay
 	public static final turnOrderDisplayUpperBarGraphicPath:String = "assets/images/turnorder/upperBar.png";
+	public static final turnOrderDisplayIncomingCallsGraphicPath:String = "assets/images/turnorder/incomingCalls.png";
+	public static final turnOrderDisplayStartingX:Float = 550;
 	// TurnOrderIcon
-	public static final turnOrderIconAllyPath:String = "assets/images/turnorder/ally.png";
-	public static final turnOrderIconEnemyPath:String = "assets/images/turnorder/enemy.png";
+	public static final turnOrderIcon:String = "assets/images/turnorder/turnOrderIcon.png";
+	public static final turnOrderIconOutline:String = "assets/images/turnorder/turnOrderIconOutline.png";
 	// BottomBar
 	public static final bottomBarGraphicPath:String = "assets/images/bottombar/bar/bottombar_";
 	public static final unitUiGraphicPath:String = "assets/images/bottombar/portraits/portrait_";
@@ -66,12 +68,12 @@ class Constants
 	public static final resultTextTie:String = "TIE";
 	public static final resultTextPlaceholder:String = "???";
 	public static final resultBgOpacity:Float = .9;
-	public static final resultBigTextSize:Int = 50;
+	public static final resultBigTextSize:Int = 80;
 	public static final resultBigTextY:Int = 50;
-	public static final resultTextSize:Int = 30;
+	public static final resultTextSize:Int = 50;
 	public static final resultTextX:Int = 300;
 	public static final resultTextY:Int = 300;
-	public static final resultTextSpacing:Int = 100;
+	public static final resultTextSpacing:Int = 130;
 	public static final resultAnimTiming:Float = .65;
 	public static final resultAnimShakeTime:Float = 0.08;
 	public static final resultAnimShakeIntensity:Float = 0.08;
@@ -170,7 +172,7 @@ class Constants
 	//
 	public static final startingRoom:String = "factory_intro";
 	public static final sfxPath:String = "assets/sounds/sfx_";
-	public static final fontName:String = "assets/fonts/TheBestFontOfAllTime-Regular.ttf";
+	public static final fontName:String = "assets/fonts/BestFontEver-Regular.ttf";
 	//
 	// SAVE STUFF
 	//

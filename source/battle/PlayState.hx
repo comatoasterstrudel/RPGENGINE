@@ -496,9 +496,24 @@ class PlayState extends FlxState
 		roundAnim.doAnim("Round " + roundNum, function():Void
 		{
 			if (enableUI)
-				bottomBar.visible = true;
+			{
+				new FlxTimer().start(0.1, function(f):Void
+				{
+					bottomBar.visible = true;
+					turnOrderDisplay.visible = true;
 
-			advanceTurn(0);
+					for (ui in [bottomBar, turnOrderDisplay])
+					{
+						ui.alpha = 0;
+						FlxTween.tween(ui, {alpha: 1}, Constants.turnAttentionAnimTime / 1.5);
+					}
+					advanceTurn(0);
+				});
+			}
+			else
+			{
+				advanceTurn(0);
+			}
 		});
 	}
 
@@ -1089,6 +1104,8 @@ class PlayState extends FlxState
 	function doIntroAnim():Void
 	{
 		bottomBar.visible = false;
+		turnOrderDisplay.visible = false;
+		
 		hideGrid(allyGrid);
 		hideGrid(enemyGrid);
 

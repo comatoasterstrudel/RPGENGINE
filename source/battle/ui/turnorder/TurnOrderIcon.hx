@@ -6,21 +6,28 @@ class TurnOrderIcon extends FlxSpriteGroup
     
     public var unitGraphic:CtSprite;
     
+	public var bgOutline:CtSprite;
+		
 	var curUnit:Unit;
     
 	var ogColor:FlxColor = FlxColor.WHITE;
 	 
+	var targetLightening:Float = .8;
+	var lightening:Float = .8;
+
+	public var scaleFactor:Float = 1;
+	
     public function new():Void{
         super();
         
-        bg = new CtSprite();
-		bg.lerpManager.lerpY = true;
-		bg.lerpManager.lerpSpeed = 9;
-		bg.y = 0;
+		bg = new CtSprite();
         add(bg);
         
         unitGraphic = new CtSprite();
         add(unitGraphic);
+        
+		bgOutline = new CtSprite();
+		add(bgOutline);
         
 		bg.antialiasing = false;
 		unitGraphic.antialiasing = false;
@@ -29,35 +36,53 @@ class TurnOrderIcon extends FlxSpriteGroup
     override function update(elapsed:Float):Void{
         super.update(elapsed);
 
-		updateSpritePositions();
+		updateSpritePositions(elapsed);
     }
     
 	public function updateTurnOrderIcon(unit:Unit):Void
 	{
 		this.curUnit = unit;
-		bg.createFromImage(curUnit.controllable ? Constants.turnOrderIconAllyPath : Constants.turnOrderIconEnemyPath);
+		bg.createFromImage(Constants.turnOrderIcon);
+		bgOutline.createFromImage(Constants.turnOrderIconOutline);
 		unitGraphic.loadGraphicFromSprite(curUnit);
+		unitGraphic.scale.set(1.3, 1.3);
+		unitGraphic.updateHitbox();
 		ogColor = curUnit.controllable ? FlxColor.LIME : FlxColor.RED;
-		bg.y = -15;
-		bg.lerpManager.targetPosition.y = -15;
-		updateSpritePositions();
+		updateSpritePositions(1);
 	}
 
-	function updateSpritePositions():Void
+	public function updateSpritePositions(elapsed:Float):Void
 	{
 		CtUtil.centerSpriteOnSprite(unitGraphic, bg, true, true);
-		bg.color = ogColor.getLightened(.8 - (FlxMath.bound(((bg.y + 15) / 15), 0, 1) / 2));
+		CtUtil.centerSpriteOnSprite(bgOutline, bg, true, true);
+
+		lightening = CtUtil.lerpThing(lightening, targetLightening, elapsed, 5);
+
+		bg.color = ogColor.getLightened(lightening);
 	}
 
 	public function updateCurrentTurn(unit:Unit):Void
 	{
 		if (curUnit.uniqueUnitID == unit.uniqueUnitID)
 		{
-			bg.lerpManager.targetPosition.y = 0;
+			targetLightening = 0;
 		}
 		else
 		{
-			bg.lerpManager.targetPosition.y = -15;
+			targetLightening = 0.9;
 		}
-    }
+	}
+
+	public function resize(scaleFactor:Float):Void
+	{
+		this.scaleFactor = scaleFactor;
+
+		for (spr in [bg, bgOutline, unitGraphic])
+		{
+			spr.scale.x = (scaleFactor);
+			spr.updateHitbox();
+		}
+
+		updateSpritePositions(1);
+	}
 }
