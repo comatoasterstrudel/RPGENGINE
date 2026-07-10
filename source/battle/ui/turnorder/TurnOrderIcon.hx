@@ -1,6 +1,6 @@
 package battle.ui.turnorder;
 
-class TurnOrderIcon extends FlxTypedGroup<CtSprite>
+class TurnOrderIcon extends FlxSpriteGroup
 {
     public var bg:CtSprite;
     

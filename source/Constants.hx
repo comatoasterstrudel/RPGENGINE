@@ -33,6 +33,8 @@ class Constants
 	public static final miniHealthBarWidth:Int = 45;
 	public static final miniHealthBarHeight:Int = 12;
 	public static final miniHealthBarYSpacing:Int = -7;
+	// TurnOrderDisplay
+	public static final turnOrderDisplayUpperBarGraphicPath:String = "assets/images/turnorder/upperBar.png";
 	// TurnOrderIcon
 	public static final turnOrderIconAllyPath:String = "assets/images/turnorder/ally.png";
 	public static final turnOrderIconEnemyPath:String = "assets/images/turnorder/enemy.png";

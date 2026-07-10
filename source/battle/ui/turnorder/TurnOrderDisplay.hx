@@ -1,7 +1,9 @@
 package battle.ui.turnorder;
 
-class TurnOrderDisplay extends FlxTypedGroup<TurnOrderIcon>
+class TurnOrderDisplay extends FlxSpriteGroup
 {
+	var upperBar:CtSprite;
+    
     var iconAmount:Int;
     
     var icons:Array<TurnOrderIcon> = [];
@@ -10,6 +12,9 @@ class TurnOrderDisplay extends FlxTypedGroup<TurnOrderIcon>
     
     public function new(gridSize:FlxPoint):Void{
         super();
+        
+		upperBar = new CtSprite().createFromImage(Constants.turnOrderDisplayUpperBarGraphicPath);
+		add(upperBar);
         
         iconAmount = Std.int((gridSize.x * gridSize.y) * 2);
         

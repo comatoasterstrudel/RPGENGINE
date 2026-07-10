@@ -188,8 +188,8 @@ class PlayState extends FlxState
 					trackableSpr = currentSelectedGridSpace;
 				}
 
-				scrollPoint.set(-(((FlxG.width / 2) - trackableSpr.x) * Constants.battleCameraMovementX),
-					-(((FlxG.height / 2) - trackableSpr.y)) * Constants.battleCameraMovementY);
+				scrollPoint.set(-(((FlxG.width / 2) - (trackableSpr.x + trackableSpr.width / 2)) * Constants.battleCameraMovementX),
+					-(((FlxG.height / 2) - (trackableSpr.y + trackableSpr.height / 2))) * Constants.battleCameraMovementY);
 		}
 
 		camGame.lerpManager.targetPosition.set(scrollPoint.x, scrollPoint.y);
@@ -261,9 +261,6 @@ class PlayState extends FlxState
 		turnAttentionAnim = new TurnAttentionAnim();
 		turnAttentionAnim.camera = camGame;
 		add(turnAttentionAnim);
-		turnOrderDisplay = new TurnOrderDisplay(gridSize);
-		turnOrderDisplay.camera = camUI;
-		add(turnOrderDisplay);
 		bottomBar = new BottomBar(bg.data.uiStyle);
 		bottomBar.camera = camUI;
 		add(bottomBar);
@@ -276,6 +273,10 @@ class PlayState extends FlxState
 		});
 		roundAnim = new RoundAnim();
 		add(roundAnim);
+		turnOrderDisplay = new TurnOrderDisplay(gridSize);
+		turnOrderDisplay.camera = camGame;
+		turnOrderDisplay.scrollFactor.set(0, 0);
+		add(turnOrderDisplay);
 	}
 
 	/**
