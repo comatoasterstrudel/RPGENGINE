@@ -6,7 +6,7 @@ class Grid extends FlxTypedGroup<GridSpace>
      * The size of this battle grid.
      * Ex. (4,4) - A 4 tile wide 4 tile tall grid.
      */
-    var size:FlxPoint;
+	public var size:FlxPoint;
     
     var position:FlxPoint;
     

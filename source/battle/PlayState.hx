@@ -1,5 +1,6 @@
 package battle;
 
+import battle.grid.GridBackground;
 import battle.ui.roundanim.RoundAnim;
 
 class PlayState extends FlxState
@@ -24,6 +25,9 @@ class PlayState extends FlxState
 
 	var allyGrid:Grid;
 	var enemyGrid:Grid;
+
+	var allyGridBg:GridBackground;
+	var enemyGridBg:GridBackground;
 
 	var grids:Array<Grid> = [];
 	
@@ -222,11 +226,20 @@ class PlayState extends FlxState
 
 		allyGrid = new Grid(gridSize, new FlxPoint(midPointX - (spacing), midPointY));
 		allyGrid.camera = camGame;
-		add(allyGrid);
 
 		enemyGrid = new Grid(gridSize, new FlxPoint(midPointX + (spacing), midPointY));
 		enemyGrid.camera = camGame;
+		allyGridBg = new GridBackground(allyGrid);
+		allyGridBg.camera = camGame;
+		add(allyGridBg);
+
+		enemyGridBg = new GridBackground(enemyGrid);
+		enemyGridBg.camera = camGame;
+		add(enemyGridBg);
+
+		add(allyGrid);
 		add(enemyGrid);
+
 		grids = [allyGrid, enemyGrid];
 		updateGridSelectorOptions();
 		unitGroup = new FlxTypedGroup<Unit>();

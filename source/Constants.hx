@@ -12,6 +12,7 @@ class Constants
 	// Grid
     public static final gridSize:Int = 80;
 	public static final unitGridGraphicPath:String = "assets/images/grid/units/unit_";
+	public static final gridBackgroundSpriteNum:Int = 15;
 	// Units
 	public static final unitDataPath:String = "assets/data/units/unit_";
 	// Skills
@@ -21,7 +22,7 @@ class Constants
 	public static final statusEffectDataPath:String = "assets/data/status/status_";
 	public static final statusEffectAnimTime:Float = 1;
 	// UI
-	public static final uiYOffset:Float = -60;
+	public static final uiYOffset:Float = 0;
 	// StatusEffectBar
 	public static final statusEffectIconPath:String = "assets/images/statusicons/icon_";
 	// MiniHealthBar
