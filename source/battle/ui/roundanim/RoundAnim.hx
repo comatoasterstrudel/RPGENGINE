@@ -36,8 +36,8 @@ class RoundAnim extends FlxSpriteGroup
             new FlxTimer().start(0.125 * i, function(f):Void{
                 bg.alpha = .8 * (i / (trueText.length - 1));
                 
-                var letter = new CtText(0, 0, trueText[i], FlxAssets.FONT_DEFAULT, 50, false);
-                letter.setFormat(FlxAssets.FONT_DEFAULT, 80, FlxColor.WHITE, CENTER, SHADOW, FlxColor.BLACK);
+				var letter = new CtText(0, 0, trueText[i], Constants.fontName, 50, false);
+				letter.setFormat(Constants.fontName, 120, FlxColor.WHITE, CENTER, SHADOW, FlxColor.BLACK);
 				letter.borderSize = 8;
                 letter.lerpManager.lerpScaleX = true;
                 letter.lerpManager.lerpScaleY = true;

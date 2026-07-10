@@ -48,8 +48,8 @@ class BottomBar extends FlxSpriteGroup
 		endTurn.kill();
 		add(endTurn);
 
-		descriptionText = new CtText(0, 680, "", FlxAssets.FONT_DEFAULT, 20, false);
-		descriptionText.setFormat(FlxAssets.FONT_DEFAULT, 20, FlxColor.BLACK, CENTER, SHADOW, FlxColor.GRAY);
+		descriptionText = new CtText(0, 665, "", Constants.fontName, 35, false);
+		descriptionText.setFormat(Constants.fontName, 35, FlxColor.BLACK, CENTER, SHADOW, FlxColor.GRAY);
 		descriptionText.kill();
 		add(descriptionText);
 	}

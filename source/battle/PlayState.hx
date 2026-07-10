@@ -207,7 +207,7 @@ class PlayState extends FlxState
 		var sizing = Grid.calculateGridSize(gridSize);
 
 		bgLine = new CtSprite().createColorBlock(FlxG.width * 2, Std.int(sizing.y + Constants.gridSize), FlxColor.WHITE);
-		bgLine.alpha = .6;
+		bgLine.alpha = .5;
 		bgLine.screenCenter(X);
 		bgLine.y = (FlxG.height / 2 - bgLine.height / 2) + Constants.uiYOffset;
 		bgLine.camera = camGame;

@@ -6,7 +6,7 @@ package battle.ui.damagetext;
 class DamageText extends CtText
 {
     public function new(unit:Unit, text:String, color:FlxColor):Void{
-        super(0,0,text,FlxAssets.FONT_DEFAULT, 30);
+		super(0, 0, text, Constants.fontName, 50);
        
         scale.set(4, 3);
         

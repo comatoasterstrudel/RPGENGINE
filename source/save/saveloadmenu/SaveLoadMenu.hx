@@ -112,7 +112,7 @@ class SaveLoadMenu extends FlxSubState
         saveWindowArrow.antialiasing = false;
         add(saveWindowArrow);
         
-        topText = new CtText(saveWindow.x + 430, saveWindow.y + 70, "", FlxAssets.FONT_DEFAULT, 30);
+		topText = new CtText(saveWindow.x + 430, saveWindow.y + 70, "", Constants.fontName, 30);
         topText.color = FlxColor.BLACK;
         topText.text = switch(type){
             case NEWGAME: "//  NEW";
@@ -228,18 +228,18 @@ class SaveLoadMenu extends FlxSubState
 		confirmBg.alpha = .9;
 		confirmSprites.add(confirmBg);
 
-		confirmText = new CtText(10, 10, "Return to the Main Menu?", FlxAssets.FONT_DEFAULT, 40, false);
+		confirmText = new CtText(10, 10, "Return to the Main Menu?", Constants.fontName, 65, false);
 		confirmText.screenCenter();
 		confirmSprites.add(confirmText);
 
-		confirmYes = new CtText(10, 10, "Yes", FlxAssets.FONT_DEFAULT, 40, false);
+		confirmYes = new CtText(10, 10, "Yes", Constants.fontName, 55, false);
 		confirmYes.screenCenter();
-		confirmYes.setPosition(confirmYes.x - 200, confirmYes.y + 200);
+		confirmYes.setPosition(confirmYes.x - 200, confirmYes.y + 300);
 		confirmSprites.add(confirmYes);
 
-		confirmNo = new CtText(10, 10, "No", FlxAssets.FONT_DEFAULT, 40, false);
+		confirmNo = new CtText(10, 10, "No", Constants.fontName, 55, false);
 		confirmNo.screenCenter();
-		confirmNo.setPosition(confirmNo.x + 200, confirmNo.y + 200);
+		confirmNo.setPosition(confirmNo.x + 200, confirmNo.y + 300);
 		confirmSprites.add(confirmNo);
 
 		for (spr in [confirmText, confirmYes, confirmNo])

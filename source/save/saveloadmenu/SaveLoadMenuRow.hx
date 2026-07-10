@@ -50,7 +50,7 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
             divider.antialiasing = false;
             add(divider);
 		}     
-		roomText = new CtText(10, 10, "sd", FlxAssets.FONT_DEFAULT, 20, false);
+		roomText = new CtText(10, 10, "sd", Constants.fontName, 46, false);
 		baseSprites.add(roomText);
 
 		if (!enabled)
@@ -145,15 +145,15 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 
 	function initConfirmation():Void
 	{
-		confirmText = new CtText(10, 10, "sd", FlxAssets.FONT_DEFAULT, 30, false);
+		confirmText = new CtText(10, 10, "sd", Constants.fontName, 50, false);
 		confirmText.color = FlxColor.BLACK;
 		confirmSprites.add(confirmText);
 
-		confirmYes = new CtText(10, 10, "Yes", FlxAssets.FONT_DEFAULT, 20, false);
+		confirmYes = new CtText(10, 10, "Yes", Constants.fontName, 40, false);
 		confirmYes.color = FlxColor.BLACK;
 		confirmSprites.add(confirmYes);
 
-		confirmNo = new CtText(10, 10, "No", FlxAssets.FONT_DEFAULT, 20, false);
+		confirmNo = new CtText(10, 10, "No", Constants.fontName, 40, false);
 		confirmNo.color = FlxColor.BLACK;
 		confirmSprites.add(confirmNo);
 
@@ -164,10 +164,10 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 		confirmNo.x += 60;
 
 		CtUtil.centerSpriteOnSprite(confirmYes, callIcon, false, true);
-		confirmYes.y += 20;
+		confirmYes.y += 40;
 
 		CtUtil.centerSpriteOnSprite(confirmNo, callIcon, false, true);
-		confirmNo.y += 20;
+		confirmNo.y += 40;
 
 		confirmMenuManager = new CtMenuManager(CtControls.getInputFunction("right", JUSTPRESSED), CtControls.getInputFunction("left", JUSTPRESSED),
 			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED),
@@ -200,6 +200,7 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 		}
 
 		CtUtil.centerSpriteOnSprite(roomText, callIcon, false, true);
+		roomText.y += 20;
 	}
 
 	public function updateColor(color:FlxColor):Void

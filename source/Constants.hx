@@ -170,6 +170,7 @@ class Constants
 	//
 	public static final startingRoom:String = "factory_intro";
 	public static final sfxPath:String = "assets/sounds/sfx_";
+	public static final fontName:String = "assets/fonts/TheBestFontOfAllTime-Regular.ttf";
 	//
 	// SAVE STUFF
 	//

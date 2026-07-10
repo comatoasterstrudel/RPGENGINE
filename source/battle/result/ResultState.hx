@@ -32,7 +32,7 @@ class ResultState extends FlxSubState
         bg.camera = camMenu;
         add(bg);
         
-		bigText = new CtText(0, Constants.resultBigTextY, getBigText(), FlxAssets.FONT_DEFAULT, Constants.resultBigTextSize);
+		bigText = new CtText(0, Constants.resultBigTextY, getBigText(), Constants.fontName, Constants.resultBigTextSize);
         bigText.screenCenter(X);
         bigText.camera = camMenu;
         add(bigText);
@@ -95,7 +95,7 @@ class ResultState extends FlxSubState
         var options:Array<CtMenuOption> = [];
         
         for(i in 0...optionList.length){
-			var text = new CtText(Constants.resultTextX, Constants.resultTextY + Constants.resultTextSpacing * i, optionList[i], FlxAssets.FONT_DEFAULT,
+			var text = new CtText(Constants.resultTextX, Constants.resultTextY + Constants.resultTextSpacing * i, optionList[i], Constants.fontName,
 				Constants.resultTextSize, false);
             texts.add(text);
                         
