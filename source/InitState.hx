@@ -77,7 +77,8 @@ class InitState extends FlxState{
 			excludedTextSoundCharacters: [" ", ".", "!", "?"],
 			choicerFont: Constants.fontName,
 			choicerCursorPath: "cursor_arrow",
-			choicerFontSize: 35,
+			choicerFontSize: 65,
+			choicerSpacing: 70,
 			choicerOffset: new FlxPoint(100, 100),
 			positionPortraitFromBottom: true,
 		}
