@@ -41,6 +41,8 @@ class GridUnitPlacer extends FlxSpriteGroup
     
 	var startedBefore:Bool = false;
     
+	public var inspectTrigger:FlxSignal = new FlxSignal();
+    
     public function new(allyGrid:Grid, enemyGrid:Grid):Void{
         super();
         
@@ -53,6 +55,7 @@ class GridUnitPlacer extends FlxSpriteGroup
         
         bg = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.BLACK);
         bg.alpha = 0;
+		bg.scrollFactor.set(0, 0);
         add(bg);  
         
 		robin = new GridUnitPlacerRobin();
@@ -167,7 +170,11 @@ class GridUnitPlacer extends FlxSpriteGroup
 							selectingMenuManager.disable();
 							deactivate();    
 						case "inspect":
-
+							selectingMenuManager.disable();
+							deactivate(function():Void
+							{
+								inspectTrigger.dispatch();
+							});
 						case "reuse":
 					}
 				}
@@ -387,11 +394,17 @@ class GridUnitPlacer extends FlxSpriteGroup
         
         FlxTween.tween(unitIcons, {alpha: 1}, 0.5); 
 
+		FlxTween.tween(ghostUnitSprites, {alpha: 1}, 0.5); 
+
 		for (button in topButtons)
 		{
 			FlxTween.tween(button, {alpha: 1}, 0.5);
 		}
 
+		FlxTween.tween(selectingText, {alpha: 1}, 0.5);
+
+		FlxTween.tween(selectingTextBg, {alpha: .4}, 0.5);
+        
         new FlxTimer().start(0.5, function(f):Void{
 			if (!startedBefore)
 			{

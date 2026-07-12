@@ -966,6 +966,20 @@ class PlayState extends FlxState
 			cameraTrackerType = UNIT;
 			menuManagerPlayerUI.enable(false);
 		}
+		else if (uiStatus == GRID_PLACER_INSPECT)
+		{
+			cameraTrackerType = CENTERED;
+			uiStatus = INACTIVE;
+
+			FlxTween.tween(bottomBar, {alpha: 0}, .6, {
+				onComplete: function(f):Void
+				{
+					bottomBar.visible = false;
+
+					gridUnitPlacer.activate();
+				}
+			});
+		}
 		for (grid in grids)
 		{
 			for (space in grid.spaces)
@@ -1171,6 +1185,19 @@ class PlayState extends FlxState
 
 	function doGridPlacer():Void
 	{
+		gridUnitPlacer.inspectTrigger.add(function():Void
+		{
+			bottomBar.visible = true;
+			bottomBar.alpha = 0;
+
+			FlxTween.tween(bottomBar, {alpha: 1}, .3, {
+				onComplete: function(f):Void
+				{
+					uiStatus = GRID_PLACER_INSPECT;
+					addGridSelector();
+				}
+			});
+		});
 		gridUnitPlacer.activate(function(placedUnits):Void
 		{
 			if (placedUnits.length == 0)
