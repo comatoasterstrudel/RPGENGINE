@@ -92,6 +92,13 @@ class Constants
 	public static final battleBackgroundGraphicPath:String = "assets/images/battlebackgrounds/battlebg_";
 	// Scripts
 	public static final battleScriptPath:String = "assets/data/battlescripts/battlescript_";
+	// GridUnitPlacer
+	public static final gridUnitPlacerUnitIconSize:Int = 80;
+	public static final gridUnitPlacerUnitIconSpacing:Int = 20;
+	public static final gridUnitPlacerUnitsPerRow:Int = 3;
+	public static final gridUnitPlacerBgWidth:Float = (gridUnitPlacerUnitIconSize * gridUnitPlacerUnitsPerRow)
+		+ (gridUnitPlacerUnitIconSpacing * (gridUnitPlacerUnitsPerRow + 1));
+	public static final gridUnitPlacerFinishButton:String = "assets/images/gridunitplacer/finish.png";
 	//
 	// OVERWORLD STUFF !!
 	//

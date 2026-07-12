@@ -36,6 +36,8 @@ class PlayState extends FlxState
 
 	var currentSelectedGridSpace:FlxSprite;
 
+	var gridUnitPlacer:GridUnitPlacer;
+	
 	// UI STUFF
 	var statusEffectBars:StatusEffectBars;
 
@@ -61,8 +63,9 @@ class PlayState extends FlxState
 	// GAME STUFF
 
 	var units:Array<Unit> = [];
-	var unitGroup:FlxTypedGroup<Unit>;
-	
+	var allyUnitGroup:FlxTypedGroup<Unit>;
+	var enemyUnitGroup:FlxTypedGroup<Unit>;
+
 	var roundNum:Int = 0;
 	var turnNum:Int = 0;
 	var turnOrder:Array<Unit> = [];
@@ -229,22 +232,32 @@ class PlayState extends FlxState
 
 		enemyGrid = new Grid(gridSize, new FlxPoint(midPointX + (spacing), midPointY));
 		enemyGrid.camera = camGame;
-		allyGridBg = new GridBackground(allyGrid);
-		allyGridBg.camera = camGame;
-		add(allyGridBg);
 
 		enemyGridBg = new GridBackground(enemyGrid);
 		enemyGridBg.camera = camGame;
 		add(enemyGridBg);
 
-		add(allyGrid);
 		add(enemyGrid);
+		enemyUnitGroup = new FlxTypedGroup<Unit>();
+		enemyUnitGroup.camera = camGame;
+		add(enemyUnitGroup);
+
+		gridUnitPlacer = new GridUnitPlacer(allyGrid, enemyGrid);
+		gridUnitPlacer.camera = camGame;
+		add(gridUnitPlacer);
+
+		allyGridBg = new GridBackground(allyGrid);
+		allyGridBg.camera = camGame;
+		add(allyGridBg);
+
+		add(allyGrid);
+
+		allyUnitGroup = new FlxTypedGroup<Unit>();
+		allyUnitGroup.camera = camGame;
+		add(allyUnitGroup);
 
 		grids = [allyGrid, enemyGrid];
 		updateGridSelectorOptions();
-		unitGroup = new FlxTypedGroup<Unit>();
-		unitGroup.camera = camGame;
-		add(unitGroup);
 	}
 
 	/**
@@ -345,7 +358,14 @@ class PlayState extends FlxState
 		
 		var unit = new Unit(unitID, grid, position, controllable);
 		unit.camera = camGame;
-		unitGroup.add(unit);
+		if (controllable)
+		{
+			allyUnitGroup.add(unit);
+		}
+		else
+		{
+			enemyUnitGroup.add(unit);
+		}
 
 		grid.placeUnit(unit);
 
@@ -501,6 +521,8 @@ class PlayState extends FlxState
 				{
 					bottomBar.visible = true;
 					turnOrderDisplay.visible = true;
+					miniHealthBars.visible = true;
+					statusEffectBars.visible = true;
 
 					for (ui in [bottomBar, turnOrderDisplay])
 					{
@@ -1105,6 +1127,8 @@ class PlayState extends FlxState
 	{
 		bottomBar.visible = false;
 		turnOrderDisplay.visible = false;
+		miniHealthBars.visible = false;
+		statusEffectBars.visible = false;
 		
 		hideGrid(allyGrid);
 		hideGrid(enemyGrid);
@@ -1141,7 +1165,37 @@ class PlayState extends FlxState
 		});
 		eventManager.addEvent(function():Void
 		{
-			advanceRound(true);
+			doGridPlacer();
+		});
+	}
+
+	function doGridPlacer():Void
+	{
+		gridUnitPlacer.activate(function(placedUnits):Void
+		{
+			if (placedUnits.length == 0)
+			{
+				advanceRound(true);
+			}
+			else
+			{
+				for (i in 0...placedUnits.length)
+				{
+					new FlxTimer().start(.2 * i, function(f):Void
+					{
+						var unitInfo = placedUnits[i];
+						placeUnit(unitInfo.unit, allyGrid, FlxPoint.get(unitInfo.x, unitInfo.y), true, true);
+					});
+
+					if (i == placedUnits.length - 1)
+					{ // done
+						new FlxTimer().start(1, function(f):Void
+						{
+							advanceRound(true);
+						});
+					}
+				}
+			}
 		});
 	}
 

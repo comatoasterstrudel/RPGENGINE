@@ -1,7 +1,5 @@
 package battle.units;
 
-import flixel.effects.FlxFlicker;
-
 class Unit extends CtSprite
 {
     /**
