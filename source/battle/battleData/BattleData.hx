@@ -16,6 +16,8 @@ class BattleData extends CtJsonLoader
 
 	public var script:Array<String> = [];
     
+	public var disableUnitPlacer:Bool = false;
+    
     public function new(id:String){
         this.id = id;
         
@@ -44,5 +46,6 @@ class BattleData extends CtJsonLoader
             };
         });
 		this.script = data.script ?? cast [];
+		this.disableUnitPlacer = data.disableUnitPlacer ?? false;
     }
 }

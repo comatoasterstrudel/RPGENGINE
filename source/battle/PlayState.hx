@@ -242,9 +242,12 @@ class PlayState extends FlxState
 		enemyUnitGroup.camera = camGame;
 		add(enemyUnitGroup);
 
-		gridUnitPlacer = new GridUnitPlacer(allyGrid, enemyGrid);
-		gridUnitPlacer.camera = camGame;
-		add(gridUnitPlacer);
+		if (!battleData.disableUnitPlacer)
+		{
+			gridUnitPlacer = new GridUnitPlacer(allyGrid, enemyGrid);
+			gridUnitPlacer.camera = camGame;
+			add(gridUnitPlacer);	
+		}
 
 		allyGridBg = new GridBackground(allyGrid);
 		allyGridBg.camera = camGame;
@@ -1185,6 +1188,12 @@ class PlayState extends FlxState
 
 	function doGridPlacer():Void
 	{
+		if (battleData.disableUnitPlacer)
+		{
+			advanceRound(true);
+			return;
+		}
+		
 		gridUnitPlacer.inspectTrigger.add(function():Void
 		{
 			bottomBar.visible = true;
