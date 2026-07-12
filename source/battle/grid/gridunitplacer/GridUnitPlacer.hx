@@ -163,11 +163,14 @@ class GridUnitPlacer extends FlxSpriteGroup
 					switch (buttonName)
 					{
 						case "finish":
-							updateSelectingText("Start Battle");
+							updateSelectingText("Start battle");
 						case "inspect":
-							updateSelectingText("View the Board");
+							updateSelectingText("View the board");
 						case "reuse":
-							updateSelectingText("Use Last Formation");
+							if (reuseEnabled)
+								updateSelectingText("Use last formation");
+							else
+								updateSelectingText("No last formation found");
 					}
 				},
 				clickFunction: function(f):Void
