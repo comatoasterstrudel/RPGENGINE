@@ -43,12 +43,16 @@ class GridUnitPlacer extends FlxSpriteGroup
     
 	public var inspectTrigger:FlxSignal = new FlxSignal();
     
+	var reuseEnabled:Bool = false;
+    
     public function new(allyGrid:Grid, enemyGrid:Grid):Void{
         super();
         
         this.allyGrid = allyGrid;
         this.enemyGrid = enemyGrid;
 
+		reuseEnabled = (Save.savedUnitPlacements != null && Save.savedUnitPlacements != [] && Save.savedUnitPlacements.length > 0);
+        
         cursorCamera = new CtCamera();
         cursorCamera.bgColor.alpha = 0;
         FlxG.cameras.add(cursorCamera, false);
@@ -138,7 +142,11 @@ class GridUnitPlacer extends FlxSpriteGroup
 
 		for (buttonName in ["finish", "inspect", "reuse"])
 		{
-			var button = new CtSprite().createFromImage(Constants.gridUnitPlacerButtonPath + buttonName + ".png");
+			var button = new CtSprite().createFromImage((buttonName == "reuse" && !reuseEnabled) ? Constants.gridUnitPlacerButtonPath
+				+ buttonName
+				+ "_locked.png" : Constants.gridUnitPlacerButtonPath
+				+ buttonName
+				+ ".png");
 
 			button.y = 20;
 			button.alpha = 0;
@@ -176,6 +184,15 @@ class GridUnitPlacer extends FlxSpriteGroup
 								inspectTrigger.dispatch();
 							});
 						case "reuse":
+							if (reuseEnabled)
+							{
+								resetPlacedUnits();
+
+								for (i in Save.savedUnitPlacements)
+								{
+									placeUnit(Grid.getGridSpaceFromGrid(allyGrid, FlxPoint.get(i.x, i.y)), i.unit);
+								}
+							}
 					}
 				}
 			});
@@ -327,7 +344,11 @@ class GridUnitPlacer extends FlxSpriteGroup
     }
     
     function placeUnit(space:GridSpace, unit:String):Void{
-        endPlacing();
+		if (!canPlaceOnSpace(space))
+			return;
+
+		if (status == PLACING)
+			endPlacing();
         
         placedUnits.push({unit: unit, x: Std.int(space.position.x), y: Std.int(space.position.y)});
         
@@ -355,6 +376,14 @@ class GridUnitPlacer extends FlxSpriteGroup
         }
         updatePlacedIcons();
     }
+    
+	function resetPlacedUnits():Void
+	{
+		for (unit in Unit.getListOfUnits())
+		{
+			removePlacedUnit(unit);
+		}
+	}
     
     function updatePlacedIcons():Void{
         for(i in unitIconArray){
@@ -385,7 +414,9 @@ class GridUnitPlacer extends FlxSpriteGroup
 		FlxTween.tween(robin, {alpha: 1}, 0.5);
 		robin.doAnim();
 
-		FlxTween.tween(uiBg, {alpha: 1}, 0.5, {
+		FlxTween.tween(uiBg, {alpha: 1}, 0.5);
+
+		FlxTween.tween(uiBgAnim, {alpha: 1}, 0.5, {
 			onComplete: function(f):Void
 			{
 				uiBgAnim.visible = true;
@@ -394,7 +425,7 @@ class GridUnitPlacer extends FlxSpriteGroup
         
         FlxTween.tween(unitIcons, {alpha: 1}, 0.5); 
 
-		FlxTween.tween(ghostUnitSprites, {alpha: 1}, 0.5); 
+		FlxTween.tween(ghostUnitSprites, {alpha: .33}, 0.5); 
 
 		for (button in topButtons)
 		{
@@ -450,6 +481,7 @@ class GridUnitPlacer extends FlxSpriteGroup
 			}
 			else
 			{
+				Save.savedUnitPlacements = placedUnits;
 				onComplete(placedUnits);
 				destroy();   
 			}

@@ -8,6 +8,9 @@ class Save
 	// time
 	public static var playtime:Float = 0;
 	
+	// saved unit placements
+	public static var savedUnitPlacements:Array<GridUnitPlacerInfo> = [];
+	
     public static function init():Void{
         // add story flags
         for (storyFlagName in CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.storyFlagsDataFolder, [".json"], false, false), ["storyflag_", ".json"]))
@@ -38,6 +41,8 @@ class Save
 		// reset time
 
 		playtime = 0;
+		// reset saved unit placements
+		savedUnitPlacements = [];
 	}
 
 	public static function save(?slot:Int = -5, ?onComplete:Void->Void):Void
@@ -83,6 +88,9 @@ class Save
 		// save time
 
 		save.data.playtime = playtime;
+		
+		// save unit placements
+		save.data.savedUnitPlacements = savedUnitPlacements;
 		
 		// flush
         
@@ -159,6 +167,12 @@ class Save
 		if (save.data.playtime != null)
 		{
 			playtime = save.data.playtime;
+		}
+		
+		// load saved unit placements
+		if (save.data.savedUnitPlacements != null)
+		{
+			savedUnitPlacements = save.data.savedUnitPlacements;
 		}
 		
 		trace("Finished Load (Slot " + loadedSaveSlot + ")");

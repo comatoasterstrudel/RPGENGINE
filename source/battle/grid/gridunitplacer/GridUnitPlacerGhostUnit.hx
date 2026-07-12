@@ -10,9 +10,7 @@ class GridUnitPlacerGhostUnit extends CtSprite
         this.unit = unit;
         
         createFromImage(Constants.unitGridGraphicPath + new UnitData(unit).gridGraphic + ".png");
-        
-        alpha = .5;
-        
+
         CtUtil.centerSpriteOnSprite(this, space.baseSprite, true, true);
         
         lerpManager.lerpScaleX = true;

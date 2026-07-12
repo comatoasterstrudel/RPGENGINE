@@ -8,6 +8,8 @@ class GridUnitPlacerUiBg extends FlxSpriteGroup
     
     var tweens:Array<FlxTween> = [];
     
+	var alphaArray:Array<Float> = [];
+    
     public function new(ogBg:CtSprite):Void{
         super();
         
@@ -26,6 +28,7 @@ class GridUnitPlacerUiBg extends FlxSpriteGroup
             bg.ID = Constants.gridUnitPlacerUiBgSpriteNum - spr;
             bg.alpha = scroll;
             add(bg);  
+			alphaArray.push(scroll);
         } 
     }
     
@@ -54,5 +57,9 @@ class GridUnitPlacerUiBg extends FlxSpriteGroup
         for(spr in members){
            tweens.push(FlxTween.tween(spr, {x: ogBg.x + (200 * (spr.ID / Constants.gridUnitPlacerUiBgSpriteNum))}, 5, {ease: FlxEase.quadInOut, type: PINGPONG}));
         }
+		for (i in 0...members.length)
+		{
+			members[i].alpha = alphaArray[i];
+		}
     }
 }
