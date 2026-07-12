@@ -4,6 +4,9 @@ class GridUnitPlacer extends FlxSpriteGroup
 {
     var bg:CtSprite;    
     var uiBg:CtSprite;
+	var uiBgAnim:GridUnitPlacerUiBg;
+
+	var robin:GridUnitPlacerRobin;
     
     var unitIcons:FlxSpriteGroup;
     var unitIconArray:Array<GridUnitPlacerUnitIcon> = [];
@@ -14,7 +17,10 @@ class GridUnitPlacer extends FlxSpriteGroup
     var selectingMenuManager:CtMenuManager;
     var selectingCursor:Cursor;
     
-    var finishButton:CtSprite;
+	var topButtons:Array<CtSprite> = [];
+
+	var selectingTextBg:CtSprite;
+	var selectingText:CtText;
     
     var placingMenuManager:CtMenuManager;
     var placingCursor:Cursor;
@@ -33,6 +39,8 @@ class GridUnitPlacer extends FlxSpriteGroup
     
     var onComplete:Array<GridUnitPlacerInfo>->Void;
     
+	var startedBefore:Bool = false;
+    
     public function new(allyGrid:Grid, enemyGrid:Grid):Void{
         super();
         
@@ -47,19 +55,33 @@ class GridUnitPlacer extends FlxSpriteGroup
         bg.alpha = 0;
         add(bg);  
         
+		robin = new GridUnitPlacerRobin();
+		robin.alpha = 0;
+		add(robin);
+        
         uiBg = new CtSprite().createColorBlock(Std.int(Constants.gridUnitPlacerBgWidth), FlxG.height, FlxColor.WHITE);
         uiBg.setPosition(enemyGrid.spaces[0].baseSprite.x + (Grid.calculateGridSize(new FlxPoint(enemyGrid.size.x, enemyGrid.size.y)).x / 2) - uiBg.width / 2, 0);
         uiBg.alpha = 0;
+		uiBgAnim = new GridUnitPlacerUiBg(uiBg);
+		add(uiBgAnim);
+        
         add(uiBg);
         
-        addUnitIcons();  
+		selectingTextBg = new CtSprite().createColorBlock(Std.int(uiBg.width / 1.2), 120, FlxColor.BLACK);
+		selectingTextBg.alpha = .4;
+		selectingTextBg.visible = false;
+		CtUtil.centerSpriteOnSprite(selectingTextBg, uiBg, true, false);
+		selectingTextBg.y = FlxG.height - 150;
+		add(selectingTextBg);
+
+		selectingText = new CtText();
+		selectingText.setFormat(Constants.fontName, 40, FlxColor.WHITE, CENTER, SHADOW, FlxColor.GRAY);
+		selectingText.fieldWidth = uiBg.width / 1.2;
+		selectingText.antialiasing = false;
+		add(selectingText);
         
-        finishButton = new CtSprite().createFromImage(Constants.gridUnitPlacerFinishButton);
-        CtUtil.centerSpriteOnSprite(finishButton, uiBg, true, false);
-        finishButton.y = 20;
-        finishButton.alpha = 0;
-        add(finishButton);
-        
+		addUnitIcons();  
+
         initSelectingMenu();
         initPlacingMenu();
     }
@@ -76,7 +98,7 @@ class GridUnitPlacer extends FlxSpriteGroup
         unitIcons.alpha = 0;
         add(unitIcons);
         
-        var listOfUnits:Array<String> = ["chair", "partyhat"];
+		var listOfUnits:Array<String> = Unit.getListOfUnits();
         
         var xPos:Int = 0;
         var yPos:Int = 0;
@@ -107,12 +129,54 @@ class GridUnitPlacer extends FlxSpriteGroup
         
         selectingMenuManager.addCursor(selectingCursor, 30);
         
-        var menuOptions:Array<Array<CtMenuOption>> = [];
+		var menuOptions:Array<Array<CtMenuOption>> = [[]];
         
-        menuOptions.push([{sprite: finishButton, cursorDirection: DOWN, clickFunction: function(f):Void{
-            selectingMenuManager.disable();
-            deactivate();
-        }}]);
+		var xPos:Int = 0;
+
+		for (buttonName in ["finish", "inspect", "reuse"])
+		{
+			var button = new CtSprite().createFromImage(Constants.gridUnitPlacerButtonPath + buttonName + ".png");
+
+			button.y = 20;
+			button.alpha = 0;
+			button.antialiasing = false;
+			add(button);
+
+			topButtons.push(button);
+
+			menuOptions[0].push({
+				sprite: button,
+				cursorDirection: DOWN,
+				hoverFunction: function(f):Void
+				{
+					switch (buttonName)
+					{
+						case "finish":
+							updateSelectingText("Start Battle");
+						case "inspect":
+							updateSelectingText("View the Board");
+						case "reuse":
+							updateSelectingText("Use Last Formation");
+					}
+				},
+				clickFunction: function(f):Void
+				{
+					switch (buttonName)
+					{
+						case "finish":
+							selectingMenuManager.disable();
+							deactivate();    
+						case "inspect":
+
+						case "reuse":
+					}
+				}
+			});
+
+			xPos++;
+		}
+
+		CtUtil.centerGroup(cast topButtons, Constants.gridUnitPlacerUnitIconSpacing, uiBg.x + uiBg.width / 2);
         
         for(i in unitIconArray){
             if(menuOptions[i.yPos + 1] == null){
@@ -120,11 +184,20 @@ class GridUnitPlacer extends FlxSpriteGroup
             }
             menuOptions[i.yPos + 1].push({sprite: i.bg, cursorDirection: UP, hoverFunction: function(f):Void{
                 i.updateSelected(true);
+					if (i.placed)
+					{
+						updateSelectingText(new UnitData(i.unit).name + "\nPLACED");
+					}
+					else
+					{
+						updateSelectingText(new UnitData(i.unit).name);
+					}
             }, nonHoverFunction: function(f):Void{
                 i.updateSelected(false);
             }, clickFunction: function(f):Void{
                 if(i.placed){
                     removePlacedUnit(i.unit);
+						selectingMenuManager.changeSelection();
                 } else {
                     startPlacing(i.unit);
                 }
@@ -288,37 +361,85 @@ class GridUnitPlacer extends FlxSpriteGroup
         }
     }
     
-    public function activate(onComplete:Array<GridUnitPlacerInfo>->Void):Void{
-        this.onComplete = onComplete;
+	function updateSelectingText(text:String):Void
+	{
+		selectingText.text = text;
+		CtUtil.centerSpriteOnSprite(selectingText, selectingTextBg, true, true);
+		selectingTextBg.visible = true;
+	}
+
+	public function activate(?onComplete:Array<GridUnitPlacerInfo>->Void):Void
+	{
+		if (onComplete != null)
+			this.onComplete = onComplete;
         
         FlxTween.tween(bg, {alpha: .85}, 0.5);
         
-        FlxTween.tween(uiBg, {alpha: 1}, 0.5); 
+		FlxTween.tween(robin, {alpha: 1}, 0.5);
+		robin.doAnim();
+
+		FlxTween.tween(uiBg, {alpha: 1}, 0.5, {
+			onComplete: function(f):Void
+			{
+				uiBgAnim.visible = true;
+			}
+		}); 
         
         FlxTween.tween(unitIcons, {alpha: 1}, 0.5); 
 
-        FlxTween.tween(finishButton, {alpha: 1}, 0.5); 
+		for (button in topButtons)
+		{
+			FlxTween.tween(button, {alpha: 1}, 0.5);
+		}
 
         new FlxTimer().start(0.5, function(f):Void{
-            selectingMenuManager.curRack = 1;
+			if (!startedBefore)
+			{
+				startedBefore = true;
+				selectingMenuManager.curRack = 1;
+			}
             selectingMenuManager.enable(false);
         });
     }
     
-    public function deactivate():Void{
+	public function deactivate(?newOnComplete:Void->Void):Void
+	{
         FlxTween.tween(bg, {alpha: 0}, 0.5);
         
+		FlxTween.tween(robin, {alpha: 0}, 0.5);
+
         FlxTween.tween(uiBg, {alpha: 0}, 0.5); 
         
         FlxTween.tween(unitIcons, {alpha: 0}, 0.5); 
 
         FlxTween.tween(ghostUnitSprites, {alpha: 0}, 0.5); 
 
-        FlxTween.tween(finishButton, {alpha: 0}, 0.5); 
+		FlxTween.tween(selectingText, {alpha: 0}, 0.5);
+
+		FlxTween.tween(selectingTextBg, {alpha: 0}, 0.5);
+
+		FlxTween.tween(uiBgAnim, {alpha: 0}, 0.5, {
+			onComplete: function(F):Void
+			{
+				uiBgAnim.visible = false;
+			}
+		});
+
+		for (button in topButtons)
+		{
+			FlxTween.tween(button, {alpha: 0}, 0.5);
+		}
 
         new FlxTimer().start(0.5, function(f):Void{
-            onComplete(placedUnits);
-            destroy();
+			if (newOnComplete != null)
+			{
+				newOnComplete();
+			}
+			else
+			{
+				onComplete(placedUnits);
+				destroy();   
+			}
         });
     }
 }

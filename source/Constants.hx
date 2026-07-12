@@ -14,7 +14,8 @@ class Constants
 	public static final unitGridGraphicPath:String = "assets/images/grid/units/unit_";
 	public static final gridBackgroundSpriteNum:Int = 15;
 	// Units
-	public static final unitDataPath:String = "assets/data/units/unit_";
+	public static final unitDataFolder:String = "assets/data/units/";
+	public static final unitDataPath:String = unitDataFolder + "unit_";
 	// Skills
 	public static final skillDataPath:String = "assets/data/skills/skill_";
 	public static final unitMaxSkills:Int = 5;
@@ -98,7 +99,9 @@ class Constants
 	public static final gridUnitPlacerUnitsPerRow:Int = 3;
 	public static final gridUnitPlacerBgWidth:Float = (gridUnitPlacerUnitIconSize * gridUnitPlacerUnitsPerRow)
 		+ (gridUnitPlacerUnitIconSpacing * (gridUnitPlacerUnitsPerRow + 1));
-	public static final gridUnitPlacerFinishButton:String = "assets/images/gridunitplacer/finish.png";
+	public static final gridUnitPlacerButtonPath:String = "assets/images/gridunitplacer/button_";
+	public static final gridUnitPlacerRobinPath:String = "assets/images/gridunitplacer/robin/";
+	public static final gridUnitPlacerUiBgSpriteNum:Int = 15;
 	//
 	// OVERWORLD STUFF !!
 	//

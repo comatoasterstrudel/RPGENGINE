@@ -224,4 +224,8 @@ class Unit extends CtSprite
 			});
 		}
 	}
+	public static function getListOfUnits():Array<String>
+	{
+		return CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.unitDataFolder, [".json"], false, false), ["unit_", ".json"]);
+	}
 }

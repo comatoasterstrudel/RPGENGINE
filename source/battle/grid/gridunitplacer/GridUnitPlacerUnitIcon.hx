@@ -37,7 +37,7 @@ class GridUnitPlacerUnitIcon extends FlxSpriteGroup
         if(this.selected){
             bg.color = 0xFF626262;
         } else {
-            bg.color = 0xFFC6C6C6;
+			bg.color = 0xFFDADADA;
         }
     }
     
