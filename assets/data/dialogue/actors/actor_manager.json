@@ -2,5 +2,6 @@
     "name": "manager",
 	"vanityName": "The Manager",
 	"textColor": [0, 0, 0],
-	"textSound": "manager"
+	"textSound": "manager",
+	"textSoundVolume": 0.45
 }
