@@ -27,4 +27,7 @@ enum UIStatus{
 	 * The player is using the grid to select a unit  inside of the grid placer
 	 */
 	GRID_PLACER_INSPECT;
+	SEEING_SKILLS;
+
+	SEEING_SKILLS_PLACER;
 }

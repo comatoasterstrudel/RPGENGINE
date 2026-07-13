@@ -56,14 +56,14 @@ class TurnOrderIcon extends FlxSpriteGroup
 		CtUtil.centerSpriteOnSprite(unitGraphic, bg, true, true);
 		CtUtil.centerSpriteOnSprite(bgOutline, bg, true, true);
 
-		lightening = CtUtil.lerpThing(lightening, targetLightening, elapsed, 5);
+		lightening = CtUtil.lerpThing(lightening, targetLightening, elapsed, 12);
 
 		bg.color = ogColor.getLightened(lightening);
 	}
 
 	public function updateCurrentTurn(unit:Unit):Void
 	{
-		if (curUnit.uniqueUnitID == unit.uniqueUnitID)
+		if (unit != null && curUnit.uniqueUnitID == unit.uniqueUnitID)
 		{
 			targetLightening = 0;
 		}

@@ -556,6 +556,7 @@ class PlayState extends FlxState
 			{
 				menuManagerPlayerUI.disable(false);
 				uiStatus = GRID_INSPECT;
+				bottomBar.removeMenu();
 				addGridSelector();
 			},
 			hoverFunction: function(spr:FlxSprite):Void
@@ -965,12 +966,21 @@ class PlayState extends FlxState
 		menuManagerGridSelector.disable();
 		if (uiStatus == GRID_INSPECT || uiStatus == GRID_SKILL)
 		{
+			if (uiStatus == GRID_INSPECT)
+			{
+				bottomBar.updateCurrentUnit(currentTurnUnit);
+				turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
+				bottomBar.addMenu();
+			}
+			
 			uiStatus = SELECTING_SKILLS;
 			cameraTrackerType = UNIT;
 			menuManagerPlayerUI.enable(false);
 		}
 		else if (uiStatus == GRID_PLACER_INSPECT)
 		{
+			bottomBar.updateCurrentUnit(null);
+			
 			cameraTrackerType = CENTERED;
 			uiStatus = INACTIVE;
 
@@ -987,6 +997,7 @@ class PlayState extends FlxState
 		{
 			for (space in grid.spaces)
 			{
+				space.toggleFlashSprite(false);
 				space.baseSprite.alpha = 1;
 			}
 		}
@@ -1062,6 +1073,19 @@ class PlayState extends FlxState
 					{
 						space.grid.updateFlashingSprites(getAffectedSpacesForSkill(currentTurnUnit.skills[menuManagerPlayerUI.curSelected - 1],
 							currentTurnUnit, space.grid, new FlxPoint(space.position.x, space.position.y)));
+					}
+					else if (uiStatus == GRID_INSPECT || uiStatus == GRID_PLACER_INSPECT)
+					{
+						bottomBar.updateCurrentUnit(space.unit);
+						turnOrderDisplay.updateCurrentTurn(space.unit);
+						space.toggleFlashSprite(true);
+					}
+				},
+				nonHoverFunction: function(sprite):Void
+				{
+					if (uiStatus == GRID_INSPECT || uiStatus == GRID_PLACER_INSPECT)
+					{
+						space.toggleFlashSprite(false);
 					}
 				}
 			});
@@ -1198,6 +1222,7 @@ class PlayState extends FlxState
 		{
 			bottomBar.visible = true;
 			bottomBar.alpha = 0;
+			bottomBar.updateCurrentUnit(null);
 
 			FlxTween.tween(bottomBar, {alpha: 1}, .3, {
 				onComplete: function(f):Void

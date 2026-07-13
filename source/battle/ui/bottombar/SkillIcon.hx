@@ -36,7 +36,7 @@ class SkillIcon extends FlxSpriteGroup
 		bgSprite.antialiasing = false;
 		add(bgSprite);
 
-		skillSprite = new CtSprite(0, 575, false);
+		skillSprite = new CtSprite(0, 575, false).createColorBlock(40, 40, FlxColor.BLUE);
         skillSprite.antialiasing = false;
         add(skillSprite);
         
@@ -45,7 +45,7 @@ class SkillIcon extends FlxSpriteGroup
         add(outlineSprite);        
 		visible = false;
     }
-    
+
 	/**
 	 * Call this to update the sprites on this icon.
 	 * @param enabled Should this icon display a skill? Otherwise this box will display as blank.
@@ -80,9 +80,8 @@ class SkillIcon extends FlxSpriteGroup
             outlineSprite.color = FlxColor.GRAY;
 			skillSprite.visible = false;
         }
-        
-		CtUtil.centerSpriteOnSprite(bgSprite, outlineSprite, true, true);
-        CtUtil.centerSpriteOnSprite(skillSprite, outlineSprite, true, true);
 		visible = true;
+		CtUtil.centerSpriteOnSprite(bgSprite, outlineSprite, true, true);
+		CtUtil.centerSpriteOnSprite(skillSprite, outlineSprite, true, true);
     }
 }

@@ -52,19 +52,35 @@ class BottomBar extends FlxSpriteGroup
 		descriptionText.setFormat(Constants.fontName, 35, FlxColor.BLACK, CENTER, SHADOW, FlxColor.GRAY);
 		descriptionText.kill();
 		add(descriptionText);
+		updateCurrentUnit(null);
 	}
     
     public function updateCurrentUnit(unit:Unit):Void{
         this.curUnit = unit;
         
-		unitPortrait.applyUnitGraphic(curUnit);
+		if (unit != null)
+		{
+			unitPortrait.visible = true;
+			unitPortrait.applyUnitGraphic(curUnit);
         
-        for(i in 0...Constants.unitMaxSkills){
-            skillIcons[i].updateSkill(false);
-        }
-        
-        for(i in 0...unit.skills.length){
-            skillIcons[i].updateSkill(true, unit.skills[i]);
+			for (i in 0...Constants.unitMaxSkills)
+			{
+				skillIcons[i].updateSkill(false);
+			}
+
+			for (i in 0...unit.skills.length)
+			{
+				skillIcons[i].updateSkill(true, unit.skills[i]);
+			}
+		}
+		else
+		{
+			unitPortrait.visible = false;
+
+			for (i in 0...Constants.unitMaxSkills)
+			{
+				skillIcons[i].updateSkill(false);
+			}
 		}
 	}
 
