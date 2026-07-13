@@ -33,7 +33,13 @@
 	},
 	{
 		"speed": 0.03,
-		"dialogue": "Hah, sounds fun, I'll make sure to practice my dance moves close to the very breakable machinery.",
+		"dialogue": "Hah, sounds fun.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "I'll make sure to practice my dance moves close to the very breakable machinery.",
 		"actor": "laurin",
 		"portrait": "neutral"
 	},

@@ -51,7 +51,13 @@
 	},
 	{
         "speed": 0.03,
-		"dialogue": "I've had to be 'er all day since the other secretary quit and they ain't found a replacement.",
+		"dialogue": "I've had to be 'er all day since the other secretary quit.",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "They still ain't found a replacement.",
 		"actor": "jess",
 		"portrait": "neutral"
 	},
@@ -125,7 +131,13 @@
 	},
 	{
         "speed": 0.03,
-		"dialogue": "Not everyone has a space heater Jess, you should complain about it if you haven't already.",
+		"dialogue": "Not everyone has a space heater, Jess.",
+		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "You should complain about it if you haven't already.",
 		"actor": "laurin",
 		"portrait": "neutral"
 	},
@@ -167,10 +179,9 @@
 	},
 	{
         "speed": 0.03,
-		"dialogue": " We gotta advocate for ourselves and not let greedy bastards pull us around.",
+		"dialogue": "We gotta advocate for ourselves and not let greedy bastards pull us around.",
 		"actor": "laurin",
-		"portrait": "neutral",
-		"continueLine": true
+		"portrait": "neutral"
 	},
 	{
         "speed": 0.03,

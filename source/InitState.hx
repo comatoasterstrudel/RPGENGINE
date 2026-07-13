@@ -59,6 +59,7 @@ class InitState extends FlxState{
 			choicerPressedDownFunction: CtControls.getInputFunction("down", JUSTPRESSED),
 			choicerPressedAcceptFunction: CtControls.getInputFunction("accept", JUSTPRESSED),
 			boxImgPath: Constants.dialogueBoxGraphicPath,
+			nameBoxFont: Constants.fontName,
 			nameBoxImgPath: Constants.dialogueNameBoxGraphicPath,
 			nameBoxLeftEndImgPath: Constants.dialogueNameBoxLeftEndGraphicPath,
 			nameBoxRightEndImgPath: Constants.dialogueNameBoxRightEndGraphicPath,
