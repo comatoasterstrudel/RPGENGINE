@@ -1,6 +1,7 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "*does coworker A stuff*"
+		"dialogue": "I think this is the exact same cake they gave us when Gary got his arm caught in the labeler and didn't want him to sue.",
+		"actor": "npc"
 	}
 ]

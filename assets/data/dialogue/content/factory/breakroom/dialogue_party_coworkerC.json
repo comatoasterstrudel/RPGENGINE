@@ -1,6 +1,12 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "*does coworker C stuff*"
+		"dialogue": "Well... this is nice?",
+		"actor": "npc"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "They still haven't responded to my PTO request though...",
+		"actor": "npc"
 	}
 ]

@@ -1,6 +1,7 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "*does coworker B stuff*"
+		"dialogue": "...Did he figure out we were trying to unionize??? uh oh...",
+		"actor": "npc"
 	}
 ]

@@ -14,11 +14,13 @@ var character_laurin:Character;
 var character_coworkerA:Character;
 var character_coworkerB:Character;
 var character_coworkerC:Character;
+var character_coworkerD:Character;
 
 var party_laurin:Interactable;
 var party_coworkerA:Interactable;
 var party_coworkerB:Interactable;
 var party_coworkerC:Interactable;
+var party_coworkerD:Interactable;
 var partyInteractables:Array<Interactable> = [];
 var dialogueBox:CtDialogueBox;
 
@@ -32,13 +34,16 @@ function create():Void{
 	character_coworkerB = getCharacterByTag("coworkerB");
 	character_coworkerB.facing = RIGHT;
 	character_coworkerC = getCharacterByTag("coworkerC");
+	character_coworkerD = getCharacterByTag("coworkerD");
+	character_coworkerD.facing = LEFT;
 
 	party_laurin = getInteractableByTag("party_laurin");
 	party_coworkerA = getInteractableByTag("party_coworkerA");
 	party_coworkerB = getInteractableByTag("party_coworkerB");
 	party_coworkerC = getInteractableByTag("party_coworkerC");
+	party_coworkerD = getInteractableByTag("party_coworkerD");
 
-	partyInteractables = [party_laurin, party_coworkerA, party_coworkerB, party_coworkerC];
+	partyInteractables = [party_laurin, party_coworkerA, party_coworkerB, party_coworkerC, party_coworkerD];
 
 	for (i in partyInteractables)
 	{
@@ -58,6 +63,7 @@ function create():Void{
 		character_coworkerA.kill();
 		character_coworkerB.kill();
 		character_coworkerC.kill();
+		character_coworkerD.kill();
 	}
 }
 
@@ -137,7 +143,8 @@ function doCutscene():Void{
 		character_coworkerA.facing = LEFT;
 		character_coworkerB.facing = UP;
 		character_coworkerC.facing = RIGHT;
-		
+		character_coworkerD.facing = UP;
+
 		var maxFrames:Int = 4;
 		var frames:Int = 0;
 
@@ -430,11 +437,13 @@ function endParty():Void
 					character_coworkerA.kill();
 					character_coworkerB.kill();
 					character_coworkerC.kill();
+					character_coworkerD.kill();
 
 					party_laurin.disabled = true;
 					party_coworkerA.disabled = true;
 					party_coworkerB.disabled = true;
 					party_coworkerC.disabled = true;
+					party_coworkerD.disabled = true;
 
 					door.room = "factory_hallway";
 					door.dialogue = "";

@@ -1,6 +1,7 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "*does coworker D stuff*"
+		"dialogue": "I'm just gonna go home, this place is bullshit.",
+		"actor": "npc"
 	}
 ]

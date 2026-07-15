@@ -14,7 +14,8 @@
 	{
 		"speed": 0.03,
 		"dialogue": "So is this part of the big change you've talked about? Or...",
-		"events": ["coworkerjump"]
+		"events": ["coworkerjump"],
+		"actor": "npc"
 	},
 	{
 		"speed": 0.03,
