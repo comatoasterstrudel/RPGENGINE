@@ -27,6 +27,12 @@ var cutsceneSnowOverlay:CtSprite;
 var sleepyLevel:String = "awake";
 var productionObjects:FlxSpriteGroup;
 
+//
+// MONSTER
+//
+var topDoor:Door;
+var snowDialogue:Interactable;
+
 function create():Void
 {
 	lightingCover = get_lightingCover();
@@ -54,6 +60,10 @@ function create():Void
 	tile_main_front = get_tile_main_front();
 	tile_main_front.visible = false;
 
+	topDoor = getDoorByTag("topDoor");
+	snowDialogue = getInteractableByTag("snowdialogue");
+	removeSnowDialogue();
+	
 	initProduction();
 	
 	if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool == false)
@@ -84,6 +94,14 @@ function create():Void
 			doWalkDown();
 		}
 	});
+	if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool && Save.storyFlags.get("factory_startedmonstercutscene").val_bool)
+	{
+		startMonsterCutscene();
+	}
+	else if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool && Save.storyFlags.get("factory_scarymode").val_bool)
+	{
+		setScaryMode();
+	}
 }
 
 function update(elapsed:Float):Void
@@ -802,4 +820,97 @@ function updateSleepyLevel(name:String):Void
 	{
 		desiredAnim = ("conveyor_" + sleepyLevel + "_1");
 	}
+}
+//
+// MONSTER CUTSCENE
+//
+
+function startMonsterCutscene():Void
+{
+	snowDialogue.disabled = false;
+
+	topDoor.room = "";
+	topDoor.dialogue = "factory/production/monster/dialogue_doornogo";
+
+	lightingCover.alpha = .5;
+	player.movementSpeed = .6;
+
+	set_inCutscene(true);
+
+	new FlxTimer().start(OverworldState.lastTransitionTime + 1, function(f):Void
+	{
+		startDialogue(["factory/production/monster/dialogue_lightsoff"], function():Void
+		{
+			set_inCutscene(false);
+		});
+	});
+}
+
+function doSnowScene():Void
+{
+	removeSnowDialogue();
+
+	set_inCutscene(true);
+
+	set_lockCamera(true);
+
+	var ogY = camGame.scroll.y;
+
+	player.facing = UP;
+
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("cameraUp");
+
+		FlxTween.tween(camGame.scroll, {y: ogY - 150}, 1.5, {
+			onComplete: function(f):Void
+			{
+				new FlxTimer().start(1, function(f):Void
+				{
+					OverworldState.eventManager.finishTransaction("cameraUp");
+				});
+			}
+		});
+	});
+
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("d");
+
+		startDialogue(["factory/production/monster/dialogue_snow"], function():Void
+		{
+			OverworldState.eventManager.finishTransaction("d");
+		});
+	});
+
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("cameraUp");
+
+		FlxTween.tween(camGame.scroll, {y: ogY}, 1.5, {
+			onComplete: function(f):Void
+			{
+				OverworldState.eventManager.finishTransaction("cameraUp");
+			}
+		});
+	});
+
+	OverworldState.eventManager.addEvent(function()
+	{
+		set_inCutscene(false);
+		set_lockCamera(false);
+		player.facing = DOWN;
+	});
+}
+
+function removeSnowDialogue():Void
+{
+	snowDialogue.disabled = true;
+}
+
+// END MONSTER STUFF
+
+function setScaryMode():Void
+{
+	lightingCover.alpha = .5;
 }

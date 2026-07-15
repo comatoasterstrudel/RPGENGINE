@@ -1,0 +1,22 @@
+[
+	{
+		"speed": 0.03,
+		"dialogue": "..?",
+		"actor": "narrator"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "It's already locked?",
+		"actor": "narrator"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "He only locks it when he isn't here, but I can't imagine him leaving before checking if the building was empty.",
+		"actor": "narrator"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Maybe he's around here somewhere else, I should look around.",
+		"actor": "narrator"
+	}
+]
