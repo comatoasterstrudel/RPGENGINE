@@ -1,7 +1,19 @@
 [
 	{
 		"speed": 0.03,
-		"dialogue": "Time to go home, I guess.",
+		"dialogue": "Time to go look for the manager, I guess.",
+		"actor": "robin", 
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "I should at least try to make my case for a raise.",
+		"actor": "robin", 
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "He's probably in his office down the hall.",
 		"actor": "robin", 
 		"portrait": "neutral"
 	}

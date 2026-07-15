@@ -351,8 +351,56 @@
 	},
 	{
         "speed": 0.03,
-		"dialogue": "That sounds nice...",
+		"dialogue": "You could still get it without the raise, it'll just take you a lil' longer, yeah?",
+		"actor": "jess",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "...I mean I guess, but that really isn't the point.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "After rent, utilities, basic necessities... I have barely anything left afterwards.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Plus some health issues lately have been eating up anything I save.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "I just wanna have the money to not be scraping by...",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Especially since I'm one of the top performers at the company.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "If we don't get pay raises, I'll try to make a case to our manager, but we'll see.",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Hah, yeah, I'm sure he'll be receptive to... whatever it is.",
 		"actor": "laurin",
+		"portrait": "neutral"
+	},
+	{
+        "speed": 0.03,
+		"dialogue": "Um... I wish you luck on that Robin!",
+		"actor": "jess",
 		"portrait": "neutral"
 	},
 	{
