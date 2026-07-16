@@ -1,0 +1,53 @@
+{
+    "name": "managerscary",
+    "graphic": "managerscary",
+    "fromAseprite": true,
+    "anims": [
+        {
+            "name": "idle_down",
+            "prefix": "MonManager-CrawlDown-Idle",
+            "fps": 0
+        },
+        {
+            "name": "idle_up",
+            "prefix": "MonManager-CrawlDown-Idle",
+            "fps": 0
+        },
+        {
+            "name": "idle_left",
+            "prefix": "MonManager-CrawlRight-Idle",
+            "flipX": true,
+            "fps": 0
+        },
+        {
+            "name": "idle_right",
+            "prefix": "MonManager-CrawlRight-Idle",
+            "fps": 0
+        },
+        {
+            "name": "walk_down",
+            "prefix": "MonManager-CrawlDown-walk",
+            "fps": 2,
+            "looped": "true"
+        },
+        {
+            "name": "walk_up",
+            "prefix": "MonManager-CrawlDown-walk",
+            "fps": 2,
+            "looped": "true"
+        },
+        {
+            "name": "walk_left",
+            "prefix": "MonManager-CrawlRight-Walk",
+            "flipX": true,
+            "fps": 2,
+            "looped": true
+        },
+        {
+            "name": "walk_right",
+            "prefix": "MonManager-CrawlRight-Walk",
+            "fps": 2,
+            "looped": true
+        }
+    ]
+}

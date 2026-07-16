@@ -9,6 +9,7 @@ var dialogueBox:CtDialogueBox;
 
 var character_player:Player;
 var character_laurin:Character;
+var character_managerscary:Character;
 
 var conveyorsHorizontal:Array<ScrollingProp> = [];
 var conveyorsVertical:Array<ScrollingProp> = [];
@@ -36,6 +37,11 @@ var snowDialogue:Interactable;
 var evilMonsterYPos:Int = 1500;
 var seenEvilMonster:Bool = false;
 
+var spr_behindProps:FlxSpriteGroup;
+var bloodStains:FlxSpriteGroup;
+var bloodStainChance:Float = 80;
+var bloodStainPositions:Array<Array<Int>> = [];
+
 function create():Void
 {
 	lightingCover = get_lightingCover();
@@ -47,6 +53,7 @@ function create():Void
 	dialogueBox = get_dialogueBox();
 	character_player = get_player();
 	character_laurin = getCharacterByTag("laurin");
+	character_managerscary = getCharacterByTag("managerscary");
 
 	conveyorsHorizontal = [
 		getScrollingPropByTag("conveyorHorizontal1"),
@@ -63,6 +70,8 @@ function create():Void
 	tile_main_front = get_tile_main_front();
 	tile_main_front.visible = false;
 
+	spr_behindProps = get_spr_behindProps();
+	
 	topDoor = getDoorByTag("topDoor");
 	snowDialogue = getInteractableByTag("snowdialogue");
 	removeSnowDialogue();
@@ -104,6 +113,10 @@ function create():Void
 	else if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool && Save.storyFlags.get("factory_scarymode").val_bool)
 	{
 		setScaryMode();
+	}
+	if (!monsterCutsceneEnabled)
+	{
+		character_managerscary.kill();
 	}
 }
 
@@ -929,6 +942,124 @@ function startEvilMonsterBit():Void
 			OverworldState.eventManager.finishTransaction("dia");
 		});
 	});
+	// manager scooch
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("mamamove");
+
+		moveManagerChain(3, 1, 2, "right", function():Void
+		{
+			new FlxTimer().start(1, function(f):Void
+			{
+				moveManagerChain(2, 1, 2, "down", function():Void
+				{
+					new FlxTimer().start(1, function(f):Void
+					{
+						moveManagerChain(6, 1, 2, "right", function():Void
+						{
+							OverworldState.eventManager.finishTransaction("mamamove");
+						});
+					});
+				});
+			});
+		});
+	});
+}
+
+function moveManagerChain(repeats:Int, timeBetween:Float, tiles:Int, direction:String, ?onComplete:Void->Void):Void
+{
+	for (i in 0...repeats)
+	{
+		new FlxTimer().start((2 * i) + (timeBetween * i), function(f):Void
+		{
+			moveManager(tiles, direction, function():Void
+			{
+				if (i == (repeats - 1))
+				{
+					if (onComplete != null)
+						onComplete();
+				}
+			});
+		});
+	}
+}
+
+function moveManager(tiles:Int, direction:String, ?onComplete:Void->Void):Void
+{
+	character_managerscary.lockAnims = true;
+
+	var distance = tiles * 16 * Constants.overworldPixelScale;
+
+	var x:Float = character_managerscary.hitbox.x;
+	var y:Float = character_managerscary.hitbox.y;
+
+	switch (direction)
+	{
+		case "left":
+			character_managerscary.facing = LEFT;
+			character_managerscary.animation.play("walk_left");
+			x -= distance;
+		case "right":
+			character_managerscary.facing = RIGHT;
+			character_managerscary.animation.play("walk_right");
+			x += distance;
+		case "up":
+			character_managerscary.facing = UP;
+			character_managerscary.animation.play("walk_up");
+			y -= distance;
+		case "down":
+			character_managerscary.facing = DOWN;
+			character_managerscary.animation.play("walk_down");
+			y += distance;
+	}
+
+	FlxTween.tween(character_managerscary.hitbox, {x: x, y: y}, 2, {
+		ease: FlxEase.quartInOut,
+		onUpdate: function(f):Void
+		{
+			if (FlxG.random.bool(bloodStainChance * FlxG.elapsed))
+			{
+				spawnBloodStain(Std.int(((character_managerscary.x + character_managerscary.width / 2) / 16) / Constants.overworldPixelScale),
+					Std.int(((character_managerscary.y + character_managerscary.height / 2) / 16) / Constants.overworldPixelScale));
+			}
+		},
+		onComplete: function(f):Void
+		{
+			character_managerscary.lockAnims = false;
+
+			if (onComplete != null)
+				onComplete();
+		}
+	});
+}
+
+function spawnBloodStain(xGrid:Int, yGrid:Int):Void
+{
+	for (i in bloodStainPositions)
+	{
+		if (i[0] == xGrid && i[1] == yGrid)
+		{ // theres a blood stain here already
+			return;
+		}
+	}
+
+	bloodStainPositions.push([xGrid, yGrid]);
+
+	var bloodStain = new CtSprite(xGrid * 16 * Constants.overworldPixelScale,
+		yGrid * 16 * Constants.overworldPixelScale).createFromImage(Constants.overworldMiscGraphicPath + "bloodstain" + FlxG.random.int(1, 3) + ".png");
+	bloodStain.scale.set(Constants.overworldPixelScale, Constants.overworldPixelScale);
+	bloodStain.alpha = 0;
+	bloodStain.updateHitbox();
+	bloodStain.antialiasing = false;
+	spr_behindProps.add(bloodStain);
+
+	for (i in 0...3)
+	{
+		new FlxTimer().start(FlxG.random.float(.1, .7) * i, function(F):Void
+		{
+			bloodStain.alpha += FlxG.random.float(.2, .4);
+		});
+	}
 }
 
 function doSnowScene():Void

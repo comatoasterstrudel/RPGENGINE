@@ -1,8 +1,5 @@
 package battle;
 
-import battle.grid.GridBackground;
-import battle.ui.roundanim.RoundAnim;
-
 class PlayState extends FlxState
 {
 	public static var eventManager:CtEventManager;

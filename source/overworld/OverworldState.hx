@@ -47,6 +47,7 @@ class OverworldState extends FlxState
 	var tile_main_back:FlxTypedGroup<FlxTilemap>;
 	var spr_behindTiles:FlxSpriteGroup;
 	var tile_main:FlxTypedGroup<FlxTilemap>;
+	var spr_behindProps:FlxSpriteGroup;
 	var spr_infrontTiles:FlxSpriteGroup;
 	var tile_main_front:FlxTypedGroup<FlxTilemap>;
 	var tile_foreground:FlxTypedGroup<FlxTilemap>;
@@ -565,6 +566,10 @@ class OverworldState extends FlxState
 			
 			handleCameraScroll();
 		}
+		
+		spr_behindProps = new FlxSpriteGroup();
+		spr_behindProps.camera = camGame;
+		add(spr_behindProps);
 		
 		props = new FlxTypedSpriteGroup<FlxSprite>();
 		props.camera = camGame;
@@ -1185,6 +1190,9 @@ class OverworldState extends FlxState
 		script.setValue({name: "get_tile_main_front", value: get_tile_main_front});
 		script.setValue({name: "set_tile_main_front", value: set_tile_main_front});
 		
+		script.setValue({name: "get_spr_behindProps", value: get_spr_behindProps});
+		script.setValue({name: "set_spr_behindProps", value: set_spr_behindProps});
+
 		scripts.push(script);
 		script.executeFunction("create");
 
@@ -1357,6 +1365,18 @@ class OverworldState extends FlxState
 	function set_tile_main_front(val:FlxTypedGroup<FlxTilemap>):Void
 	{
 		tile_main_front = val;
+	}
+	
+	// spr_behindProps
+
+	function get_spr_behindProps():FlxSpriteGroup
+	{
+		return (spr_behindProps);
+	}
+
+	function set_spr_behindProps(val:FlxSpriteGroup):Void
+	{
+		spr_behindProps = val;
 	}
 	
 	function executeScriptFunction(name:String, args:Array<Any>):Void
