@@ -30,8 +30,11 @@ var productionObjects:FlxSpriteGroup;
 //
 // MONSTER
 //
+var monsterCutsceneEnabled:Bool = false;
 var topDoor:Door;
 var snowDialogue:Interactable;
+var evilMonsterYPos:Int = 1500;
+var seenEvilMonster:Bool = false;
 
 function create():Void
 {
@@ -107,6 +110,13 @@ function create():Void
 function update(elapsed:Float):Void
 {
 	handleProduction();
+	if (monsterCutsceneEnabled)
+	{
+		if (character_player.hitbox.y >= evilMonsterYPos && !seenEvilMonster)
+		{
+			startEvilMonsterBit();
+		}
+	}
 }
 
 function doProductionCutscene():Void
@@ -827,13 +837,15 @@ function updateSleepyLevel(name:String):Void
 
 function startMonsterCutscene():Void
 {
+	monsterCutsceneEnabled = true;
+	
 	snowDialogue.disabled = false;
 
 	topDoor.room = "";
 	topDoor.dialogue = "factory/production/monster/dialogue_doornogo";
 
 	lightingCover.alpha = .5;
-	player.movementSpeed = .6;
+	character_player.movementSpeed = .6;
 
 	set_inCutscene(true);
 
@@ -842,6 +854,79 @@ function startMonsterCutscene():Void
 		startDialogue(["factory/production/monster/dialogue_lightsoff"], function():Void
 		{
 			set_inCutscene(false);
+		});
+	});
+}
+
+function startEvilMonsterBit():Void
+{
+	seenEvilMonster = true;
+
+	set_inCutscene(true);
+
+	character_player.lockMovement = true;
+
+	// move down more rq
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("move");
+
+		character_player.move(-1, 1650, function():Void
+		{
+			OverworldState.eventManager.finishTransaction("move");
+		});
+	});
+
+	// play sound, turn and wait
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("snd");
+
+		// play sound here
+
+		new FlxTimer().start(2, function(f):Void
+		{
+			character_player.facing = LEFT;
+
+			new FlxTimer().start(1, function(f):Void
+			{
+				OverworldState.eventManager.finishTransaction("snd");
+			});
+		});
+	});
+
+	// dimmalogue
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dia");
+
+		startDialogue(["factory/production/monster/dialogue_evilscarybit_1"], function():Void
+		{
+			OverworldState.eventManager.finishTransaction("dia");
+		});
+	});
+
+	// sound 2
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("sbd2");
+
+		// play sound 2 here
+
+		new FlxTimer().start(3, function(f):Void
+		{
+			OverworldState.eventManager.finishTransaction("sbd2");
+		});
+	});
+
+	// dimmalog
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dia");
+
+		startDialogue(["factory/production/monster/dialogue_evilscarybit_2"], function():Void
+		{
+			OverworldState.eventManager.finishTransaction("dia");
 		});
 	});
 }
@@ -856,7 +941,7 @@ function doSnowScene():Void
 
 	var ogY = camGame.scroll.y;
 
-	player.facing = UP;
+	character_player.facing = UP;
 
 	OverworldState.eventManager.addEvent(function()
 	{
@@ -899,7 +984,7 @@ function doSnowScene():Void
 	{
 		set_inCutscene(false);
 		set_lockCamera(false);
-		player.facing = DOWN;
+		character_player.facing = DOWN;
 	});
 }
 

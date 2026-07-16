@@ -1,0 +1,24 @@
+[
+	{
+		"speed": 0.1,
+		"dialogue": "...hah....hah.....",
+		"actor": "managerscary"
+	},
+	{
+		"speed": 0.1,
+		"dialogue": "...hel...",
+		"actor": "managerscary"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "...Is everything okay..?",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Do you need me to call someone..?",
+		"actor": "robin",
+		"portrait": "neutral"
+	}
+] 
