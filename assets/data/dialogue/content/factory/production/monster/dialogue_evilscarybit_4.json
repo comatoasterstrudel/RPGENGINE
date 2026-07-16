@@ -1,0 +1,31 @@
+[
+	{
+		"speed": 0.1,
+		"dialogue": "[[SHAKE]]Hahh...",
+		"actor": "managerscary"
+	},
+	{
+		"speed": 0.1,
+		"dialogue": "you...",
+		"actor": "managerscary",
+		"continueLine": true
+	},
+	{
+		"speed": 0.1,
+		"dialogue": "this is...",
+		"actor": "managerscary",
+		"continueLine": true
+	},
+	{
+		"speed": 0.1,
+		"dialogue": "your faul-",
+		"actor": "managerscary",
+		"continueLine": true
+	},
+	{
+		"speed": 0.06,
+		"dialogue": "AUGh-[[ENDSHAKE]]",
+		"actor": "managerscary",
+		"continueLine": true
+	}
+] 

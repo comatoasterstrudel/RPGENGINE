@@ -1,0 +1,31 @@
+[
+	{
+		"speed": 0.1,
+		"dialogue": "[[SHAKE]]Augh...",
+		"actor": "managerscary"
+	},
+	{
+		"speed": 0.1,
+		"dialogue": " hehh...",
+		"actor": "managerscary",
+		"continueLine": true
+	},
+	{
+		"speed": 0.1,
+		"dialogue": " hah...[[ENDSHAKE]]",
+		"actor": "managerscary",
+		"continueLine": true
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "...",
+		"actor": "robin",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "What the...",
+		"actor": "robin",
+		"portrait": "neutral"
+	}
+] 

@@ -39,7 +39,7 @@ var seenEvilMonster:Bool = false;
 
 var spr_behindProps:FlxSpriteGroup;
 var bloodStains:FlxSpriteGroup;
-var bloodStainChance:Float = 80;
+var bloodStainChance:Float = 110;
 var bloodStainPositions:Array<Array<Int>> = [];
 
 function create():Void
@@ -955,12 +955,63 @@ function startEvilMonsterBit():Void
 				{
 					new FlxTimer().start(1, function(f):Void
 					{
-						moveManagerChain(6, 1, 2, "right", function():Void
+						// animation probably
+						FlxTween.shake(character_player, 0.05, .2, 0x01);
+
+						moveManagerChain(4, 1, 3, "right", function():Void
 						{
-							OverworldState.eventManager.finishTransaction("mamamove");
+							new FlxTimer().start(1, function(f):Void
+							{
+								OverworldState.eventManager.finishTransaction("mamamove");
+							});
 						});
 					});
 				});
+			});
+		});
+	});
+	// dimmalog
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dia");
+
+		startDialogue(["factory/production/monster/dialogue_evilscarybit_3"], function():Void
+		{
+			OverworldState.eventManager.finishTransaction("dia");
+		});
+	});
+
+	// robin step right
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("stepright");
+
+		FlxTween.shake(character_player, 0.05, .2, 0x01);
+
+		new FlxTimer().start(0.5, function(F):Void
+		{
+			character_player.movementSpeed = .3;
+			character_player.lockAnims = true;
+			character_player.animation.play("walk_left");
+			character_player.move(character_player.x + 30, -1, function():Void
+			{
+				OverworldState.eventManager.finishTransaction("stepright");
+				character_player.lockAnims = false;
+				character_player.facing = LEFT;
+			});
+		});
+	});
+
+	// dimmalog
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dia");
+
+		new FlxTimer().start(1, function(f):Void
+		{
+			startDialogue(["factory/production/monster/dialogue_evilscarybit_4"], function():Void
+			{
+				OverworldState.eventManager.finishTransaction("dia");
 			});
 		});
 	});
