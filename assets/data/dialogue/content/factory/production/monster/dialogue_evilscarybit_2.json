@@ -1,12 +1,12 @@
 [
 	{
 		"speed": 0.1,
-		"dialogue": "...hah....hah.....",
+		"dialogue": "[[SHAKE]]...hah....hah.....",
 		"actor": "managerscary"
 	},
 	{
 		"speed": 0.1,
-		"dialogue": "...hel...",
+		"dialogue": "...hel...[[ENDSHAKE]]",
 		"actor": "managerscary"
 	},
 	{
