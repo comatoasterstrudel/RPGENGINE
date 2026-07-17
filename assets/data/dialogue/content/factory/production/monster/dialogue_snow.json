@@ -3,12 +3,12 @@
 		"speed": 0.03,
 		"dialogue": "The snow...",
 		"actor": "robin",
-		"portrait": "neutral"
+		"portrait": "hat_neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "It's... pretty.",
 		"actor": "robin",
-		"portrait": "neutral"
+		"portrait": "hat_neutral"
 	}
 ] 

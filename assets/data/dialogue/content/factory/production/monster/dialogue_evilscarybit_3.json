@@ -20,12 +20,12 @@
 		"speed": 0.03,
 		"dialogue": "...",
 		"actor": "robin",
-		"portrait": "neutral"
+		"portrait": "hat_shocked"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "What the...",
 		"actor": "robin",
-		"portrait": "neutral"
+		"portrait": "hat_shocked"
 	}
 ] 

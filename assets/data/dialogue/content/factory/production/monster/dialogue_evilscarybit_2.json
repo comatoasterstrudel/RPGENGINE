@@ -13,12 +13,12 @@
 		"speed": 0.03,
 		"dialogue": "...Is everything okay..?",
 		"actor": "robin",
-		"portrait": "neutral"
+		"portrait": "hat_neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "Do you need me to call someone..?",
 		"actor": "robin",
-		"portrait": "neutral"
+		"portrait": "hat_neutral"
 	}
 ] 

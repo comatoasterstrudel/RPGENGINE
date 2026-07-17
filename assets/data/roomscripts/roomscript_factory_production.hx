@@ -963,7 +963,7 @@ function startEvilMonsterBit():Void
 							character_player.movementSpeed = .3;
 							character_player.lockAnims = true;
 							character_player.animation.play("walk_left");
-							character_player.move(character_player.x + 30, -1, function():Void
+							character_player.move(character_player.x + 20, -1, function():Void
 							{
 								OverworldState.eventManager.finishTransaction("stepright");
 								character_player.lockAnims = false;
@@ -1006,7 +1006,7 @@ function startEvilMonsterBit():Void
 			character_player.movementSpeed = .3;
 			character_player.lockAnims = true;
 			character_player.animation.play("walk_left");
-			character_player.move(character_player.x + 30, -1, function():Void
+			character_player.move(character_player.x + 20, -1, function():Void
 			{
 				OverworldState.eventManager.finishTransaction("stepright");
 				character_player.lockAnims = false;
