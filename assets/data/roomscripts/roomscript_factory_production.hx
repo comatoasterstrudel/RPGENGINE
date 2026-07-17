@@ -958,7 +958,20 @@ function startEvilMonsterBit():Void
 						// animation probably
 						FlxTween.shake(character_player, 0.05, .2, 0x01);
 
-						moveManagerChain(4, 1, 3, "right", function():Void
+						new FlxTimer().start(0.5, function(F):Void
+						{
+							character_player.movementSpeed = .3;
+							character_player.lockAnims = true;
+							character_player.animation.play("walk_left");
+							character_player.move(character_player.x + 30, -1, function():Void
+							{
+								OverworldState.eventManager.finishTransaction("stepright");
+								character_player.lockAnims = false;
+								character_player.facing = LEFT;
+							});
+						});
+
+						moveManagerChain(6, 1, 2, "right", function():Void
 						{
 							new FlxTimer().start(1, function(f):Void
 							{
