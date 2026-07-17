@@ -5,49 +5,124 @@
     "anims": [
         {
             "name": "idle_down", 
-            "prefix": "idle_down",
+            "prefix": "robin_front_idle",
             "fps": 0
         },
         {
             "name": "idle_up",
-            "prefix": "idle_up",
+            "prefix": "robin_up_idle",
             "fps": 0
         },
         {
             "name": "idle_left",
-            "prefix": "idle_horizontal",
+            "prefix": "robin_horizontal_idle",
             "fps": 0
         },
         {
             "name": "idle_right",
-            "prefix": "idle_horizontal",
+            "prefix": "robin_horizontal_idle",
             "fps": 0,
             "flipX": true
         },
         {
             "name": "walk_down",
-            "prefix": "walk_down",
+            "prefix": "robin_front_walk",
             "fps": 5,
-            "looped": "true"
+            "looped": true
         },
         {
             "name": "walk_up",
-            "prefix": "walk_up",
+            "prefix": "robin_up_walk",
             "fps": 5,
-            "looped": "true"
+            "looped": true
         },
         {
             "name": "walk_left",
-            "prefix": "walk_horizontal",
+            "prefix": "robin_horizontal_walk",
             "fps": 5,
-            "looped": "true"
+            "looped": true
         },
         {
             "name": "walk_right",
-            "prefix": "walk_horizontal",
+            "prefix": "robin_horizontal_walk",
             "fps": 5,
             "looped": "true",
             "flipX": true
+        },
+        {
+            "name": "party_idle_down", 
+            "prefix": "robin_party_front_idle",
+            "fps": 0
+        },
+        {
+            "name": "party_idle_up",
+            "prefix": "robin_party_up_idle",
+            "fps": 0
+        },
+        {
+            "name": "party_idle_left",
+            "prefix": "robin_party_horizontal_idle",
+            "fps": 0
+        },
+        {
+            "name": "party_idle_right",
+            "prefix": "robin_party_horizontal_idle",
+            "fps": 0,
+            "flipX": true
+        },
+        {
+            "name": "party_walk_down",
+            "prefix": "robin_party_front_walk",
+            "fps": 5,
+            "looped": true
+        },
+        {
+            "name": "party_walk_up",
+            "prefix": "robin_party_up_walk",
+            "fps": 5,
+            "looped": true
+        },
+        {
+            "name": "party_walk_left",
+            "prefix": "robin_party_horizontal_walk",
+            "fps": 5,
+            "looped": true
+        },
+        {
+            "name": "party_walk_right",
+            "prefix": "robin_party_horizontal_walk",
+            "fps": 5,
+            "looped": true,
+            "flipX": true
+        },
+        {
+            "name": "shocked",
+            "prefix": "robin_shocked_idle",
+            "fps": 0
+        },
+        {
+            "name": "shocked_stepback",
+            "prefix": "robin_shocked_stepback",
+            "fps": 0,
+            "looped": true
+        },
+        {
+            "name": "shocked_handup",
+            "prefix": "robin_shocked_handup",
+            "fps": 0,
+            "looped": true
+        },
+        {
+            "name": "shocked_run",
+            "prefix": "robin_shocked_run",
+            "fps": 0,
+            "looped": true
+        },
+        {
+            "name": "lookup_scared",
+            "prefix": "robin_lookup_scared",
+            "fps": 0,
+            "looped": true
         }
     ]
 }
