@@ -1,5 +1,7 @@
 package overworld;
 
+import overworld.playermenu.PlayerMenu;
+
 class OverworldState extends FlxState
 {
 	public static var eventManager:CtEventManager;
@@ -133,6 +135,7 @@ class OverworldState extends FlxState
 		{
 			battleTransition.update();
 		}
+		handlePlayerMenu();
 		executeScriptFunction("update", [elapsed]);
 		eventManager.update();
 		#if debug
@@ -371,6 +374,14 @@ class OverworldState extends FlxState
 			{
 				selectedRandomEncounter = encounter[0];
 			}
+		}
+	}
+	
+	function handlePlayerMenu():Void
+	{
+		if (!inCutscene && CtControls.checkInput("cancel", JUSTPRESSED))
+		{
+			openSubState(new PlayerMenu());
 		}
 	}
 	

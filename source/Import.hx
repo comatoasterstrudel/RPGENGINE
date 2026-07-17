@@ -96,6 +96,7 @@ import overworld.door.*;
 import overworld.interactables.Interactable;
 import overworld.interactables.InteractableOutcome;
 import overworld.lighting.*;
+import overworld.playermenu.pages.*;
 import overworld.props.Prop;
 import overworld.rooms.*;
 import overworld.roomtransition.RoomTransitionSubState;

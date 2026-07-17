@@ -146,6 +146,16 @@ class Constants
 	// Save spots
 	public static final saveSpotGraphicPath:String = "assets/images/savespots/savespot_";
 	public static final saveSpotDataPath:String = "assets/data/savespots/savespot_";
+	// Player Menu
+	public static final playerMenuBgLeftUp:String = "assets/images/playermenu/bg/bg_leftUp.png";
+	public static final playerMenuBgLeft:String = "assets/images/playermenu/bg/bg_left.png";
+	public static final playerMenuBgLeftDown:String = "assets/images/playermenu/bg/bg_leftDown.png";
+	public static final playerMenuBgRightUp:String = "assets/images/playermenu/bg/bg_rightUp.png";
+	public static final playerMenuBgRight:String = "assets/images/playermenu/bg/bg_right.png";
+	public static final playerMenuBgRightDown:String = "assets/images/playermenu/bg/bg_rightDown.png";
+	public static final playerMenuBgTop:String = "assets/images/playermenu/bg/bg_top.png";
+	public static final playerMenuBgBottom:String = "assets/images/playermenu/bg/bg_bottom.png";
+
 	//
 	// DIALOGUE STUFF !!
 	//
