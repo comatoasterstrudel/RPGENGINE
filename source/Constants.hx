@@ -155,6 +155,9 @@ class Constants
 	public static final playerMenuBgRightDown:String = "assets/images/playermenu/bg/bg_rightDown.png";
 	public static final playerMenuBgTop:String = "assets/images/playermenu/bg/bg_top.png";
 	public static final playerMenuBgBottom:String = "assets/images/playermenu/bg/bg_bottom.png";
+	public static final playerMenuStatusNamePlatePath:String = "assets/images/playermenu/status/status_nameplate.png";
+	public static final playerMenuStatusRobinAuraPath:String = "assets/images/playermenu/status/status_robinaura.png";
+
 
 	//
 	// DIALOGUE STUFF !!

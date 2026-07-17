@@ -38,24 +38,31 @@ class PlayerMenuPageMain extends PlayerMenuPage
         
         addMenuOption("Units", function():Void{
            // 
-        });
+		}, false);
         
         addMenuOption("Item", function():Void{
            // 
-        });
+		}, false);
+
+		addMenuOption("Patches", function():Void
+		{
+			//
+		}, false);
         
         menuManager.setMenuOptions(menuOptions);
     }
     
-    function addMenuOption(text:String, onClick:Void->Void):Void{
-        var text = new CtText(0, 320 + (80 * texts.length), text);
-        text.setFormat(Constants.fontName, 70, FlxColor.BLACK);
+	function addMenuOption(text:String, onClick:Void->Void, ?unlocked:Bool = true):Void
+	{
+		var text = new CtText(0, 320 + (80 * texts.length), text);
+		text.setFormat(Constants.fontName, 70, unlocked ? FlxColor.BLACK : 0xFFD4D1D1);
         add(text);
         
         texts.push(text);
         
         menuOptions.push([{sprite: text, cursorDirection: LEFT, clickFunction: function(f):Void{
-            onClick();
+					if (unlocked)
+						onClick();
         }, cancelFunction: function(F):Void{
             removeActivePage();
             new FlxTimer().start(0.01, function(f):Void{
