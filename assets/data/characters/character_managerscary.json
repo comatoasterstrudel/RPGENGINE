@@ -53,7 +53,7 @@
             "name": "standup",
             "prefix": "MonManager-StandUp",
             "fps": 1,
-            "looped": true
+            "looped": false
         },
         {
             "name": "stand-idle_left",

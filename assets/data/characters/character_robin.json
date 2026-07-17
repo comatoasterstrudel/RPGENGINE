@@ -96,14 +96,14 @@
             "flipX": true
         },
         {
-            "name": "shocked",
+            "name": "shocked_idle",
             "prefix": "robin_shocked_idle",
             "fps": 0
         },
         {
             "name": "shocked_stepback",
             "prefix": "robin_shocked_stepback",
-            "fps": 0,
+            "fps": 5,
             "looped": true
         },
         {

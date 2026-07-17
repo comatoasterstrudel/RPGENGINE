@@ -450,6 +450,7 @@ function endParty():Void
 
 					character_player.positionCharacterByGrid(8.5, 11);
 					character_player.facing = UP;
+					character_player.changeAnimationPrefix("party_");
 
 					FlxTween.tween(fade, {alpha: 0}, 3, {
 						onComplete: function(f):Void

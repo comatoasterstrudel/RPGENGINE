@@ -12,6 +12,8 @@ var bathroom3:Interactable;
 
 var bottomDoorIsOpen:Bool = false;
 
+var character_player:Player;
+
 function create(){
     breakRoomDoor = getDoorByTag("breakRoomDoor");
     officeDoor = getDoorByTag("officeDoor");
@@ -20,6 +22,8 @@ function create(){
     bathroom2 = getInteractableByTag("bathroom2");
     bathroom3 = getInteractableByTag("bathroom3");
 
+	character_player = get_player();
+    
     updateDialogues();
 }
 
@@ -53,7 +57,8 @@ function updateDialogues():Void{
     }
     
     if(Save.storyFlags.get("factory_seenbreakroomcutscene").val_bool){ // seen the party
-       
+		character_player.changeAnimationPrefix("party_");
+
         breakRoomDoor.room = "";
         
         if(Save.storyFlags.get("factory_officedoorinteractions").val_int > 0){

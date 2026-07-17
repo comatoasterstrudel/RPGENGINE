@@ -29,6 +29,8 @@ class Character extends CtSprite
 
 	public var movementSpeed:Float = 1;
 	
+	public var animationPrefix:String = "";
+	
 	public function new(id:String, tag:String):Void
 	{
         super();
@@ -95,6 +97,12 @@ class Character extends CtSprite
 		antialiasing = false;
 	}
 
+	public function changeAnimationPrefix(prefix:String):Void
+	{
+		this.animationPrefix = prefix;
+		handleCharacterAnimations();
+	}
+	
 	function handleCharacterAnimations():Void
 	{
 		var direction:String = switch (facing)
@@ -109,7 +117,7 @@ class Character extends CtSprite
 			&& (hitbox.x != previousPosition.x || hitbox.y != previousPosition.y));
 		var type:String = moving ? "walk" : "idle";
 
-		var animName = type + "_" + direction;
+		var animName = animationPrefix + type + "_" + direction;
 
 		if (animation.exists(animName))
 			animation.play(animName, false);
@@ -118,7 +126,7 @@ class Character extends CtSprite
 			if (type == "walk")
 				type = "idle";
 
-			animName = type + "_" + direction;
+			animName = animationPrefix + type + "_" + direction;
 
 			if (animation.exists(animName))
 				animation.play(animName, false);

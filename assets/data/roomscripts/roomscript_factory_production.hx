@@ -860,6 +860,8 @@ function startMonsterCutscene():Void
 	lightingCover.alpha = .5;
 	character_player.movementSpeed = .6;
 
+	character_player.changeAnimationPrefix("party_");
+	
 	set_inCutscene(true);
 
 	new FlxTimer().start(OverworldState.lastTransitionTime + 1, function(f):Void
@@ -955,23 +957,24 @@ function startEvilMonsterBit():Void
 				{
 					new FlxTimer().start(1, function(f):Void
 					{
-						// animation probably
+						character_player.lockAnims = true;
+						character_player.animation.play("shocked_idle");
+
 						FlxTween.shake(character_player, 0.05, .2, 0x01);
 
 						new FlxTimer().start(0.5, function(F):Void
 						{
 							character_player.movementSpeed = .3;
-							character_player.lockAnims = true;
-							character_player.animation.play("walk_left");
+							character_player.animation.play("shocked_stepback");
 							character_player.move(character_player.x + 20, -1, function():Void
 							{
 								OverworldState.eventManager.finishTransaction("stepright");
-								character_player.lockAnims = false;
+								character_player.animation.play("shocked_idle");
 								character_player.facing = LEFT;
 							});
 						});
 
-						moveManagerChain(6, 1, 2, "right", function():Void
+						moveManagerChain(6, 0, 2, "right", function():Void
 						{
 							new FlxTimer().start(1, function(f):Void
 							{
@@ -1004,12 +1007,11 @@ function startEvilMonsterBit():Void
 		new FlxTimer().start(0.5, function(F):Void
 		{
 			character_player.movementSpeed = .3;
-			character_player.lockAnims = true;
-			character_player.animation.play("walk_left");
+			character_player.animation.play("shocked_stepback");
 			character_player.move(character_player.x + 20, -1, function():Void
 			{
 				OverworldState.eventManager.finishTransaction("stepright");
-				character_player.lockAnims = false;
+				character_player.animation.play("shocked_idle");
 				character_player.facing = LEFT;
 			});
 		});
@@ -1027,6 +1029,28 @@ function startEvilMonsterBit():Void
 				OverworldState.eventManager.finishTransaction("dia");
 			});
 		});
+	});
+	// monster stand up
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("standup");
+
+		character_managerscary.animation.onFrameChange.add(function(name:String, frameNum:Int, frameIndex:Int):Void
+		{
+			if (name == "standup")
+			{
+				FlxTween.shake(character_managerscary, 0.05, .2, 0x01);
+
+				if (frameNum == 2)
+				{
+					character_manager.changeAnimationPrefix("stand-");
+					character_managerscary.lockAnims = false;
+				}
+			}
+		});
+
+		character_managerscary.lockAnims = true;
+		character_managerscary.animation.play("standup");
 	});
 }
 
