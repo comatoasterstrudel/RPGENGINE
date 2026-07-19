@@ -35,7 +35,7 @@ class PlayerMenuPolaroid extends FlxSpriteGroup
         
         CtUtil.centerSpriteOnSprite(border, bgCenter, true, false);
         
-        border.y = bgCenter.y + 30;
+		border.y = bgCenter.y + 50;
         
         for(spr in [bordershadow, bg, pola]){
             spr.setPosition(border.x, border.y);
