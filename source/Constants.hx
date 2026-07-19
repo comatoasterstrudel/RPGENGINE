@@ -157,7 +157,11 @@ class Constants
 	public static final playerMenuBgBottom:String = "assets/images/playermenu/bg/bg_bottom.png";
 	public static final playerMenuStatusNamePlatePath:String = "assets/images/playermenu/status/status_nameplate.png";
 	public static final playerMenuStatusRobinAuraPath:String = "assets/images/playermenu/status/status_robinaura.png";
-
+	public static final playerMenuPolaroidBorderPath:String = "assets/images/playermenu/polaroid/polaroid_border.png";
+	public static final playerMenuPolaroidBorderShadowPath:String = "assets/images/playermenu/polaroid/polaroid_borderShadow.png";
+	public static final playerMenuPolaroidBgPath:String = "assets/images/playermenu/polaroid/bg/polaroidbg_";
+	public static final playerMenuPolaroidScriptPath:String = "assets/data/playermenu/polaroid.hx";
+	public static final playerMenuPolaroidImgPath:String = "assets/images/playermenu/polaroid/img/polaroidimg_";
 
 	//
 	// DIALOGUE STUFF !!

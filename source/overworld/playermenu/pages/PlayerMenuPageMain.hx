@@ -8,11 +8,15 @@ class PlayerMenuPageMain extends PlayerMenuPage
     var texts:Array<CtText> = [];
     
     var menuOptions:Array<Array<CtMenuOption>> = [];
+	var polaroid:PlayerMenuPolaroid;
+    
     public function new(playerMenu:PlayerMenu):Void{
         super(playerMenu, "main");
         
         initMenu();
         addOptions();
+		polaroid = new PlayerMenuPolaroid(bg.bgCenter);
+		add(polaroid);
     }
     
     override function update(elapsed:Float):Void{

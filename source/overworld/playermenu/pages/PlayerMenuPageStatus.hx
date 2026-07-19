@@ -18,8 +18,12 @@ class PlayerMenuPageStatus extends PlayerMenuPage
 		statusText.setFormat(Constants.fontName, 30, FlxColor.BLACK);
 		add(statusText);
 		biggerText = new CtText(0, 0, "");
-		biggerText.setFormat(Constants.fontName, 40, FlxColor.BLACK);
+		biggerText.setFormat(Constants.fontName, 45, FlxColor.BLACK);
 		add(biggerText);
+		for (txt in [statusText, biggerText])
+		{
+			txt.setBorderStyle(SHADOW, 0xFFCDDAF9, 2, 5);
+		}
     }
     
     override function update(elapsed:Float):Void{
@@ -34,8 +38,8 @@ class PlayerMenuPageStatus extends PlayerMenuPage
     override function openPage(xPos:Int):Void{
         super.openPage(xPos); 
 		nameplate.setPosition(bg.bgCenter.x + 10, bg.bgCenter.y + 10);
-		statusText.setPosition(nameplate.x + nameplate.width + 20, nameplate.y + nameplate.height - statusText.height);
-		robinAura.setPosition((bg.bgCenter.x + bg.bgCenter.width - robinAura.width) + 20, (bg.bgCenter.y + bg.bgCenter.height - robinAura.height) + 30);
+		statusText.setPosition(nameplate.x + nameplate.width + 20, nameplate.y + nameplate.height - 150);
+		robinAura.setPosition((bg.bgCenter.x + bg.bgCenter.width - robinAura.width) + 45, (bg.bgCenter.y + bg.bgCenter.height - robinAura.height) + 32);
 		configText();
     }
     
