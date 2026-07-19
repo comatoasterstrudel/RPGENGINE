@@ -37,6 +37,12 @@
             "looped": true
         },
         {
+            "name": "walk_up_fast",
+            "prefix": "robin_up_walk",
+            "fps": 8,
+            "looped": true
+        },
+        {
             "name": "walk_left",
             "prefix": "robin_horizontal_walk",
             "fps": 5,

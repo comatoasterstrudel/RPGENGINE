@@ -1158,6 +1158,8 @@ class OverworldState extends FlxState
 		script.setValue({name: "executeScriptFunction", value: executeScriptFunction});
 		script.setValue({name: "executeSingleScriptFunction", value: executeSingleScriptFunction});
 
+		script.setValue({name: "moveRoom", value: moveRoom});
+		
 		// get, set
 		script.setValue({name: "get_inCutscene", value: get_inCutscene});
 		script.setValue({name: "set_inCutscene", value: set_inCutscene});

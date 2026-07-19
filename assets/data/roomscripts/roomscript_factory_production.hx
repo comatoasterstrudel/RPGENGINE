@@ -106,7 +106,9 @@ function create():Void
 			doWalkDown();
 		}
 	});
-	if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool && Save.storyFlags.get("factory_startedmonstercutscene").val_bool)
+	if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool
+		&& Save.storyFlags.get("factory_startedmonstercutscene").val_bool
+		&& !Save.storyFlags.get("factory_monsterscene1").val_bool)
 	{
 		startMonsterCutscene();
 	}
@@ -974,7 +976,7 @@ function startEvilMonsterBit():Void
 							});
 						});
 
-						moveManagerChain(6, 0, 2, "right", function():Void
+						moveManagerChain(3, 0, 2, "right", function():Void
 						{
 							new FlxTimer().start(1, function(f):Void
 							{
@@ -986,6 +988,7 @@ function startEvilMonsterBit():Void
 			});
 		});
 	});
+
 	// dimmalog
 	OverworldState.eventManager.addEvent(function()
 	{
@@ -1043,14 +1046,65 @@ function startEvilMonsterBit():Void
 
 				if (frameNum == 2)
 				{
-					character_manager.changeAnimationPrefix("stand-");
+					character_managerscary.changeAnimationPrefix("stand-");
 					character_managerscary.lockAnims = false;
+					new FlxTimer().start(1.5, function(f):Void
+					{
+						OverworldState.eventManager.finishTransaction("standup");
+					});
 				}
 			}
 		});
 
 		character_managerscary.lockAnims = true;
 		character_managerscary.animation.play("standup");
+	});
+	// robin center
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("robin center");
+
+		set_lockCamera(true);
+
+		character_player.animation.play("shocked_stepback");
+
+		character_player.movementSpeed = .3;
+		character_player.moveToGridSpace(38.5, -1, function():Void
+		{
+			character_player.animation.play("shocked_idle");
+			character_player.movementSpeed = 1.5;
+			OverworldState.eventManager.finishTransaction("robin center");
+		});
+	});
+
+	// rUN AWAY
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("run away!!!!");
+
+		set_lockCamera(true);
+
+		character_player.animation.play("walk_up_fast");
+
+		character_player.moveToGridSpace(-1, 17);
+
+		FlxTween.shake(character_managerscary, 0.05, .2, 0x01);
+
+		new FlxTimer().start(0.3, function(f):Void
+		{
+			character_managerscary.movementSpeed = 1.6;
+			character_managerscary.moveToGridSpace(38, 19, function():Void
+			{
+				OverworldState.eventManager.finishTransaction("run away!!!!");
+			});
+		});
+	});
+
+	// fade out
+	OverworldState.eventManager.addEvent(function()
+	{
+		Save.storyFlags.get("factory_monsterscene1").val_bool = true;
+		moveRoom("factory_hallway", .5);
 	});
 }
 

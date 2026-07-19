@@ -51,7 +51,7 @@
         },
         {
             "name": "standup",
-            "prefix": "MonManager-StandUp",
+            "prefix": "MonManager-GetUp",
             "fps": 1,
             "looped": false
         },
@@ -65,16 +65,27 @@
             "prefix": "MonManager-StandRight-idle", 
             "fps": 0
         },
+         {
+            "name": "stand-idle_up",
+            "prefix": "MonManager-StandUp-Idle",
+            "fps": 0
+        },
         {
             "name": "stand-walk_left",
             "prefix": "MonManager-StandLeft-Shuffle",
-            "fps": 5,
+            "fps": 8,
             "looped": true
         },
         {
             "name": "stand-walk_right",
             "prefix": "MonManager-StandRight-Shuffle",
-            "fps": 5,
+            "fps": 8,
+            "looped": true
+        },
+        {
+            "name": "stand-walk_up",
+            "prefix": "MonManager-StandUp-Shuffle",
+            "fps": 8,
             "looped": true
         }
     ]
