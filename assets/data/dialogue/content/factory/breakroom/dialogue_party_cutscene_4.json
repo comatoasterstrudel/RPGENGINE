@@ -20,41 +20,55 @@
 	{
 		"speed": 0.03,
 		"dialogue": "No.",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "BUT don't worry, you all will be filled in on that tomorrow.",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "And I'm sure you'll all be so so happy!",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "...",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "Enjoy everyone!",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
-		"dialogue": "We're closing production early tonight for maintenance, so make sure you're out of here in the next hour or so.",
-		"actor": "manager"
+		"dialogue": "We're closing production early tonight for maintenance..",
+		"actor": "manager",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "So make sure you're out of here in the next hour or so.",
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "I'll be in my office.",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "...ignoramus barbarians.",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	}
 ]

@@ -4,5 +4,6 @@
 	"textColor": [0, 0, 0],
 	"textSound": "manager",
 	"textSoundVolume": 0.45,
-	"customNameBoxImgPath": "manager"
-}
+	"customNameBoxImgPath": "manager",
+	"portraitPrefix": "manager"
+} 

@@ -2,6 +2,7 @@
 	{
 		"speed": 0.03,
 		"dialogue": "Happy Birthday Atman!",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	}
 ]

@@ -2,7 +2,8 @@
 	{
 		"speed": 0.03,
 		"dialogue": "Good Morning!",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
@@ -13,7 +14,8 @@
 	{
 		"speed": 0.03,
 		"dialogue": "Ready to get working?",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
@@ -24,12 +26,20 @@
 	{
 		"speed": 0.03,
 		"dialogue": "Oh come on! Let's get more energy in that voice!",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
-		"dialogue": "Keep this between you and me, but there's gonna be a little celebration for a member of our company tonight...",
-		"actor": "manager"
+		"dialogue": "Keep this between you and me, but...",
+		"actor": "manager",
+		"portrait": "neutral"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "There's gonna be a little celebration for a member of our company tonight!",
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
@@ -46,6 +56,7 @@
 	{
 		"speed": 0.03,
 		"dialogue": "Haha, don't!",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	}
 ]

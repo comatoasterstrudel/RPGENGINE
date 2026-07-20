@@ -38,7 +38,7 @@
         },
         {
             "name": "walk_up_fast",
-            "prefix": "robin_up_walk",
+            "prefix": "robin_party_up_walk",
             "fps": 8,
             "looped": true
         },

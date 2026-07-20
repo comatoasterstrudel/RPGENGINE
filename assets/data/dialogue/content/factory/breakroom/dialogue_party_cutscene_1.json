@@ -2,12 +2,14 @@
 	{
 		"speed": 0.03,
 		"dialogue": "Well hello, you little worker bee!",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "We were waiting for you.",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
@@ -24,11 +26,13 @@
 	{
 		"speed": 0.03,
 		"dialogue": "That's just what I was going to talk about!",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	},
 	{
 		"speed": 0.03,
 		"dialogue": "Everyone, focus up!",
-		"actor": "manager"
+		"actor": "manager",
+		"portrait": "neutral"
 	}
 ]
