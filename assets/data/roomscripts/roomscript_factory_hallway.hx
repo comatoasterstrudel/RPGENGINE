@@ -17,6 +17,11 @@ var character_managerscary:Character;
 var lightingCover:LightingSprite;
 var inMonsterCutscene:Bool = false;
 
+var spr_behindProps:FlxSpriteGroup;
+var props:FlxTypedSpriteGroup<FlxSprite>;
+var spr_top:FlxSpriteGroup;
+var fadeBg:CtSprite;
+
 function create(){
     breakRoomDoor = getDoorByTag("breakRoomDoor");
     officeDoor = getDoorByTag("officeDoor");
@@ -31,6 +36,10 @@ function create(){
 
 	lightingCover = get_lightingCover();
 
+	spr_behindProps = get_spr_behindProps();
+	props = get_props();
+	spr_top = get_spr_top();
+	
     updateDialogues();
 	if (Save.storyFlags.get("factory_monsterscene1").val_bool)
 	{
@@ -111,7 +120,8 @@ function startMonsterCutscene():Void
 
 	set_inCutscene(true);
 	set_lockCamera(true);
-	camGame.scroll.x = 50;
+	set_unbindCamera(true);
+	camGame.scroll.x = 450;
 	lightingCover.alpha = .5;
 
 	character_player.positionCharacterByGrid(24, 15);
@@ -146,7 +156,7 @@ function startMonsterCutscene():Void
 		{
 			character_player.animation.play("shocked_idle");
 
-			new FlxTimer().start(.5, function(F):Void
+			new FlxTimer().start(.2, function(F):Void
 			{
 				OverworldState.eventManager.finishTransaction("run2");
 			});
@@ -180,12 +190,13 @@ function startMonsterCutscene():Void
 		character_player.flipX = true;
 		character_player.animation.play("shocked_idle");
 
-		new FlxTimer().start(.5, function(f):Void
+		new FlxTimer().start(.8, function(f):Void
 		{
 			OverworldState.eventManager.finishTransaction("turning");
 		});
 	});
 
+	// step back and look up
 	OverworldState.eventManager.addEvent(function()
 	{
 		OverworldState.eventManager.startTransaction("shocked_stepback");
@@ -194,10 +205,163 @@ function startMonsterCutscene():Void
 		character_player.animation.play("shocked_stepback");
 		character_player.move(character_player.x - 20, -1, function():Void
 		{
-			OverworldState.eventManager.finishTransaction("stepright");
 			character_player.flipX = false;
 			character_player.animation.play("lookup_scared");
 			FlxTween.shake(character_player, 0.05, .2, 0x01);
+			new FlxTimer().start(1.2, function(f):Void
+			{
+				OverworldState.eventManager.finishTransaction("shocked_stepback");
+			});
 		});
+	});
+	// dimmalog
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dia");
+
+		startDialogue(["factory/hallway/monster/dialogue_evilscarybit_1"], function():Void
+		{
+			OverworldState.eventManager.finishTransaction("dia");
+		});
+	});
+	// robin step back further, manager walks close
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("robin goes backward");
+
+		character_player.flipX = true;
+		character_player.movementSpeed = .1;
+		character_player.animation.play("shocked_stepback");
+		character_player.move(character_player.x - 40, -1, function():Void
+		{
+			character_player.flipX = false;
+
+			character_player.animation.play("lookup_scared");
+
+			OverworldState.eventManager.finishTransaction("robin goes backward");
+		});
+		OverworldState.eventManager.startTransaction("monster walks");
+
+		for (i in 0...6)
+		{
+			new FlxTimer().start(1.5 * i, function(f):Void
+			{
+				moveManagerForward(true);
+				if (i == 5)
+				{
+					OverworldState.eventManager.finishTransaction("monster walks");
+				}
+			});
+		}
+	});
+	// fade to sillouhette
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("fade");
+
+		var fadetime:Float = 3;
+
+		FlxTween.tween(lightingCover, {alpha: 0}, fadetime);
+
+		fadeBg = new CtSprite().createColorBlock(FlxG.width * 2, FlxG.height * 2, 0xFFFFFFFF);
+		fadeBg.alpha = 0;
+		fadeBg.x -= 400;
+		spr_top.add(fadeBg);
+
+		for (char in [character_player, character_managerscary])
+		{
+			props.remove(char);
+			spr_top.add(char);
+			FlxTween.color(char, fadetime, char.color, 0xFF000000);
+		}
+
+		FlxTween.tween(fadeBg, {alpha: 1}, fadetime);
+
+		new FlxTimer().start(fadetime, function(f):Void
+		{
+			OverworldState.eventManager.finishTransaction("fade");
+		});
+	});
+	// fade to sillouhette
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("moveCamera");
+
+		FlxTween.tween(camGame.scroll, {x: -50}, 2.5, {
+			onComplete: function(F):Void
+			{
+				new FlxTimer().start(.8, function(f):Void
+				{
+					OverworldState.eventManager.finishTransaction("moveCamera");
+				});
+			}
+		});
+	});
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("fade more");
+
+		for (char in [character_player, character_managerscary])
+		{
+			FlxTween.tween(char, {alpha: 0}, 2);
+		}
+
+		new FlxTimer().start(2.5, function(f):Void
+		{
+			fadeBg.color = 0xFF000000;
+
+			new FlxTimer().start(1, function(f):Void
+			{
+				OverworldState.eventManager.finishTransaction("fade more");
+			});
+		});
+	});
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("fade more");
+
+		for (char in [character_player, character_managerscary])
+		{
+			char.alpha = 1;
+			char.color = 0xFFFFFFFF;
+			spr_top.remove(char);
+			props.add(char);
+		}
+
+		fadeBg.destroy();
+
+		camGame.scroll.x = 450;
+
+		character_player.animation.play("shocked_idle");
+		character_player.flipX = true;
+
+		character_managerscary.lockAnims = true;
+		character_managerscary.animation.play("idle_left");
+		FlxTween.tween(character_managerscary.hitbox, {x: character_managerscary.hitbox.x + 230}, 1.5, {ease: FlxEase.quartOut});
+	});
+}
+
+var lightingIncrease:Float = 0.07;
+var lightingIncreaseOvershoot:Float = 0.03;
+
+function moveManagerForward(doLighting:Bool = true)
+{
+	if (doLighting)
+	{
+		lightingCover.alpha += lightingIncrease + lightingIncreaseOvershoot;
+		FlxTween.num(lightingCover.alpha, lightingCover.alpha - lightingIncreaseOvershoot, .5, {}, function(num:Float):Void
+		{
+			lightingCover.alpha = num;
+		});
+	}
+
+	character_managerscary.lockAnims = true;
+	character_managerscary.animation.play("stand-walksingle_left", false, false, 1);
+	character_managerscary.hitbox.x -= 13;
+	FlxTween.shake(character_managerscary, 0.05, .2, 0x01, {
+		onComplete: function(f):Void
+		{
+			character_managerscary.lockAnims = false;
+		}
 	});
 }

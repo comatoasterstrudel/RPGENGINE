@@ -77,6 +77,11 @@
             "looped": true
         },
         {
+            "name": "stand-walksingle_left",
+            "prefix": "MonManager-StandLeft-Shuffle",
+            "fps": 0
+        },
+        {
             "name": "stand-walk_right",
             "prefix": "MonManager-StandRight-Shuffle",
             "fps": 8,

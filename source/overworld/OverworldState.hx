@@ -53,6 +53,8 @@ class OverworldState extends FlxState
 	var spr_infrontTiles:FlxSpriteGroup;
 	var tile_main_front:FlxTypedGroup<FlxTilemap>;
 	var tile_foreground:FlxTypedGroup<FlxTilemap>;
+	var spr_top:FlxSpriteGroup;
+
 	var underMap:FlxSpriteGroup;
 	var overMap:FlxSpriteGroup;
 
@@ -742,6 +744,10 @@ class OverworldState extends FlxState
 		add(tile_main_front);
 		add(tile_foreground);
 
+		spr_top = new FlxSpriteGroup();
+		spr_top.camera = camGame;
+		add(spr_top);
+		
 		for (script in roomData.script)
 		{
 			addScript(Constants.roomScriptPath + script + ".hx");
@@ -1206,6 +1212,12 @@ class OverworldState extends FlxState
 		script.setValue({name: "get_spr_behindProps", value: get_spr_behindProps});
 		script.setValue({name: "set_spr_behindProps", value: set_spr_behindProps});
 
+		script.setValue({name: "get_props", value: get_props});
+		script.setValue({name: "set_props", value: set_props});
+
+		script.setValue({name: "get_spr_top", value: get_spr_top});
+		script.setValue({name: "set_spr_top", value: set_spr_top});
+		
 		scripts.push(script);
 		script.executeFunction("create");
 
@@ -1392,6 +1404,29 @@ class OverworldState extends FlxState
 		spr_behindProps = val;
 	}
 	
+	// props
+
+	function get_props():FlxTypedSpriteGroup<FlxSprite>
+	{
+		return (spr_behindProps);
+	}
+
+	function set_props(val:FlxTypedSpriteGroup<FlxSprite>):Void
+	{
+		props = val;
+	}
+
+	// spr_top
+
+	function get_spr_top():FlxSpriteGroup
+	{
+		return (spr_top);
+	}
+
+	function set_spr_top(val:FlxSpriteGroup):Void
+	{
+		spr_top = val;
+	}
 	function executeScriptFunction(name:String, args:Array<Any>):Void
 	{
 		for (script in scripts)
