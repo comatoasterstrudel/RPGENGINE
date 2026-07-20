@@ -121,7 +121,7 @@
         {
             "name": "shocked_run",
             "prefix": "robin_shocked_run",
-            "fps": 0,
+            "fps": 8,
             "looped": true
         },
         {

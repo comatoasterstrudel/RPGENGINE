@@ -22,6 +22,8 @@ class Character extends CtSprite
 	var autoMovementStartPosition:FlxPoint = new FlxPoint();
 	var autoMovementActive:Bool = false;
 	var autoMovementComplete:Void->Void;
+	var autoMovementDoX:Bool = false;
+	var autoMovementDoY:Bool = false;
 
 	public var tag:String = "";
 
@@ -175,7 +177,7 @@ class Character extends CtSprite
 		if (!autoMovementActive)
 			return;
 
-		if (autoMovementTarget.x != x)
+		if (autoMovementTarget.x != x && autoMovementDoX)
 		{
 			if (autoMovementTarget.x < autoMovementStartPosition.x)
 			{ // ypure moving to the left
@@ -202,7 +204,7 @@ class Character extends CtSprite
 				}
 			}
 		}
-		else if (autoMovementTarget.y != y)
+		else if (autoMovementTarget.y != y && autoMovementDoY)
 		{
 			if (autoMovementTarget.y > autoMovementStartPosition.y)
 			{ // ypure moving DOWN
@@ -230,7 +232,7 @@ class Character extends CtSprite
 			}
 		}
 
-		if ((autoMovementTarget.x == x) && (autoMovementTarget.y == y))
+		if ((autoMovementTarget.x == x || !autoMovementDoX) && (autoMovementTarget.y == y || !autoMovementDoY))
 		{
 			autoMovementActive = false;
 			autoMovementTarget.set(-1, -1);
@@ -263,6 +265,18 @@ class Character extends CtSprite
 		autoMovementActive = true;
 
 		autoMovementComplete = onComplete;
+		autoMovementDoX = moveX;
+		autoMovementDoY = moveY;
+
+		if (!autoMovementDoX && !autoMovementDoY)
+		{
+			autoMovementActive = false;
+
+			if (autoMovementComplete != null)
+			{
+				autoMovementComplete();
+			}
+		}
 	}
 
 	public function moveToGridSpace(x:Float = -1, y:Float = -1, ?onComplete:Void->Void):Void
