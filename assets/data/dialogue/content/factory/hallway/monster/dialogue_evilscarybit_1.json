@@ -2,13 +2,15 @@
 	{
 		"speed": 0.1,
 		"dialogue": "[[SHAKE]]...hah...",
-		"actor": "managerscary"
+		"actor": "managerscary",
+		"portrait": "stand"
 	},
 	{
 		"speed": 0.1,
 		"dialogue": "hah...[[ENDSHAKE]]",
 		"actor": "managerscary",
-		"continueLine": true
+		"continueLine": true,
+		"portrait": "stand"
 	},
 	{
 		"speed": 0.03,
@@ -19,18 +21,21 @@
 	{
 		"speed": 0.1,
 		"dialogue": "[[SHAKE]]...help..",
-		"actor": "managerscary"
+		"actor": "managerscary",
+		"portrait": "stand"
 	},
 	{
 		"speed": 0.1,
 		"dialogue": "me...",
 		"actor": "managerscary",
-		"continueLine": true
+		"continueLine": true,
+		"portrait": "stand"
 	},
 	{
 		"speed": 0.05,
 		"dialogue": "-GRK![[ENDSHAKE]]",
 		"actor": "managerscary",
-		"continueLine": true
+		"continueLine": true,
+		"portrait": "stand"
 	}
 ] 

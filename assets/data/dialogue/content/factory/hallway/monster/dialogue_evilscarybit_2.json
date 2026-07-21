@@ -1,0 +1,13 @@
+[
+	{
+		"speed": 0.05,
+		"dialogue": "[[SHAKE]]ACK-![[ENDSHAKE]]",
+		"actor": "managerscary"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "What the-",
+		"actor": "robin",
+		"portrait": "hat_shocked"
+	}
+] 

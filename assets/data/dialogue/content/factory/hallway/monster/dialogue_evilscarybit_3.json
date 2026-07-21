@@ -1,0 +1,82 @@
+[
+	{
+		"speed": 0.08,
+		"dialogue": "It's time, Robin..!"
+	},
+	{
+		"speed": 0.06,
+		"dialogue": "            ",
+		"actor": "volor",
+		"events": ["volorappears"],
+		"autoSkip": true
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "You need to fight!",
+		"actor": "volor"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "WHAT!?",
+		"actor": "robin",
+		"portrait": "hat_shocked"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "I know this seems insane, just listen to me-",
+		"actor": "volor"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "HOW is my jacket talking??",
+		"actor": "robin",
+		"portrait": "hat_shocked"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Am I going crazy?",
+		"actor": "robin",
+		"portrait": "hat_shocked"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": " I-..",
+		"actor": "robin",
+		"portrait": "hat_shocked",
+		"continueLine": true
+	},
+	{
+		"speed": 0.03,
+		"dialogue": " W-what?",
+		"actor": "robin",
+		"portrait": "hat_shocked",
+		"continueLine": true
+	},
+	{
+		"speed": 0.03,
+		"dialogue": "Am I dead?",
+		"actor": "robin",
+		"portrait": "hat_shocked"
+	},
+	{
+		"speed": 0.03,
+		"dialogue": " Hallucinating?",
+		"actor": "robin",
+		"portrait": "hat_shocked",
+		"continueLine": true
+	},
+	{
+		"speed": 0.03,
+		"dialogue": " I..",
+		"actor": "robin",
+		"portrait": "hat_shocked",
+		"continueLine": true
+	},
+	{
+		"speed": 0.03,
+		"dialogue": " I-",
+		"actor": "robin",
+		"portrait": "hat_shocked",
+		"continueLine": true
+	}
+] 

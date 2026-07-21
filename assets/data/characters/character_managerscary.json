@@ -96,13 +96,12 @@
         {
             "name": "attack",
             "prefix": "MonManager-Attack",
-            "fps": 2,
-            "looped": true
+            "fps": 1
         },
         {
             "name": "stand-lookdown-shuffle",
             "prefix": "MonManager-LookDown-Shuffle",
-            "fps": 8
+            "fps": 0
         }
     ]
 }

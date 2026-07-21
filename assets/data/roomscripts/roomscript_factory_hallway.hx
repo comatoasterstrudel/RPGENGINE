@@ -22,6 +22,8 @@ var props:FlxTypedSpriteGroup<FlxSprite>;
 var spr_top:FlxSpriteGroup;
 var fadeBg:CtSprite;
 
+var dialogueBox:CtDialogueBox;
+
 function create(){
     breakRoomDoor = getDoorByTag("breakRoomDoor");
     officeDoor = getDoorByTag("officeDoor");
@@ -40,8 +42,10 @@ function create(){
 	props = get_props();
 	spr_top = get_spr_top();
 	
+	dialogueBox = get_dialogueBox();
+	
     updateDialogues();
-	if (Save.storyFlags.get("factory_monsterscene1").val_bool)
+	if (Save.storyFlags.get("factory_monsterscene1").val_bool && !Save.storyFlags.get("factory_scarymode").val_bool)
 	{
 		startMonsterCutscene();
 	}
@@ -67,6 +71,12 @@ function opensDoor():Void{
 }
 
 function updateDialogues():Void{
+	if (Save.storyFlags.get("factory_scarymode").val_bool)
+	{
+		//
+		return;
+	}
+	
     if(!Save.storyFlags.get("factory_officedoorkeyobtained").val_bool){ // seen the party
         officeDoor.room = "";
         
@@ -229,13 +239,11 @@ function startMonsterCutscene():Void
 	{
 		OverworldState.eventManager.startTransaction("robin goes backward");
 
-		character_player.flipX = true;
 		character_player.movementSpeed = .1;
-		character_player.animation.play("shocked_stepback");
+		character_player.animation.play("stepback_lookup");
 		character_player.move(character_player.x - 40, -1, function():Void
 		{
-			character_player.flipX = false;
-
+			FlxTween.shake(character_player, 0.05, .2, 0x01);
 			character_player.animation.play("lookup_scared");
 
 			OverworldState.eventManager.finishTransaction("robin goes backward");
@@ -246,7 +254,7 @@ function startMonsterCutscene():Void
 		{
 			new FlxTimer().start(1.5 * i, function(f):Void
 			{
-				moveManagerForward(true);
+				moveManagerForward(true, i >= 3);
 				if (i == 5)
 				{
 					OverworldState.eventManager.finishTransaction("monster walks");
@@ -290,6 +298,7 @@ function startMonsterCutscene():Void
 		FlxTween.tween(camGame.scroll, {x: -50}, 2.5, {
 			onComplete: function(F):Void
 			{
+				character_managerscary.animation.play("attack");
 				new FlxTimer().start(.8, function(f):Void
 				{
 					OverworldState.eventManager.finishTransaction("moveCamera");
@@ -310,6 +319,12 @@ function startMonsterCutscene():Void
 		{
 			fadeBg.color = 0xFF000000;
 
+			character_player.alpha = 1;
+			character_player.animation.play("jacket_glow");
+			character_player.color = 0xFFFFFF;
+
+			FlxTween.tween(character_player, {alpha: 0}, 1);
+			
 			new FlxTimer().start(1, function(f):Void
 			{
 				OverworldState.eventManager.finishTransaction("fade more");
@@ -334,17 +349,129 @@ function startMonsterCutscene():Void
 
 		character_player.animation.play("shocked_idle");
 		character_player.flipX = true;
-
+		character_player.hitbox.x += 40;
 		character_managerscary.lockAnims = true;
 		character_managerscary.animation.play("idle_left");
-		FlxTween.tween(character_managerscary.hitbox, {x: character_managerscary.hitbox.x + 230}, 1.5, {ease: FlxEase.quartOut});
+		FlxTween.tween(character_managerscary.hitbox, {x: character_managerscary.hitbox.x + 170}, 1.5, {ease: FlxEase.quartOut});
+		new FlxTimer().start(2.3, function(F):Void
+		{
+			OverworldState.eventManager.finishTransaction("fade more");
+		});
+	});
+	// dimmalog
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dia");
+
+		startDialogue(["factory/hallway/monster/dialogue_evilscarybit_2"], function():Void
+		{
+			FlxTween.shake(character_player, 0.05, .2, 0x01);
+
+			new FlxTimer().start(1, function(f):Void
+			{
+				OverworldState.eventManager.finishTransaction("dia");
+			});
+		});
+	});
+	// dimmalog
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dia");
+
+		dialogueBox.onEvent.add(function(event:String):Void
+		{
+			if (event == "volorappears")
+			{
+				camUI.shake(0.05, .2, null, true, 0x01);
+			}
+		});
+
+		startDialogue(["factory/hallway/monster/dialogue_evilscarybit_3"], function():Void
+		{
+			OverworldState.eventManager.finishTransaction("dia");
+		});
+	});
+
+	// manager gets up
+	OverworldState.eventManager.addEvent(function()
+	{
+		set_unbindCamera(true);
+		FlxTween.tween(camGame.scroll, {x: 0, y: 320}, 2.5, {ease: FlxEase.quartInOut});
+
+		OverworldState.eventManager.startTransaction("get up");
+
+		character_managerscary.animation.onFrameChange.add(function(name:String, frameNum:Int, frameIndex:Int):Void
+		{
+			if (name == "standup")
+			{
+				FlxTween.shake(character_managerscary, 0.05, .2, 0x01);
+
+				if (frameNum == 2)
+				{
+					new FlxTimer().start(1, function(f):Void
+					{
+						character_managerscary.flipX = false;
+
+						OverworldState.eventManager.finishTransaction("get up");
+					});
+				}
+			}
+		});
+
+		character_managerscary.lockAnims = true;
+		character_managerscary.animation.play("standup");
+		character_managerscary.flipX = true;
+	});
+
+	// manager gets up
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("monster walks");
+
+		for (i in 0...11)
+		{
+			new FlxTimer().start(.4 * i, function(f):Void
+			{
+				moveManagerForward((i < 6), (i >= 5));
+				if (i == 10)
+				{
+					OverworldState.eventManager.finishTransaction("monster walks");
+				}
+			});
+		}
+
+		OverworldState.eventManager.startTransaction("dia");
+
+		startDialogue(["factory/hallway/monster/dialogue_evilscarybit_4"], function():Void
+		{
+			OverworldState.eventManager.finishTransaction("dia");
+		});
+	});
+
+	// dimmalog
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dia");
+
+		startDialogue(["factory/hallway/monster/dialogue_evilscarybit_5"], function():Void
+		{
+			FlxTween.tween(lightingCover, {alpha: 0}, .8, {
+				onComplete: function(F):Void
+				{
+					character_player.flipX = false;
+					character_player.lockAnims = false;
+					Save.storyFlags.get("factory_scarymode").val_bool = true;
+					startBattle("factory_tutorial");
+				}
+			});
+		});
 	});
 }
 
-var lightingIncrease:Float = 0.07;
+var lightingIncrease:Float = 0.07; 
 var lightingIncreaseOvershoot:Float = 0.03;
 
-function moveManagerForward(doLighting:Bool = true)
+function moveManagerForward(doLighting:Bool, useLookUpwardAnim:Bool)
 {
 	if (doLighting)
 	{
@@ -356,12 +483,33 @@ function moveManagerForward(doLighting:Bool = true)
 	}
 
 	character_managerscary.lockAnims = true;
-	character_managerscary.animation.play("stand-walksingle_left", false, false, 1);
+	character_managerscary.animation.play(useLookUpwardAnim ? "stand-lookdown-shuffle" : "stand-walksingle_left", false, false, 1);
 	character_managerscary.hitbox.x -= 13;
 	FlxTween.shake(character_managerscary, 0.05, .2, 0x01, {
 		onComplete: function(f):Void
 		{
-			character_managerscary.lockAnims = false;
+			if (useLookUpwardAnim)
+			{
+				character_managerscary.animation.play("stand-lookdown-shuffle", true, false, 0);
+			}
+			else
+			{
+				character_managerscary.lockAnims = false;
+			}
 		}
 	});
+}
+
+function battleTransitionDone(battleName:String):Void
+{
+	if (battleName == "factory_tutorial")
+	{
+		character_player.facing = DOWN;
+		set_inCutscene(true);
+
+		new FlxTimer().start(1, function(f):Void
+		{
+			set_inCutscene(false);
+		});
+	}
 }
