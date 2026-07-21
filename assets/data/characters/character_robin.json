@@ -129,6 +129,17 @@
             "prefix": "robin_lookup_scared",
             "fps": 0,
             "looped": true
+        },
+        {
+            "name": "stepback_lookup",
+            "prefix": "robin_stepback_lookup",
+            "fps": 5,
+            "looped": true
+        },
+        {
+            "name": "jacket_glow",
+            "prefix": "robin_jacket_glow",
+            "fps": 0
         }
     ]
 }

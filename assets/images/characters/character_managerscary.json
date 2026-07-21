@@ -174,13 +174,53 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
     "sourceSize": { "w": 48, "h": 48 },
     "duration": 100
+   },
+   "MonManager-Attack0000": {
+    "frame": { "x": 1056, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-Attack0001": {
+    "frame": { "x": 1104, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-Attack0002": {
+    "frame": { "x": 1152, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-LookDown-Shuffle0000": {
+    "frame": { "x": 1200, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-LookDown-Shuffle0001": {
+    "frame": { "x": 1248, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
    }
  },
  "meta": {
   "app": "https://www.aseprite.org/",
   "version": "1.3.17.2-x64",
   "format": "RGBA8888",
-  "size": { "w": 1056, "h": 48 },
+  "size": { "w": 1296, "h": 48 },
   "scale": "1",
   "frameTags": [
    { "name": "MonManager-CrawlDown-Idle", "from": 0, "to": 0, "direction": "forward", "color": "#000000ff" },
@@ -193,7 +233,9 @@
    { "name": "MonManager-StandLeft-idle", "from": 16, "to": 16, "direction": "forward", "color": "#000000ff" },
    { "name": "MonManager-StandLeft-Shuffle", "from": 17, "to": 18, "direction": "forward", "color": "#000000ff" },
    { "name": "MonManager-StandUp-Idle", "from": 19, "to": 19, "direction": "forward", "color": "#000000ff" },
-   { "name": "MonManager-StandUp-Shuffle", "from": 20, "to": 21, "direction": "forward", "color": "#000000ff" }
+   { "name": "MonManager-StandUp-Shuffle", "from": 20, "to": 21, "direction": "forward", "color": "#000000ff" },
+   { "name": "MonManager-Attack", "from": 22, "to": 24, "direction": "forward", "color": "#000000ff" },
+   { "name": "MonManager-LookDown-Shuffle", "from": 25, "to": 26, "direction": "forward", "color": "#000000ff" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
