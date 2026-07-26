@@ -14,6 +14,8 @@ class UnitData extends CtJsonLoader
     
 	public var skills:Array<String> = [];
     
+	public var unlockedByDefault:Bool;
+
     public function new(id:String){
         this.id = id;
                 
@@ -27,5 +29,7 @@ class UnitData extends CtJsonLoader
 		this.skills = data.skills;
 		if (this.skills.length > Constants.unitMaxSkills)
 			this.skills.resize(Constants.unitMaxSkills);
+
+		this.unlockedByDefault = data.unlockedByDefault == null ? false : data.unlockedByDefault;
     }
 }

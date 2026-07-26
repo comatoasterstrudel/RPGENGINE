@@ -228,4 +228,16 @@ class Unit extends CtSprite
 	{
 		return CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.unitDataFolder, [".json"], false, false), ["unit_", ".json"]);
 	}
+	public static function getListOfUnlockedUnits():Array<String>
+	{
+		var list = getListOfUnits();
+
+		var trueList = [];
+
+		for(unit in list){
+			if(Save.unlockedUnits.get(unit)) trueList.push(unit);
+		}
+
+		return(trueList);
+	}
 }

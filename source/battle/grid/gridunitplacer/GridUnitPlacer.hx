@@ -105,7 +105,7 @@ class GridUnitPlacer extends FlxSpriteGroup
         unitIcons.alpha = 0;
         add(unitIcons);
         
-		var listOfUnits:Array<String> = Unit.getListOfUnits();
+		var listOfUnits:Array<String> = Unit.getListOfUnlockedUnits();
         
         var xPos:Int = 0;
         var yPos:Int = 0;

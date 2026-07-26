@@ -11,6 +11,9 @@ class Save
 	// saved unit placements
 	public static var savedUnitPlacements:Array<GridUnitPlacerInfo> = [];
 	
+	// unlocked units
+	public static var unlockedUnits:Map<String, Bool> = [];
+
     public static function init():Void{
         // add story flags
         for (storyFlagName in CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.storyFlagsDataFolder, [".json"], false, false), ["storyflag_", ".json"]))
@@ -41,8 +44,15 @@ class Save
 		// reset time
 
 		playtime = 0;
+
 		// reset saved unit placements
 		savedUnitPlacements = [];
+		
+		// reset unlocked units
+		unlockedUnits = [];
+		for(unitName in Unit.getListOfUnits()){
+			unlockedUnits.set(unitName, new UnitData(unitName).unlockedByDefault ? true : false);
+		}
 	}
 
 	public static function save(?slot:Int = -5, ?onComplete:Void->Void):Void
@@ -92,6 +102,11 @@ class Save
 		// save unit placements
 		save.data.savedUnitPlacements = savedUnitPlacements;
 		
+		// unlocked units
+		for(unitName in Unit.getListOfUnits()){
+			save.data.unlockedUnits.set(unitName, unlockedUnits.get(unitName));
+		}
+
 		// flush
         
 		save.flush();
@@ -173,6 +188,17 @@ class Save
 		if (save.data.savedUnitPlacements != null)
 		{
 			savedUnitPlacements = save.data.savedUnitPlacements;
+		}
+
+		// load unlocked units 
+		if(save.data.unlockedUnits != null){
+			for(unitName in Unit.getListOfUnits()){
+				var savedUnlockedUnits:Map<String, Bool> = cast save.data.unockedUnits;
+
+				if(savedUnlockedUnits.exists(unitName)){
+					unlockedUnits.set(unitName, new UnitData(unitName).unlockedByDefault ? true : savedUnlockedUnits.get(unitName));
+				}
+			}
 		}
 		
 		trace("Finished Load (Slot " + loadedSaveSlot + ")");

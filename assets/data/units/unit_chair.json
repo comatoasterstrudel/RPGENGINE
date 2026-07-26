@@ -4,5 +4,6 @@
     "uiGraphic": "chair",
     "maxHp": 60,
     "speed": 5,
-    "skills": ["stab", "shock", "whip", "suicide"]
+    "skills": ["stab", "shock", "whip", "suicide"],
+    "unlockedByDefault": true
 }
