@@ -106,6 +106,7 @@ function create():Void
 			doWalkDown();
 		}
 	});
+	set_encountersDisabled(true);
 	if (Save.storyFlags.get("factory_sawproductioncutscene").val_bool
 		&& Save.storyFlags.get("factory_startedmonstercutscene").val_bool
 		&& !Save.storyFlags.get("factory_monsterscene1").val_bool)
@@ -1271,4 +1272,5 @@ function removeSnowDialogue():Void
 function setScaryMode():Void
 {
 	lightingCover.alpha = .5;
+	set_encountersDisabled(false);
 }

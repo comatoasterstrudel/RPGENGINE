@@ -3,5 +3,20 @@
     "map": "factory_production",
     "bgColor": [220, 220, 220],
     "lightingGlowColor": [0, 255, 0, 55],
-    "script": ["snow", "factory_production"]
+    "script": ["snow", "factory_production"],
+    "encounters": [
+        {
+            "battleName": "factory_set1",
+            "rarity": 40
+        },
+        {
+            "battleName": "factory_set2",
+            "rarity": 15
+        },
+        {
+            "battleName": "factory_set3",
+            "rarity": 20
+        }
+    ],
+    "encounterChance": 60
 }

@@ -1,7 +1,5 @@
 package overworld;
 
-import overworld.playermenu.PlayerMenu;
-
 class OverworldState extends FlxState
 {
 	public static var eventManager:CtEventManager;
@@ -85,7 +83,8 @@ class OverworldState extends FlxState
 	// RANDOM ENCOUNTEr
 	var selectedRandomEncounter:String = "";
 	var encounterCooldown:Float = 0;
-	
+	var encountersDisabled:Bool = false;
+
 	// SCRIPTS
 	var scripts:Array<CtScript> = [];
 	
@@ -338,7 +337,7 @@ class OverworldState extends FlxState
 	
 	function handleRandomEncounters(elapsed:Float):Void
 	{
-		if (selectedRandomEncounter == "")
+		if (selectedRandomEncounter == "" || encountersDisabled)
 			return;
 
 		if (!inCutscene && player.moving)
@@ -1222,6 +1221,9 @@ class OverworldState extends FlxState
 		script.setValue({name: "get_spr_top", value: get_spr_top});
 		script.setValue({name: "set_spr_top", value: set_spr_top});
 		
+		script.setValue({name: "get_encountersDisabled", value: get_encountersDisabled});
+		script.setValue({name: "set_encountersDisabled", value: set_encountersDisabled});
+
 		scripts.push(script);
 		script.executeFunction("create");
 
@@ -1431,6 +1433,19 @@ class OverworldState extends FlxState
 	{
 		spr_top = val;
 	}
+
+	// encountersDisabled
+
+	function get_encountersDisabled():Bool
+	{
+		return encountersDisabled;
+	}
+
+	function set_encountersDisabled(val:Bool):Void
+	{
+		encountersDisabled = val;
+	}
+
 	function executeScriptFunction(name:String, args:Array<Any>):Void
 	{
 		for (script in scripts)
