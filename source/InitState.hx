@@ -19,6 +19,11 @@ class InitState extends FlxState{
 		hideSoundTray();
 		
 		#if debug
+		#if testLevelCurve
+		for(level in 0...(Constants.maxLevel)){
+			trace("EXP for level " + (level) + ": " + CharacterLevel.getExpForNextLevel(level));
+		}
+		#end
 		#if testBattle
 		Save.load(0);
 		PlayState.setBattle(Compiler.getDefine("testBattle").split('=')[0], ARCADE);

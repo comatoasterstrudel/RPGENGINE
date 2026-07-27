@@ -14,6 +14,10 @@ class Save
 	// unlocked units
 	public static var unlockedUnits:Map<String, Bool> = [];
 
+	//character levels
+	public static var levelRobin:CharacterLevel;
+	public static var levelUnits:Map<String, CharacterLevel> = [];
+
     public static function init():Void{
         // add story flags
         for (storyFlagName in CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.storyFlagsDataFolder, [".json"], false, false), ["storyflag_", ".json"]))
@@ -23,6 +27,11 @@ class Save
         
 		FlxG.plugins.addPlugin(new TimeHandler());
 		
+		// setup character levels
+		levelRobin = new CharacterLevel("robin", ROBIN);
+		for(unitName in Unit.getListOfUnits()){
+			levelUnits.set(unitName, new CharacterLevel(unitName, UNIT));	
+		}
         reset();
     }
     
@@ -49,9 +58,14 @@ class Save
 		savedUnitPlacements = [];
 		
 		// reset unlocked units
-		unlockedUnits = [];
 		for(unitName in Unit.getListOfUnits()){
 			unlockedUnits.set(unitName, new UnitData(unitName).unlockedByDefault ? true : false);
+		}
+
+		// reset character levels
+		levelRobin.exp = 0;
+		for(levelUnit in levelUnits){
+			levelUnit.exp = 0;
 		}
 	}
 
@@ -102,11 +116,21 @@ class Save
 		// save unit placements
 		save.data.savedUnitPlacements = savedUnitPlacements;
 		
-		// unlocked units
+		// save unlocked units
+		save.data.unlockedUnits = new Map<String, Bool>();
+
 		for(unitName in Unit.getListOfUnits()){
 			save.data.unlockedUnits.set(unitName, unlockedUnits.get(unitName));
 		}
 
+		// save character levels
+		save.data.levelRobinExp = levelRobin.exp;
+
+		save.data.levelUnits = new Map<String, Int>();
+
+		for(levelUnit in levelUnits){
+			save.data.levelUnits.set(levelUnit.name, levelUnit.exp);
+		}
 		// flush
         
 		save.flush();
@@ -193,7 +217,7 @@ class Save
 		// load unlocked units 
 		if(save.data.unlockedUnits != null){
 			for(unitName in Unit.getListOfUnits()){
-				var savedUnlockedUnits:Map<String, Bool> = cast save.data.unockedUnits;
+				var savedUnlockedUnits:Map<String, Bool> = cast save.data.unlockedUnits;
 
 				if(savedUnlockedUnits.exists(unitName)){
 					unlockedUnits.set(unitName, new UnitData(unitName).unlockedByDefault ? true : savedUnlockedUnits.get(unitName));
@@ -201,6 +225,20 @@ class Save
 			}
 		}
 		
+		// load character levels
+		if(save.data.levelRobinExp != null){
+			levelRobin.exp = save.data.levelRobinExp;
+		}
+		if(save.data.levelUnitsExp != null){
+			for(levelUnit in levelUnits){
+				var savedLevelUnitsEXP:Map<String, Int> = save.data.levelUnitsExp;
+				
+				if(savedLevelUnitsEXP.exists(levelUnit.name)){
+					levelUnit.exp = savedLevelUnitsEXP.get(levelUnit.name);
+				}
+			}
+		}
+
 		trace("Finished Load (Slot " + loadedSaveSlot + ")");
 		if (onComplete != null)
 		{

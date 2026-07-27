@@ -327,11 +327,11 @@ class PlayState extends FlxState
 	{
 		for (unit in battleData.allyUnits)
 		{
-			placeUnit(unit.id, allyGrid, unit.position, true, false);
+			placeUnit(unit.id, allyGrid, unit.position, true, unit.level, false);
 		}
 		for (unit in battleData.enemyUnits)
 		{
-			placeUnit(unit.id, enemyGrid, unit.position, false, false);
+			placeUnit(unit.id, enemyGrid, unit.position, false, unit.level, false);
 		}
 	}
 	
@@ -342,7 +342,7 @@ class PlayState extends FlxState
 	 * @param position Which position on the grid you want to place it on
 	 * @param controllable Should this unit be controllable or not? basically is it an enemy or ally
 	 */
-	function placeUnit(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool, ?doAnim:Bool = true):Void
+	function placeUnit(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool, level:Int, ?doAnim:Bool = true):Void
 	{
 		if (position.x >= gridSize.x || position.y >= gridSize.y)
 		{
@@ -356,7 +356,7 @@ class PlayState extends FlxState
 			return;
 		}
 		
-		var unit = new Unit(unitID, grid, position, controllable);
+		var unit = new Unit(unitID, grid, position, controllable, level);
 		unit.camera = camGame;
 		if (controllable)
 		{
@@ -1242,7 +1242,7 @@ class PlayState extends FlxState
 					new FlxTimer().start(.2 * i, function(f):Void
 					{
 						var unitInfo = placedUnits[i];
-						placeUnit(unitInfo.unit, allyGrid, FlxPoint.get(unitInfo.x, unitInfo.y), true, true);
+						placeUnit(unitInfo.unit, allyGrid, FlxPoint.get(unitInfo.x, unitInfo.y), true, Save.levelUnits.get(unitInfo.unit).getLevel(), true);
 					});
 
 					if (i == placedUnits.length - 1)

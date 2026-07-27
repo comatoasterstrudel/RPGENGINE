@@ -5,6 +5,11 @@ class Constants
 	//
 	// BATTLE STUff !!!!!!11
 	//
+	// LEVELING !!!
+	// AT THE TOP FOR EASY ACCESS
+	public static final maxLevel:Int = 50;
+	public static final baseLvlPerExp:Int = 50; 
+	public static final levelExpScaling:Float = 10;
 	// Battle
 	public static final battleDataFolder:String = "assets/data/battles/";
 	public static final battleDataPath:String = Constants.battleDataFolder + "battle_";

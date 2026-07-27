@@ -4,4 +4,5 @@ typedef UnitInfo =
 {
     var id:String;
     var position:FlxPoint;
+    var level:Int;
 }

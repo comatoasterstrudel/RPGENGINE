@@ -7,6 +7,8 @@ class PlayerMenuPageStatus extends PlayerMenuPage
 	var robinAura:CtSprite;
 	var biggerText:CtText;
     
+	var lastText:String = "";
+
     public function new(playerMenu:PlayerMenu):Void{
         super(playerMenu, "status");
         makeBg(450, 500);
@@ -18,7 +20,7 @@ class PlayerMenuPageStatus extends PlayerMenuPage
 		statusText.setFormat(Constants.fontName, 30, FlxColor.BLACK);
 		add(statusText);
 		biggerText = new CtText(0, 0, "");
-		biggerText.setFormat(Constants.fontName, 45, FlxColor.BLACK);
+		biggerText.setFormat(Constants.fontName, 40, FlxColor.BLACK);
 		add(biggerText);
 		for (txt in [statusText, biggerText])
 		{
@@ -52,12 +54,24 @@ class PlayerMenuPageStatus extends PlayerMenuPage
     }
 	function configText():Void
 	{
-		var levelText:String = "LVL: 999\n";
-		var expText:String = "EXP: 999\n";
-		var nextLevelText:String = "EXP TO NEXT LVL: 1\n";
+		var levelText:String = "LVL: " + Save.levelRobin.getLevel() + "\n";
+		var expText:String = "EXP: " + Save.levelRobin.exp + "\n";
+		var nextLevelText:String = "EXP TO NEXT LVL: " + Save.levelRobin.getNextlevelExp() + "\n";
 		var timeText:String = "TIME: " + FlxStringUtil.formatTime(Save.playtime, false) + "\n";
 
-		biggerText.text = levelText + expText + nextLevelText + timeText;
-		biggerText.setPosition(bg.bgCenter.x + 5, bg.bgCenter.y + bg.bgCenter.height - biggerText.height);
+		var textToReplace:String = levelText + expText + nextLevelText + timeText;
+
+		if(textToReplace == lastText) return;
+
+		lastText = textToReplace;
+
+		biggerText.text = textToReplace;
+		biggerText.setPosition(bg.bgCenter.x, bg.bgCenter.y + bg.bgCenter.height - biggerText.height);
+		
+		while(biggerText.width > bg.bgCenter.width){
+			biggerText.scale.x -= 0.05;
+			biggerText.updateHitbox();
+			biggerText.setPosition(bg.bgCenter.x, bg.bgCenter.y + bg.bgCenter.height - biggerText.height);
+		}
 	}
 }

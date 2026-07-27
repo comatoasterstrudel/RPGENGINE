@@ -11,6 +11,7 @@ import battle.grid.gridunitplacer.*;
 import battle.result.ResultState;
 import battle.result.ResultType;
 import battle.skills.SkillData;
+import save.characterlevel.*;
 import battle.skills.SkillEffects;
 import battle.stats.Stat;
 import battle.status.*;

@@ -34,7 +34,8 @@ class BattleData extends CtJsonLoader
         {
             return {
 				id: item.id,
-                position: new FlxPoint(item.x, item.y)
+                position: new FlxPoint(item.x, item.y),
+                level: item.level == null ? 1 : item.level
             };
         });
         
@@ -42,7 +43,8 @@ class BattleData extends CtJsonLoader
         {
             return {
 				id: item.id,
-                position: new FlxPoint(item.x, item.y)
+                position: new FlxPoint(item.x, item.y),
+                level: item.level == null ? 1 : item.level
             };
         });
 		this.script = data.script ?? cast [];
