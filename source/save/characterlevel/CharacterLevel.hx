@@ -46,14 +46,14 @@ class CharacterLevel
         while(stillGoing){
             totalExp -= getExpForNextLevel(level);
 
-            if(totalExp > 0){
+            if(totalExp >= 0){
                 level ++;
             } else {
                 stillGoing = false;
             }
         }
 
-        return 1;
+        return level;
     }
 
     public static function getExpForNextLevel(level:Int):Int{

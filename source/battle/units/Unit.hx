@@ -34,10 +34,12 @@ class Unit extends CtSprite
 	
 	public var level:Int = 1;
 
+	public var placedByPlayer:Bool = false;
+
 	// SIGNALS
 	public var onStatusChanged = new FlxTypedSignal<Array<StatusEffect>->Void>();
 	
-	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool, level:Int):Void
+	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool, level:Int, ?placedByPlayer:Bool = false):Void
 	{
         super();
 
@@ -55,6 +57,8 @@ class Unit extends CtSprite
 		
 		this.level = level;
 
+		this.placedByPlayer = placedByPlayer;
+		
 		applyStats();
 		
 		applySkills();
@@ -67,9 +71,7 @@ class Unit extends CtSprite
 	}
 
 	function applyStats():Void
-	{
-		trace(level);
-		
+	{		
 		this.maxHp.value = data.maxHp;
 		this.speed.value = data.speed;
 

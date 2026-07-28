@@ -83,6 +83,10 @@ class Constants
 	public static final resultAnimTiming:Float = .65;
 	public static final resultAnimShakeTime:Float = 0.08;
 	public static final resultAnimShakeIntensity:Float = 0.08;
+	// Victory Screen
+	public static final vsTopTextPath:String = "assets/images/victoryscreen/vs_text.png";
+	public static final vsUnitLevelUiCellWidth:Float = 220;
+	public static final vsUnitLevelUiCellHeight:Float = 150;
 	// TurnAttentionAnim
 	public static final turnAttentionAnimTime:Float = .71;
 	public static final turnAttentionAnimTimeSplit:Float = .7;

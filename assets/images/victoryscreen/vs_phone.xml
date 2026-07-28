@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="vs_phone.png">
+<SubTexture name="open0000" x="0" y="0" width="428" height="559" frameX="-23" frameY="-9" frameWidth="440" frameHeight="553" />
+<SubTexture name="closed0000" x="428" y="0" width="392" height="314" frameX="-63" frameY="-251" frameWidth="440" frameHeight="553" />
+</TextureAtlas>

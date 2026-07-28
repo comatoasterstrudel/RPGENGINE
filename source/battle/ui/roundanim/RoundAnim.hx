@@ -33,7 +33,7 @@ class RoundAnim extends FlxSpriteGroup
         var trueText = CtUtil.stringToArray(text);
                 
         for(i in 0...trueText.length){
-            new FlxTimer().start(0.125 * i, function(f):Void{
+            new FlxTimer().start(0.095 * i, function(f):Void{
 				bg.alpha = .9 * (i / (trueText.length - 1));
                 
 				var letter = new CtText(0, 0, trueText[i], Constants.fontName, 50, false);
@@ -52,7 +52,7 @@ class RoundAnim extends FlxSpriteGroup
                 
                 if(i == (trueText.length - 1)){
                     new FlxTimer().start(.5, function(f):Void{
-                       FlxTween.tween(camAnim, {zoom: 2, alpha: 0}, 1, {ease: FlxEase.quartIn, onComplete: function(f):Void{
+                       FlxTween.tween(camAnim, {zoom: 2, alpha: 0}, .5, {ease: FlxEase.quartIn, onComplete: function(f):Void{
                             onComplete();
                        }}); 
                     });

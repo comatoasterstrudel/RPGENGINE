@@ -342,7 +342,7 @@ class PlayState extends FlxState
 	 * @param position Which position on the grid you want to place it on
 	 * @param controllable Should this unit be controllable or not? basically is it an enemy or ally
 	 */
-	function placeUnit(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool, level:Int, ?doAnim:Bool = true):Void
+	function placeUnit(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool, level:Int, ?doAnim:Bool = true, ?placedByPlayer:Bool = false):Void
 	{
 		if (position.x >= gridSize.x || position.y >= gridSize.y)
 		{
@@ -356,7 +356,7 @@ class PlayState extends FlxState
 			return;
 		}
 		
-		var unit = new Unit(unitID, grid, position, controllable, level);
+		var unit = new Unit(unitID, grid, position, controllable, level, placedByPlayer);
 		unit.camera = camGame;
 		if (controllable)
 		{
@@ -733,7 +733,20 @@ class PlayState extends FlxState
 				if (alliedUnits == enemyUnits)
 					type = TIE;
 
-				openSubState(new ResultState(type));
+				switch(type){
+					case WIN:
+						var unitsToAdd:Array<String> = [];
+
+						for(unit in units){
+							if(unit.placedByPlayer && !unitsToAdd.contains(unit.data.name)){
+								unitsToAdd.push(unit.data.name);
+							}
+						}
+						openSubState(new VictoryScreen(unitsToAdd));
+					case LOSS | TIE:
+						openSubState(new ResultState(type));
+				}
+
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.fadeOut(Constants.resultAnimTiming);
 			}
@@ -1242,7 +1255,7 @@ class PlayState extends FlxState
 					new FlxTimer().start(.2 * i, function(f):Void
 					{
 						var unitInfo = placedUnits[i];
-						placeUnit(unitInfo.unit, allyGrid, FlxPoint.get(unitInfo.x, unitInfo.y), true, Save.levelUnits.get(unitInfo.unit).getLevel(), true);
+						placeUnit(unitInfo.unit, allyGrid, FlxPoint.get(unitInfo.x, unitInfo.y), true, Save.levelUnits.get(unitInfo.unit).getLevel(), true, true);
 					});
 
 					if (i == placedUnits.length - 1)
