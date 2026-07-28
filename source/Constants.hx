@@ -87,6 +87,10 @@ class Constants
 	public static final vsTopTextPath:String = "assets/images/victoryscreen/vs_text.png";
 	public static final vsUnitLevelUiCellWidth:Float = 220;
 	public static final vsUnitLevelUiCellHeight:Float = 150;
+	public static final vsPhonePath:String = "assets/images/victoryscreen/vs_phone";
+	public static final vsPhoneBaseX:Int = -30;
+	public static final vsPhoneBaseY:Int = 300;
+	public static final vsPhoneBgColor:FlxColor = FlxColor.PURPLE;
 	// TurnAttentionAnim
 	public static final turnAttentionAnimTime:Float = .71;
 	public static final turnAttentionAnimTimeSplit:Float = .7;

@@ -6,8 +6,8 @@ class VictoryScreen extends FlxSubState
 
     var bg:CtSprite;
     var topText:CtSprite;
-
     var unitLevelUi:VictoryScreenUnitLevelUi;
+    var phone:VictoryScreenPhone;
 
     var unitsToAdd:Array<String> = [];
     
@@ -37,11 +37,15 @@ class VictoryScreen extends FlxSubState
         unitLevelUi.camera = victoryCam;
         add(unitLevelUi);
 
+        phone = new VictoryScreenPhone();
+        phone.camera = victoryCam;
+        add(phone);
+
         doFadeIn();
 
-        new FlxTimer().start(4, function(f):Void{
-            distributeExp(100);
-        });
+        //new FlxTimer().start(4, function(f):Void{
+        //    distributeExp(100);
+        //});
     }
     
     override function update(elapsed:Float):Void{
@@ -57,11 +61,15 @@ class VictoryScreen extends FlxSubState
             FlxTween.tween(topText, {alpha: 1}, .5);
             topText.scale.set(2,2);
             FlxTween.tween(topText.scale, {x: 1, y: 1}, .5, {ease: FlxEase.backIn, onComplete: function(f):Void{
-                FlxTween.shake(topText, 0.065, 0.05, XY);
+                FlxTween.shake(topText, 0.075, 0.05, XY);
             }});
 
             new FlxTimer().start(1, function(F):Void{
-                unitLevelUi.doFadeIn();
+                phone.doFadeIn();
+
+                new FlxTimer().start(2, function(F):Void{
+                    unitLevelUi.doFadeIn();
+                });
             });
         });
     }
