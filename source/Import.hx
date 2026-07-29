@@ -9,6 +9,7 @@ import battle.grid.GridBackground;
 import battle.grid.GridSpace;
 import battle.grid.gridunitplacer.*;
 import flixel.addons.effects.FlxSkewedSprite;
+import flixel.addons.display.FlxRadialGauge;
 import battle.result.ResultState;
 import overworld.playermenu.PlayerMenu;
 import battle.victoryscreen.*;

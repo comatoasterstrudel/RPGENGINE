@@ -88,6 +88,7 @@ class Constants
 	public static final vsUnitLevelUiCellWidth:Float = 220;
 	public static final vsUnitLevelUiCellHeight:Float = 150;
 	public static final vsPhonePath:String = "assets/images/victoryscreen/vs_phone";
+	public static final vsPhoneBlackPath:String = "assets/images/victoryscreen/vs_phoneblack.png";
 	public static final vsPhoneBaseX:Int = -30;
 	public static final vsPhoneBaseY:Int = 300;
 	public static final vsPhoneBgColor:FlxColor = FlxColor.PURPLE;

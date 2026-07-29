@@ -4,7 +4,9 @@ class VictoryScreenPhone extends FlxSpriteGroup
 {
     var phoneSprite:CtSprite;
     var phoneScreen:VictoryScreenPhoneUi;
-    
+    var black:CtSprite;
+    var black2:CtSprite;
+
     public function new():Void{
         super();
 
@@ -14,12 +16,30 @@ class VictoryScreenPhone extends FlxSpriteGroup
         phoneSprite.animation.play("open");
         phoneSprite.visible = false;
 
+        black = new CtSprite().createFromImage(Constants.vsPhoneBlackPath);
+        add(black);
+
         phoneScreen = new VictoryScreenPhoneUi(phoneSprite);
         add(phoneScreen);
+
+        black2 = new CtSprite().createFromImage(Constants.vsPhoneBlackPath);
+        add(black2);
 
         add(phoneSprite);
 
         phoneSprite.setPosition(Constants.vsPhoneBaseX, Constants.vsPhoneBaseY);
+    }
+
+    override function update(elapsed:Float):Void{
+        super.update(elapsed);
+
+        for(blackspr in [black, black2]){
+            CtUtil.centerSpriteOnSprite(blackspr, phoneSprite, true, true);
+            blackspr.angle = phoneSprite.angle;
+            blackspr.offset.set(phoneSprite.offset.x, phoneSprite.offset.y);
+            blackspr.visible = (phoneSprite.visible && phoneSprite.animation.curAnim.name == "open");
+        }
+
     }
 
     public function doFadeIn():Void{
@@ -33,7 +53,8 @@ class VictoryScreenPhone extends FlxSpriteGroup
             phoneSprite.animation.play("open");
             FlxTween.shake(phoneSprite, 0.1 , 0.05,  X);
             FlxTween.tween(phoneSprite, {angle: 0, x: Constants.vsPhoneBaseX, y: Constants.vsPhoneBaseY}, .5, {ease: FlxEase.circOut, onComplete: function(f):Void{
-                //
+                phoneScreen.doFadeIn();
+                FlxTween.tween(black2, {alpha: 0}, .5);
             }});
         }});
     }

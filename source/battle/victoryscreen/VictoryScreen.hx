@@ -43,9 +43,9 @@ class VictoryScreen extends FlxSubState
 
         doFadeIn();
 
-        //new FlxTimer().start(4, function(f):Void{
-        //    distributeExp(100);
-        //});
+        new FlxTimer().start(5.5, function(f):Void{
+            distributeExp(100);
+        });
     }
     
     override function update(elapsed:Float):Void{
