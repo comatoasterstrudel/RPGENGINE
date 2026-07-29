@@ -5,5 +5,6 @@
     "maxHp": 60,
     "speed": 5,
     "skills": ["stab", "shock", "whip", "suicide"],
-    "unlockedByDefault": true
+    "unlockedByDefault": true,
+    "expReward": 6
 }

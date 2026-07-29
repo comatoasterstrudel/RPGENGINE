@@ -92,6 +92,9 @@ class Constants
 	public static final vsPhoneBaseX:Int = -30;
 	public static final vsPhoneBaseY:Int = 300;
 	public static final vsPhoneBgColor:FlxColor = FlxColor.PURPLE;
+	public static final vsFloatingTextMiddlePath:String = "assets/images/victoryscreen/vs_textBoxMiddle.png";
+	public static final vsFloatingTextEdgePath:String = "assets/images/victoryscreen/vs_textBoxEdge.png";
+	public static final vsRobinPath:String = "assets/images/victoryscreen/vs_robin.png";
 	// TurnAttentionAnim
 	public static final turnAttentionAnimTime:Float = .71;
 	public static final turnAttentionAnimTimeSplit:Float = .7;

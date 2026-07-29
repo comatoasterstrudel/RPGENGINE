@@ -15,21 +15,28 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
     var levelText:CtText;
     
     var lastExp:Int = -45;
+    var lastLevel:Int = -5;
+
     var currentExp:Int = 100;
     var currentMaxExp:Int = 100;
 
-    public function new(phoneSprite:CtSprite):Void{
+    var victoryScreen:VictoryScreen;
+
+    public function new(phoneSprite:CtSprite, victoryScreen:VictoryScreen):Void{
         super();
 
         this.phoneSprite = phoneSprite;
-
+        this.victoryScreen = victoryScreen;
+        
         initCameraSystem();
 
         setupScreen();
 
-        skew.y = -14;
-        skew.x = 8.8;
+        skew.y = -15.2;
+        skew.x = 8.3;
         visible = false;
+
+        lastLevel = Save.levelRobin.getLevel();
     }
 
     function initCameraSystem():Void{
@@ -64,6 +71,7 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
         FlxG.state.add(expBar);
 
         CtUtil.centerSpriteOnSprite(expBar, bg, true, true);
+        expBar.x += 6;
         expBar.y += 50;
 
         levelText = new CtText(0,0,"sdsd");
@@ -106,7 +114,12 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
 
     function updateExp():Void{
         if(Save.levelRobin.exp != lastExp){
+            levelText.scale.set(1,1);
             levelText.text = "LVL " + Save.levelRobin.getLevel() + "\nNEXT: " + (Save.levelRobin.getNextlevelExp());
+            while(levelText.width > expBar.width - 5){
+                levelText.scale.x -= 0.01;
+                levelText.updateHitbox();
+            }
             levelText.setPosition(expBar.x + 5, expBar.y - levelText.height - 5);
 
             currentExp = Save.levelRobin.getCurrentLevelExp();
@@ -114,6 +127,11 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
             expBar.setRange(0, currentMaxExp > 0 ? currentMaxExp : 1);
 
             lastExp = Save.levelRobin.exp;
+        }
+
+        if(Save.levelRobin.getLevel() > lastLevel){
+            victoryScreen.textSignal.dispatch("LVL UP!", FlxColor.YELLOW, phoneSprite);
+            lastLevel = Save.levelRobin.getLevel();
         }
     }
 

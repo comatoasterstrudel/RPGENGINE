@@ -5,5 +5,6 @@
     "maxHp": 40,
     "speed": 8,
     "skills": ["love", "toxins", "burning_stick", "kamikaze"],
-    "unlockedByDefault": true
+    "unlockedByDefault": true,
+    "expReward": 4
 }

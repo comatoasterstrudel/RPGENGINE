@@ -9,11 +9,15 @@ class VictoryScreenUnitLevelUi extends FlxSpriteGroup
 
     var wide:Int = 0;
     var tall:Int = 0;
-    public function new(units:Array<String>):Void{
+
+    var victoryScreen:VictoryScreen;
+
+    public function new(units:Array<String>, victoryScreen:VictoryScreen):Void{
         super();
 
         this.units = units;
-        
+        this.victoryScreen = victoryScreen;
+
         addSprites();
     }
 
@@ -28,7 +32,7 @@ class VictoryScreenUnitLevelUi extends FlxSpriteGroup
         add(bg);
 
         for(unit in units){
-            var unitCell = new VictoryScreenUnitLevelCell(unit);
+            var unitCell = new VictoryScreenUnitLevelCell(unit, victoryScreen);
             add(unitCell);
 
             unitCells.push(unitCell);

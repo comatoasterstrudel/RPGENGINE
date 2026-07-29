@@ -80,6 +80,9 @@ class PlayState extends FlxState
 	// SCRIPTS
 	var scripts:Array<CtScript> = [];
 	
+	// EXP
+	var expReward:Int = 0;
+
 	override public function create()
 	{
 		persistentUpdate = true;
@@ -364,6 +367,7 @@ class PlayState extends FlxState
 		}
 		else
 		{
+			expReward += Std.int(unit.data.expReward * (unit.level / 1.5));
 			enemyUnitGroup.add(unit);
 		}
 
@@ -738,11 +742,13 @@ class PlayState extends FlxState
 						var unitsToAdd:Array<String> = [];
 
 						for(unit in units){
-							if(unit.placedByPlayer && !unitsToAdd.contains(unit.data.name)){
-								unitsToAdd.push(unit.data.name);
+							if(unit.placedByPlayer && !unitsToAdd.contains(unit.data.id)){
+								unitsToAdd.push(unit.data.id);
 							}
 						}
-						openSubState(new VictoryScreen(unitsToAdd));
+						openSubState(new VictoryScreen(unitsToAdd, Std.int(FlxMath.bound(expReward, 1)), function():Void{
+							FlxG.switchState(OverworldState.new);
+						}));
 					case LOSS | TIE:
 						openSubState(new ResultState(type));
 				}

@@ -2,7 +2,7 @@ package battle.units;
 
 class UnitData extends CtJsonLoader
 {
-    var id:String = "";
+    public var id:String = "";
     
     public var name:String;
     
@@ -15,6 +15,8 @@ class UnitData extends CtJsonLoader
 	public var skills:Array<String> = [];
     
 	public var unlockedByDefault:Bool;
+
+	public var expReward:Int;
 
     public function new(id:String){
         this.id = id;
@@ -31,5 +33,6 @@ class UnitData extends CtJsonLoader
 			this.skills.resize(Constants.unitMaxSkills);
 
 		this.unlockedByDefault = data.unlockedByDefault == null ? false : data.unlockedByDefault;
+		this.expReward = data.expReward == null ? 0 : data.expReward;
     }
 }

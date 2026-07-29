@@ -13,15 +13,19 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
     var expBar:FlxBar;
 
     var lastExp:Int = -45;
+    var lastLevel:Int = -5;
 
     var currentExp:Int = 100;
     var currentMaxExp:Int = 100;
 
-    public function new(unit:String):Void{
+    var victoryScreen:VictoryScreen;
+
+    public function new(unit:String, victoryScreen:VictoryScreen):Void{
         super();
 
         this.unit = unit;
-
+        this.victoryScreen = victoryScreen;
+        
         baseSprite = new CtSprite().createColorBlock(Std.int(Constants.vsUnitLevelUiCellWidth * .8), Std.int(Constants.vsUnitLevelUiCellHeight * .8), FlxColor.GRAY);
         baseSprite.visible = false;
         add(baseSprite);
@@ -91,5 +95,10 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
         }
 
         levelText.setPosition(expBar.x + 10, expBar.y - levelText.height - 2);
+
+        if(Save.levelUnits.get(unit).getLevel() > lastLevel){
+            victoryScreen.textSignal.dispatch("LVL UP!", FlxColor.YELLOW, expBar);
+            lastLevel = Save.levelUnits.get(unit).getLevel();
+        }
     }
 }
