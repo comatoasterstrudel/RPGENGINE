@@ -22,6 +22,8 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
 
     var victoryScreen:VictoryScreen;
 
+    var progress:Float = 1;
+
     public function new(phoneSprite:CtSprite, victoryScreen:VictoryScreen):Void{
         super();
 
@@ -64,7 +66,7 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
         CtUtil.centerSpriteOnSprite(topText, bg, true, false);
         topText.y = bg.y + 20;
 
-        expBar = new FlxBar(0,0,LEFT_TO_RIGHT, 120, 20, this, "currentExp", 0, currentMaxExp);
+        expBar = new FlxBar(0,0,LEFT_TO_RIGHT, 120, 20, this, "progress", 0, 1);
         expBar.createColoredFilledBar(FlxColor.BLUE, false);
         expBar.createColoredEmptyBar(FlxColor.BLACK, false);
         expBar.camera = bgCamera;
@@ -108,11 +110,11 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
         trace("SKEW - X: " + skew.x + " Y: " + skew.y);
         #end
 
-        updateExp();
+        updateExp(elapsed);
         super.update(elapsed);
     }
 
-    function updateExp():Void{
+    function updateExp(elapsed:Float):Void{
         if(Save.levelRobin.exp != lastExp){
             levelText.scale.set(1,1);
             levelText.text = "LVL " + Save.levelRobin.getLevel() + "\nNEXT: " + (Save.levelRobin.getNextlevelExp());
@@ -124,8 +126,7 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
 
             currentExp = Save.levelRobin.getCurrentLevelExp();
             currentMaxExp = CharacterLevel.getExpForNextLevel(Save.levelRobin.getLevel());
-            expBar.setRange(0, currentMaxExp > 0 ? currentMaxExp : 1);
-
+                        
             lastExp = Save.levelRobin.exp;
         }
 
@@ -133,6 +134,8 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
             victoryScreen.textSignal.dispatch("LVL UP!", FlxColor.YELLOW, phoneSprite);
             lastLevel = Save.levelRobin.getLevel();
         }
+
+        progress = CtUtil.lerpThing(progress, (currentExp / currentMaxExp), elapsed, 10);
     }
 
     public function doFadeIn():Void{

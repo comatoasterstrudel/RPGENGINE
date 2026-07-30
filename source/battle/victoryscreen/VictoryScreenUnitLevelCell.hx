@@ -18,6 +18,8 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
     var currentExp:Int = 100;
     var currentMaxExp:Int = 100;
 
+    var progress:Float = 1;
+
     var victoryScreen:VictoryScreen;
 
     public function new(unit:String, victoryScreen:VictoryScreen):Void{
@@ -41,7 +43,7 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
         unitNameText.antialiasing = false;
         add(unitNameText);
 
-        expBar = new FlxBar(0,0,LEFT_TO_RIGHT, Std.int(baseSprite.width - unitIcon.width - 10), 20, this, "currentExp", 0, currentMaxExp);
+        expBar = new FlxBar(0,0,LEFT_TO_RIGHT, Std.int(baseSprite.width - unitIcon.width - 10), 20, this, "progress", 0, 1);
         expBar.createColoredFilledBar(FlxColor.BLUE, false);
         expBar.createColoredEmptyBar(FlxColor.BLACK, false);
         add(expBar);
@@ -65,7 +67,7 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
     override function update(elapsed:Float):Void{
         super.update(elapsed);
 
-        updateSpritePositions();
+        updateSpritePositions(elapsed);
     }
 
     public function doFadeIn():Void{
@@ -76,7 +78,7 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
         FlxTween.tween(baseSprite, {y: baseSprite.y + 10}, 0.5);
     }
 
-    public function updateSpritePositions():Void{
+    public function updateSpritePositions(elapsed:Float = 1):Void{
         unitIcon.setPosition(baseSprite.x, baseSprite.y + baseSprite.height / 2 - unitIcon.height / 2);
 
         expBar.setPosition(unitIcon.x + unitIcon.width + 5, baseSprite.y + baseSprite.height - (expBar.height + 5));
@@ -89,10 +91,11 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
 
             currentExp = Save.levelUnits.get(unit).getCurrentLevelExp();
             currentMaxExp = CharacterLevel.getExpForNextLevel(Save.levelUnits.get(unit).getLevel());
-            expBar.setRange(0, currentMaxExp > 0 ? currentMaxExp : 1);
 
             lastExp = Save.levelUnits.get(unit).exp;
         }
+
+        progress = CtUtil.lerpThing(progress, (currentExp / currentMaxExp), elapsed, 10);
 
         levelText.setPosition(expBar.x + 10, expBar.y - levelText.height - 2);
 

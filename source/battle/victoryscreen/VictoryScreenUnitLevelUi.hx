@@ -4,11 +4,11 @@ class VictoryScreenUnitLevelUi extends FlxSpriteGroup
 {
     var units:Array<String> = [];
 
-    var bg:CtSprite;
+    public var bg:CtSprite;
     var unitCells:Array<VictoryScreenUnitLevelCell> = [];
 
-    var wide:Int = 0;
-    var tall:Int = 0;
+    public var wide:Int = 0;
+    public var tall:Int = 0;
 
     var victoryScreen:VictoryScreen;
 

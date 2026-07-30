@@ -5,10 +5,17 @@ class VictoryScreen extends FlxSubState
     var victoryCam:CtCamera;
 
     var bg:CtSprite;
+    var topBar:CtSprite;
+    var bottomBar:CtSprite;
+
     var topText:CtSprite;
     var unitLevelUi:VictoryScreenUnitLevelUi;
     var phone:VictoryScreenPhone;
     var robin:CtSprite;
+
+    var menuManager:CtMenuManager;
+    var continueText:CtText;
+    var cursor:Cursor;
 
     var unitsToAdd:Array<String> = [];
     var expReward:Int = 1;
@@ -21,9 +28,10 @@ class VictoryScreen extends FlxSubState
         super();
 
         this.unitsToAdd = unitsToAdd;
-        
+        this.expReward = expReward;
+
         #if forceResultsValues
-        this.unitsToAdd = ["chair", "partyhat"];
+        this.unitsToAdd = ["chair", "partyhat", "chair", "chair", "partyhat", "chair", "chair"];
         this.expReward = 100;
         #end
 
@@ -38,11 +46,29 @@ class VictoryScreen extends FlxSubState
         bg.alpha = 0;
         add(bg);
 
+        topBar = new CtSprite().createFromImage(Constants.vsBarPath);
+        topBar.angle = 180;
+        topBar.antialiasing = false;
+        topBar.camera = victoryCam;
+        topBar.setGraphicSize(FlxG.width, FlxG.height);
+        topBar.updateHitbox();
+        topBar.screenCenter();
+        add(topBar);
+
+        bottomBar = new CtSprite().createFromImage(Constants.vsBarPath);
+        bottomBar.antialiasing = false;
+        bottomBar.camera = victoryCam;
+        bottomBar.setGraphicSize(FlxG.width, FlxG.height);
+        bottomBar.updateHitbox();
+        bottomBar.screenCenter();
+        add(bottomBar);
+
         robin = new CtSprite().createFromImage(Constants.vsRobinPath);
         robin.antialiasing = false;
         robin.camera = victoryCam;
         robin.screenCenter();
         robin.alpha = 0;
+        robin.color = FlxColor.GRAY;
         add(robin);
 
         topText = new CtSprite().createFromImage(Constants.vsTopTextPath);
@@ -61,12 +87,15 @@ class VictoryScreen extends FlxSubState
 
         textSignal.add(addFloatingText);
 
+        setupMenuManager();
+
         doFadeIn();
 
-        new FlxTimer().start(5.5, function(f):Void{
-            distributeExp(expReward, function():Void{
-                new FlxTimer().start(1, function(f):Void{
-                    doEnding();
+        new FlxTimer().start(3.5, function(f):Void{
+            distributeExp(this.expReward, function():Void{
+                new FlxTimer().start(1.35, function(f):Void{
+                    continueText.visible = true;
+                    menuManager.enable();
                 });
             });
         });
@@ -74,6 +103,8 @@ class VictoryScreen extends FlxSubState
     
     override function update(elapsed:Float):Void{
         super.update(elapsed);
+
+        menuManager.update();
     }
 
     function addFloatingText(text:String, color:FlxColor, baseSprite:FlxSprite):Void{
@@ -82,8 +113,42 @@ class VictoryScreen extends FlxSubState
         add(floatingText);
     }
 
+    function setupMenuManager():Void{
+        menuManager = new CtMenuManager(CtControls.getInputFunction("right", JUSTPRESSED), CtControls.getInputFunction("left", JUSTPRESSED),
+			CtControls.getInputFunction("accept", JUSTPRESSED), CtControls.getInputFunction("cancel", JUSTPRESSED),
+			CtControls.getInputFunction("down", JUSTPRESSED), CtControls.getInputFunction("up", JUSTPRESSED));
+            
+        cursor = new Cursor(Constants.cursorArrowGraphic);
+        cursor.camera = victoryCam;
+        add(cursor);
+        
+        menuManager.addCursor(cursor, 30);
+
+        continueText = new CtText(0,0,"Continue");
+        continueText.setFormat(Constants.fontName, 50, FlxColor.WHITE);
+        continueText.camera = victoryCam;
+        continueText.setPosition(unitLevelUi.bg.x + cursor.width + 30, unitLevelUi.bg.y - continueText.height - 30);
+        continueText.antialiasing = false;
+        continueText.visible = false;
+        add(continueText);
+
+        if(unitLevelUi.tall >= 3) continueText.x += 300;
+        menuManager.setMenuOptions([[{sprite: continueText, cursorDirection: LEFT, clickFunction: function(F):Void{
+            menuManager.disable();
+            continueText.visible = false;
+            doEnding();
+        }}]]);
+    }
+
     function doFadeIn():Void{
-        FlxTween.tween(bg, {alpha: .94}, 1);
+        FlxTween.tween(bg, {alpha: .94}, .7);
+
+        var barDistance:Float = 300;
+        topBar.y -= barDistance;
+        bottomBar.y += barDistance;
+        for(bar in [topBar, bottomBar]){
+            FlxTween.tween(bar, {y: 0}, 1, {ease: FlxEase.quartOut});
+        }
 
         new FlxTimer().start(1, function(F):Void{
             topText.setPosition(50, 40);
@@ -94,15 +159,13 @@ class VictoryScreen extends FlxSubState
                 FlxTween.shake(topText, 0.075, 0.05, XY);
             }});
 
-            new FlxTimer().start(1, function(F):Void{
+            new FlxTimer().start(.85, function(F):Void{
                 robin.x += 30;
                 FlxTween.tween(robin, {x: robin.x - 30, alpha: 1}, 1, {ease: FlxEase.quartOut});
 
                 phone.doFadeIn();
 
-                new FlxTimer().start(2, function(F):Void{
-                    unitLevelUi.doFadeIn();
-                });
+                unitLevelUi.doFadeIn();
             });
         });
     }

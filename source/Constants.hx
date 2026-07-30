@@ -95,6 +95,7 @@ class Constants
 	public static final vsFloatingTextMiddlePath:String = "assets/images/victoryscreen/vs_textBoxMiddle.png";
 	public static final vsFloatingTextEdgePath:String = "assets/images/victoryscreen/vs_textBoxEdge.png";
 	public static final vsRobinPath:String = "assets/images/victoryscreen/vs_robin.png";
+	public static final vsBarPath:String = "assets/images/victoryscreen/vs_bar.png";
 	// TurnAttentionAnim
 	public static final turnAttentionAnimTime:Float = .71;
 	public static final turnAttentionAnimTimeSplit:Float = .7;

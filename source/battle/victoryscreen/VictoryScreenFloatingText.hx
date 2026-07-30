@@ -55,7 +55,7 @@ class VictoryScreenFloatingText extends FlxSpriteGroup
         bgRightEdge.setPosition(text.x + text.width, text.y);
 
         for(bg in [bgLeftEdge, bgRightEdge, bgMiddle]){
-            bg.alpha = 0.4 * text.alpha;
+            bg.alpha = 0.65 * text.alpha;
         }
     }
 }

@@ -56,9 +56,10 @@ class VictoryScreenPhone extends FlxSpriteGroup
         FlxTween.tween(phoneSprite, {angle: 35, x: phoneSprite.x + 350}, .5, {ease: FlxEase.circOut, onComplete: function(f):Void{
             phoneSprite.animation.play("open");
             FlxTween.shake(phoneSprite, 0.1 , 0.05,  XY);
+            FlxTween.tween(black2, {alpha: 0}, .7);
+            phoneScreen.doFadeIn();
             FlxTween.tween(phoneSprite, {angle: 0, x: Constants.vsPhoneBaseX, y: Constants.vsPhoneBaseY}, .5, {ease: FlxEase.circOut, onComplete: function(f):Void{
-                phoneScreen.doFadeIn();
-                FlxTween.tween(black2, {alpha: 0}, .5);
+                //
             }});
         }});
     }
