@@ -87,15 +87,21 @@ class Constants
 	public static final vsTopTextPath:String = "assets/images/victoryscreen/vs_text.png";
 	public static final vsUnitLevelUiCellWidth:Float = 220;
 	public static final vsUnitLevelUiCellHeight:Float = 150;
+	public static final vsUnitLevelUiBgCornerPath:String = "assets/images/victoryscreen/vs_boxcorner.png";
 	public static final vsPhonePath:String = "assets/images/victoryscreen/vs_phone";
+	public static final vsPhoneBlankPath:String = "assets/images/victoryscreen/vs_phoneblank.png";
 	public static final vsPhoneBlackPath:String = "assets/images/victoryscreen/vs_phoneblack.png";
 	public static final vsPhoneBaseX:Int = -30;
 	public static final vsPhoneBaseY:Int = 300;
 	public static final vsPhoneBgColor:FlxColor = FlxColor.PURPLE;
+	public static final vsPhoneBgPath:String = "assets/images/victoryscreen/vs_phonebg.png";
 	public static final vsFloatingTextMiddlePath:String = "assets/images/victoryscreen/vs_textBoxMiddle.png";
 	public static final vsFloatingTextEdgePath:String = "assets/images/victoryscreen/vs_textBoxEdge.png";
 	public static final vsRobinPath:String = "assets/images/victoryscreen/vs_robin.png";
+	public static final vsRobinBlankPath:String = "assets/images/victoryscreen/vs_robinblank.png";
 	public static final vsBarPath:String = "assets/images/victoryscreen/vs_bar.png";
+	public static final vsSparklesPath:String = "assets/images/victoryscreen/vs_sparkle";
+	public static final vsBoxDoodlesPath:String = "assets/images/victoryscreen/vs_doodle_";
 	// TurnAttentionAnim
 	public static final turnAttentionAnimTime:Float = .71;
 	public static final turnAttentionAnimTimeSplit:Float = .7;

@@ -11,7 +11,11 @@ class VictoryScreen extends FlxSubState
     var topText:CtSprite;
     var unitLevelUi:VictoryScreenUnitLevelUi;
     var phone:VictoryScreenPhone;
+    
+    var robinblank:CtSprite;
     var robin:CtSprite;
+
+    var sparkles:CtSprite;
 
     var menuManager:CtMenuManager;
     var continueText:CtText;
@@ -63,6 +67,14 @@ class VictoryScreen extends FlxSubState
         bottomBar.screenCenter();
         add(bottomBar);
 
+        robinblank = new CtSprite().createFromImage(Constants.vsRobinBlankPath);
+        robinblank.antialiasing = false;
+        robinblank.camera = victoryCam;
+        robinblank.screenCenter();
+        robinblank.alpha = 0;
+        robinblank.color = 0xFF110066;
+        add(robinblank);
+
         robin = new CtSprite().createFromImage(Constants.vsRobinPath);
         robin.antialiasing = false;
         robin.camera = victoryCam;
@@ -84,6 +96,13 @@ class VictoryScreen extends FlxSubState
         phone = new VictoryScreenPhone(this);
         phone.camera = victoryCam;
         add(phone);
+
+        sparkles = new CtSprite().createFromSparrow(Constants.vsSparklesPath + ".png", Constants.vsSparklesPath + ".xml");
+        sparkles.animation.addByPrefix("idle", "idle", 1);
+        sparkles.animation.play("idle");        
+        sparkles.camera = victoryCam;
+        sparkles.alpha = 0;
+        add(sparkles);
 
         textSignal.add(addFloatingText);
 
@@ -160,12 +179,21 @@ class VictoryScreen extends FlxSubState
             }});
 
             new FlxTimer().start(.85, function(F):Void{
+                robinblank.x += 30;
+                FlxTween.tween(robinblank, {x: robin.x - 50, alpha: .5}, 1, {ease: FlxEase.quartOut});
+
                 robin.x += 30;
                 FlxTween.tween(robin, {x: robin.x - 30, alpha: 1}, 1, {ease: FlxEase.quartOut});
 
                 phone.doFadeIn();
 
                 unitLevelUi.doFadeIn();
+
+                new FlxTimer().start(.5, function(F):Void{
+                    sparkles.scale.set(1.1, 1.1);
+                    FlxTween.tween(sparkles.scale, {x: 1, y: 1}, 1, {ease: FlxEase.quartOut});
+                    FlxTween.tween(sparkles, {alpha: 1}, 2, {ease: FlxEase.quartOut});
+                });
             });
         });
     }
@@ -186,6 +214,8 @@ class VictoryScreen extends FlxSubState
     }
 
     function doEnding():Void{
+        sparkles.animation.pause();
+
         var spr = new CtSprite().createColorBlock(FlxG.width, FlxG.height, FlxColor.WHITE);
 		spr.camera = victoryCam;
 		spr.alpha = 0;

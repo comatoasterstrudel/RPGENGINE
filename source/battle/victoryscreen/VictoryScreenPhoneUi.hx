@@ -8,9 +8,7 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
 
     var cropEffect:VictoryScreenPhoneCropEffect;
 
-    var screenSprites:Array<FlxSprite> = [];
     var bg:CtSprite;
-    var topText:CtText;
     var expBar:FlxBar;
     var levelText:CtText;
     
@@ -54,17 +52,10 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
     }
 
     function setupScreen():Void{
-        bg = new CtSprite(70, 20).createColorBlock(180, 300, 0xFF2E2E2E);
+        bg = new CtSprite(70, 20).createFromImage(Constants.vsPhoneBgPath);
+        bg.antialiasing = false;
         bg.camera = bgCamera;
         FlxG.state.add(bg);
-
-        topText = new CtText(0,0,"ROBIN");
-        topText.setFormat(Constants.fontName, 45, FlxColor.WHITE);
-        topText.camera = bgCamera;
-        FlxG.state.add(topText);
-
-        CtUtil.centerSpriteOnSprite(topText, bg, true, false);
-        topText.y = bg.y + 20;
 
         expBar = new FlxBar(0,0,LEFT_TO_RIGHT, 120, 20, this, "progress", 0, 1);
         expBar.createColoredFilledBar(FlxColor.BLUE, false);
@@ -80,8 +71,6 @@ class VictoryScreenPhoneUi extends FlxSkewedSprite
         levelText.setFormat(Constants.fontName, 20, FlxColor.WHITE);
         levelText.camera = bgCamera;
         FlxG.state.add(levelText);
-
-        screenSprites = [bg, expBar, topText, levelText];
     }
 
     override function update(elapsed:Float):Void{          
