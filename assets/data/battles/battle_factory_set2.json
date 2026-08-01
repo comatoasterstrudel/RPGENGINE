@@ -5,13 +5,13 @@
     "allyUnits": [],
     "enemyUnits": [
         {
-            "id": "chair",
+            "id": "soap",
             "x": 1,
             "y": 1,
             "level": 1
         },
         {
-            "id": "partyhat",
+            "id": "soap",
             "x": 2,
             "y": 1,
             "level": 1

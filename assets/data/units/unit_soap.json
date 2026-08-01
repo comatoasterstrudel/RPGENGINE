@@ -1,0 +1,9 @@
+{
+    "name": "Soap",
+    "gridGraphic": "soap",
+    "uiGraphic": "soap",
+    "maxHp": 60,
+    "speed": 5,
+    "skills": ["toxins"],
+    "expReward": 8
+}
