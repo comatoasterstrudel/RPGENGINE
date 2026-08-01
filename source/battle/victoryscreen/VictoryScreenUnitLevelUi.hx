@@ -221,14 +221,16 @@ class VictoryScreenUnitLevelUi extends FlxSpriteGroup
 
             doodles[i].createFromImage(selectedPath);
 
-            while(doodles[i].width >= (bg.width / 1.6)){
-                doodles[i].scale.x -= 0.01;
-                doodles[i].updateHitbox();
-            }
+            if(units.length > 0){
+                while(doodles[i].width >= (bg.width / 1.6)){
+                    doodles[i].scale.x -= 0.01;
+                    doodles[i].updateHitbox();
+                }
 
-            while(doodles[i].height >= (bg.height / 1.6)){
-                doodles[i].scale.y -= 0.01;
-                doodles[i].updateHitbox();
+                while(doodles[i].height >= (bg.height / 1.6)){
+                    doodles[i].scale.y -= 0.01;
+                    doodles[i].updateHitbox();
+                }
             }
         }
 

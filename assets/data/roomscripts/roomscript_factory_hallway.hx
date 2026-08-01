@@ -45,9 +45,15 @@ function create(){
 	dialogueBox = get_dialogueBox();
 	
     updateDialogues();
-	if (Save.storyFlags.get("factory_monsterscene1").val_bool && !Save.storyFlags.get("factory_scarymode").val_bool)
+	if (Save.storyFlags.get("factory_monsterscene1").val_bool && !Save.storyFlags.get("factory_seentutorial").val_bool)
 	{
 		startMonsterCutscene();
+	} else if(Save.storyFlags.get("factory_seentutorial").val_bool && !Save.storyFlags.get("factory_scarymode").val_bool){
+		// tutorial over
+		startEndOfTutorialCutscene();
+
+	} else if(Save.storyFlags.get("factory_scarymode").val_bool){
+		//
 	}
 }
 
@@ -402,7 +408,7 @@ function startMonsterCutscene():Void
 
 		character_managerscary.animation.onFrameChange.add(function(name:String, frameNum:Int, frameIndex:Int):Void
 		{
-			if (name == "standup")
+			if (name == "standup" || name == "Kneel-Left")
 			{
 				FlxTween.shake(character_managerscary, 0.05, .2, 0x01);
 
@@ -419,8 +425,7 @@ function startMonsterCutscene():Void
 		});
 
 		character_managerscary.lockAnims = true;
-		character_managerscary.animation.play("standup");
-		character_managerscary.flipX = true;
+		character_managerscary.animation.play("Kneel-Left");
 	});
 
 	// manager gets up
@@ -460,7 +465,7 @@ function startMonsterCutscene():Void
 				{
 					character_player.flipX = false;
 					character_player.lockAnims = false;
-					Save.storyFlags.get("factory_scarymode").val_bool = true;
+					Save.storyFlags.get("factory_seentutorial").val_bool = true;
 					startBattle("factory_tutorial");
 				}
 			});
@@ -512,4 +517,12 @@ function battleTransitionDone(battleName:String):Void
 			set_inCutscene(false);
 		});
 	}
+}
+
+function startEndOfTutorialCutscene():Void{
+	OverworldState.leftForBattle = false;
+
+	set_inCutscene(true);
+
+	character_player.positionCharacterByGrid(11, 11.3);
 }

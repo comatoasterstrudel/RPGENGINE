@@ -15,8 +15,7 @@
         },
         {
             "name": "idle_left",
-            "prefix": "MonManager-CrawlRight-Idle",
-            "flipX": true,
+            "prefix": "MonManager-CrawlLeft-Walk",
             "fps": 0
         },
         {
@@ -29,7 +28,7 @@
             "prefix": "MonManager-CrawlDown-walk",
             "fps": 2,
             "looped": "true"
-        },
+        }, 
         {
             "name": "walk_up",
             "prefix": "MonManager-CrawlDown-walk",
@@ -38,8 +37,7 @@
         },
         {
             "name": "walk_left",
-            "prefix": "MonManager-CrawlRight-Walk",
-            "flipX": true,
+            "prefix": "MonManager-CrawlLeft-Walk",
             "fps": 2,
             "looped": true
         },
@@ -102,6 +100,12 @@
             "name": "stand-lookdown-shuffle",
             "prefix": "MonManager-LookDown-Shuffle",
             "fps": 0
+        },
+        {
+            "name": "Kneel-Left",
+            "prefix": "MonManager-Kneel-Left",
+            "fps": 1,
+            "looped": false
         }
     ]
 }
