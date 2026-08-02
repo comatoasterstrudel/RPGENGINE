@@ -16,6 +16,14 @@ class SkillData extends CtJsonLoader
 
 	public var effects:SkillEffects;
 	
+	public var type:String = "";
+	public final types:Array<String> = [
+		"damage",
+		"healing",
+		"debuff",
+		"buff",
+		"na"
+	];
     public function new(id:String){
         this.id = id;
                 
@@ -30,6 +38,12 @@ class SkillData extends CtJsonLoader
 		this.rangeX = data.rangeX ?? 1;
 		this.rangeY = data.rangeY ?? 1;
 
+		if(types.contains(data.type)){
+			this.type = data.type;
+		} else {
+			this.type = "na";
+		}
+		 
 		effects = mapSkillEffects(data);
 	}
 

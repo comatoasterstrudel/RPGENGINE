@@ -396,7 +396,7 @@ class PlayState extends FlxState
 		{
 			if (turnOrder[i] == unit && !changedTurn)
 			{
-				if (i < turnNum)
+				if (i <= turnNum)
 				{
 					turnNum--;
 				}
@@ -655,8 +655,16 @@ class PlayState extends FlxState
 	{
 		cameraTrackerType = UNIT;
 
-		new FlxTimer().start(.5, function(f):Void
-		{
+		var aiDecision = new UnitAi(currentTurnUnit, enemyGrid, allyGrid).getSkill();
+
+		if(aiDecision.skillData == null){ //skip
+			cameraTrackerType = CENTERED;
+			endEnemyTurn();
+
+			return;
+		}
+
+		useSkill(aiDecision.skillData, aiDecision.unit, aiDecision.grid, aiDecision.position, function():Void{
 			cameraTrackerType = CENTERED;
 
 			endEnemyTurn();
@@ -684,7 +692,7 @@ class PlayState extends FlxState
 	 * Call this to chekc for and remove dead units
 	 */
 	function doDeathCheck():Void
-	{
+	{		
 		for (unit in units)
 		{
 			if (unit.dead)
@@ -705,27 +713,27 @@ class PlayState extends FlxState
 				});
 			}
 		}
+
 		isGameOver();
 	}
 	function isGameOver():Void
 	{
-		eventManager.addEvent(function():Void
-		{
-			var alliedUnits:Int = 0;
-			var enemyUnits:Int = 0;
+		var alliedUnits:Int = 0;
+		var enemyUnits:Int = 0;
 
-			for (unit in units)
+		for (unit in units)
+		{
+			if (unit.dead == false)
 			{
-				if (!unit.dead)
-				{
-					if (unit.controllable)
-						alliedUnits++;
-					else
-						enemyUnits++;
-				}
+				if (unit.controllable)
+					alliedUnits++;
+				else
+					enemyUnits++;
 			}
-			if (alliedUnits == 0 || enemyUnits == 0)
-			{ // game is over
+		}
+		if (alliedUnits == 0 || enemyUnits == 0){ // game is over
+			eventManager.addEvent(function():Void
+			{
 				eventManager.startTransaction("GAMEOVER"); // never finish this
 
 				var type:ResultType = TIE;
@@ -755,8 +763,8 @@ class PlayState extends FlxState
 
 				if (FlxG.sound.music != null)
 					FlxG.sound.music.fadeOut(Constants.resultAnimTiming);
-			}
-		});
+			});
+		}
 	}
 	
 	function addDeathEffect(spr:FlxSprite):Void
@@ -868,7 +876,7 @@ class PlayState extends FlxState
 		}
 	}
 
-	function getAffectedSpacesForSkill(skillData:SkillData, unit:Unit, grid:Grid, position:FlxPoint)
+	public static function getAffectedSpacesForSkill(skillData:SkillData, unit:Unit, grid:Grid, position:FlxPoint)
 	{
 		var affectedSpaces:Array<GridSpace> = [];
 		if (skillData.rangeX >= 1 && skillData.rangeY >= 1)
@@ -912,6 +920,35 @@ class PlayState extends FlxState
 			}
 		}
 		return affectedSpaces;
+	}
+
+	public static function getAvailableSpacesForSkillType(type:String, unit:Unit, theGrids:Array<Grid>):Array<GridSpace>
+	{
+		var spaces = [];
+
+		for (grid in theGrids)
+		{
+			for (space in grid.spaces)
+			{
+				if (switch (type)
+					{
+						case "ally_sameRow": (unit.grid == grid
+								&& space.position.y == unit.position.y); // all allies in the same row as the current unit
+						case "enemy_sameRow": (unit.grid != grid
+								&& space.position.y == unit.position.y); // all enemies in the same row as the current unit
+						case "ally_sameColumn": (unit.grid == grid
+								&& space.position.x == unit.position.x); // all allies in the same column as the current unit
+						case "enemy_sameColumn": (unit.grid != grid
+								&& space.position.x == unit.position.x); // all enemies in the same commumn as the current unit
+						case "ally_all": (unit.grid == grid); // all allies
+						case "enemy_all": (unit.grid != grid); // all enemies
+						default: (true); // by default, add all spaces
+					})
+					spaces.push(space);
+			}
+		}
+
+		return spaces;
 	}
 	
 	function applySingleUnitStatusEffects(unit:Unit, triggerType:String):Void
@@ -1025,29 +1062,7 @@ class PlayState extends FlxState
 	 */
 	function updateGridSelectorOptions(type:String = ""):Void
 	{
-		gridSelectorSpaces = [];
-
-		for (grid in grids)
-		{
-			for (space in grid.spaces)
-			{
-				if (switch (type)
-					{
-						case "ally_sameRow": (currentTurnUnit.grid == grid
-								&& space.position.y == currentTurnUnit.position.y); // all allies in the same row as the current unit
-						case "enemy_sameRow": (currentTurnUnit.grid != grid
-								&& space.position.y == currentTurnUnit.position.y); // all enemies in the same row as the current unit
-						case "ally_sameColumn": (currentTurnUnit.grid == grid
-								&& space.position.x == currentTurnUnit.position.x); // all allies in the same column as the current unit
-						case "enemy_sameColumn": (currentTurnUnit.grid != grid
-								&& space.position.x == currentTurnUnit.position.x); // all enemies in the same commumn as the current unit
-						case "ally_all": (currentTurnUnit.grid == grid); // all allies
-						case "enemy_all": (currentTurnUnit.grid != grid); // all enemies
-						default: (true); // by default, add all spaces
-					})
-					gridSelectorSpaces.push(space);
-			}
-		}
+		gridSelectorSpaces = getAvailableSpacesForSkillType(type, currentTurnUnit, grids);
 
 		gridSelectorOptions = [];
 

@@ -18,6 +18,11 @@ class UnitData extends CtJsonLoader
 
 	public var expReward:Int;
 
+	public var ai_damage:Float;
+	public var ai_healing:Float;
+	public var ai_debuff:Float;
+	public var ai_buff:Float;
+
     public function new(id:String){
         this.id = id;
                 
@@ -34,5 +39,10 @@ class UnitData extends CtJsonLoader
 
 		this.unlockedByDefault = data.unlockedByDefault == null ? false : data.unlockedByDefault;
 		this.expReward = data.expReward == null ? 0 : data.expReward;
+
+		this.ai_damage = data.ai_damage == null ? 1 : data.ai_damage;
+		this.ai_healing = data.ai_healing == null ? 1 : data.ai_healing;
+		this.ai_debuff = data.ai_debuff == null ? 1 : data.ai_debuff;
+		this.ai_buff = data.ai_buff == null ? 1 : data.ai_buff;
     }
 }

@@ -7,5 +7,6 @@
     "rangeY": 99,
     "effects": {
         "eff_damage": 99999 
-    }
+    },
+    "type": "na"
 }

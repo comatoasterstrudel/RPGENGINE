@@ -10,5 +10,6 @@
                 "turns": 3
             }
         ]
-    }
+    },
+    "type": "debuff"
 }

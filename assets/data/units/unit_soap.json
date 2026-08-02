@@ -5,5 +5,9 @@
     "maxHp": 60,
     "speed": 5,
     "skills": ["toxins"],
-    "expReward": 8
+    "expReward": 8,
+    "ai_damage": 1,
+    "ai_healing": 1,
+    "ai_debuff": 2,
+    "ai_buff": 1
 }
