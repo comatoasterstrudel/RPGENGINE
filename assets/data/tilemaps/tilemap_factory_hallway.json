@@ -164,6 +164,18 @@
           "originX": 0,
           "originY": 0,
           "values": {"name": "managerscary", "tag": "managerscary"}
+        },
+        {
+          "name": "character",
+          "id": 23,
+          "_eid": "68173711",
+          "x": 736,
+          "y": 320,
+          "width": 32,
+          "height": 32,
+          "originX": 0,
+          "originY": 0,
+          "values": {"name": "laurin", "tag": "laurin"}
         }
       ]
     },

@@ -64,7 +64,7 @@
     "duration": 100
    },
    "MonManager-CrawlRight-Walk0002": {
-    "frame": { "x": 0, "y": 48, "w": 48, "h": 48 },
+    "frame": { "x": 240, "y": 0, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -80,7 +80,7 @@
     "duration": 100
    },
    "MonManager-GetUp0000": {
-    "frame": { "x": 48, "y": 48, "w": 48, "h": 48 },
+    "frame": { "x": 0, "y": 48, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -88,7 +88,7 @@
     "duration": 100
    },
    "MonManager-GetUp0001": {
-    "frame": { "x": 96, "y": 48, "w": 48, "h": 48 },
+    "frame": { "x": 48, "y": 48, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -96,7 +96,7 @@
     "duration": 100
    },
    "MonManager-GetUp0002": {
-    "frame": { "x": 144, "y": 48, "w": 48, "h": 48 },
+    "frame": { "x": 96, "y": 48, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -104,7 +104,7 @@
     "duration": 100
    },
    "MonManager-StandRight-idle0000": {
-    "frame": { "x": 144, "y": 48, "w": 48, "h": 48 },
+    "frame": { "x": 96, "y": 48, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -112,7 +112,7 @@
     "duration": 100
    },
    "MonManager-StandRight-Shuffle0000": {
-    "frame": { "x": 144, "y": 48, "w": 48, "h": 48 },
+    "frame": { "x": 96, "y": 48, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -120,7 +120,7 @@
     "duration": 100
    },
    "MonManager-StandRight-Shuffle0001": {
-    "frame": { "x": 192, "y": 48, "w": 48, "h": 48 },
+    "frame": { "x": 144, "y": 48, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -128,7 +128,7 @@
     "duration": 100
    },
    "MonManager-StandLeft-idle0000": {
-    "frame": { "x": 0, "y": 96, "w": 48, "h": 48 },
+    "frame": { "x": 192, "y": 48, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -136,7 +136,7 @@
     "duration": 100
    },
    "MonManager-StandLeft-Shuffle0000": {
-    "frame": { "x": 0, "y": 96, "w": 48, "h": 48 },
+    "frame": { "x": 192, "y": 48, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -144,7 +144,7 @@
     "duration": 100
    },
    "MonManager-StandLeft-Shuffle0001": {
-    "frame": { "x": 48, "y": 96, "w": 48, "h": 48 },
+    "frame": { "x": 240, "y": 48, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -152,86 +152,6 @@
     "duration": 100
    },
    "MonManager-StandUp-Idle0000": {
-    "frame": { "x": 96, "y": 96, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-StandUp-Shuffle0000": {
-    "frame": { "x": 96, "y": 96, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-StandUp-Shuffle0001": {
-    "frame": { "x": 144, "y": 96, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-Attack0000": {
-    "frame": { "x": 192, "y": 96, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-Attack0001": {
-    "frame": { "x": 0, "y": 144, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-Attack0002": {
-    "frame": { "x": 48, "y": 144, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-LookDown-Shuffle0000": {
-    "frame": { "x": 96, "y": 144, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-LookDown-Shuffle0001": {
-    "frame": { "x": 144, "y": 144, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-Kneel-Left0000": {
-    "frame": { "x": 192, "y": 144, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-Kneel-Left0001": {
-    "frame": { "x": 0, "y": 192, "w": 48, "h": 48 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
-    "sourceSize": { "w": 48, "h": 48 },
-    "duration": 100
-   },
-   "MonManager-Kneel-Left0002": {
     "frame": { "x": 0, "y": 96, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
@@ -239,7 +159,87 @@
     "sourceSize": { "w": 48, "h": 48 },
     "duration": 100
    },
-   "MonManager-CrawlLeft-Walk0000": {
+   "MonManager-StandUp-Shuffle0000": {
+    "frame": { "x": 0, "y": 96, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-StandUp-Shuffle0001": {
+    "frame": { "x": 48, "y": 96, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-Attack0000": {
+    "frame": { "x": 96, "y": 96, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-Attack0001": {
+    "frame": { "x": 144, "y": 96, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-Attack0002": {
+    "frame": { "x": 192, "y": 96, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-LookDown-Shuffle0000": {
+    "frame": { "x": 240, "y": 96, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager-LookDown-Shuffle0001": {
+    "frame": { "x": 0, "y": 144, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager_Kneel_Left0000": {
+    "frame": { "x": 48, "y": 144, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager_Kneel_Left0001": {
+    "frame": { "x": 96, "y": 144, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager_CrawlLeft0000": {
+    "frame": { "x": 144, "y": 144, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager_CrawlLeft0001": {
     "frame": { "x": 192, "y": 144, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
@@ -247,7 +247,31 @@
     "sourceSize": { "w": 48, "h": 48 },
     "duration": 100
    },
-   "MonManager-CrawlLeft-Walk0001": {
+   "MonManager_CrawlLeft0002": {
+    "frame": { "x": 240, "y": 144, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager_CrawlLeft0003": {
+    "frame": { "x": 192, "y": 144, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager_CrawlUp_Idle0000": {
+    "frame": { "x": 0, "y": 192, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager_CrawlUp_Walk0000": {
     "frame": { "x": 48, "y": 192, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
@@ -255,7 +279,15 @@
     "sourceSize": { "w": 48, "h": 48 },
     "duration": 100
    },
-   "MonManager-CrawlLeft-Walk0002": {
+   "MonManager_CrawlUp_Walk0001": {
+    "frame": { "x": 0, "y": 192, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "MonManager_CrawlUp_Walk0002": {
     "frame": { "x": 96, "y": 192, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
@@ -263,8 +295,8 @@
     "sourceSize": { "w": 48, "h": 48 },
     "duration": 100
    },
-   "MonManager-CrawlLeft-Walk0003": {
-    "frame": { "x": 144, "y": 192, "w": 48, "h": 48 },
+   "MonManager_CrawlUp_Walk0003": {
+    "frame": { "x": 0, "y": 192, "w": 48, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
@@ -276,7 +308,7 @@
   "app": "https://www.aseprite.org/",
   "version": "1.3.17.2-x64",
   "format": "RGBA8888",
-  "size": { "w": 240, "h": 240 },
+  "size": { "w": 288, "h": 240 },
   "scale": "1",
   "frameTags": [
    { "name": "MonManager-CrawlDown-Idle", "from": 0, "to": 0, "direction": "forward", "color": "#000000ff" },
@@ -292,8 +324,10 @@
    { "name": "MonManager-StandUp-Shuffle", "from": 20, "to": 21, "direction": "forward", "color": "#000000ff" },
    { "name": "MonManager-Attack", "from": 22, "to": 24, "direction": "forward", "color": "#000000ff" },
    { "name": "MonManager-LookDown-Shuffle", "from": 25, "to": 26, "direction": "forward", "color": "#000000ff" },
-   { "name": "MonManager-Kneel-Left", "from": 27, "to": 29, "direction": "forward", "color": "#000000ff" },
-   { "name": "MonManager-CrawlLeft-Walk", "from": 30, "to": 33, "direction": "forward", "color": "#000000ff" }
+   { "name": "MonManager_Kneel_Left", "from": 27, "to": 28, "direction": "forward", "color": "#000000ff" },
+   { "name": "MonManager_CrawlLeft", "from": 29, "to": 32, "direction": "forward", "color": "#000000ff" },
+   { "name": "MonManager_CrawlUp_Idle", "from": 33, "to": 33, "direction": "forward", "color": "#000000ff" },
+   { "name": "MonManager_CrawlUp_Walk", "from": 34, "to": 37, "direction": "forward", "color": "#000000ff" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }

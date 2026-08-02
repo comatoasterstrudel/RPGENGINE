@@ -5,47 +5,106 @@
     "anims": [
         {
             "name": "idle_down",
-            "prefix": "idle_down",
+            "prefix": "Laurin_Front_Idle",
             "fps": 0
         },
         {
             "name": "idle_up",
-            "prefix": "idle_up",
+            "prefix": "Laurin_Up_Idle",
             "fps": 0
         },
         {
             "name": "idle_left",
-            "prefix": "idle_left",
+            "prefix": "Laurin_Left_Idle",
             "fps": 0
         },
         {
             "name": "idle_right",
-            "prefix": "idle_right",
+            "prefix": "Laurin_Right_Idle",
             "fps": 0
         },
         {
             "name": "walk_down",
-            "prefix": "walk_down",
+            "prefix": "Laurin_Front_Walk",
             "fps": 5,
-            "looped": "true"
+            "looped": true
         },
         {
             "name": "walk_up",
-            "prefix": "walk_up",
+            "prefix": "Laurin_Up_Walk",
             "fps": 5,
-            "looped": "true"
+            "looped": true
         },
         {
             "name": "walk_left",
-            "prefix": "walk_left",
+            "prefix": "Laurin_Left_Walk",
             "fps": 5,
-            "looped": "true"
+            "looped": true
         },
         {
             "name": "walk_right",
-            "prefix": "walk_right",
+            "prefix": "Laurin_Right_Walk",
             "fps": 5,
-            "looped": "true"
+            "looped": true
+        },
+        {
+            "name": "upset_idle_down",
+            "prefix": "Upset_Laurin_Front_Idle",
+            "fps": 0
+        },
+        {
+            "name": "upset_idle_up",
+            "prefix": "Upset_Laurin_Up_Idle",
+            "fps": 0
+        },
+        {
+            "name": "upset_idle_left",
+            "prefix": "Upset_Laurin_Left_Idle",
+            "fps": 0
+        },
+        {
+            "name": "upset_idle_right",
+            "prefix": "Upset_Laurin_Right_Idle",
+            "fps": 0
+        },
+        {
+            "name": "upset_walk_down",
+            "prefix": "Upset_Laurin_Front_Walk",
+            "fps": 5,
+            "looped": true
+        },
+        {
+            "name": "upset_walk_up",
+            "prefix": "Upset_Laurin_Up_Walk",
+            "fps": 5,
+            "looped": true
+        },
+        {
+            "name": "upset_walk_left",
+            "prefix": "Upset_Laurin_Left_Walk",
+            "fps": 5,
+            "looped": true
+        },
+        {
+            "name": "upset_walk_right",
+            "prefix": "Upset_Laurin_Right_Walk",
+            "fps": 5,
+            "looped": true
+        },
+        {
+            "name": "gun_readyup",
+            "prefix": "Laurin_GunReadyUp",
+            "fps": 0
+        },
+        {
+            "name": "gun_readytalk",
+            "prefix": "Laurin_GunReadyTalk",
+            "fps": 0
+        },
+        {
+            "name": "shoot",
+            "prefix": "Laurin_Shoot",
+            "fps": 0
         }
     ]
 }

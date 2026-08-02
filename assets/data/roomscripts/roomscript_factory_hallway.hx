@@ -14,6 +14,8 @@ var bottomDoorIsOpen:Bool = false;
 
 var character_player:Player;
 var character_managerscary:Character;
+var character_laurin:Character;
+
 var lightingCover:LightingSprite;
 var inMonsterCutscene:Bool = false;
 
@@ -35,6 +37,8 @@ function create(){
 	character_player = get_player();
 	character_managerscary = getCharacterByTag("managerscary");
 	character_managerscary.kill();
+	character_laurin = getCharacterByTag("laurin");
+	character_laurin.kill();
 
 	lightingCover = get_lightingCover();
 
@@ -53,7 +57,7 @@ function create(){
 		startEndOfTutorialCutscene();
 
 	} else if(Save.storyFlags.get("factory_scarymode").val_bool){
-		//
+		setupScary();
 	}
 }
 
@@ -77,7 +81,7 @@ function opensDoor():Void{
 }
 
 function updateDialogues():Void{
-	if (Save.storyFlags.get("factory_scarymode").val_bool)
+	if (Save.storyFlags.get("factory_scarymode").val_bool || Save.storyFlags.get("factory_seentutorial").val_bool)
 	{
 		//
 		return;
@@ -520,9 +524,131 @@ function battleTransitionDone(battleName:String):Void
 }
 
 function startEndOfTutorialCutscene():Void{
+	OverworldState.lastTransitionTime = 0;
 	OverworldState.leftForBattle = false;
+
+	set_unbindCamera(true);
+	camGame.scroll.x = 400;
 
 	set_inCutscene(true);
 
 	character_player.positionCharacterByGrid(11, 11.3);
+	character_player.facing = RIGHT;
+
+	character_managerscary.revive();
+	character_managerscary.positionCharacterByGrid(14, 10.3);
+	character_managerscary.changeAnimationPrefix("stand-");
+	character_managerscary.facing = RIGHT;
+	FlxTween.shake(character_managerscary, 0.2, .3, 0x01);
+
+	character_laurin.revive();
+	character_laurin.positionCharacterByGrid(19, 11.3);
+	character_laurin.facing = LEFT;
+	character_laurin.lockAnims = true;
+	character_laurin.animation.play("shoot");
+
+	// monster runs away wounded
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("monstar run awat");
+
+		new FlxTimer().start(1, function(f):Void{
+			FlxTween.shake(character_managerscary, 0.03, .2, 0x01);
+			character_managerscary.changeAnimationPrefix("");
+			character_managerscary.hitbox.y += 30;
+
+			new FlxTimer().start(1, function(f):Void{
+				character_managerscary.movementSpeed = 2;
+
+				character_managerscary.moveToGridSpace(-1, 9.5, function():Void
+				{
+					character_managerscary.moveToGridSpace(35, -1, function():Void
+					{
+						character_managerscary.kill();
+
+						camGame.shake(0.02, 0.2, null, true, 0x10);
+						OverworldState.eventManager.finishTransaction("monstar run awat");
+					});
+				});
+			});
+		});
+	});
+
+	// dimmalog
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("dia");
+
+		new FlxTimer().start(1.5, function(f):Void{
+			startDialogue(["factory/hallway/monster/dialogue_lauringun"], function():Void
+			{
+				OverworldState.eventManager.finishTransaction("dia");
+			});
+		});
+	});
+
+	// laurin puts gun down
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("gun put down");
+
+		new FlxTimer().start(.25, function(f):Void{
+			character_laurin.animation.play("gun_readyup");
+
+			new FlxTimer().start(.25, function(f):Void{
+				character_laurin.lockAnims = false;
+				character_laurin.changeAnimationPrefix("upset_");
+
+				new FlxTimer().start(.25, function(f):Void{
+					OverworldState.eventManager.finishTransaction("gun put down");
+				});
+			});
+		});
+	});
+
+	// laurir walks backward.
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("walkback");
+
+		character_laurin.lockAnims = true;
+		character_laurin.animation.play("upset_walk_down");
+		character_laurin.movementSpeed = .3;
+		character_laurin.moveToGridSpace(-1, 9, function():Void{
+			character_laurin.facing = DOWN;
+			character_laurin.lockAnims = false;
+
+			new FlxTimer().start(.5, function(f):Void{
+				OverworldState.eventManager.finishTransaction("walkback");
+			});
+		});
+	});
+
+	// cutscene over
+	OverworldState.eventManager.addEvent(function()
+	{
+		OverworldState.eventManager.startTransaction("cutsceneover");
+
+		set_inCutscene(false);
+		set_lockCamera(false);
+		set_unbindCamera(false);
+
+		character_player.facing = DOWN;
+
+		Save.storyFlags.get("factory_scarymode").val_bool = true;
+
+		OverworldState.lastTransitionTime = 0.5;
+
+		setupScary();
+	});
+}
+
+function setupScary():Void{
+	if(!Save.storyFlags.get("factory_officedoorkeyobtained")){
+		character_laurin.revive();
+		character_laurin.positionCharacterByGrid(19, 9);
+		character_laurin.changeAnimationPrefix("upset_");
+	} else {
+
+	}
 }

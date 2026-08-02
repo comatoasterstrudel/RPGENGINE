@@ -4,14 +4,14 @@
     "background": "factory",
     "allyUnits": [
         {
-            "id": "partyhat",
+            "id": "chair",
             "x": 1, 
             "y": 1
         }
     ],
     "enemyUnits": [
         {
-            "id": "chair",
+            "id": "partyhat",
             "x": 1,
             "y": 1
         }  
