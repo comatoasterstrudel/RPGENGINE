@@ -306,6 +306,8 @@ class SaveLoadMenu extends FlxSubState
 		new FlxTimer().start(0.1, function(f):Void
 		{
 			confirmMenuManager.enable(true);
+			confirmMenuManager.curSelected = 1;
+			confirmMenuManager.changeSelection();
 		});
 	}
 
