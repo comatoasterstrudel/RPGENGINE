@@ -47,7 +47,7 @@ class Constants
 	public static final turnOrderDisplayUpperBarGraphicPath:String = "assets/images/turnorder/upperBar.png";
 	public static final turnOrderDisplayUpperBarDarkGraphicPath:String = "assets/images/turnorder/upperBarDark.png";
 	public static final turnOrderDisplayIncomingCallsGraphicPath:String = "assets/images/turnorder/incomingCalls.png";
-	public static final turnOrderDisplayStartingX:Float = 550;
+	public static final turnOrderDisplayStartingX:Float = 564;
 	// Top Bar
 	public static final topBarTalkerAnimPath:String = "assets/images/turnorder/top/top_talkeranim";
 	public static final topBarStatDisplayLeft:String = "assets/images/turnorder/top/top_barleft.png";

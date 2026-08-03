@@ -211,14 +211,16 @@ class GridUnitPlacer extends FlxSpriteGroup
             }
             menuOptions[i.yPos + 1].push({sprite: i.bg, cursorDirection: UP, hoverFunction: function(f):Void{
                 i.updateSelected(true);
-					if (i.placed)
-					{
-						updateSelectingText(new UnitData(i.unit).name + "\nPLACED");
-					}
-					else
-					{
-						updateSelectingText(new UnitData(i.unit).name);
-					}
+                var theText = new UnitData(i.unit).name + "\nLVL " + CharacterLevel.getLevelFromExp(Save.levelUnits.get(i.unit).exp);
+
+                if (i.placed)
+                {
+                    updateSelectingText(theText + "\nPLACED");
+                }
+                else
+                {
+                    updateSelectingText(theText);
+                }
             }, nonHoverFunction: function(f):Void{
                 i.updateSelected(false);
             }, clickFunction: function(f):Void{
