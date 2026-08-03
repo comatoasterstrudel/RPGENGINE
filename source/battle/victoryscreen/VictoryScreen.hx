@@ -112,7 +112,7 @@ class VictoryScreen extends FlxSubState
 
         new FlxTimer().start(3.5, function(f):Void{
             distributeExp(this.expReward, function():Void{
-                new FlxTimer().start(1.35, function(f):Void{
+                new FlxTimer().start(.5, function(f):Void{
                     continueText.visible = true;
                     menuManager.enable();
                 });
@@ -152,6 +152,8 @@ class VictoryScreen extends FlxSubState
         add(continueText);
 
         if(unitLevelUi.tall >= 3) continueText.x += 300;
+        if(unitsToAdd.length <= 0) continueText.x -= 150;
+
         menuManager.setMenuOptions([[{sprite: continueText, cursorDirection: LEFT, clickFunction: function(F):Void{
             menuManager.disable();
             continueText.visible = false;

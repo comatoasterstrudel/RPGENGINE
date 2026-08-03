@@ -9,8 +9,8 @@ class MiniHealthBar extends FlxBar
 
         this.unit = unit;
 
-        createColoredEmptyBar(Constants.miniHealthBarEmptyColor, true, Constants.miniHealthBarOutlineColor, Constants.miniHealthBarOutlineWidth);
-        createColoredFilledBar(Constants.miniHealthBarFillColor, true, Constants.miniHealthBarOutlineColor, Constants.miniHealthBarOutlineWidth);
+        createColoredEmptyBar(Constants.color_hpLoss, true, Constants.miniHealthBarOutlineColor, Constants.miniHealthBarOutlineWidth);
+        createColoredFilledBar(Constants.color_hp, true, Constants.miniHealthBarOutlineColor, Constants.miniHealthBarOutlineWidth);
     }
     
     override function update(elapsed:Float):Void{

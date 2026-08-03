@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="talkeranim.png">
+<SubTexture name="idle0000" x="119" y="0" width="119" height="223" frameX="-2" frameY="0" frameWidth="157" frameHeight="217" />
+<SubTexture name="idle0001" x="0" y="0" width="119" height="224" frameX="-2" frameY="0" frameWidth="157" frameHeight="217" />
+<SubTexture name="idle0002" x="238" y="0" width="117" height="223" frameX="-3" frameY="0" frameWidth="157" frameHeight="217" />
+</TextureAtlas>

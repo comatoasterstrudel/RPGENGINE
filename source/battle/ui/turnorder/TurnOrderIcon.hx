@@ -45,7 +45,7 @@ class TurnOrderIcon extends FlxSpriteGroup
 		bg.createFromImage(Constants.turnOrderIcon);
 		bgOutline.createFromImage(Constants.turnOrderIconOutline);
 		unitGraphic.loadGraphicFromSprite(curUnit);
-		unitGraphic.scale.set(1.3, 1.3);
+		unitGraphic.scale.set(2,2);
 		unitGraphic.updateHitbox();
 		ogColor = curUnit.controllable ? FlxColor.LIME : FlxColor.RED;
 		updateSpritePositions(1);
@@ -77,11 +77,13 @@ class TurnOrderIcon extends FlxSpriteGroup
 	{
 		this.scaleFactor = scaleFactor;
 
-		for (spr in [bg, bgOutline, unitGraphic])
+		for (spr in [bg, bgOutline])
 		{
 			spr.scale.x = (scaleFactor);
 			spr.updateHitbox();
 		}
+
+		unitGraphic.scale.x = scaleFactor + 1;
 
 		updateSpritePositions(1);
 	}

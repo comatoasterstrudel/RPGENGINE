@@ -24,6 +24,7 @@ class GridUnitPlacerUnitIcon extends FlxSpriteGroup
         add(bg);
         
         unitGraphic = new CtSprite().createFromImage(Constants.unitGridGraphicPath + new UnitData(unit).gridGraphic + ".png");
+        unitGraphic.antialiasing = false;
         add(unitGraphic);
         
         CtUtil.centerSpriteOnSprite(unitGraphic, bg, true, true);

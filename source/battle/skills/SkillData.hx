@@ -24,6 +24,14 @@ class SkillData extends CtJsonLoader
 		"buff",
 		"na"
 	];
+
+	// PHYSICAL vs SPIRITUAL
+	public var damageType:String = "";
+	public var damageTypes:Array<String> = [
+		"physical",
+		"spiritual"
+	];
+
     public function new(id:String){
         this.id = id;
                 
@@ -42,6 +50,12 @@ class SkillData extends CtJsonLoader
 			this.type = data.type;
 		} else {
 			this.type = "na";
+		}
+
+		if(damageTypes.contains(data.damageType)){
+			this.damageType = data.damageType;
+		} else {
+			this.damageType = "physical";
 		}
 		 
 		effects = mapSkillEffects(data);

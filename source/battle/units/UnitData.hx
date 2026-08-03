@@ -9,9 +9,12 @@ class UnitData extends CtJsonLoader
     public var gridGraphic:String;
 	public var uiGraphic:String;
 
-	public var maxHp:Int;
-	public var speed:Int;
-    
+	public var stat_maxHp:Int;
+	public var stat_maxMp:Int;
+	public var stat_speed:Int;
+    public var stat_attack:Int;
+    public var stat_sattack:Int;
+
 	public var skills:Array<String> = [];
     
 	public var unlockedByDefault:Bool;
@@ -31,8 +34,13 @@ class UnitData extends CtJsonLoader
         this.name = data.name;
         this.gridGraphic = data.gridGraphic;
 		this.uiGraphic = data.uiGraphic;
-		this.maxHp = data.maxHp;
-		this.speed = data.speed;
+
+		this.stat_maxHp = data.stat_maxHp;
+		this.stat_maxMp = data.stat_maxMp;
+		this.stat_speed = data.stat_speed;
+		this.stat_attack = data.stat_attack;
+		this.stat_sattack = data.stat_sattack;
+
 		this.skills = data.skills;
 		if (this.skills.length > Constants.unitMaxSkills)
 			this.skills.resize(Constants.unitMaxSkills);

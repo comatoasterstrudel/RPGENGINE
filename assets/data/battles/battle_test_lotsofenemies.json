@@ -5,12 +5,14 @@
         {
             "id": "chair",
             "x": 1,
-            "y": 1
+            "y": 1,
+            "level": 50
         },
         {
             "id": "partyhat",
             "x": 2,
-            "y": 2
+            "y": 2,
+            "level": 50
         }  
     ],
     "enemyUnits": [

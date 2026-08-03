@@ -126,10 +126,10 @@ class Save
 		// save character levels
 		save.data.levelRobinExp = levelRobin.exp;
 
-		save.data.levelUnits = new Map<String, Int>();
+		save.data.levelUnitsExp = new Map<String, Int>();
 
 		for(levelUnit in levelUnits){
-			save.data.levelUnits.set(levelUnit.name, levelUnit.exp);
+			save.data.levelUnitsExp.set(levelUnit.name, levelUnit.exp);
 		}
 		// flush
         

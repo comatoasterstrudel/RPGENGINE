@@ -7,9 +7,7 @@ class UnitPortrait extends CtSprite
     public function new():Void{
         super();
         
-        lerpManager.lerpScaleX = true;
-		lerpManager.lerpScaleY = true;
-		lerpManager.targetScale.set(1, 1);
+        lerpManager.lerpX = true;
 		lerpManager.lerpSpeed = 8;
         
         antialiasing = false;
@@ -17,14 +15,7 @@ class UnitPortrait extends CtSprite
     }
     
     override function update(elapsed:Float):Void{
-        super.update(elapsed);
-        
-        updatePosition();
-    }
-    
-    function updatePosition():Void{
-        updateHitbox();
-		setPosition(150 - width / 2, FlxG.height - height);
+        super.update(elapsed);        
     }
     
     public function applyUnitGraphic(unit):Void{
@@ -42,10 +33,12 @@ class UnitPortrait extends CtSprite
 			createColorBlock(300, 350, FlxColor.BLUE);
 		}        
 
-		scale.set(1.5, .7);
-
 		updateHitbox();
 		setPosition(150 - width / 2, FlxG.height - height);
 		visible = true;
+
+		lerpManager.targetPosition.set(this.x, this.y);
+
+		this.x -= 30;
 	}
 }

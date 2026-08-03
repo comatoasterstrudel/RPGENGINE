@@ -17,12 +17,16 @@ class Unit extends CtSprite
 
 	public var controllable:Bool;
 	
-	public var maxHp:Stat = new Stat("maxHp");
-	public var speed:Stat = new Stat("speed");
+	public var maxHp:Stat = new Stat("maxHp", 0, 1);
+	public var maxMp:Stat = new Stat("maxMp", 0, 1);
+	public var speed:Stat = new Stat("speed", 0);
+	public var attack:Stat = new Stat("attack", 0, 0);
+	public var sattack:Stat = new Stat("sattack", 0, 0);
 
 	var stats:Array<Stat>;
 
 	public var hp:Stat;
+	public var mp:Stat;
 
 	public var skills:Array<SkillData> = [];
 	
@@ -55,7 +59,7 @@ class Unit extends CtSprite
 
 		this.uniqueUnitID = uniqueUnitIDnum;
 		
-		this.level = level;
+		this.level = Std.int(FlxMath.bound(level, 1, Constants.maxLevel));
 
 		this.placedByPlayer = placedByPlayer;
 		
@@ -72,12 +76,18 @@ class Unit extends CtSprite
 
 	function applyStats():Void
 	{		
-		this.maxHp.value = data.maxHp;
-		this.speed.value = data.speed;
+		var levelMult:Float = FlxMath.bound(1 + ((Constants.statsIncreaseFromLeveling - 1) * ((level - 1) / (Constants.maxLevel - 1))), 1);
+
+		this.maxHp.value = Std.int(data.stat_maxHp * levelMult);
+		this.maxMp.value = Std.int(data.stat_maxMp * levelMult);
+		this.speed.value = Std.int(data.stat_speed * levelMult);
+		this.attack.value = Std.int(data.stat_attack * levelMult);
+		this.sattack.value = Std.int(data.stat_sattack * levelMult);
 
 		this.hp = new Stat("hp", maxHp.value, 0, maxHp.value);
+		this.mp = new Stat("mp", maxMp.value, 0, maxMp.value);
 
-		stats = [maxHp, speed, hp];
+		stats = [maxHp, maxMp, speed, hp, mp, attack, sattack];
 	}
 	
 	function applySkills():Void

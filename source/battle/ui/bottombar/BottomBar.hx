@@ -15,6 +15,7 @@ class BottomBar extends FlxSpriteGroup
 	public var descriptionText:CtText;
 	
 	var curUnit:Unit;
+	var lastUnit:Unit;
 
 	public function new(style:String = "placeholder"):Void
 	{
@@ -61,7 +62,7 @@ class BottomBar extends FlxSpriteGroup
 		if (unit != null)
 		{
 			unitPortrait.visible = true;
-			unitPortrait.applyUnitGraphic(curUnit);
+			if(lastUnit == null || lastUnit.uniqueUnitID != curUnit.uniqueUnitID) unitPortrait.applyUnitGraphic(curUnit);
         
 			for (i in 0...Constants.unitMaxSkills)
 			{
@@ -82,6 +83,8 @@ class BottomBar extends FlxSpriteGroup
 				skillIcons[i].updateSkill(false);
 			}
 		}
+
+		lastUnit = this.curUnit;
 	}
 
 	public function addMenu():Void

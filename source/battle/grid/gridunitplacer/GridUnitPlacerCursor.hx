@@ -12,6 +12,7 @@ class GridUnitPlacerCursor extends FlxSpriteGroup
         this.cursor = cursor;
         
         unitGraphic = new CtSprite();
+        unitGraphic.antialiasing = false;
         add(unitGraphic);
         
         antialiasing = false;

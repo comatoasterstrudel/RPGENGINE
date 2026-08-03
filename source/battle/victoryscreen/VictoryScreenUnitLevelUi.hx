@@ -42,8 +42,8 @@ class VictoryScreenUnitLevelUi extends FlxSpriteGroup
     }
 
     function addSprites():Void{
-        wide = (units.length > 2 ? 3 : units.length);
-        tall = Math.ceil(units.length / 3);
+        wide = Std.int(FlxMath.bound((units.length > 2 ? 3 : units.length), 1));
+        tall = Std.int(FlxMath.bound(Math.ceil(units.length / 3), 1));
 
         setupBg();
         
@@ -172,6 +172,8 @@ class VictoryScreenUnitLevelUi extends FlxSpriteGroup
     }
 
     public function doFadeIn():Void{
+        if(units.length <= 0) return;
+        
         bg.scale.set(0.01,0.01);
         
         FlxTween.tween(bg, {alpha: 1}, .6);

@@ -2,7 +2,9 @@ package battle.ui.turnorder;
 
 class TurnOrderDisplay extends FlxSpriteGroup
 {
-	var upperBar:CtSprite;
+	public var topBar:TopBar;
+
+	public var upperBar:CtSprite;
 	var upperBarDark:CtSprite;
 
 	var incomingCalls:CtSprite;
@@ -22,14 +24,14 @@ class TurnOrderDisplay extends FlxSpriteGroup
 		upperBar.x = 0;
 		add(upperBar);
         
-		upperBarDark = new CtSprite(Constants.turnOrderDisplayStartingX).createFromImage(Constants.turnOrderDisplayUpperBarGraphicPath);
+		upperBarDark = new CtSprite(Constants.turnOrderDisplayStartingX).createFromImage(Constants.turnOrderDisplayUpperBarDarkGraphicPath);
 		upperBarDark.color = 0xFFA9A9A9;
 		upperBarDark.setGraphicSize(FlxG.width - Constants.turnOrderDisplayStartingX, upperBar.height);
 		upperBarDark.updateHitbox();
 		add(upperBarDark);
 
-		incomingCalls = new CtSprite().createFromImage(Constants.turnOrderDisplayIncomingCallsGraphicPath);
-		add(incomingCalls);
+		topBar = new TopBar(this);
+		add(topBar);
         
         iconAmount = Std.int((gridSize.x * gridSize.y) * 2);
         
@@ -79,7 +81,7 @@ class TurnOrderDisplay extends FlxSpriteGroup
 				{
 					if (i.alive)
 					{
-						i.resize(i.scaleFactor - .01);
+						i.resize(i.scaleFactor - .001);
 					}
 				}
 			}

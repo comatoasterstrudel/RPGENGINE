@@ -459,6 +459,7 @@ class PlayState extends FlxState
 
 				turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
 				bottomBar.updateCurrentUnit(currentTurnUnit);
+				turnOrderDisplay.topBar.updateCurrentUnit(currentTurnUnit);
 
 				if (currentTurnUnit.controllable)
 					bottomBar.addMenu();
@@ -517,6 +518,9 @@ class PlayState extends FlxState
 		allyGrid.updateHighlightedSpace(0xFFD7FFBA, null);
 		enemyGrid.updateHighlightedSpace(0xFFFFBABA, null);
 				
+		bottomBar.updateCurrentUnit(null);
+		turnOrderDisplay.topBar.updateCurrentUnit(null);
+		
 		roundAnim.doAnim("Round " + roundNum, function():Void
 		{
 			if (enableUI)
@@ -829,7 +833,7 @@ class PlayState extends FlxState
 			{
 				if (space.unit != null)
 				{ // this has a unit on it !!!
-					applySkillEffects(space.unit, unit, skillData.effects);
+					applySkillEffects(space.unit, unit, skillData.effects, skillData);
 				}
 			}
 		});
@@ -845,14 +849,19 @@ class PlayState extends FlxState
 		}
 	}
 	
-	function applySkillEffects(unit:Unit, applyingUnit:Unit, effects:SkillEffects):Void
+	function applySkillEffects(unit:Unit, applyingUnit:Unit, effects:SkillEffects, ?skill:SkillData = null):Void
 	{
 		if (effects.eff_damage > 0)
 		{
 			eventManager.addEvent(function():Void
 			{
-				if (unit != null)
-					unit.takeDamage(effects.eff_damage);				
+				if (unit != null){
+					if(skill == null){
+						unit.takeDamage(effects.eff_damage);	
+					} else {
+						unit.takeDamage(calculateSkillDamage(skill, unit, applyingUnit));	
+					}
+				}			
 			});
 		}
 		if (effects.eff_heal > 0)
@@ -874,6 +883,18 @@ class PlayState extends FlxState
 				});
 			}
 		}
+	}
+
+	public static function calculateSkillDamage(skill:SkillData, affectedUnit:Unit, attackingUnit:Unit):Int{
+		var attackingStat:Int = 0;
+
+		if(skill.damageType == "physical"){
+			attackingStat = attackingUnit.attack.value;
+		} else if(skill.damageType == "spiritual"){
+			attackingStat = attackingUnit.sattack.value;
+		}
+		
+		return(Std.int(skill.effects.eff_damage * (attackingStat / 100)));
 	}
 
 	public static function getAffectedSpacesForSkill(skillData:SkillData, unit:Unit, grid:Grid, position:FlxPoint)
@@ -1022,6 +1043,7 @@ class PlayState extends FlxState
 			if (uiStatus == GRID_INSPECT)
 			{
 				bottomBar.updateCurrentUnit(currentTurnUnit);
+				turnOrderDisplay.topBar.updateCurrentUnit(currentTurnUnit);
 				turnOrderDisplay.updateCurrentTurn(currentTurnUnit);
 				bottomBar.addMenu();
 			}
@@ -1033,7 +1055,8 @@ class PlayState extends FlxState
 		else if (uiStatus == GRID_PLACER_INSPECT)
 		{
 			bottomBar.updateCurrentUnit(null);
-			
+			turnOrderDisplay.topBar.updateCurrentUnit(null);
+
 			cameraTrackerType = CENTERED;
 			uiStatus = INACTIVE;
 
@@ -1108,6 +1131,7 @@ class PlayState extends FlxState
 					else if (uiStatus == GRID_INSPECT || uiStatus == GRID_PLACER_INSPECT)
 					{
 						bottomBar.updateCurrentUnit(space.unit);
+						turnOrderDisplay.topBar.updateCurrentUnit(space.unit);
 						turnOrderDisplay.updateCurrentTurn(space.unit);
 						space.toggleFlashSprite(true);
 					}
@@ -1254,6 +1278,7 @@ class PlayState extends FlxState
 			bottomBar.visible = true;
 			bottomBar.alpha = 0;
 			bottomBar.updateCurrentUnit(null);
+			turnOrderDisplay.topBar.updateCurrentUnit(null);
 
 			FlxTween.tween(bottomBar, {alpha: 1}, .3, {
 				onComplete: function(f):Void

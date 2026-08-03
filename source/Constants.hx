@@ -10,6 +10,12 @@ class Constants
 	public static final maxLevel:Int = 50;
 	public static final baseLvlPerExp:Int = 50; 
 	public static final levelExpScaling:Float = 10;
+	public static final statsIncreaseFromLeveling:Float = 5; // all stats will be multiplied by 5 when leveled to full
+	// COLOR
+	public static final color_hp:FlxColor = 0xFFA3E352;
+	public static final color_hpLoss:FlxColor = color_hp.getDarkened(0.8);
+	public static final color_sp:FlxColor = 0xFF525CE3;
+	public static final color_spLoss:FlxColor = color_sp.getDarkened(0.8);
 	// Battle
 	public static final battleDataFolder:String = "assets/data/battles/";
 	public static final battleDataPath:String = Constants.battleDataFolder + "battle_";
@@ -32,8 +38,6 @@ class Constants
 	// StatusEffectBar
 	public static final statusEffectIconPath:String = "assets/images/statusicons/icon_";
 	// MiniHealthBar
-	public static final miniHealthBarFillColor:FlxColor = FlxColor.LIME;
-	public static final miniHealthBarEmptyColor:FlxColor = FlxColor.RED;
 	public static final miniHealthBarOutlineColor:FlxColor = FlxColor.BLACK;
 	public static final miniHealthBarOutlineWidth:Int = 2;
 	public static final miniHealthBarWidth:Int = 45;
@@ -41,8 +45,16 @@ class Constants
 	public static final miniHealthBarYSpacing:Int = -7;
 	// TurnOrderDisplay
 	public static final turnOrderDisplayUpperBarGraphicPath:String = "assets/images/turnorder/upperBar.png";
+	public static final turnOrderDisplayUpperBarDarkGraphicPath:String = "assets/images/turnorder/upperBarDark.png";
 	public static final turnOrderDisplayIncomingCallsGraphicPath:String = "assets/images/turnorder/incomingCalls.png";
 	public static final turnOrderDisplayStartingX:Float = 550;
+	// Top Bar
+	public static final topBarTalkerAnimPath:String = "assets/images/turnorder/top/top_talkeranim";
+	public static final topBarStatDisplayLeft:String = "assets/images/turnorder/top/top_barleft.png";
+	public static final topBarStatDisplayMid:String = "assets/images/turnorder/top/top_barmid.png";
+	public static final topBarStatDisplayRight:String = "assets/images/turnorder/top/top_barright.png";
+	public static final topBarStatDisplayMinWidth:Int = 150;
+	public static final topBarStatDisplayMaxWidth:Int = 500;
 	// TurnOrderIcon
 	public static final turnOrderIcon:String = "assets/images/turnorder/turnOrderIcon.png";
 	public static final turnOrderIconOutline:String = "assets/images/turnorder/turnOrderIconOutline.png";
@@ -67,7 +79,7 @@ class Constants
 	// Exit
 	public static final exitTime:Float = 1;
 	// Death Effect
-	public static final deathEffectTime:Float = 1;
+	public static final deathEffectTime:Float = .5;
 	// Result State
 	public static final resultTextWin:String = "WIN";
 	public static final resultTextLose:String = "LOSS";

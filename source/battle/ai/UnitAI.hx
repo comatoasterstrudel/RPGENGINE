@@ -79,10 +79,12 @@ class UnitAi
 
                         switch(skill.type){
                             case "damage":                            
-                                if(affectedUnit.hp.value - skill.effects.eff_damage <= 0){
+                                var dmg = PlayState.calculateSkillDamage(skill, affectedUnit, unit);
+
+                                if(affectedUnit.hp.value - dmg <= 0){
                                     points += 9999;
                                 } else {
-                                    points += skill.effects.eff_damage;
+                                    points += dmg;
                                 }
                             case "healing":
                                 var plac_hp:Int = affectedUnit.hp.value;

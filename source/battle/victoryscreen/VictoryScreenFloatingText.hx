@@ -9,6 +9,9 @@ class VictoryScreenFloatingText extends FlxSpriteGroup
     var text:CtText;
 
     var baseSprite:FlxSprite;
+
+    public var completeSignal = new FlxSignal();
+
     public function new(theText:String, color:FlxColor, baseSprite:FlxSprite):Void{
         super();
 
@@ -29,6 +32,7 @@ class VictoryScreenFloatingText extends FlxSpriteGroup
         CtUtil.centerSpriteOnSprite(text, baseSprite, true, true);
 
         FlxTween.tween(text, {y: text.y - 70, alpha: 0}, 1, {onComplete: function(f):Void{
+            completeSignal.dispatch();
             this.destroy();
         }});
 
