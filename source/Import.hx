@@ -104,6 +104,8 @@ import overworld.interactables.Interactable;
 import overworld.interactables.InteractableOutcome;
 import overworld.lighting.*;
 import overworld.playermenu.pages.*;
+import overworld.playermenu.pages.status.*;
+import overworld.playermenu.pages.main.*;
 import overworld.playermenu.polaroid.PlayerMenuPolaroid;
 import overworld.props.Prop;
 import overworld.rooms.*;

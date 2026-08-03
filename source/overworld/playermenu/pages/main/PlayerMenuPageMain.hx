@@ -1,4 +1,4 @@
-package overworld.playermenu.pages;
+package overworld.playermenu.pages.main;
 
 class PlayerMenuPageMain extends PlayerMenuPage
 {
