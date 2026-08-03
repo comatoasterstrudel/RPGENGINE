@@ -50,7 +50,7 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
             divider.antialiasing = false;
             add(divider);
 		}     
-		roomText = new CtText(10, 10, "sd", Constants.fontName, 46, false);
+		roomText = new CtText(10, 10, "sd", Constants.fontName, 35, false);
 		baseSprites.add(roomText);
 
 		if (!enabled)
@@ -191,8 +191,9 @@ class SaveLoadMenuRow extends FlxSpriteGroup{
 
 			var roomName = roomData.displayName;
 			var time = FlxStringUtil.formatTime(save.data.playtime, false);
+			var level = CharacterLevel.getLevelFromExp(save.data.levelRobinExp);
 
-			roomText.text += ("\n" + roomName + "\n" + time);
+			roomText.text += ("\n" + roomName + "\nLVL " + level + "\n" + time);
 		}
 		else
 		{
