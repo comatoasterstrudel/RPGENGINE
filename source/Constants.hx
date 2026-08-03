@@ -79,7 +79,7 @@ class Constants
 	// Exit
 	public static final exitTime:Float = 1;
 	// Death Effect
-	public static final deathEffectTime:Float = .5;
+	public static final deathEffectTime:Float = 1;
 	// Result State
 	public static final resultTextWin:String = "WIN";
 	public static final resultTextLose:String = "LOSS";

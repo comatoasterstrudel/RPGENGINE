@@ -2,7 +2,8 @@
 	{
 		"speed": 0.05,
 		"dialogue": "[[SHAKE]]ACK-![[ENDSHAKE]]",
-		"actor": "managerscary"
+		"actor": "managerscary",
+		"portrait": "sit_open"
 	},
 	{
 		"speed": 0.03,

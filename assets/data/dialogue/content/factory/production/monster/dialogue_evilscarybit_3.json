@@ -2,19 +2,22 @@
 	{
 		"speed": 0.1,
 		"dialogue": "[[SHAKE]]Augh...",
-		"actor": "managerscary"
+		"actor": "managerscary",
+		"portrait": "sit_closed"
 	},
 	{
 		"speed": 0.1,
 		"dialogue": " hehh...",
 		"actor": "managerscary",
-		"continueLine": true
+		"continueLine": true,
+		"portrait": "sit_closed"
 	},
 	{
 		"speed": 0.1,
 		"dialogue": " hah...[[ENDSHAKE]]",
 		"actor": "managerscary",
-		"continueLine": true
+		"continueLine": true,
+		"portrait": "sit_open"
 	},
 	{
 		"speed": 0.03,

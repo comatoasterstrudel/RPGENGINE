@@ -2,30 +2,34 @@
 	{
 		"speed": 0.1,
 		"dialogue": "[[SHAKE]]Hahh...",
-		"actor": "managerscary"
+		"actor": "managerscary",
+		"portrait": "sit_closed"
 	},
 	{
 		"speed": 0.1,
 		"dialogue": "you...",
 		"actor": "managerscary",
-		"continueLine": true
+		"continueLine": true,
+		"portrait": "sit_closed"
 	},
 	{
 		"speed": 0.1,
-		"dialogue": "this is...",
+		"dialogue": "This is...",
 		"actor": "managerscary",
-		"continueLine": true
+		"portrait": "sit_closed"
 	},
 	{
 		"speed": 0.1,
 		"dialogue": "your faul-",
 		"actor": "managerscary",
-		"continueLine": true
+		"continueLine": true,
+		"portrait": "sit_closed"
 	},
 	{
 		"speed": 0.06,
 		"dialogue": "AUGh-[[ENDSHAKE]]",
 		"actor": "managerscary",
-		"continueLine": true
+		"continueLine": true,
+		"portrait": "sit_open"
 	}
 ] 

@@ -416,7 +416,7 @@ function startMonsterCutscene():Void
 			{
 				FlxTween.shake(character_managerscary, 0.05, .2, 0x01);
 
-				if (frameNum == 2)
+				if (frameNum == 1)
 				{
 					new FlxTimer().start(1, function(f):Void
 					{
