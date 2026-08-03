@@ -3,7 +3,7 @@
 		"speed": 0.03,
 		"dialogue": "Good Morning!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	},
 	{
 		"speed": 0.03,
@@ -39,7 +39,7 @@
 		"speed": 0.03,
 		"dialogue": "There's gonna be a little celebration for a member of our company tonight!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	},
 	{
 		"speed": 0.03,
@@ -57,6 +57,6 @@
 		"speed": 0.03,
 		"dialogue": "Haha, don't!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	}
 ]

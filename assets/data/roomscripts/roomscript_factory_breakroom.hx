@@ -74,9 +74,7 @@ function update(elapsed:Float):Void{
 	}
 }
 
-function doCutscene():Void{
-	Save.storyFlags.get("factory_seenbreakroomcutscene").val_bool = true;
-	
+function doCutscene():Void{	
 	set_inCutscene(true);
 	
 	set_lockCamera(true);
@@ -194,6 +192,8 @@ function doCutscene():Void{
 
 		new FlxTimer().start(.65, function(f):Void
 		{
+			FlxG.sound.play(Constants.sfxPath + "pop.ogg");
+
 			character_manager.animation.play("popped");
 
 			doConfetti(character_manager.x + 30, character_manager.y + 37);
@@ -419,6 +419,8 @@ function startParty():Void
 
 function endParty():Void
 {
+	Save.storyFlags.get("factory_seenbreakroomcutscene").val_bool = true;
+
 	set_inCutscene(true);
 
 	startDialogue(["factory/breakroom/dialogue_party_laurin"], function():Void

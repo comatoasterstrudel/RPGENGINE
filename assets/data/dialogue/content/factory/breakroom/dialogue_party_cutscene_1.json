@@ -3,7 +3,7 @@
 		"speed": 0.03,
 		"dialogue": "Well hello, you little worker bee!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	},
 	{
 		"speed": 0.03,
@@ -33,6 +33,6 @@
 		"speed": 0.03,
 		"dialogue": "Everyone, focus up!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	}
 ]

@@ -27,7 +27,7 @@
 		"speed": 0.03,
 		"dialogue": "And you do it all so kindly and orderly, without EVER causing a stir!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	},
 	{
 		"speed": 0.03,
@@ -45,7 +45,7 @@
 		"speed": 0.03,
 		"dialogue": "Have been working around the clock to make the world a better place!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	},
 	{
 		"speed": 0.03,
@@ -57,7 +57,7 @@
 		"speed": 0.03,
 		"dialogue": "As of 3 hours ago marking our 50th anniversary!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	},
 	{
 		"speed": 0.03,
@@ -69,6 +69,6 @@
 		"speed": 0.03,
 		"dialogue": "And all the people who make their extraordinary work possible!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	}
 ]

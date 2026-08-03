@@ -33,7 +33,7 @@
 		"speed": 0.03,
 		"dialogue": "And I'm sure you'll all be so so happy!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	},
 	{
 		"speed": 0.03,
@@ -45,7 +45,7 @@
 		"speed": 0.03,
 		"dialogue": "Enjoy everyone!",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "talk"
 	},
 	{
 		"speed": 0.03,
@@ -69,6 +69,6 @@
 		"speed": 0.03,
 		"dialogue": "...ignoramus barbarians.",
 		"actor": "manager",
-		"portrait": "neutral"
+		"portrait": "douche"
 	}
 ]
