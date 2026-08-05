@@ -59,6 +59,8 @@ class InitState extends FlxState{
 	function initDialogueBox():Void
 	{
 		CtDialogueBox.defaultSettings = {
+			antialiasing: false,
+			textAntialiasing: true,
 			pressedAcceptFunction: CtControls.getInputFunction("accept", JUSTPRESSED),
 			choicerPressedUpFunction: CtControls.getInputFunction("up", JUSTPRESSED),
 			choicerPressedDownFunction: CtControls.getInputFunction("down", JUSTPRESSED),
@@ -70,7 +72,7 @@ class InitState extends FlxState{
 			nameBoxRightEndImgPath: Constants.dialogueNameBoxRightEndGraphicPath,
 			nameBoxFontSize: 75,
 			font: Constants.fontName,
-			fontSize: 65,
+			fontSize: 58,
 			textFieldWidth: 1000,
 			portraitFieldWidthRight: 600,
 			textOffset: new FlxPoint(100, 100),
