@@ -903,7 +903,32 @@ class OverworldState extends FlxState
 		}
 		if (interactable.openSave)
 		{
-			openSaveMenu(interactable.saveName, interactable.saveBgName);
+			var useDialogue:Bool = false;
+
+			var lastSavedHP:Map<String, Int> = [];
+			var lastSavedMP:Map<String, Int> = [];
+
+			for(unit in Unit.getListOfUnits()){
+				lastSavedHP.set(unit, Save.savedUnitHP.get(unit));
+				lastSavedMP.set(unit, Save.savedUnitMP.get(unit));
+			}
+
+			Save.resetSavedHpMp();
+
+			for(unit in Unit.getListOfUnits()){
+				if(lastSavedHP.get(unit) != Save.savedUnitHP.get(unit) || lastSavedMP.get(unit) != Save.savedUnitMP.get(unit)){
+					useDialogue = true;
+					break;
+				}
+			}
+
+			if(useDialogue){
+				startDialogue(["general/dialogue_restorehpmp"], function():Void{
+					openSaveMenu(interactable.saveName, interactable.saveBgName);
+				});
+			} else {
+				openSaveMenu(interactable.saveName, interactable.saveBgName);
+			}
 		}
 		
 		return TRIGGERED;
@@ -1125,7 +1150,7 @@ class OverworldState extends FlxState
 	}
 
 	function openSaveMenu(saveName:String, bgName:String):Void
-	{
+	{		
 		savePointName = saveName;
 
 		inCutscene = true;

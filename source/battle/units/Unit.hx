@@ -28,6 +28,9 @@ class Unit extends CtSprite
 	public var hp:Stat;
 	public var mp:Stat;
 
+	var lastHp:Int = 0;
+	var lastMp:Int = 0;
+
 	public var skills:Array<SkillData> = [];
 	
 	public static var uniqueUnitIDnum:Int = 0;
@@ -42,7 +45,7 @@ class Unit extends CtSprite
 
 	// SIGNALS
 	public var onStatusChanged = new FlxTypedSignal<Array<StatusEffect>->Void>();
-	
+
 	public function new(unitID:String, grid:Grid, position:FlxPoint, controllable:Bool, level:Int, ?placedByPlayer:Bool = false):Void
 	{
         super();
@@ -74,6 +77,21 @@ class Unit extends CtSprite
 		lerpManager.lerpSpeed = 8;
 	}
 
+	override function update(elapsed:Float):Void{
+		super.update(elapsed);
+
+		if(placedByPlayer && controllable){
+			if(hp.value != lastHp){
+				Save.savedUnitHP.set(unitID, Std.int(FlxMath.bound(hp.value, 1)));
+			}
+			if(mp.value != lastMp){
+				Save.savedUnitMP.set(unitID, mp.value);
+			}
+			lastHp = hp.value;
+			lastMp = mp.value;
+		}
+	}
+
 	function applyStats():Void
 	{		
 		var levelMult:Float = FlxMath.bound(1 + ((Constants.statsIncreaseFromLeveling - 1) * ((level - 1) / (Constants.maxLevel - 1))), 1);
@@ -87,7 +105,19 @@ class Unit extends CtSprite
 		this.hp = new Stat("hp", maxHp.value, 0, maxHp.value);
 		this.mp = new Stat("mp", maxMp.value, 0, maxMp.value);
 
+		if(placedByPlayer && controllable){
+			if(Save.savedUnitHP.exists(unitID)){
+				hp.value = Save.savedUnitHP.get(unitID);
+			}
+			if(Save.savedUnitMP.exists(unitID)){
+				mp.value = Save.savedUnitMP.get(unitID);
+			}
+		}
+
 		stats = [maxHp, maxMp, speed, hp, mp, attack, sattack];
+
+		lastHp = hp.value;
+		lastMp = hp.value;
 	}
 	
 	function applySkills():Void

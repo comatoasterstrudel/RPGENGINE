@@ -15,6 +15,7 @@ class PlayerMenu extends FlxSubState
     
     var page_main:PlayerMenuPageMain;
     var page_status:PlayerMenuPageStatus;
+    var page_unitselector:PlayerMenuPageUnitSelector;
 
     public function new():Void{
         super();
@@ -56,6 +57,10 @@ class PlayerMenu extends FlxSubState
         page_status = new PlayerMenuPageStatus(this);
         pageGroup.add(page_status);
         pages.push(page_status);
+
+        page_unitselector = new PlayerMenuPageUnitSelector(this);
+        pageGroup.add(page_unitselector);
+        pages.push(page_unitselector);
     }
     
     public function addPage(tag:String):Void{

@@ -18,6 +18,11 @@ class Save
 	public static var levelRobin:CharacterLevel;
 	public static var levelUnits:Map<String, CharacterLevel> = [];
 
+	// saved unit hp / mp 
+	// these dont actually get saved
+	public static var savedUnitHP:Map<String, Int> = [];
+	public static var savedUnitMP:Map<String, Int> = [];
+
     public static function init():Void{
         // add story flags
         for (storyFlagName in CtUtil.stripTextFromStrings(CtUtil.findFilesInPath(Constants.storyFlagsDataFolder, [".json"], false, false), ["storyflag_", ".json"]))
@@ -67,6 +72,9 @@ class Save
 		for(levelUnit in levelUnits){
 			levelUnit.exp = 0;
 		}
+
+		// reset saved hp / mp
+		resetSavedHpMp();
 	}
 
 	public static function save(?slot:Int = -5, ?onComplete:Void->Void):Void
@@ -239,6 +247,9 @@ class Save
 			}
 		}
 
+		// reset saved hp / mp
+		resetSavedHpMp();
+		
 		trace("Finished Load (Slot " + loadedSaveSlot + ")");
 		if (onComplete != null)
 		{
@@ -267,5 +278,16 @@ class Save
 		}
 
 		return yes;
+	}
+
+	public static function resetSavedHpMp():Void{
+		for(unitName in Unit.getListOfUnits()){
+			var realUnit:Unit = new Unit(unitName, null, FlxPoint.get(1,1), true, CharacterLevel.getLevelFromExp(levelUnits.get(unitName).exp), true);
+
+			savedUnitHP.set(unitName, realUnit.maxHp.value);
+			savedUnitMP.set(unitName, realUnit.maxMp.value);
+
+			realUnit.destroy();
+		}
 	}
 }

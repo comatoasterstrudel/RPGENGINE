@@ -41,8 +41,8 @@ class PlayerMenuPageMain extends PlayerMenuPage
         });
         
         addMenuOption("Units", function():Void{
-           // 
-		}, false);
+           playerMenu.addPage("unitselector");
+		}, Save.storyFlags.get("factory_scarymode").val_bool);
         
         addMenuOption("Item", function():Void{
            // 
