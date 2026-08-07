@@ -7,7 +7,8 @@ class UnitData extends CtJsonLoader
     public var name:String;
     
     public var gridGraphic:String;
-	public var uiGraphic:String;
+	public var uiGraphicAlly:String;
+	public var uiGraphicEnemy:String;
 
 	public var stat_maxHp:Int;
 	public var stat_maxMp:Int;
@@ -33,7 +34,8 @@ class UnitData extends CtJsonLoader
         
         this.name = data.name;
         this.gridGraphic = data.gridGraphic;
-		this.uiGraphic = data.uiGraphic;
+		this.uiGraphicAlly = data.uiGraphicAlly;
+		this.uiGraphicEnemy = data.uiGraphicEnemy;
 
 		this.stat_maxHp = data.stat_maxHp;
 		this.stat_maxMp = data.stat_maxMp;

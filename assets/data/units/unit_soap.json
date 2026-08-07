@@ -1,7 +1,8 @@
 {
     "name": "Soap",
     "gridGraphic": "soap",
-    "uiGraphic": "soap",
+    "uiGraphicAlly": "soap_ally",
+    "uiGraphicEnemy": "soap_enemy",
     "stat_maxHp": 35,
     "stat_maxMp": 100,
     "stat_speed": 6,

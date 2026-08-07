@@ -102,7 +102,6 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
         levelText.setPosition(expBar.x + 10, expBar.y - levelText.height - 2);
 
         if(Save.levelUnits.get(unit).getLevel() > lastLevel){
-            trace("leveled up ! " + lastLevel + " -> " + Save.levelUnits.get(unit).getLevel());
             var unitLastLevel:Unit = new Unit(unit, null, FlxPoint.get(1,1), true, lastLevel, true);
             var unitCurLevel:Unit = new Unit(unit, null, FlxPoint.get(1,1), true, Save.levelUnits.get(unit).getLevel(), true);
 

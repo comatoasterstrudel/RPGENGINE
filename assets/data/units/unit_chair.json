@@ -1,7 +1,8 @@
 {
     "name": "Chair",
     "gridGraphic": "chair",
-    "uiGraphic": "chair",
+    "uiGraphicAlly": "chair_ally",
+    "uiGraphicEnemy": "chair_enemy",   
     "stat_maxHp": 60,
     "stat_maxMp": 40,
     "stat_speed": 5,

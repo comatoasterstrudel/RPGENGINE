@@ -1,7 +1,8 @@
 {
     "name": "Party Hat",
     "gridGraphic": "partyhat",
-    "uiGraphic": "partyhat",
+    "uiGraphicAlly": "partyhat_ally",
+    "uiGraphicEnemy": "partyhat_enemy",    
     "stat_maxHp": 40,
     "stat_maxMp": 60,
     "stat_speed": 8,

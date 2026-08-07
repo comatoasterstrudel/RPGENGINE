@@ -21,7 +21,15 @@ class UnitPortrait extends CtSprite
     public function applyUnitGraphic(unit):Void{
         this.unit = unit;
         
-        var path = Constants.unitUiGraphicPath + unit.data.uiGraphic + '.png';
+		var graphicPath:String = "";
+
+		if(unit.controllable){
+			graphicPath = unit.data.uiGraphicAlly;
+		} else {
+			graphicPath = unit.data.uiGraphicEnemy;
+		}
+
+        var path = Constants.unitUiGraphicPath + graphicPath + '.png';
 
 		if (Assets.exists(path))
 		{
