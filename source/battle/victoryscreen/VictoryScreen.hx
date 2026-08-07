@@ -34,8 +34,10 @@ class VictoryScreen extends FlxSubState
         this.unitsToAdd = unitsToAdd;
         this.expReward = expReward;
 
-        #if forceResultsValues
+        #if lotsOfResultsUnits
         this.unitsToAdd = ["chair", "partyhat", "chair", "chair", "partyhat", "chair", "chair"];
+        #end
+        #if forceResultsValues
         this.expReward = 100;
         #end
 

@@ -118,10 +118,6 @@ class UnitSelectorTab extends FlxSpriteGroup
 
         CtUtil.centerGroup(cast barSprites, 20, baseSprite.x + baseSprite.width / 2);
 
-        for(spr in sprites){
-            spr.alpha = enabled ? 1 : .3;
-        }
-
         for(bar in bars){
             bar.y = baseSprite.y + 60;
             bar.updatePosition();    

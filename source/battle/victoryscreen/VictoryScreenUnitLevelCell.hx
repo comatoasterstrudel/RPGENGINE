@@ -25,6 +25,8 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
     public function new(unit:String, victoryScreen:VictoryScreen):Void{
         super();
 
+        lastLevel = Save.levelUnits.get(unit).getLevel();
+
         this.unit = unit;
         this.victoryScreen = victoryScreen;
         
@@ -100,6 +102,16 @@ class VictoryScreenUnitLevelCell extends FlxSpriteGroup
         levelText.setPosition(expBar.x + 10, expBar.y - levelText.height - 2);
 
         if(Save.levelUnits.get(unit).getLevel() > lastLevel){
+            trace("leveled up ! " + lastLevel + " -> " + Save.levelUnits.get(unit).getLevel());
+            var unitLastLevel:Unit = new Unit(unit, null, FlxPoint.get(1,1), true, lastLevel, true);
+            var unitCurLevel:Unit = new Unit(unit, null, FlxPoint.get(1,1), true, Save.levelUnits.get(unit).getLevel(), true);
+
+            Save.savedUnitHP.set(unit, Save.savedUnitHP.get(unit) + (unitCurLevel.maxHp.value - unitLastLevel.maxHp.value));
+            Save.savedUnitMP.set(unit, Save.savedUnitMP.get(unit) + (unitCurLevel.maxMp.value - unitLastLevel.maxMp.value));
+
+            unitLastLevel.destroy();
+            unitCurLevel.destroy();
+
             victoryScreen.textSignal.dispatch("LVL UP!", FlxColor.YELLOW, expBar);
             lastLevel = Save.levelUnits.get(unit).getLevel();
         }

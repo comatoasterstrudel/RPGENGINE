@@ -201,7 +201,6 @@ class Constants
 	public static final playerMenuUnitSelectorWidth:Int = 420;
 	public static final playerMenuUnitSelectorHeight:Int = 100;
 	public static final playerMenuUnitSelectorBarOverlayPath:String = "assets/images/playermenu/unitselector/unitselector_baroverlay.png";
-
 	//
 	// DIALOGUE STUFF !!
 	//

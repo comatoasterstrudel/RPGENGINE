@@ -74,7 +74,6 @@ class UnitSelectorBar extends FlxSpriteGroup
 
     public function updatePosition():Void{
         overlay.setPosition(bar.x, bar.y);
-        overlay.alpha = 1;
 
         text.x = bar.x + 10;
         CtUtil.centerSpriteOnSprite(text, bar, false, true);
