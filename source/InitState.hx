@@ -60,7 +60,7 @@ class InitState extends FlxState{
 	{
 		CtDialogueBox.defaultSettings = {
 			antialiasing: false,
-			textAntialiasing: true,
+			textAntialiasing: false,
 			pressedAcceptFunction: CtControls.getInputFunction("accept", JUSTPRESSED),
 			choicerPressedUpFunction: CtControls.getInputFunction("up", JUSTPRESSED),
 			choicerPressedDownFunction: CtControls.getInputFunction("down", JUSTPRESSED),
